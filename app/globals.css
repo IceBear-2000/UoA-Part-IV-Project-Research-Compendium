@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* warm paper canvas (page background) */
+  --bg: #f4f0e6;
+  /* deeper paper (sidebar, rails, tag backgrounds) */
+  --bg-2: #ece6d8;
+  /* card surfaces, slightly warm white */
+  --surface: #fcfaf4;
+  /* primary text, soft warm near-black (never pure black) */
+  --ink: #33302a;
+  /* secondary text */
+  --muted: #928b7c;
+  /* default border / hairline divider */
+  --line: #e4ddcc;
+  --line-soft: #ede7da;
+
+  /* primary accent — primary buttons, active states, focus rings */
+  --clay: #be8264;
+  --clay-soft: #eddfd4;
+  --clay-line: #dcc4b2;
+
+  /* block-type colour coding */
+  --sage: #8fa585;
+  --sage-soft: #e6ebe0;
+  --blue: #88a0b4;
+  --blue-soft: #e3eaef;
+  --gold: #c9b173;
+  --gold-soft: #f0e9d4;
+  --rose: #c0959f;
+  --rose-soft: #f0e4e7;
+
+  --paper: 0 1px 0 rgba(51, 48, 42, 0.03), 0 1px 3px rgba(51, 48, 42, 0.05);
+  --paper-2: 0 1px 0 rgba(51, 48, 42, 0.03), 0 4px 10px rgba(51, 48, 42, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--ink);
+  background: var(--bg);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Inter,
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* faint paper grain, per DESIGN_TOKENS.md */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.025;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    #33302a 1px,
+    transparent 0
+  );
+  background-size: 22px 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
