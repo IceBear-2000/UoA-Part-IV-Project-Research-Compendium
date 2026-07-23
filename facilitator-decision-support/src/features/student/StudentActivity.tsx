@@ -1,15 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { generateRecommendation } from "@/features/analytics/recommendationEngine";
 import { literacyActivity } from "@/features/student/activityContent";
 import { saveActivityResult } from "@/shared/storage/activityResults";
+import {
+  getRosterSnapshot,
+  getServerRosterSnapshot,
+  subscribeRoster,
+} from "@/shared/storage/roster";
 import type {
   ActivitySession,
+  ClassRecord,
   ConfidenceLevel,
   DifficultyLevel,
   QuestionResponse,
+  StudentRecord,
   StudentResponse,
 } from "@/shared/types/activity";
 
@@ -63,12 +70,18 @@ function createQuestionResponses(): ActivitySession["questionResponses"] {
   }));
 }
 
-function createSession(studentName: string): ActivitySession {
+function createSession(
+  student: Pick<StudentRecord, "id" | "name" | "classId">,
+  classRecord?: ClassRecord,
+): ActivitySession {
   const now = Date.now();
 
   return {
     id: crypto.randomUUID(),
-    studentName,
+    studentId: student.id,
+    studentName: student.name,
+    classId: student.classId,
+    className: classRecord?.name,
     activityId: literacyActivity.id,
     startedAt: now,
     readingStartedAt: null,
@@ -118,10 +131,20 @@ function updateQuestionAt(
 }
 
 export function StudentActivity() {
+  const roster = useSyncExternalStore(
+    subscribeRoster,
+    getRosterSnapshot,
+    getServerRosterSnapshot,
+  );
   const [stage, setStage] = useState<Stage>("welcome");
-  const [selectedStudentName, setSelectedStudentName] = useState("Student 1");
+  const [selectedClassId, setSelectedClassId] = useState("class-rimu");
+  const [selectedStudentId, setSelectedStudentId] = useState("student-1");
   const [session, setSession] = useState<ActivitySession>(() =>
-    createSession("Student 1"),
+    createSession({
+      id: "student-1",
+      name: "Student 1",
+      classId: "class-rimu",
+    }),
   );
   const [isReviewingStory, setIsReviewingStory] = useState(false);
   const [submittedResponse, setSubmittedResponse] =
@@ -130,13 +153,40 @@ export function StudentActivity() {
   const currentQuestionIndex = session.currentQuestionIndex;
   const currentQuestion = literacyActivity.questions[currentQuestionIndex];
   const currentResponse = session.questionResponses[currentQuestionIndex];
+  const selectedClass =
+    roster.classes.find((classRecord) => classRecord.id === selectedClassId) ??
+    roster.classes[0];
+  const studentsInSelectedClass = useMemo(
+    () =>
+      roster.students.filter(
+        (student) => student.classId === (selectedClass?.id ?? selectedClassId),
+      ),
+    [roster.students, selectedClass?.id, selectedClassId],
+  );
+  const selectedStudent =
+    studentsInSelectedClass.find((student) => student.id === selectedStudentId) ??
+    studentsInSelectedClass[0] ??
+    roster.students[0];
   const canMoveFromQuestion =
     currentResponse.selectedAnswer.length > 0 && currentResponse.confidence !== null;
   const canFinishReflection = session.perceivedDifficulty !== null;
 
   function startActivity() {
-    setSession(createSession(selectedStudentName));
+    if (!selectedStudent) {
+      return;
+    }
+
+    setSession(createSession(selectedStudent, selectedClass));
     setStage("instructions");
+  }
+
+  function handleClassChange(classId: string) {
+    const firstStudentInClass = roster.students.find(
+      (student) => student.classId === classId,
+    );
+
+    setSelectedClassId(classId);
+    setSelectedStudentId(firstStudentInClass?.id ?? "");
   }
 
   function startStory() {
@@ -323,6 +373,9 @@ export function StudentActivity() {
     const response: StudentResponse = {
       id: session.id,
       studentName: session.studentName,
+      studentId: session.studentId,
+      classId: session.classId,
+      className: session.className,
       activityId: session.activityId,
       readingTimeSeconds: session.readingTimeSeconds,
       timeOnTaskSeconds: secondsSince(session.startedAt),
@@ -399,24 +452,44 @@ export function StudentActivity() {
             <p>There are no right or wrong ways to learn. Just try your best.</p>
           </div>
 
+          <label className="block text-sm font-bold text-slate-800" htmlFor="class-profile">
+            Class
+          </label>
+          <select
+            id="class-profile"
+            value={selectedClass?.id ?? selectedClassId}
+            onChange={(event) => handleClassChange(event.target.value)}
+            className="w-full rounded-md border border-slate-300 px-3 py-3 text-base outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+          >
+            {roster.classes.map((classRecord) => (
+              <option key={classRecord.id} value={classRecord.id}>
+                {classRecord.name}
+              </option>
+            ))}
+          </select>
+
           <label className="block text-sm font-bold text-slate-800" htmlFor="student-profile">
             Student profile
           </label>
           <select
             id="student-profile"
-            value={selectedStudentName}
-            onChange={(event) => setSelectedStudentName(event.target.value)}
+            value={selectedStudent?.id ?? selectedStudentId}
+            onChange={(event) => setSelectedStudentId(event.target.value)}
             className="w-full rounded-md border border-slate-300 px-3 py-3 text-base outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+            disabled={studentsInSelectedClass.length === 0}
           >
-            <option>Student 1</option>
-            <option>Student 2</option>
-            <option>Student 3</option>
+            {studentsInSelectedClass.map((student) => (
+              <option key={student.id} value={student.id}>
+                {student.name}
+              </option>
+            ))}
           </select>
 
           <button
             type="button"
             onClick={startActivity}
-            className="rounded-md bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+            disabled={!selectedStudent}
+            className="rounded-md bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-300"
           >
             Start
           </button>

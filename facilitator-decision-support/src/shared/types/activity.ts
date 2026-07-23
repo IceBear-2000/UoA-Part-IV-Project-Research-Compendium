@@ -15,7 +15,10 @@ export type QuestionResponse = {
 
 export type StudentResponse = {
   id: string;
+  studentId?: string;
   studentName: string;
+  classId?: string;
+  className?: string;
   activityId: string;
   readingTimeSeconds: number;
   timeOnTaskSeconds: number;
@@ -29,7 +32,10 @@ export type StudentResponse = {
 
 export type ActivitySession = {
   id: string;
+  studentId?: string;
   studentName: string;
+  classId?: string;
+  className?: string;
   activityId: string;
   startedAt: number;
   readingStartedAt: number | null;
@@ -66,4 +72,22 @@ export type FacilitatorRecommendation = {
 export type ActivityResult = {
   response: StudentResponse;
   recommendation: FacilitatorRecommendation;
+};
+
+export type ClassRecord = {
+  id: string;
+  name: string;
+  createdAt: string;
+};
+
+export type StudentRecord = {
+  id: string;
+  name: string;
+  classId: string;
+  createdAt: string;
+};
+
+export type Roster = {
+  classes: ClassRecord[];
+  students: StudentRecord[];
 };

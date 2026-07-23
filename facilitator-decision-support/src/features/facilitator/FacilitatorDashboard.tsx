@@ -1,19 +1,34 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useSyncExternalStore } from "react";
+import { FormEvent, useMemo, useState, useSyncExternalStore } from "react";
 import {
   clearActivityResults,
   getActivityResultsSnapshot,
   getServerActivityResultsSnapshot,
   subscribeActivityResults,
 } from "@/shared/storage/activityResults";
-import type { ActivityResult, QuestionResponse } from "@/shared/types/activity";
+import {
+  addClass,
+  addStudent,
+  getRosterSnapshot,
+  getServerRosterSnapshot,
+  subscribeRoster,
+} from "@/shared/storage/roster";
+import type {
+  ActivityResult,
+  ClassRecord,
+  QuestionResponse,
+  Roster,
+} from "@/shared/types/activity";
 
 type StudentProfile = {
+  studentId: string;
   studentName: string;
+  classId: string;
+  className: string;
   attempts: ActivityResult[];
-  latestAttempt: ActivityResult;
+  latestAttempt?: ActivityResult;
   averageAccuracy: number;
   averageConfidence: number;
   priorityCount: number;
@@ -120,19 +135,44 @@ function formatPercent(value: number | null) {
   return `${Math.round(value * 100)}%`;
 }
 
-function buildStudentProfiles(results: ActivityResult[]): StudentProfile[] {
+function buildStudentProfiles(
+  results: ActivityResult[],
+  roster: Roster,
+  selectedClassId: string,
+): StudentProfile[] {
   const groupedResults = new Map<string, ActivityResult[]>();
 
   results.forEach((result) => {
-    const studentName = result.response.studentName || "Unknown student";
-    groupedResults.set(studentName, [
-      ...(groupedResults.get(studentName) ?? []),
+    const profileKey = result.response.studentId ?? result.response.studentName;
+    groupedResults.set(profileKey, [
+      ...(groupedResults.get(profileKey) ?? []),
       result,
     ]);
   });
 
-  return Array.from(groupedResults.entries())
-    .map(([studentName, attempts]) => {
+  const rosterProfiles = roster.students
+    .filter(
+      (student) => selectedClassId === "all" || student.classId === selectedClassId,
+    )
+    .map((student) => {
+      const classRecord = roster.classes.find(
+        (item) => item.id === student.classId,
+      );
+
+      return {
+        studentId: student.id,
+        studentName: student.name,
+        classId: student.classId,
+        className: classRecord?.name ?? "Unassigned",
+        attempts: groupedResults.get(student.id) ?? [],
+      };
+    });
+  const rosterProfileIds = new Set(
+    rosterProfiles.map((profile) => profile.studentId),
+  );
+  const legacyProfiles = Array.from(groupedResults.entries())
+    .filter(([studentId]) => !rosterProfileIds.has(studentId))
+    .map(([studentId, attempts]) => {
       const sortedAttempts = [...attempts].sort(
         (first, second) =>
           new Date(second.response.submittedAt).getTime() -
@@ -149,7 +189,37 @@ function buildStudentProfiles(results: ActivityResult[]): StudentProfile[] {
             accuracies.length;
 
       return {
-        studentName,
+        studentId,
+        studentName: sortedAttempts[0].response.studentName || "Unknown student",
+        classId: sortedAttempts[0].response.classId ?? "unassigned",
+        className: sortedAttempts[0].response.className ?? "Unassigned",
+        attempts: sortedAttempts,
+        averageAccuracy,
+        averageConfidence: getAverageConfidence(allQuestions),
+        priorityCount: sortedAttempts.filter(hasHighPriority).length,
+        taskSignalCount: sortedAttempts.filter(hasTaskProcessingSignal).length,
+      };
+    });
+
+  return [...rosterProfiles, ...legacyProfiles]
+    .map((profile) => {
+      const sortedAttempts = [...profile.attempts].sort(
+        (first, second) =>
+          new Date(second.response.submittedAt).getTime() -
+          new Date(first.response.submittedAt).getTime(),
+      );
+      const accuracies = sortedAttempts
+        .map(getAccuracy)
+        .filter((value): value is number => value !== null);
+      const allQuestions = sortedAttempts.flatMap(getQuestionResponses);
+      const averageAccuracy =
+        accuracies.length === 0
+          ? 0
+          : accuracies.reduce((total, value) => total + value, 0) /
+            accuracies.length;
+
+      return {
+        ...profile,
         attempts: sortedAttempts,
         latestAttempt: sortedAttempts[0],
         averageAccuracy,
@@ -160,8 +230,12 @@ function buildStudentProfiles(results: ActivityResult[]): StudentProfile[] {
     })
     .sort(
       (first, second) =>
-        new Date(second.latestAttempt.response.submittedAt).getTime() -
-        new Date(first.latestAttempt.response.submittedAt).getTime(),
+        (second.latestAttempt
+          ? new Date(second.latestAttempt.response.submittedAt).getTime()
+          : 0) -
+        (first.latestAttempt
+          ? new Date(first.latestAttempt.response.submittedAt).getTime()
+          : 0),
     );
 }
 
@@ -171,14 +245,36 @@ export function FacilitatorDashboard() {
     getActivityResultsSnapshot,
     getServerActivityResultsSnapshot,
   );
+  const roster = useSyncExternalStore(
+    subscribeRoster,
+    getRosterSnapshot,
+    getServerRosterSnapshot,
+  );
+  const [selectedClassId, setSelectedClassId] = useState("all");
+  const [newClassName, setNewClassName] = useState("");
+  const [newStudentName, setNewStudentName] = useState("");
+  const [newStudentClassId, setNewStudentClassId] = useState(
+    roster.classes[0]?.id ?? "",
+  );
 
-  const studentProfiles = useMemo(() => buildStudentProfiles(results), [results]);
+  const availableClasses: ClassRecord[] = roster.classes;
+  const filteredResults = useMemo(
+    () =>
+      selectedClassId === "all"
+        ? results
+        : results.filter((result) => result.response.classId === selectedClassId),
+    [results, selectedClassId],
+  );
+  const studentProfiles = useMemo(
+    () => buildStudentProfiles(filteredResults, roster, selectedClassId),
+    [filteredResults, roster, selectedClassId],
+  );
 
   const classSummary = useMemo(() => {
-    const allQuestions = results.flatMap(getQuestionResponses);
+    const allQuestions = filteredResults.flatMap(getQuestionResponses);
 
     return {
-      completedAttempts: results.length,
+      completedAttempts: filteredResults.length,
       studentCount: studentProfiles.length,
       priorityProfiles: studentProfiles.filter((profile) => profile.priorityCount > 0)
         .length,
@@ -187,10 +283,35 @@ export function FacilitatorDashboard() {
       ).length,
       averageConfidence: getAverageConfidence(allQuestions),
     };
-  }, [results, studentProfiles]);
+  }, [filteredResults, studentProfiles]);
 
   function handleClearDemoData() {
     clearActivityResults();
+  }
+
+  function handleAddClass(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (newClassName.trim().length === 0) {
+      return;
+    }
+
+    const classRecord = addClass(newClassName);
+    setSelectedClassId(classRecord.id);
+    setNewStudentClassId(classRecord.id);
+    setNewClassName("");
+  }
+
+  function handleAddStudent(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (newStudentName.trim().length === 0 || newStudentClassId.length === 0) {
+      return;
+    }
+
+    addStudent(newStudentName, newStudentClassId);
+    setSelectedClassId(newStudentClassId);
+    setNewStudentName("");
   }
 
   return (
@@ -258,6 +379,103 @@ export function FacilitatorDashboard() {
           </div>
         </div>
 
+        <section className="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 className="text-lg font-bold">Class view</h2>
+            <label
+              className="mt-4 block text-sm font-semibold text-slate-700"
+              htmlFor="class-filter"
+            >
+              Show dashboard for
+            </label>
+            <select
+              id="class-filter"
+              value={selectedClassId}
+              onChange={(event) => setSelectedClassId(event.target.value)}
+              className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            >
+              <option value="all">All classes</option>
+              {availableClasses.map((classRecord) => (
+                <option key={classRecord.id} value={classRecord.id}>
+                  {classRecord.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <form
+              onSubmit={handleAddClass}
+              className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
+            >
+              <h2 className="text-lg font-bold">Add class</h2>
+              <label
+                className="mt-4 block text-sm font-semibold text-slate-700"
+                htmlFor="new-class"
+              >
+                Class name
+              </label>
+              <input
+                id="new-class"
+                value={newClassName}
+                onChange={(event) => setNewClassName(event.target.value)}
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+                placeholder="Room 12 Reading Group"
+              />
+              <button
+                type="submit"
+                className="mt-4 rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white"
+              >
+                Add class
+              </button>
+            </form>
+
+            <form
+              onSubmit={handleAddStudent}
+              className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
+            >
+              <h2 className="text-lg font-bold">Add student</h2>
+              <label
+                className="mt-4 block text-sm font-semibold text-slate-700"
+                htmlFor="new-student"
+              >
+                Student name
+              </label>
+              <input
+                id="new-student"
+                value={newStudentName}
+                onChange={(event) => setNewStudentName(event.target.value)}
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+                placeholder="Student 4"
+              />
+              <label
+                className="mt-4 block text-sm font-semibold text-slate-700"
+                htmlFor="new-student-class"
+              >
+                Assign to class
+              </label>
+              <select
+                id="new-student-class"
+                value={newStudentClassId || availableClasses[0]?.id}
+                onChange={(event) => setNewStudentClassId(event.target.value)}
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+              >
+                {availableClasses.map((classRecord) => (
+                  <option key={classRecord.id} value={classRecord.id}>
+                    {classRecord.name}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="submit"
+                className="mt-4 rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white"
+              >
+                Add student
+              </button>
+            </form>
+          </div>
+        </section>
+
         {studentProfiles.length === 0 ? (
           <div className="rounded-lg border border-dashed border-slate-300 bg-white p-8 text-center">
             <h2 className="text-xl font-bold">No student activity yet</h2>
@@ -274,22 +492,26 @@ export function FacilitatorDashboard() {
         ) : (
           <div className="grid gap-5">
             {studentProfiles.map((profile) => {
-              const latestQuestions = getQuestionResponses(profile.latestAttempt);
+              const latestQuestions = profile.latestAttempt
+                ? getQuestionResponses(profile.latestAttempt)
+                : [];
 
               return (
                 <article
-                  key={profile.studentName}
+                  key={profile.studentId}
                   className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
                 >
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                     <div>
                       <h2 className="text-2xl font-bold">{profile.studentName}</h2>
                       <p className="mt-1 text-sm text-slate-500">
-                        {profile.attempts.length} attempt
-                        {profile.attempts.length === 1 ? "" : "s"} recorded · Latest{" "}
-                        {new Date(
-                          profile.latestAttempt.response.submittedAt,
-                        ).toLocaleString()}
+                        {profile.className} · {profile.attempts.length} attempt
+                        {profile.attempts.length === 1 ? "" : "s"} recorded
+                        {profile.latestAttempt
+                          ? ` · Latest ${new Date(
+                              profile.latestAttempt.response.submittedAt,
+                            ).toLocaleString()}`
+                          : ""}
                       </p>
                     </div>
                     <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
@@ -316,7 +538,8 @@ export function FacilitatorDashboard() {
                     </div>
                   </div>
 
-                  <div className="mt-5 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+                  {profile.latestAttempt ? (
+                    <div className="mt-5 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
                     <div className="rounded-md bg-slate-50 p-4">
                       <h3 className="font-semibold">Latest observed data</h3>
                       <dl className="mt-3 grid grid-cols-2 gap-3 text-sm">
@@ -390,8 +613,18 @@ export function FacilitatorDashboard() {
                       ) : null}
                     </div>
                   </div>
+                  ) : (
+                    <div className="mt-5 rounded-md border border-dashed border-slate-300 bg-slate-50 p-4">
+                      <h3 className="font-semibold">No attempts yet</h3>
+                      <p className="mt-2 text-sm text-slate-600">
+                        This student is on the class roster, but has not completed
+                        the activity yet.
+                      </p>
+                    </div>
+                  )}
 
-                  <div className="mt-5">
+                  {profile.attempts.length > 0 ? (
+                    <div className="mt-5">
                     <h3 className="font-semibold">Attempt history</h3>
                     <div className="mt-3 overflow-x-auto">
                       <table className="w-full min-w-[760px] border-collapse text-left text-sm">
@@ -450,22 +683,25 @@ export function FacilitatorDashboard() {
                       </table>
                     </div>
                   </div>
+                  ) : null}
 
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {profile.latestAttempt.recommendation.indicators.map(
-                      (indicator) => (
-                        <span
-                          key={indicator.id}
-                          className={`rounded-md border px-3 py-2 text-sm font-semibold ${
-                            severityStyles[indicator.severity]
-                          }`}
-                          title={indicator.evidence}
-                        >
-                          {indicator.label}
-                        </span>
-                      ),
-                    )}
-                  </div>
+                  {profile.latestAttempt ? (
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {profile.latestAttempt.recommendation.indicators.map(
+                        (indicator) => (
+                          <span
+                            key={indicator.id}
+                            className={`rounded-md border px-3 py-2 text-sm font-semibold ${
+                              severityStyles[indicator.severity]
+                            }`}
+                            title={indicator.evidence}
+                          >
+                            {indicator.label}
+                          </span>
+                        ),
+                      )}
+                    </div>
+                  ) : null}
                 </article>
               );
             })}
