@@ -10,6 +10,16 @@ import {
 } from "@/shared/storage/activityResults";
 import type { ActivityResult, QuestionResponse } from "@/shared/types/activity";
 
+type StudentProfile = {
+  studentName: string;
+  attempts: ActivityResult[];
+  latestAttempt: ActivityResult;
+  averageAccuracy: number;
+  averageConfidence: number;
+  priorityCount: number;
+  taskSignalCount: number;
+};
+
 const severityStyles = {
   high: "bg-rose-100 text-rose-900 border-rose-200",
   medium: "bg-amber-100 text-amber-950 border-amber-200",
@@ -22,6 +32,20 @@ function getQuestionResponses(result: ActivityResult): QuestionResponse[] {
     : [];
 }
 
+function getCorrectCount(questions: QuestionResponse[]) {
+  return questions.filter((question) => question.isCorrect).length;
+}
+
+function getAccuracy(result: ActivityResult) {
+  const questions = getQuestionResponses(result);
+
+  if (questions.length === 0) {
+    return null;
+  }
+
+  return getCorrectCount(questions) / questions.length;
+}
+
 function getAccuracyLabel(result: ActivityResult) {
   const questions = getQuestionResponses(result);
 
@@ -29,8 +53,7 @@ function getAccuracyLabel(result: ActivityResult) {
     return "Not captured";
   }
 
-  const correct = questions.filter((question) => question.isCorrect).length;
-  return `${correct}/${questions.length}`;
+  return `${getCorrectCount(questions)}/${questions.length}`;
 }
 
 function getTotalHints(questions: QuestionResponse[]) {
@@ -77,6 +100,71 @@ function getAverageFirstInteraction(questions: QuestionResponse[]) {
   );
 }
 
+function hasHighPriority(result: ActivityResult) {
+  return result.recommendation.indicators.some(
+    (indicator) => indicator.severity === "high",
+  );
+}
+
+function hasTaskProcessingSignal(result: ActivityResult) {
+  return result.recommendation.indicators.some(
+    (indicator) => indicator.id === "task-processing",
+  );
+}
+
+function formatPercent(value: number | null) {
+  if (value === null) {
+    return "Not captured";
+  }
+
+  return `${Math.round(value * 100)}%`;
+}
+
+function buildStudentProfiles(results: ActivityResult[]): StudentProfile[] {
+  const groupedResults = new Map<string, ActivityResult[]>();
+
+  results.forEach((result) => {
+    const studentName = result.response.studentName || "Unknown student";
+    groupedResults.set(studentName, [
+      ...(groupedResults.get(studentName) ?? []),
+      result,
+    ]);
+  });
+
+  return Array.from(groupedResults.entries())
+    .map(([studentName, attempts]) => {
+      const sortedAttempts = [...attempts].sort(
+        (first, second) =>
+          new Date(second.response.submittedAt).getTime() -
+          new Date(first.response.submittedAt).getTime(),
+      );
+      const accuracies = sortedAttempts
+        .map(getAccuracy)
+        .filter((value): value is number => value !== null);
+      const allQuestions = sortedAttempts.flatMap(getQuestionResponses);
+      const averageAccuracy =
+        accuracies.length === 0
+          ? 0
+          : accuracies.reduce((total, value) => total + value, 0) /
+            accuracies.length;
+
+      return {
+        studentName,
+        attempts: sortedAttempts,
+        latestAttempt: sortedAttempts[0],
+        averageAccuracy,
+        averageConfidence: getAverageConfidence(allQuestions),
+        priorityCount: sortedAttempts.filter(hasHighPriority).length,
+        taskSignalCount: sortedAttempts.filter(hasTaskProcessingSignal).length,
+      };
+    })
+    .sort(
+      (first, second) =>
+        new Date(second.latestAttempt.response.submittedAt).getTime() -
+        new Date(first.latestAttempt.response.submittedAt).getTime(),
+    );
+}
+
 export function FacilitatorDashboard() {
   const results = useSyncExternalStore(
     subscribeActivityResults,
@@ -84,28 +172,22 @@ export function FacilitatorDashboard() {
     getServerActivityResultsSnapshot,
   );
 
+  const studentProfiles = useMemo(() => buildStudentProfiles(results), [results]);
+
   const classSummary = useMemo(() => {
-    const completed = results.length;
-    const needsSupport = results.filter((result) =>
-      result.recommendation.indicators.some(
-        (indicator) => indicator.severity === "high",
-      ),
-    ).length;
     const allQuestions = results.flatMap(getQuestionResponses);
-    const averageConfidence = getAverageConfidence(allQuestions);
-    const possibleTaskConcerns = results.filter((result) =>
-      result.recommendation.indicators.some(
-        (indicator) => indicator.id === "task-processing",
-      ),
-    ).length;
 
     return {
-      completed,
-      needsSupport,
-      averageConfidence,
-      possibleTaskConcerns,
+      completedAttempts: results.length,
+      studentCount: studentProfiles.length,
+      priorityProfiles: studentProfiles.filter((profile) => profile.priorityCount > 0)
+        .length,
+      taskSignalProfiles: studentProfiles.filter(
+        (profile) => profile.taskSignalCount > 0,
+      ).length,
+      averageConfidence: getAverageConfidence(allQuestions),
     };
-  }, [results]);
+  }, [results, studentProfiles]);
 
   function handleClearDemoData() {
     clearActivityResults();
@@ -113,7 +195,7 @@ export function FacilitatorDashboard() {
 
   return (
     <main className="min-h-screen bg-[#f6f7f2] px-5 py-8 text-slate-950 sm:px-8">
-      <section className="mx-auto flex max-w-6xl flex-col gap-6">
+      <section className="mx-auto flex max-w-7xl flex-col gap-6">
         <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <Link href="/" className="text-sm font-semibold text-emerald-700 hover:text-emerald-900">
@@ -122,10 +204,10 @@ export function FacilitatorDashboard() {
             <p className="mt-6 text-sm font-semibold uppercase tracking-wide text-emerald-700">
               Facilitator dashboard
             </p>
-            <h1 className="mt-2 text-3xl font-bold">Literacy support overview</h1>
+            <h1 className="mt-2 text-3xl font-bold">Student support profiles</h1>
             <p className="mt-3 max-w-2xl text-slate-700">
-              Natural activity data is translated into support indicators and a
-              recommended facilitator action.
+              Each profile groups a learner&apos;s attempts so facilitators can inspect
+              support signals now and identify trends later.
             </p>
           </div>
           <div className="flex gap-3">
@@ -145,19 +227,27 @@ export function FacilitatorDashboard() {
           </div>
         </header>
 
-        <div className="grid gap-4 sm:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-5">
           <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-            <p className="text-sm text-slate-600">Completed activities</p>
-            <p className="mt-2 text-3xl font-bold">{classSummary.completed}</p>
+            <p className="text-sm text-slate-600">Student profiles</p>
+            <p className="mt-2 text-3xl font-bold">{classSummary.studentCount}</p>
           </div>
           <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-            <p className="text-sm text-slate-600">Priority check-ins</p>
-            <p className="mt-2 text-3xl font-bold">{classSummary.needsSupport}</p>
-          </div>
-          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-            <p className="text-sm text-slate-600">Task-processing signals</p>
+            <p className="text-sm text-slate-600">Total attempts</p>
             <p className="mt-2 text-3xl font-bold">
-              {classSummary.possibleTaskConcerns}
+              {classSummary.completedAttempts}
+            </p>
+          </div>
+          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p className="text-sm text-slate-600">Priority profiles</p>
+            <p className="mt-2 text-3xl font-bold">
+              {classSummary.priorityProfiles}
+            </p>
+          </div>
+          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p className="text-sm text-slate-600">Task signals</p>
+            <p className="mt-2 text-3xl font-bold">
+              {classSummary.taskSignalProfiles}
             </p>
           </div>
           <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
@@ -168,11 +258,11 @@ export function FacilitatorDashboard() {
           </div>
         </div>
 
-        {results.length === 0 ? (
+        {studentProfiles.length === 0 ? (
           <div className="rounded-lg border border-dashed border-slate-300 bg-white p-8 text-center">
             <h2 className="text-xl font-bold">No student activity yet</h2>
             <p className="mt-2 text-slate-600">
-              Complete the student task once to generate the first support recommendation.
+              Complete the student task once to generate the first support profile.
             </p>
             <Link
               href="/student"
@@ -182,113 +272,199 @@ export function FacilitatorDashboard() {
             </Link>
           </div>
         ) : (
-          <div className="grid gap-4">
-            {results.map((result) => {
-              const questions = getQuestionResponses(result);
-              const averageFirstInteraction = getAverageFirstInteraction(questions);
+          <div className="grid gap-5">
+            {studentProfiles.map((profile) => {
+              const latestQuestions = getQuestionResponses(profile.latestAttempt);
 
               return (
                 <article
-                  key={result.response.id}
+                  key={profile.studentName}
                   className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
                 >
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                     <div>
-                      <h2 className="text-xl font-bold">{result.response.studentName}</h2>
+                      <h2 className="text-2xl font-bold">{profile.studentName}</h2>
                       <p className="mt-1 text-sm text-slate-500">
-                        Submitted {new Date(result.response.submittedAt).toLocaleString()}
+                        {profile.attempts.length} attempt
+                        {profile.attempts.length === 1 ? "" : "s"} recorded · Latest{" "}
+                        {new Date(
+                          profile.latestAttempt.response.submittedAt,
+                        ).toLocaleString()}
                       </p>
                     </div>
-                    <p className="rounded-md bg-slate-100 px-3 py-2 text-sm font-semibold">
-                      Accuracy {getAccuracyLabel(result)} · Difficulty{" "}
-                      {result.response.perceivedDifficulty ?? "not captured"}
-                    </p>
+                    <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
+                      <div className="rounded-md bg-slate-100 px-3 py-2">
+                        <p className="text-slate-500">Avg accuracy</p>
+                        <p className="font-bold">
+                          {formatPercent(profile.averageAccuracy)}
+                        </p>
+                      </div>
+                      <div className="rounded-md bg-slate-100 px-3 py-2">
+                        <p className="text-slate-500">Avg confidence</p>
+                        <p className="font-bold">
+                          {profile.averageConfidence.toFixed(1)}/4
+                        </p>
+                      </div>
+                      <div className="rounded-md bg-slate-100 px-3 py-2">
+                        <p className="text-slate-500">Priority</p>
+                        <p className="font-bold">{profile.priorityCount}</p>
+                      </div>
+                      <div className="rounded-md bg-slate-100 px-3 py-2">
+                        <p className="text-slate-500">Task signals</p>
+                        <p className="font-bold">{profile.taskSignalCount}</p>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="mt-5 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
                     <div className="rounded-md bg-slate-50 p-4">
-                      <h3 className="font-semibold">Observed interaction data</h3>
+                      <h3 className="font-semibold">Latest observed data</h3>
                       <dl className="mt-3 grid grid-cols-2 gap-3 text-sm">
+                        <div>
+                          <dt className="text-slate-500">Accuracy</dt>
+                          <dd className="font-semibold">
+                            {getAccuracyLabel(profile.latestAttempt)}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt className="text-slate-500">Difficulty</dt>
+                          <dd className="font-semibold">
+                            {profile.latestAttempt.response.perceivedDifficulty ??
+                              "not captured"}
+                          </dd>
+                        </div>
                         <div>
                           <dt className="text-slate-500">Reading time</dt>
                           <dd className="font-semibold">
-                            {result.response.readingTimeSeconds ?? 0}s
+                            {profile.latestAttempt.response.readingTimeSeconds ?? 0}s
                           </dd>
                         </div>
                         <div>
                           <dt className="text-slate-500">Total time</dt>
                           <dd className="font-semibold">
-                            {result.response.timeOnTaskSeconds}s
+                            {profile.latestAttempt.response.timeOnTaskSeconds}s
                           </dd>
                         </div>
                         <div>
                           <dt className="text-slate-500">Hints opened</dt>
-                          <dd className="font-semibold">{getTotalHints(questions)}</dd>
+                          <dd className="font-semibold">
+                            {getTotalHints(latestQuestions)}
+                          </dd>
                         </div>
                         <div>
                           <dt className="text-slate-500">Passage revisits</dt>
                           <dd className="font-semibold">
-                            {getTotalPassageRevisits(questions)}
+                            {getTotalPassageRevisits(latestQuestions)}
                           </dd>
                         </div>
                         <div>
                           <dt className="text-slate-500">Answer changes</dt>
                           <dd className="font-semibold">
-                            {getTotalAnswerChanges(questions)}
+                            {getTotalAnswerChanges(latestQuestions)}
                           </dd>
                         </div>
                         <div>
                           <dt className="text-slate-500">First-answer delay</dt>
                           <dd className="font-semibold">
-                            {Math.round(averageFirstInteraction)}s avg
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="text-slate-500">Answer confidence</dt>
-                          <dd className="font-semibold">
-                            {getAverageConfidence(questions).toFixed(1)}/4
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="text-slate-500">Reflection confidence</dt>
-                          <dd className="font-semibold">
-                            {result.response.overallConfidence ?? "not captured"}
+                            {Math.round(getAverageFirstInteraction(latestQuestions))}s avg
                           </dd>
                         </div>
                       </dl>
                     </div>
 
                     <div className="rounded-md bg-emerald-50 p-4">
-                      <h3 className="font-semibold">Recommendation</h3>
+                      <h3 className="font-semibold">Latest recommendation</h3>
                       <p className="mt-2 text-lg font-bold">
-                        {result.recommendation.summary}
+                        {profile.latestAttempt.recommendation.summary}
                       </p>
                       <p className="mt-2 leading-7 text-slate-700">
-                        {result.recommendation.action}
+                        {profile.latestAttempt.recommendation.action}
                       </p>
-                      {result.response.reflectionComment ? (
+                      {profile.latestAttempt.response.reflectionComment ? (
                         <div className="mt-4 rounded-md bg-white p-3 text-sm leading-6 text-slate-700">
                           <p className="font-semibold text-slate-900">
                             Learner reflection
                           </p>
-                          <p>{result.response.reflectionComment}</p>
+                          <p>{profile.latestAttempt.response.reflectionComment}</p>
                         </div>
                       ) : null}
                     </div>
                   </div>
 
+                  <div className="mt-5">
+                    <h3 className="font-semibold">Attempt history</h3>
+                    <div className="mt-3 overflow-x-auto">
+                      <table className="w-full min-w-[760px] border-collapse text-left text-sm">
+                        <thead>
+                          <tr className="border-b border-slate-200 text-slate-500">
+                            <th className="py-2 pr-3 font-semibold">Attempt</th>
+                            <th className="py-2 pr-3 font-semibold">Date</th>
+                            <th className="py-2 pr-3 font-semibold">Accuracy</th>
+                            <th className="py-2 pr-3 font-semibold">Confidence</th>
+                            <th className="py-2 pr-3 font-semibold">Difficulty</th>
+                            <th className="py-2 pr-3 font-semibold">Hints</th>
+                            <th className="py-2 pr-3 font-semibold">Revisits</th>
+                            <th className="py-2 pr-3 font-semibold">Recommendation</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {profile.attempts.map((attempt, attemptIndex) => {
+                            const attemptQuestions = getQuestionResponses(attempt);
+
+                            return (
+                              <tr
+                                key={attempt.response.id}
+                                className="border-b border-slate-100"
+                              >
+                                <td className="py-3 pr-3 font-semibold">
+                                  {profile.attempts.length - attemptIndex}
+                                </td>
+                                <td className="py-3 pr-3">
+                                  {new Date(
+                                    attempt.response.submittedAt,
+                                  ).toLocaleDateString()}
+                                </td>
+                                <td className="py-3 pr-3">
+                                  {getAccuracyLabel(attempt)}
+                                </td>
+                                <td className="py-3 pr-3">
+                                  {getAverageConfidence(attemptQuestions).toFixed(1)}/4
+                                </td>
+                                <td className="py-3 pr-3">
+                                  {attempt.response.perceivedDifficulty ??
+                                    "not captured"}
+                                </td>
+                                <td className="py-3 pr-3">
+                                  {getTotalHints(attemptQuestions)}
+                                </td>
+                                <td className="py-3 pr-3">
+                                  {getTotalPassageRevisits(attemptQuestions)}
+                                </td>
+                                <td className="py-3 pr-3">
+                                  {attempt.recommendation.summary}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
                   <div className="mt-5 flex flex-wrap gap-2">
-                    {result.recommendation.indicators.map((indicator) => (
-                      <span
-                        key={indicator.id}
-                        className={`rounded-md border px-3 py-2 text-sm font-semibold ${
-                          severityStyles[indicator.severity]
-                        }`}
-                        title={indicator.evidence}
-                      >
-                        {indicator.label}
-                      </span>
-                    ))}
+                    {profile.latestAttempt.recommendation.indicators.map(
+                      (indicator) => (
+                        <span
+                          key={indicator.id}
+                          className={`rounded-md border px-3 py-2 text-sm font-semibold ${
+                            severityStyles[indicator.severity]
+                          }`}
+                          title={indicator.evidence}
+                        >
+                          {indicator.label}
+                        </span>
+                      ),
+                    )}
                   </div>
                 </article>
               );

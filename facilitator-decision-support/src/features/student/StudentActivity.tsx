@@ -4,10 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { generateRecommendation } from "@/features/analytics/recommendationEngine";
 import { literacyActivity } from "@/features/student/activityContent";
-import {
-  loadActivityResults,
-  saveActivityResult,
-} from "@/shared/storage/activityResults";
+import { saveActivityResult } from "@/shared/storage/activityResults";
 import type {
   ActivitySession,
   ConfidenceLevel,
@@ -122,6 +119,7 @@ function updateQuestionAt(
 
 export function StudentActivity() {
   const [stage, setStage] = useState<Stage>("welcome");
+  const [selectedStudentName, setSelectedStudentName] = useState("Student 1");
   const [session, setSession] = useState<ActivitySession>(() =>
     createSession("Student 1"),
   );
@@ -137,8 +135,7 @@ export function StudentActivity() {
   const canFinishReflection = session.perceivedDifficulty !== null;
 
   function startActivity() {
-    const nextStudentNumber = loadActivityResults().length + 1;
-    setSession(createSession(`Student ${nextStudentNumber}`));
+    setSession(createSession(selectedStudentName));
     setStage("instructions");
   }
 
@@ -401,6 +398,20 @@ export function StudentActivity() {
             <p>After you&apos;ve finished reading, you&apos;ll answer a few questions.</p>
             <p>There are no right or wrong ways to learn. Just try your best.</p>
           </div>
+
+          <label className="block text-sm font-bold text-slate-800" htmlFor="student-profile">
+            Student profile
+          </label>
+          <select
+            id="student-profile"
+            value={selectedStudentName}
+            onChange={(event) => setSelectedStudentName(event.target.value)}
+            className="w-full rounded-md border border-slate-300 px-3 py-3 text-base outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+          >
+            <option>Student 1</option>
+            <option>Student 2</option>
+            <option>Student 3</option>
+          </select>
 
           <button
             type="button"
