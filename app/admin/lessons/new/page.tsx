@@ -6,7 +6,7 @@ import { LessonForm } from "../_components/LessonForm";
 export default async function NewLessonPage({
   searchParams,
 }: {
-  searchParams: { error?: string };
+  searchParams: { error?: string; subjectId?: string };
 }) {
   const classes = await prisma.class.findMany({
     include: { subjects: { select: { id: true, name: true } } },
@@ -33,6 +33,17 @@ export default async function NewLessonPage({
       <div className="max-w-[420px]">
         <LessonForm
           classes={classes}
+          initialValues={
+            searchParams?.subjectId
+              ? {
+                  name: "",
+                  subjectId: searchParams.subjectId,
+                  durationMinutes: null,
+                  description: null,
+                  learningObjectives: null,
+                }
+              : undefined
+          }
           action={createLesson}
           errorMessage={searchParams?.error}
           submitLabel="Create lesson →"

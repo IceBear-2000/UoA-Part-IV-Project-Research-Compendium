@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { createClass, createSubject } from "../actions";
+import Link from "next/link";
+import { createClass } from "../actions";
 
 type ClassData = {
   id: string;
   name: string;
-  subjects: { id: string; name: string }[];
+  subjectCount: number;
+  lessonCount: number;
 };
 
 function AddClassForm() {
@@ -58,83 +60,9 @@ function AddClassForm() {
   );
 }
 
-function AddSubjectControl({ classId }: { classId: string }) {
-  const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  async function handleAdd() {
-    if (!name.trim() || busy) return;
-    setBusy(true);
-    setError(null);
-    try {
-      await createSubject(classId, name);
-      setName("");
-      setOpen(false);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not add subject.");
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  if (!open) {
-    return (
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="rounded-md border border-dashed border-line px-2 py-1 text-[11.5px] font-semibold text-muted hover:border-clay hover:text-clay"
-      >
-        + Add subject
-      </button>
-    );
-  }
-
-  return (
-    <div className="flex flex-col gap-1.5">
-      <div className="flex items-center gap-1.5">
-        <input
-          autoFocus
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              handleAdd();
-            }
-          }}
-          placeholder="e.g. English"
-          className="w-40 rounded-input border border-line bg-white px-2 py-[7px] text-[12.5px]"
-        />
-        <button
-          type="button"
-          onClick={handleAdd}
-          disabled={busy || !name.trim()}
-          className="rounded-input bg-clay px-[10px] py-[7px] text-[12.5px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {busy ? "…" : "Add"}
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setOpen(false);
-            setError(null);
-          }}
-          disabled={busy}
-          className="text-[12.5px] font-semibold text-muted"
-        >
-          Cancel
-        </button>
-      </div>
-      {error && <p className="text-[11.5px] text-[#946b76]">{error}</p>}
-    </div>
-  );
-}
-
 export function ClassesView({ classes }: { classes: ClassData[] }) {
   return (
-    <div className="max-w-[640px]">
+    <div className="max-w-[820px]">
       <AddClassForm />
 
       {classes.length === 0 ? (
@@ -142,19 +70,22 @@ export function ClassesView({ classes }: { classes: ClassData[] }) {
           No classes yet — add one above to get started.
         </div>
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="grid grid-cols-3 gap-[18px]">
           {classes.map((c) => (
-            <div key={c.id} className="rounded-card border border-line bg-surface p-5 shadow-paper">
-              <h3 className="mb-3 text-base font-semibold">{c.name}</h3>
-              <div className="flex flex-wrap items-center gap-1.5">
-                {c.subjects.map((s) => (
-                  <span key={s.id} className="rounded-md bg-bg-2 px-2 py-1 text-[11.5px] font-semibold">
-                    {s.name}
-                  </span>
-                ))}
-                <AddSubjectControl classId={c.id} />
+            <Link
+              key={c.id}
+              href={`/admin/classes/${c.id}`}
+              className="rounded-card border border-line bg-surface p-[21px] shadow-paper transition-colors hover:border-clay-line hover:bg-white"
+            >
+              <div className="mb-2.5 grid h-11 w-11 place-items-center rounded-xl bg-clay-soft text-xl">
+                🏫
               </div>
-            </div>
+              <h3 className="text-base font-semibold">{c.name}</h3>
+              <p className="mt-1 text-[13px] text-muted">
+                {c.subjectCount} subject{c.subjectCount === 1 ? "" : "s"} · {c.lessonCount} lesson
+                {c.lessonCount === 1 ? "" : "s"}
+              </p>
+            </Link>
           ))}
         </div>
       )}

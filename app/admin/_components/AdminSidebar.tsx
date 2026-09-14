@@ -10,7 +10,6 @@ const NAV_ITEMS = [
   { href: "/admin/classes", label: "Classes", icon: "🏫" },
   { href: "/admin/lessons", label: "Lessons", icon: "🧩" },
   { href: "/admin/facilitators", label: "Facilitators", icon: "👥" },
-  { href: "/admin/worksheet-generator", label: "Worksheet generator", icon: "✨" },
   { href: "/admin/messages", label: "Messages", icon: "💬", badgeKey: "unreadMessageCount" },
 ] as const;
 
@@ -72,16 +71,21 @@ export function AdminSidebar({
       <div className="flex-1" />
 
       <div className="mt-2 border-t border-line pt-2.5">
-        <div className="flex items-center gap-2.5 px-2.5 py-2">
+        <Link
+          href="/admin/settings"
+          className={`flex items-center gap-2.5 rounded-[10px] px-2.5 py-2 transition-colors hover:bg-[rgba(190,130,100,0.09)] ${
+            pathname.startsWith("/admin/settings") ? "bg-surface shadow-paper" : ""
+          }`}
+        >
           <div className="grid h-[34px] w-[34px] flex-shrink-0 place-items-center rounded-full bg-clay text-[13px] font-semibold text-white">
             {initials}
           </div>
           <div className="text-[13px] leading-tight">
             {userName}
             <br />
-            <small className="text-[11.5px] text-muted">Coordinator</small>
+            <small className="text-[11.5px] text-muted">Coordinator · Settings</small>
           </div>
-        </div>
+        </Link>
         <form action={logout}>
           <button className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-[13px] font-medium text-muted hover:bg-[rgba(190,130,100,0.09)] hover:text-ink">
             <span className="w-5 text-center">↩︎</span>

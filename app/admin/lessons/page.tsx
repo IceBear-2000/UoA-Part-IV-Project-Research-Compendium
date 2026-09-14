@@ -1,11 +1,21 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { LessonsView } from "./_components/LessonsView";
 
 export default async function LessonsListPage() {
   const lessons = await prisma.lesson.findMany({
     include: { subject: { include: { class: true } }, blocks: { select: { id: true } } },
     orderBy: { updatedAt: "desc" },
   });
+
+  const rows = lessons.map((lesson) => ({
+    id: lesson.id,
+    name: lesson.name,
+    status: lesson.status,
+    blockCount: lesson.blocks.length,
+    className: lesson.subject.class.name,
+    subjectName: lesson.subject.name,
+  }));
 
   return (
     <>
@@ -29,59 +39,7 @@ export default async function LessonsListPage() {
           No lessons yet — create your first one.
         </div>
       ) : (
-        <table className="w-full border-collapse overflow-hidden rounded-card border border-line bg-surface shadow-paper">
-          <thead>
-            <tr>
-              <th className="border-b border-line px-[18px] py-[13px] text-left text-[11.5px] font-semibold uppercase tracking-wide text-muted">
-                Lesson
-              </th>
-              <th className="border-b border-line px-[18px] py-[13px] text-left text-[11.5px] font-semibold uppercase tracking-wide text-muted">
-                Class / Subject
-              </th>
-              <th className="border-b border-line px-[18px] py-[13px] text-left text-[11.5px] font-semibold uppercase tracking-wide text-muted">
-                Blocks
-              </th>
-              <th className="border-b border-line px-[18px] py-[13px] text-left text-[11.5px] font-semibold uppercase tracking-wide text-muted">
-                Status
-              </th>
-              <th className="border-b border-line px-[18px] py-[13px] text-left text-[11.5px] font-semibold uppercase tracking-wide text-muted" />
-            </tr>
-          </thead>
-          <tbody>
-            {lessons.map((lesson) => (
-              <tr key={lesson.id} className="hover:bg-bg">
-                <td className="border-b border-line px-[18px] py-3.5 text-sm font-semibold">
-                  {lesson.name}
-                </td>
-                <td className="border-b border-line px-[18px] py-3.5 text-sm">
-                  {lesson.subject.class.name} · {lesson.subject.name}
-                </td>
-                <td className="border-b border-line px-[18px] py-3.5 text-sm text-muted">
-                  {lesson.blocks.length}
-                </td>
-                <td className="border-b border-line px-[18px] py-3.5">
-                  <span
-                    className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold ${
-                      lesson.status === "PUBLISHED"
-                        ? "bg-sage-soft text-[#5f7355]"
-                        : "bg-bg-2 text-muted"
-                    }`}
-                  >
-                    {lesson.status === "PUBLISHED" ? "Published" : "Draft"}
-                  </span>
-                </td>
-                <td className="border-b border-line px-[18px] py-3.5 text-right">
-                  <Link
-                    href={`/admin/lessons/${lesson.id}`}
-                    className="rounded-input border border-line bg-white px-[13px] py-[7px] text-[13px] font-semibold shadow-paper hover:bg-bg-2"
-                  >
-                    Edit
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <LessonsView lessons={rows} />
       )}
     </>
   );
