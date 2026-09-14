@@ -330,39 +330,46 @@ function BlockEditForm({
         </div>
       )}
 
-      {block.type === BlockType.WORKSHEET && (
-        <>
-          <div>
-            <label className="mb-1 block text-[12.5px] font-semibold">
-              Worksheet link
-              <span className="ml-1.5 rounded-[5px] bg-bg-2 px-[7px] py-[2px] text-[11px] font-medium text-muted">
-                Optional if uploading a file below
-              </span>
+      {block.type === BlockType.WORKSHEET &&
+        (Array.isArray(content.questions) ? (
+          <p className="rounded-input border border-line bg-bg-2 px-3 py-2.5 text-[13px] text-muted">
+            AI-generated worksheet · {content.questions.length} question
+            {content.questions.length === 1 ? "" : "s"}. Edit questions and the answer key from the
+            lesson page&apos;s <strong>✨ Generate AI worksheet</strong> button.
+          </p>
+        ) : (
+          <>
+            <div>
+              <label className="mb-1 block text-[12.5px] font-semibold">
+                Worksheet link
+                <span className="ml-1.5 rounded-[5px] bg-bg-2 px-[7px] py-[2px] text-[11px] font-medium text-muted">
+                  Optional if uploading a file below
+                </span>
+              </label>
+              <input
+                value={content.fileUrl ?? ""}
+                onChange={(e) => setContent({ ...content, fileUrl: e.target.value })}
+                placeholder="https://…"
+                className={inputClasses}
+              />
+            </div>
+            <FileUploadField
+              blockId={block.id}
+              fileName={content.fileName ?? null}
+              filePath={content.filePath ?? null}
+              onUpload={handleUpload}
+              onRemove={handleRemoveFile}
+            />
+            <label className="flex items-center gap-2 text-[13px]">
+              <input
+                type="checkbox"
+                checked={!!content.generatedByAI}
+                onChange={(e) => setContent({ ...content, generatedByAI: e.target.checked })}
+              />
+              AI-generated
             </label>
-            <input
-              value={content.fileUrl ?? ""}
-              onChange={(e) => setContent({ ...content, fileUrl: e.target.value })}
-              placeholder="https://…"
-              className={inputClasses}
-            />
-          </div>
-          <FileUploadField
-            blockId={block.id}
-            fileName={content.fileName ?? null}
-            filePath={content.filePath ?? null}
-            onUpload={handleUpload}
-            onRemove={handleRemoveFile}
-          />
-          <label className="flex items-center gap-2 text-[13px]">
-            <input
-              type="checkbox"
-              checked={!!content.generatedByAI}
-              onChange={(e) => setContent({ ...content, generatedByAI: e.target.checked })}
-            />
-            AI-generated
-          </label>
-        </>
-      )}
+          </>
+        ))}
 
       {block.type === BlockType.ACTIVITY && (
         <div>

@@ -53,6 +53,12 @@ export default async function EditLessonPage({
           >
             {isPublished ? "Published" : "Draft"}
           </span>
+          <Link
+            href={`/admin/lessons/${lesson.id}/worksheet-generator`}
+            className="rounded-input border border-line bg-white px-4 py-2 text-sm font-semibold shadow-paper hover:bg-bg-2"
+          >
+            ✨ Generate AI worksheet
+          </Link>
           <form
             action={togglePublish.bind(
               null,

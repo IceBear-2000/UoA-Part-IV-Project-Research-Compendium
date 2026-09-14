@@ -7,6 +7,7 @@ import { BlockType } from "@prisma/client";
 import { BLOCK_META } from "@/lib/block-meta";
 import { getBlockState, type LessonProgressState } from "@/lib/lesson-progress";
 import { resolveVideoEmbed } from "@/lib/video-embed";
+import type { WorksheetQuestion } from "@/lib/ai-worksheet";
 import { markBlockDone } from "../actions";
 
 type ClientBlock = {
@@ -74,6 +75,10 @@ function StageBody({ block }: { block: ClientBlock }) {
       );
 
     case BlockType.WORKSHEET: {
+      if (Array.isArray(content.questions)) {
+        return <AiWorksheetBody content={content} />;
+      }
+
       // An uploaded file takes priority over a pasted external link if
       // somehow both are set.
       const link = content.signedFileUrl ?? content.fileUrl;
@@ -138,6 +143,90 @@ function StageBody({ block }: { block: ClientBlock }) {
         </div>
       );
   }
+}
+
+function AiWorksheetBody({
+  content,
+}: {
+  content: { title?: string; studentInstructions?: string; questions: WorksheetQuestion[] };
+}) {
+  const [showAnswers, setShowAnswers] = useState(false);
+
+  return (
+    <div className="rounded-xl border border-line bg-white p-5">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <span className="inline-block rounded-md bg-bg-2 px-2 py-1 text-[11px] font-semibold text-muted">
+          AI-generated
+        </span>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => setShowAnswers((v) => !v)}
+            className="rounded-input border border-line bg-white px-3 py-1.5 text-xs font-semibold shadow-paper hover:bg-bg-2"
+          >
+            {showAnswers ? "Hide answer key" : "Show answer key"}
+          </button>
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="rounded-input border border-line bg-white px-3 py-1.5 text-xs font-semibold shadow-paper hover:bg-bg-2"
+          >
+            🖨️ Print
+          </button>
+        </div>
+      </div>
+
+      {content.studentInstructions && (
+        <p className="mb-4 whitespace-pre-line text-sm">{content.studentInstructions}</p>
+      )}
+
+      <ol className="flex flex-col gap-4">
+        {content.questions.map((q, i) => (
+          <li key={i} className="rounded-lg border border-line p-3.5">
+            <p className="mb-2 text-sm font-semibold">
+              {i + 1}. {q.prompt}
+            </p>
+
+            {q.type === "mcq" && (
+              <ul className="flex flex-col gap-1 pl-1 text-sm">
+                {q.options.map((opt, oi) => (
+                  <li
+                    key={oi}
+                    className={
+                      showAnswers && oi === q.correctIndex
+                        ? "rounded-md bg-sage-soft px-2 py-1 font-semibold text-[#5f7355]"
+                        : "px-2 py-1"
+                    }
+                  >
+                    {String.fromCharCode(65 + oi)}. {opt}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {(q.type === "short_answer" || q.type === "long_answer") && (
+              <>
+                <div
+                  className={`rounded-md border border-dashed border-line ${
+                    q.type === "long_answer" ? "min-h-[70px]" : "min-h-[32px]"
+                  }`}
+                />
+                {showAnswers && (
+                  <p className="mt-2 rounded-md bg-sage-soft px-2 py-1.5 text-sm text-[#5f7355]">
+                    <strong>Answer:</strong> {q.answer}
+                  </p>
+                )}
+              </>
+            )}
+
+            {q.type === "coloring" && (
+              <p className="text-sm text-muted">🖍️ Drawing/coloring prompt — no answer key needed.</p>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
 }
 
 export function LessonFlowPlayer({

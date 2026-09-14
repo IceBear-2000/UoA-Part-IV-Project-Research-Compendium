@@ -117,11 +117,13 @@ export function summarizeContent(type: BlockType, content: any): string {
         ? `Pages ${content.pageStart}–${content.pageEnd}`
         : "No pages set yet";
     case BlockType.WORKSHEET:
-      return content?.fileName
-        ? `File: ${content.fileName}`
-        : content?.fileUrl
-          ? "Worksheet link added"
-          : "No file yet";
+      return Array.isArray(content?.questions)
+        ? `AI-generated · ${content.questions.length} question${content.questions.length === 1 ? "" : "s"}`
+        : content?.fileName
+          ? `File: ${content.fileName}`
+          : content?.fileUrl
+            ? "Worksheet link added"
+            : "No file yet";
     case BlockType.READING:
       return content?.fileName
         ? `File: ${content.fileName}`
