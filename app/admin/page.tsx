@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { School, BookOpen, Users } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { SignupRequestStatus } from "@prisma/client";
@@ -34,9 +35,9 @@ export default async function AdminHome() {
   ];
 
   const quickLinks = [
-    { href: "/admin/classes", icon: "🏫", label: "Classes", description: "Browse grades and subjects" },
-    { href: "/admin/lessons", icon: "🧩", label: "Lessons", description: "View, edit, and publish all lessons" },
-    { href: "/admin/facilitators", icon: "👥", label: "Facilitators", description: "See assignments and reach out" },
+    { href: "/admin/classes", icon: School, label: "Classes", description: "Browse grades and subjects" },
+    { href: "/admin/lessons", icon: BookOpen, label: "Lessons", description: "View, edit, and publish all lessons" },
+    { href: "/admin/facilitators", icon: Users, label: "Facilitators", description: "See assignments and reach out" },
   ];
 
   return (
@@ -68,21 +69,24 @@ export default async function AdminHome() {
       </div>
 
       <div className="mt-7 grid grid-cols-3 gap-[14px]">
-        {quickLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="flex items-center gap-3.5 rounded-xl border border-line bg-surface p-4 transition-colors hover:border-clay-line hover:bg-white"
-          >
-            <div className="grid h-[38px] w-[38px] flex-shrink-0 place-items-center rounded-[10px] bg-clay-soft text-lg">
-              {link.icon}
-            </div>
-            <div>
-              <strong className="text-[14.5px]">{link.label}</strong>
-              <p className="mt-0.5 text-sm text-muted">{link.description}</p>
-            </div>
-          </Link>
-        ))}
+        {quickLinks.map((link) => {
+          const Icon = link.icon;
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="flex items-center gap-3.5 rounded-xl border border-line bg-surface p-4 transition-colors hover:border-clay-line hover:bg-white"
+            >
+              <div className="grid h-[38px] w-[38px] flex-shrink-0 place-items-center rounded-[10px] bg-clay-soft">
+                <Icon className="h-[18px] w-[18px] text-[#8c5538]" strokeWidth={2} />
+              </div>
+              <div>
+                <strong className="text-[14.5px]">{link.label}</strong>
+                <p className="mt-0.5 text-sm text-muted">{link.description}</p>
+              </div>
+            </Link>
+          );
+        })}
       </div>
 
       <div className="mt-8">

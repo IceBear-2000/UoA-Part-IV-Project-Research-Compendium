@@ -75,6 +75,11 @@ model Class {
   organisation   Organisation @relation(fields: [organisationId], references: [id])
   createdAt      DateTime     @default(now())
 
+  // Canvas-style card banner. When bannerImagePath is null, the UI falls
+  // back to a deterministically-generated pattern (see lib/class-banner.ts)
+  // — every class always has a banner, upload is optional polish.
+  bannerImagePath String?
+
   subjects    Subject[]
   assignments FacilitatorAssignment[]
 

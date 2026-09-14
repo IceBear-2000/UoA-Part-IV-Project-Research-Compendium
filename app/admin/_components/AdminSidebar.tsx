@@ -2,15 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Home, Inbox, School, BookOpen, Users, MessageSquare, LogOut } from "lucide-react";
 import { logout } from "@/lib/auth-actions";
 
 const NAV_ITEMS = [
-  { href: "/admin", label: "Overview", icon: "🏠" },
-  { href: "/admin/requests", label: "Requests", icon: "📥", badgeKey: "pendingRequestCount" },
-  { href: "/admin/classes", label: "Classes", icon: "🏫" },
-  { href: "/admin/lessons", label: "Lessons", icon: "🧩" },
-  { href: "/admin/facilitators", label: "Facilitators", icon: "👥" },
-  { href: "/admin/messages", label: "Messages", icon: "💬", badgeKey: "unreadMessageCount" },
+  { href: "/admin", label: "Overview", icon: Home },
+  { href: "/admin/requests", label: "Requests", icon: Inbox, badgeKey: "pendingRequestCount" },
+  { href: "/admin/classes", label: "Classes", icon: School },
+  { href: "/admin/lessons", label: "Lessons", icon: BookOpen },
+  { href: "/admin/facilitators", label: "Facilitators", icon: Users },
+  { href: "/admin/messages", label: "Messages", icon: MessageSquare, badgeKey: "unreadMessageCount" },
 ] as const;
 
 export function AdminSidebar({
@@ -34,7 +35,7 @@ export function AdminSidebar({
 
   return (
     <aside className="sticky top-0 flex h-screen flex-col gap-[3px] border-r border-line bg-bg-2 p-4 pt-6">
-      <div className="flex items-center gap-2.5 px-2.5 pb-[22px] pt-1.5 text-lg font-bold tracking-tight">
+      <div className="flex items-center gap-2.5 px-2.5 pb-[22px] pt-1.5 text-lg font-bold tracking-tight font-heading">
         <div className="grid h-[30px] w-[30px] place-items-center rounded-[9px] bg-clay text-base text-white">
           📚
         </div>
@@ -47,6 +48,7 @@ export function AdminSidebar({
             ? pathname === "/admin"
             : pathname.startsWith(item.href);
         const badge = "badgeKey" in item ? badges[item.badgeKey] : 0;
+        const Icon = item.icon;
         return (
           <Link
             key={item.href}
@@ -57,7 +59,7 @@ export function AdminSidebar({
                 : "text-muted hover:bg-[rgba(190,130,100,0.09)] hover:text-ink"
             }`}
           >
-            <span className="w-5 text-center text-base">{item.icon}</span>
+            <Icon className="h-[18px] w-[18px] flex-shrink-0" strokeWidth={2} />
             {item.label}
             {badge > 0 && (
               <span className="ml-auto grid h-[18px] min-w-[18px] place-items-center rounded-full bg-clay px-1 text-[10.5px] font-bold text-white">
@@ -88,7 +90,7 @@ export function AdminSidebar({
         </Link>
         <form action={logout}>
           <button className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-[13px] font-medium text-muted hover:bg-[rgba(190,130,100,0.09)] hover:text-ink">
-            <span className="w-5 text-center">↩︎</span>
+            <LogOut className="h-4 w-4" strokeWidth={2} />
             Sign out
           </button>
         </form>

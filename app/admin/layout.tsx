@@ -3,7 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getUnreadMessageCount } from "@/lib/notifications";
 import { SignupRequestStatus } from "@prisma/client";
-import { AdminSidebar } from "./_components/AdminSidebar";
+import { AdminShell } from "./_components/AdminShell";
 
 // Server-side gate: a facilitator can never render anything under /admin,
 // even by typing the URL directly — this check runs before any child page.
@@ -23,13 +23,12 @@ export default async function AdminLayout({
   ]);
 
   return (
-    <div className="grid min-h-screen grid-cols-[244px_1fr]">
-      <AdminSidebar
-        userName={user!.name}
-        pendingRequestCount={pendingRequestCount}
-        unreadMessageCount={unreadMessageCount}
-      />
-      <main className="max-w-[1180px] px-11 pb-[70px] pt-[34px]">{children}</main>
-    </div>
+    <AdminShell
+      userName={user!.name}
+      pendingRequestCount={pendingRequestCount}
+      unreadMessageCount={unreadMessageCount}
+    >
+      {children}
+    </AdminShell>
   );
 }

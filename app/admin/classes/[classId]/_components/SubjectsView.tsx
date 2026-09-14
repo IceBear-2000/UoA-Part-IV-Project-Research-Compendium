@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Layers } from "lucide-react";
 import { createSubject } from "../../actions";
 
 type SubjectData = { id: string; name: string; lessonCount: number };
@@ -26,7 +27,7 @@ function AddSubjectForm({ classId }: { classId: string }) {
   }
 
   return (
-    <div className="mb-6 rounded-card border border-line bg-surface p-5 shadow-paper">
+    <div className="mb-6 max-w-[480px] rounded-card border border-line bg-surface p-5 shadow-paper">
       <label className="mb-1.5 block text-[13px] font-semibold">Add a subject</label>
       <div className="flex gap-2.5">
         <input
@@ -57,7 +58,7 @@ function AddSubjectForm({ classId }: { classId: string }) {
 
 export function SubjectsView({ classId, subjects }: { classId: string; subjects: SubjectData[] }) {
   return (
-    <div className="max-w-[820px]">
+    <div>
       <AddSubjectForm classId={classId} />
 
       {subjects.length === 0 ? (
@@ -65,15 +66,15 @@ export function SubjectsView({ classId, subjects }: { classId: string; subjects:
           No subjects yet — add one above to get started.
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-[18px]">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-[18px]">
           {subjects.map((s) => (
             <Link
               key={s.id}
               href={`/admin/classes/${classId}/subjects/${s.id}`}
               className="rounded-card border border-line bg-surface p-[21px] shadow-paper transition-colors hover:border-clay-line hover:bg-white"
             >
-              <div className="mb-2.5 grid h-11 w-11 place-items-center rounded-xl bg-sage-soft text-xl">
-                📘
+              <div className="mb-2.5 grid h-11 w-11 place-items-center rounded-xl bg-sage-soft">
+                <Layers className="h-5 w-5 text-[#5f7355]" strokeWidth={2} />
               </div>
               <h3 className="text-base font-semibold">{s.name}</h3>
               <p className="mt-1 text-[13px] text-muted">

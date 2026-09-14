@@ -3,12 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { createClass } from "../actions";
+import { ClassBanner } from "@/lib/class-banner";
 
 type ClassData = {
   id: string;
   name: string;
   subjectCount: number;
   lessonCount: number;
+  bannerUrl: string | null;
 };
 
 function AddClassForm() {
@@ -31,7 +33,7 @@ function AddClassForm() {
   }
 
   return (
-    <div className="mb-6 rounded-card border border-line bg-surface p-5 shadow-paper">
+    <div className="mb-6 max-w-[480px] rounded-card border border-line bg-surface p-5 shadow-paper">
       <label className="mb-1.5 block text-[13px] font-semibold">Add a class</label>
       <div className="flex gap-2.5">
         <input
@@ -62,7 +64,7 @@ function AddClassForm() {
 
 export function ClassesView({ classes }: { classes: ClassData[] }) {
   return (
-    <div className="max-w-[820px]">
+    <div>
       <AddClassForm />
 
       {classes.length === 0 ? (
@@ -70,21 +72,28 @@ export function ClassesView({ classes }: { classes: ClassData[] }) {
           No classes yet — add one above to get started.
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-[18px]">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-[18px]">
           {classes.map((c) => (
             <Link
               key={c.id}
               href={`/admin/classes/${c.id}`}
-              className="rounded-card border border-line bg-surface p-[21px] shadow-paper transition-colors hover:border-clay-line hover:bg-white"
+              className="overflow-hidden rounded-card border border-line bg-surface shadow-paper transition-colors hover:border-clay-line hover:shadow-paper-2"
             >
-              <div className="mb-2.5 grid h-11 w-11 place-items-center rounded-xl bg-clay-soft text-xl">
-                🏫
+              <div className="aspect-[5/2] w-full overflow-hidden bg-bg-2">
+                {c.bannerUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={c.bannerUrl} alt="" className="h-full w-full object-cover" />
+                ) : (
+                  <ClassBanner classId={c.id} className="h-full w-full" />
+                )}
               </div>
-              <h3 className="text-base font-semibold">{c.name}</h3>
-              <p className="mt-1 text-[13px] text-muted">
-                {c.subjectCount} subject{c.subjectCount === 1 ? "" : "s"} · {c.lessonCount} lesson
-                {c.lessonCount === 1 ? "" : "s"}
-              </p>
+              <div className="p-4">
+                <h3 className="text-base font-semibold">{c.name}</h3>
+                <p className="mt-1 text-[13px] text-muted">
+                  {c.subjectCount} subject{c.subjectCount === 1 ? "" : "s"} · {c.lessonCount} lesson
+                  {c.lessonCount === 1 ? "" : "s"}
+                </p>
+              </div>
             </Link>
           ))}
         </div>

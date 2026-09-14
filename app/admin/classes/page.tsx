@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { getSignedFileUrl } from "@/lib/supabase-admin";
 import { ClassesView } from "./_components/ClassesView";
 
 export default async function ClassesPage() {
@@ -10,12 +11,15 @@ export default async function ClassesPage() {
     orderBy: { name: "asc" },
   });
 
-  const withCounts = classes.map((c) => ({
-    id: c.id,
-    name: c.name,
-    subjectCount: c._count.subjects,
-    lessonCount: c.subjects.reduce((sum, s) => sum + s._count.lessons, 0),
-  }));
+  const withCounts = await Promise.all(
+    classes.map(async (c) => ({
+      id: c.id,
+      name: c.name,
+      subjectCount: c._count.subjects,
+      lessonCount: c.subjects.reduce((sum, s) => sum + s._count.lessons, 0),
+      bannerUrl: c.bannerImagePath ? await getSignedFileUrl(c.bannerImagePath) : null,
+    })),
+  );
 
   return (
     <>
