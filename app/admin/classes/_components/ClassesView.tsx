@@ -1,17 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
+import type { Curriculum } from "@prisma/client";
 import { createClass } from "../actions";
 import { ClassBanner } from "@/lib/class-banner";
 
 type ClassData = {
   id: string;
   name: string;
+  curriculum: Curriculum;
   subjectCount: number;
   lessonCount: number;
   bannerUrl: string | null;
 };
+
+type CurriculumFilter = "all" | Curriculum;
+
+const CURRICULUM_LABEL: Record<Curriculum, string> = { NCERT: "NCERT", NZC: "NZC" };
 
 function AddClassForm() {
   const [name, setName] = useState("");
@@ -63,29 +69,59 @@ function AddClassForm() {
 }
 
 export function ClassesView({ classes }: { classes: ClassData[] }) {
+  const [filter, setFilter] = useState<CurriculumFilter>("all");
+
+  const filtered = useMemo(
+    () => (filter === "all" ? classes : classes.filter((c) => c.curriculum === filter)),
+    [classes, filter],
+  );
+
   return (
     <div>
       <AddClassForm />
 
-      {classes.length === 0 ? (
+      <div className="mb-5 flex items-center gap-2.5">
+        <span className="text-[12.5px] font-semibold text-muted">Sort classes by</span>
+        <div className="inline-flex rounded-[9px] bg-bg-2 p-[3px]">
+          {(["all", "NCERT", "NZC"] as CurriculumFilter[]).map((f) => (
+            <button
+              key={f}
+              type="button"
+              onClick={() => setFilter(f)}
+              className={`rounded-[7px] px-3.5 py-1.5 text-[13px] font-semibold transition-colors ${
+                filter === f ? "bg-surface text-ink shadow-paper" : "text-muted"
+              }`}
+            >
+              {f === "all" ? "All" : CURRICULUM_LABEL[f]}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {filtered.length === 0 ? (
         <div className="rounded-card border border-dashed border-line p-10 text-center text-muted">
-          No classes yet — add one above to get started.
+          {classes.length === 0
+            ? "No classes yet — add one above to get started."
+            : "No classes match this filter."}
         </div>
       ) : (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-[18px]">
-          {classes.map((c) => (
+          {filtered.map((c) => (
             <Link
               key={c.id}
               href={`/admin/classes/${c.id}`}
               className="overflow-hidden rounded-card border border-line bg-surface shadow-paper transition-colors hover:border-clay-line hover:shadow-paper-2"
             >
-              <div className="aspect-[5/2] w-full overflow-hidden bg-bg-2">
+              <div className="relative aspect-[5/2] w-full overflow-hidden bg-bg-2">
                 {c.bannerUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={c.bannerUrl} alt="" className="h-full w-full object-cover" />
                 ) : (
                   <ClassBanner classId={c.id} className="h-full w-full" />
                 )}
+                <span className="absolute right-2.5 top-2.5 rounded-md bg-white/90 px-2 py-0.5 text-[10.5px] font-bold uppercase tracking-wide text-ink shadow-paper">
+                  {CURRICULUM_LABEL[c.curriculum]}
+                </span>
               </div>
               <div className="p-4">
                 <h3 className="text-base font-semibold">{c.name}</h3>

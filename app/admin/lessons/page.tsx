@@ -15,6 +15,7 @@ export default async function LessonsListPage() {
     blockCount: lesson.blocks.length,
     className: lesson.subject.class.name,
     subjectName: lesson.subject.name,
+    curriculum: lesson.subject.class.curriculum,
   }));
 
   return (

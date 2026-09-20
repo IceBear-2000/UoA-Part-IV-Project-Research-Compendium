@@ -15,6 +15,7 @@ export default async function ClassesPage() {
     classes.map(async (c) => ({
       id: c.id,
       name: c.name,
+      curriculum: c.curriculum,
       subjectCount: c._count.subjects,
       lessonCount: c.subjects.reduce((sum, s) => sum + s._count.lessons, 0),
       bannerUrl: c.bannerImagePath ? await getSignedFileUrl(c.bannerImagePath) : null,

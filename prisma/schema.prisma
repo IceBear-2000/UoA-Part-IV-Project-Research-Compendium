@@ -80,10 +80,20 @@ model Class {
   // — every class always has a banner, upload is optional polish.
   bannerImagePath String?
 
+  // Which national curriculum this class follows — powers the curriculum
+  // filter on Classes/Lessons. Defaults to NCERT since every class created
+  // before this field existed was NCERT-aligned.
+  curriculum Curriculum @default(NCERT)
+
   subjects    Subject[]
   assignments FacilitatorAssignment[]
 
   @@index([organisationId])
+}
+
+enum Curriculum {
+  NCERT
+  NZC
 }
 
 model Subject {

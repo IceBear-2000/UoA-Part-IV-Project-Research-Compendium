@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import type { LessonStatus } from "@prisma/client";
+import type { Curriculum, LessonStatus } from "@prisma/client";
 
 type LessonRow = {
   id: string;
@@ -11,9 +11,13 @@ type LessonRow = {
   blockCount: number;
   className: string;
   subjectName: string;
+  curriculum: Curriculum;
 };
 
 type StatusFilter = "all" | "DRAFT" | "PUBLISHED";
+type CurriculumFilter = "all" | Curriculum;
+
+const CURRICULUM_LABEL: Record<Curriculum, string> = { NCERT: "NCERT", NZC: "NZC" };
 
 function StatusBadge({ status }: { status: LessonStatus }) {
   return (
@@ -30,6 +34,7 @@ function StatusBadge({ status }: { status: LessonStatus }) {
 export function LessonsView({ lessons }: { lessons: LessonRow[] }) {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const [curriculumFilter, setCurriculumFilter] = useState<CurriculumFilter>("all");
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
 
   const filtered = useMemo(() => {
@@ -37,9 +42,10 @@ export function LessonsView({ lessons }: { lessons: LessonRow[] }) {
     return lessons.filter((l) => {
       const matchesSearch = !term || l.name.toLowerCase().includes(term);
       const matchesStatus = statusFilter === "all" || l.status === statusFilter;
-      return matchesSearch && matchesStatus;
+      const matchesCurriculum = curriculumFilter === "all" || l.curriculum === curriculumFilter;
+      return matchesSearch && matchesStatus && matchesCurriculum;
     });
-  }, [lessons, search, statusFilter]);
+  }, [lessons, search, statusFilter, curriculumFilter]);
 
   const groups = useMemo(() => {
     const map = new Map<string, { className: string; subjectName: string; lessons: LessonRow[] }>();
@@ -85,6 +91,21 @@ export function LessonsView({ lessons }: { lessons: LessonRow[] }) {
               }`}
             >
               {f === "all" ? "All" : f === "DRAFT" ? "Draft" : "Published"}
+            </button>
+          ))}
+        </div>
+        <span className="ml-2 text-[12.5px] font-semibold text-muted">Sort classes by</span>
+        <div className="inline-flex rounded-[9px] bg-bg-2 p-[3px]">
+          {(["all", "NCERT", "NZC"] as CurriculumFilter[]).map((f) => (
+            <button
+              key={f}
+              type="button"
+              onClick={() => setCurriculumFilter(f)}
+              className={`rounded-[7px] px-3.5 py-1.5 text-[13px] font-semibold transition-colors ${
+                curriculumFilter === f ? "bg-surface text-ink shadow-paper" : "text-muted"
+              }`}
+            >
+              {f === "all" ? "All" : CURRICULUM_LABEL[f]}
             </button>
           ))}
         </div>
