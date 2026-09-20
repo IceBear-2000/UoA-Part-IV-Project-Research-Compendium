@@ -27,19 +27,67 @@ function initials(name: string) {
   );
 }
 
-function uniqueNames(assignments: Assignment[], key: "class" | "subject") {
-  return Array.from(new Set(assignments.map((a) => a[key].name)));
+// Groups by class so a facilitator with Grade 1 · Maths and Grade 2 ·
+// Science never renders as if they had both subjects in both grades —
+// each class only ever shows the subjects actually assigned within it.
+function groupByClass(assignments: Assignment[]) {
+  const map = new Map<string, { id: string; name: string; subjects: string[] }>();
+  for (const a of assignments) {
+    if (!map.has(a.class.id)) map.set(a.class.id, { id: a.class.id, name: a.class.name, subjects: [] });
+    map.get(a.class.id)!.subjects.push(a.subject.name);
+  }
+  return Array.from(map.values());
 }
 
-function TagList({ names }: { names: string[] }) {
-  if (names.length === 0) return <span className="text-sm text-muted">None yet</span>;
+function ClassAssignments({ assignments }: { assignments: Assignment[] }) {
+  const groups = groupByClass(assignments);
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+
+  if (groups.length === 0) return <span className="text-sm text-muted">None yet</span>;
+
+  function toggle(id: string) {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
   return (
     <div className="flex flex-wrap gap-1.5">
-      {names.map((name) => (
-        <span key={name} className="rounded-md bg-bg-2 px-2 py-1 text-[11.5px] font-semibold">
-          {name}
-        </span>
-      ))}
+      {groups.map((g) => {
+        const isOpen = expanded.has(g.id);
+        return (
+          <div
+            key={g.id}
+            className={`rounded-md border px-2 py-1 transition-colors ${
+              isOpen ? "border-clay-line bg-clay-soft" : "border-line bg-bg-2"
+            }`}
+          >
+            <button
+              type="button"
+              onClick={() => toggle(g.id)}
+              className="flex items-center gap-1.5 text-[11.5px] font-semibold"
+            >
+              {g.name}
+              <span className="text-muted">{isOpen ? "▾" : "▸"}</span>
+            </button>
+            {isOpen && (
+              <div className="mt-1.5 flex flex-wrap gap-1 border-t border-clay-line pt-1.5">
+                {g.subjects.map((s) => (
+                  <span
+                    key={s}
+                    className="rounded-[5px] bg-surface px-1.5 py-0.5 text-[10.5px] font-medium text-muted"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -91,10 +139,7 @@ export function FacilitatorsView({
                 Facilitator
               </th>
               <th className="border-b border-line px-[18px] py-[13px] text-left text-[11.5px] font-semibold uppercase tracking-wide text-muted">
-                Assigned classes
-              </th>
-              <th className="border-b border-line px-[18px] py-[13px] text-left text-[11.5px] font-semibold uppercase tracking-wide text-muted">
-                Subjects
+                Assignments
               </th>
               <th className="border-b border-line px-[18px] py-[13px] text-left text-[11.5px] font-semibold uppercase tracking-wide text-muted" />
             </tr>
@@ -115,10 +160,7 @@ export function FacilitatorsView({
                   </div>
                 </td>
                 <td className="border-b border-line px-[18px] py-3.5">
-                  <TagList names={uniqueNames(f.assignments, "class")} />
-                </td>
-                <td className="border-b border-line px-[18px] py-3.5">
-                  <TagList names={uniqueNames(f.assignments, "subject")} />
+                  <ClassAssignments assignments={f.assignments} />
                 </td>
                 <td className="border-b border-line px-[18px] py-3.5 text-right">
                   <button
@@ -151,9 +193,7 @@ export function FacilitatorsView({
                 </div>
               </div>
               <div className="mb-3.5">
-                <TagList
-                  names={[...uniqueNames(f.assignments, "class"), ...uniqueNames(f.assignments, "subject")]}
-                />
+                <ClassAssignments assignments={f.assignments} />
               </div>
               <button
                 type="button"
