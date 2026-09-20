@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   DndContext,
   closestCenter,
@@ -24,7 +23,6 @@ export function LessonFlowEditor({
   lessonId: string;
   initialBlocks: BlockData[];
 }) {
-  const router = useRouter();
   const [blocks, setBlocks] = useState(initialBlocks);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -33,12 +31,16 @@ export function LessonFlowEditor({
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
   );
 
+  // No router.refresh() after these — the server action's own response
+  // already has everything the UI needs, and a refresh means waiting on a
+  // second full round trip for a block count in the page header that isn't
+  // worth blocking on. revalidatePath() (in each action) still keeps the
+  // next real navigation to this page fresh.
   async function handleAdd(type: BlockType) {
     setPickerOpen(false);
     const newBlock = await addBlock(lessonId, type);
     setBlocks((prev) => [...prev, newBlock as BlockData]);
     setExpandedId(newBlock.id);
-    router.refresh();
   }
 
   async function handleSave(
@@ -48,26 +50,22 @@ export function LessonFlowEditor({
     setBlocks((prev) => prev.map((b) => (b.id === blockId ? { ...b, ...data } : b)));
     setExpandedId(null);
     await updateBlock(blockId, lessonId, data);
-    router.refresh();
   }
 
   async function handleDelete(blockId: string) {
     setBlocks((prev) => prev.filter((b) => b.id !== blockId));
     await deleteBlock(blockId, lessonId);
-    router.refresh();
   }
 
   async function handleUploadFile(blockId: string, formData: FormData) {
     const newContent = await uploadBlockFile(lessonId, blockId, formData);
     setBlocks((prev) => prev.map((b) => (b.id === blockId ? { ...b, content: newContent } : b)));
-    router.refresh();
     return newContent;
   }
 
   async function handleRemoveFile(blockId: string) {
     const newContent = await removeBlockFile(lessonId, blockId);
     setBlocks((prev) => prev.map((b) => (b.id === blockId ? { ...b, content: newContent } : b)));
-    router.refresh();
     return newContent;
   }
 
@@ -83,7 +81,7 @@ export function LessonFlowEditor({
     reorderBlocks(
       lessonId,
       next.map((b) => b.id),
-    ).then(() => router.refresh());
+    );
   }
 
   return (
