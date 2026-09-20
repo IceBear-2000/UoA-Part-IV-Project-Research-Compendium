@@ -41,23 +41,17 @@ function groupByClass(assignments: Assignment[]) {
 
 function ClassAssignments({ assignments }: { assignments: Assignment[] }) {
   const groups = groupByClass(assignments);
-  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  // One switch per facilitator, not per class — clicking any class pill
+  // opens every class for this facilitator at once, so you're not stuck
+  // clicking through each one individually to see the whole picture.
+  const [expanded, setExpanded] = useState(false);
 
   if (groups.length === 0) return <span className="text-sm text-muted">None yet</span>;
-
-  function toggle(id: string) {
-    setExpanded((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  }
 
   return (
     <div className="flex flex-wrap gap-1.5">
       {groups.map((g) => {
-        const isOpen = expanded.has(g.id);
+        const isOpen = expanded;
         return (
           <div
             key={g.id}
@@ -67,7 +61,7 @@ function ClassAssignments({ assignments }: { assignments: Assignment[] }) {
           >
             <button
               type="button"
-              onClick={() => toggle(g.id)}
+              onClick={() => setExpanded((prev) => !prev)}
               className="flex items-center gap-1.5 text-[11.5px] font-semibold"
             >
               {g.name}
