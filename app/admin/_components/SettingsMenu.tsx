@@ -14,6 +14,10 @@ const PROJECT_DOCS = [
     href: "https://claude.ai/code/artifact/e03fd1cd-34b6-45db-b82e-a9e1aa88906d",
     label: "Worksheet generator spec",
   },
+  {
+    href: "https://claude.ai/code/artifact/465dd5b9-14d8-4887-ad5c-837df83651ef",
+    label: "Nielsen heuristics review",
+  },
 ] as const;
 
 export function SettingsMenu() {
