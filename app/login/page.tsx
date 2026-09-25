@@ -33,8 +33,11 @@ export default function LoginPage({
             anywhere.
           </p>
         </div>
-        <div className="relative text-[13px] opacity-85">
-          University of Auckland · SOFTENG 700A
+        <div className="relative flex items-center justify-between text-[13px] opacity-85">
+          <span>University of Auckland · SOFTENG 700A</span>
+          <Link href="/about" className="font-semibold underline underline-offset-2 hover:opacity-80">
+            About this project
+          </Link>
         </div>
       </div>
 

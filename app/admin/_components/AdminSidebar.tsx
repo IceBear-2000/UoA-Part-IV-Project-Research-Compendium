@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Inbox, School, BookOpen, Users, MessageSquare, LogOut } from "lucide-react";
+import { Home, Inbox, School, BookOpen, Users, MessageSquare, LogOut, Info } from "lucide-react";
 import { logout } from "@/lib/auth-actions";
 
 const NAV_ITEMS = [
@@ -71,6 +71,16 @@ export function AdminSidebar({
       })}
 
       <div className="flex-1" />
+
+      <a
+        href="/about"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-3 rounded-[10px] px-3 py-2.5 text-[14.5px] font-medium text-muted transition-colors hover:bg-[rgba(190,130,100,0.09)] hover:text-ink"
+      >
+        <Info className="h-[18px] w-[18px] flex-shrink-0" strokeWidth={2} />
+        About the project
+      </a>
 
       <div className="mt-2 border-t border-line pt-2.5">
         <Link
