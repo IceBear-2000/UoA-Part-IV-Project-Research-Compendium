@@ -31,9 +31,15 @@ function StatusBadge({ status }: { status: LessonStatus }) {
   );
 }
 
-export function LessonsView({ lessons }: { lessons: LessonRow[] }) {
+export function LessonsView({
+  lessons,
+  initialStatus = "all",
+}: {
+  lessons: LessonRow[];
+  initialStatus?: StatusFilter;
+}) {
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>(initialStatus);
   const [curriculumFilter, setCurriculumFilter] = useState<CurriculumFilter>("all");
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
 

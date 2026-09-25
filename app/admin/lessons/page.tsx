@@ -2,7 +2,11 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { LessonsView } from "./_components/LessonsView";
 
-export default async function LessonsListPage() {
+export default async function LessonsListPage({
+  searchParams,
+}: {
+  searchParams: { status?: string };
+}) {
   const lessons = await prisma.lesson.findMany({
     include: { subject: { include: { class: true } }, blocks: { select: { id: true } } },
     orderBy: { updatedAt: "desc" },
@@ -40,7 +44,10 @@ export default async function LessonsListPage() {
           No lessons yet — create your first one.
         </div>
       ) : (
-        <LessonsView lessons={rows} />
+        <LessonsView
+          lessons={rows}
+          initialStatus={searchParams.status === "DRAFT" ? "DRAFT" : "all"}
+        />
       )}
     </>
   );
