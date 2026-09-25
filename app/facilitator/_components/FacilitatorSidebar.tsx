@@ -2,17 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Home, MessageSquare, Bell, TrendingUp, LogOut, Info } from "lucide-react";
 import { logout } from "@/lib/auth-actions";
 
 const NAV_ITEMS = [
-  { href: "/facilitator", label: "Dashboard", icon: "🏠" },
-  { href: "/facilitator/messages", label: "Chat with admin", icon: "💬", badgeKey: "unreadMessageCount" },
-  { href: "/facilitator/notifications", label: "Notifications", icon: "🔔", badgeKey: "unreadNotificationCount" },
+  { href: "/facilitator", label: "Dashboard", icon: Home },
+  { href: "/facilitator/messages", label: "Chat with admin", icon: MessageSquare, badgeKey: "unreadMessageCount" },
+  { href: "/facilitator/notifications", label: "Notifications", icon: Bell, badgeKey: "unreadNotificationCount" },
 ] as const;
 
 // Not built yet — shown so the sidebar matches the final shape from the
 // mockup, but greyed out and inert instead of linking to a 404.
-const SOON_ITEMS = [{ label: "Progress history", icon: "📈" }];
+const SOON_ITEMS = [{ label: "Progress history", icon: TrendingUp }];
 
 export function FacilitatorSidebar({
   userName,
@@ -48,6 +49,7 @@ export function FacilitatorSidebar({
             ? pathname === "/facilitator"
             : pathname.startsWith(item.href);
         const badge = "badgeKey" in item ? badges[item.badgeKey] : 0;
+        const Icon = item.icon;
         return (
           <Link
             key={item.href}
@@ -58,7 +60,7 @@ export function FacilitatorSidebar({
                 : "text-muted hover:bg-[rgba(190,130,100,0.09)] hover:text-ink"
             }`}
           >
-            <span className="w-5 text-center text-base">{item.icon}</span>
+            <Icon className="h-[18px] w-[18px] flex-shrink-0" strokeWidth={2} />
             {item.label}
             {badge > 0 && (
               <span className="ml-auto grid h-[18px] min-w-[18px] place-items-center rounded-full bg-clay px-1 text-[10.5px] font-bold text-white">
@@ -69,18 +71,31 @@ export function FacilitatorSidebar({
         );
       })}
 
-      {SOON_ITEMS.map((item) => (
-        <div
-          key={item.label}
-          title="Coming in a later session"
-          className="flex cursor-not-allowed items-center gap-3 rounded-[10px] px-3 py-2.5 text-[14.5px] font-medium text-muted/50"
-        >
-          <span className="w-5 text-center text-base">{item.icon}</span>
-          {item.label}
-        </div>
-      ))}
+      {SOON_ITEMS.map((item) => {
+        const Icon = item.icon;
+        return (
+          <div
+            key={item.label}
+            title="Coming in a later session"
+            className="flex cursor-not-allowed items-center gap-3 rounded-[10px] px-3 py-2.5 text-[14.5px] font-medium text-muted/50"
+          >
+            <Icon className="h-[18px] w-[18px] flex-shrink-0" strokeWidth={2} />
+            {item.label}
+          </div>
+        );
+      })}
 
       <div className="flex-1" />
+
+      <a
+        href="/about"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-3 rounded-[10px] px-3 py-2.5 text-[14.5px] font-medium text-muted transition-colors hover:bg-[rgba(190,130,100,0.09)] hover:text-ink"
+      >
+        <Info className="h-[18px] w-[18px] flex-shrink-0" strokeWidth={2} />
+        About the project
+      </a>
 
       <div className="mt-2 border-t border-line pt-2.5">
         <div className="flex items-center gap-2.5 px-2.5 py-2">
@@ -95,7 +110,7 @@ export function FacilitatorSidebar({
         </div>
         <form action={logout}>
           <button className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-[13px] font-medium text-muted hover:bg-[rgba(190,130,100,0.09)] hover:text-ink">
-            <span className="w-5 text-center">↩︎</span>
+            <LogOut className="h-4 w-4" strokeWidth={2} />
             Sign out
           </button>
         </form>

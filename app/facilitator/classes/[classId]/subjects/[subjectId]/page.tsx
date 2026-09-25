@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { BookOpen } from "lucide-react";
 import { getCurrentUser } from "@/lib/auth";
 import { getSubjectAssignment } from "@/app/facilitator/data";
 import { prisma } from "@/lib/prisma";
@@ -53,8 +54,8 @@ export default async function SubjectLessonsPage({
               href={`/facilitator/classes/${params.classId}/subjects/${params.subjectId}/lessons/${lesson.id}`}
               className="flex items-center gap-[18px] rounded-card border border-line bg-surface p-[21px] shadow-paper transition-colors hover:border-clay-line hover:bg-white"
             >
-              <div className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl bg-bg-2 text-lg">
-                📘
+              <div className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl bg-bg-2">
+                <BookOpen className="h-5 w-5 text-muted" strokeWidth={2} />
               </div>
               <div className="flex-1">
                 <h2 className="text-[15px] font-semibold">{lesson.name}</h2>

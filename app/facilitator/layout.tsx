@@ -27,7 +27,7 @@ export default async function FacilitatorLayout({
         unreadMessageCount={unreadMessageCount}
         unreadNotificationCount={unreadNotificationCount}
       />
-      <main className="max-w-[1180px] px-11 pb-[70px] pt-[34px]">{children}</main>
+      <main className="mx-auto w-full max-w-[1180px] px-11 pb-[70px] pt-[34px]">{children}</main>
     </div>
   );
 }
