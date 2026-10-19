@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# Editor and tool settings
+.claude/
+
+# Python
+__pycache__/
+
+# Draft report files and Word lock files
+report/
+~$*

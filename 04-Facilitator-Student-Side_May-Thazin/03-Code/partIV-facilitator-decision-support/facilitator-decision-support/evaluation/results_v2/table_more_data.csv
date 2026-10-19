@@ -1,0 +1,15 @@
+model,passages,precision,recall,false_alarm_rate,recall_ci_lo,recall_ci_hi
+Score only (accuracy < 75%),1,0.618,0.567,0.101,0.538,0.597
+Rules v1: 'needs support' only,1,0.69,0.46,0.059,0.432,0.489
+Rules v1: 'needs support' or 'check-in',1,0.24,0.953,0.869,0.937,0.966
+Rules v2: 'needs support' only,1,0.638,0.609,0.102,0.579,0.641
+Rules v2: 'needs support' or 'check-in',1,0.443,0.818,0.296,0.794,0.841
+Random Forest (trained on v1 rule labels),1,0.691,0.457,0.058,0.429,0.487
+"Random Forest (oracle, true labels)",1,0.952,0.771,0.011,0.745,0.796
+Score only (accuracy < 75%),3,0.724,0.821,0.089,0.8,0.844
+Rules v1: 'needs support' only,3,0.918,0.524,0.013,0.493,0.555
+Rules v1: 'needs support' or 'check-in',3,0.227,1.0,0.973,1.0,1.0
+Rules v2: 'needs support' only,3,0.939,0.677,0.011,0.648,0.704
+Rules v2: 'needs support' or 'check-in',3,0.669,0.876,0.123,0.856,0.896
+Random Forest (trained on v1 rule labels),3,0.976,0.512,0.004,0.482,0.542
+"Random Forest (oracle, true labels)",3,0.992,0.974,0.002,0.964,0.984

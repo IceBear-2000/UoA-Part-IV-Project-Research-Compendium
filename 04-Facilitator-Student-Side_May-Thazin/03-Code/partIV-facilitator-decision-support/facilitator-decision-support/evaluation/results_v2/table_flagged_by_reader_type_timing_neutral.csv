@@ -1,0 +1,11 @@
+persona,passages,rules,score,learners
+typical,1,8.4,10.8,4144
+careful_reviser,1,11.7,10.5,523
+poor_comprehender,1,53.7,46.4,657
+decoding_limited,1,70.5,68.5,390
+mixed,1,83.2,82.2,286
+typical,3,0.9,8.9,4144
+careful_reviser,3,2.7,7.8,523
+poor_comprehender,3,38.8,67.9,657
+decoding_limited,3,93.1,93.1,390
+mixed,3,93.7,97.9,286
