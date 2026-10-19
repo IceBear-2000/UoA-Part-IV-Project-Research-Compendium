@@ -10,13 +10,15 @@ Each folder is split by author so that individual work is always clearly identif
 
 | # | Submission | Type | When | Moksh Manglani | May Thazin |
 |---|---|---|---|---|---|
-| 01 | [Scope and Literature Review](01-Scope-and-Literature-Review/) | Individual | April 2026 | [Scope and literature review (PDF)](01-Scope-and-Literature-Review/Moksh-Manglani/Scope-and-Literature-Review_Moksh-Manglani.pdf) | Added by May |
-| 02 | [Mid-Year Report](02-Mid-Year-Report/) | Individual | July 2026 | [Mid-year report (PDF)](02-Mid-Year-Report/Moksh-Manglani/Mid-Year-Report_Moksh-Manglani.pdf) | Added by May |
+| 01 | [Scope and Literature Review](01-Scope-and-Literature-Review/) | Individual | April 2026 | [Scope and literature review (PDF)](01-Scope-and-Literature-Review/Moksh-Manglani/Scope-and-Literature-Review_Moksh-Manglani.pdf) | [Literature review (PDF)](01-Scope-and-Literature-Review/May-Thazin/Literature-Review_May-Thazin.pdf) |
+| 02 | [Mid-Year Report](02-Mid-Year-Report/) | Individual | July 2026 | [Mid-year report (PDF)](02-Mid-Year-Report/Moksh-Manglani/Mid-Year-Report_Moksh-Manglani.pdf) | [Mid-year report (PDF)](02-Mid-Year-Report/May-Thazin/Mid-Year-Report_May-Thazin.pdf) |
 | 03 | [Conference Presentation](03-Conference-Presentation/) | Joint | 25 July 2026 | [Slides (PDF)](03-Conference-Presentation/Joint/Part_IV_Project_Presentation_Conference_25Jul.pdf) | |
 | 04 | [Display Day Poster](04-Display-Day-Poster/) | Joint | 9 October 2026 | [Poster (PDF)](04-Display-Day-Poster/Joint/Poster_133_FINAL_submitted.pdf) | |
-| 05 | [Final Report](05-Final-Report/) | Individual | 18 October 2026 | [Final report (PDF)](05-Final-Report/Moksh-Manglani/Final-Report_Moksh-Manglani.pdf) | Added by May |
+| 05 | [Final Report](05-Final-Report/) | Individual | 18 October 2026 | [Final report (PDF)](05-Final-Report/Moksh-Manglani/Final-Report_Moksh-Manglani.pdf) | [Final report (PDF)](05-Final-Report/May-Thazin/Final-Report_May-Thazin.pdf) |
 
 The research compendium itself (this repository) is the sixth submission, made jointly on 20 October 2026.
+
+May's three documents were exported from the project's shared Google Drive and converted to PDF, so their page layout may differ slightly from the files she uploaded to Canvas.
 
 ## How the submissions connect
 
