@@ -145,3 +145,16 @@ export function addStudent(name: string, classId: string): StudentRecord {
 
   return studentRecord;
 }
+
+/** Adds classes and students that are not already on the roster (matched by
+ * id), leaving existing entries untouched. Used by the demo-data loader. */
+export function addRosterEntries(classes: ClassRecord[], students: StudentRecord[]) {
+  const roster = getRosterSnapshot();
+  const classIds = new Set(roster.classes.map((classRecord) => classRecord.id));
+  const studentIds = new Set(roster.students.map((student) => student.id));
+
+  persistRoster({
+    classes: [...roster.classes, ...classes.filter((item) => !classIds.has(item.id))],
+    students: [...roster.students, ...students.filter((item) => !studentIds.has(item.id))],
+  });
+}

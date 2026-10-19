@@ -3,8 +3,15 @@
 import Link from "next/link";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import { generateRecommendation } from "@/features/analytics/recommendationEngine";
-import { literacyActivity } from "@/features/student/activityContent";
-import { saveActivityResult } from "@/shared/storage/activityResults";
+import {
+  getActivityById,
+  getActivityForAttemptNumber,
+} from "@/features/student/activityContent";
+import type { LiteracyActivity } from "@/features/student/activityContent";
+import {
+  loadActivityResults,
+  saveActivityResult,
+} from "@/shared/storage/activityResults";
 import {
   getRosterSnapshot,
   getServerRosterSnapshot,
@@ -15,6 +22,7 @@ import type {
   ClassRecord,
   ConfidenceLevel,
   DifficultyLevel,
+  JudgedCorrectness,
   QuestionResponse,
   StudentRecord,
   StudentResponse,
@@ -30,6 +38,15 @@ const confidenceOptions: Array<{
   { value: 3, label: "I think so" },
   { value: 2, label: "Not sure" },
   { value: 1, label: "Just guessing" },
+];
+
+const judgmentOptions: Array<{
+  value: JudgedCorrectness;
+  label: string;
+}> = [
+  { value: "correct", label: "I got it right" },
+  { value: "incorrect", label: "I got it wrong" },
+  { value: "unsure", label: "Not sure" },
 ];
 
 const difficultyOptions: Array<{
@@ -57,16 +74,21 @@ function secondsSince(timestamp: number) {
   return Math.max(1, Math.round((Date.now() - timestamp) / 1000));
 }
 
-function createQuestionResponses(): ActivitySession["questionResponses"] {
-  return literacyActivity.questions.map((question) => ({
+function createQuestionResponses(
+  activity: LiteracyActivity,
+): ActivitySession["questionResponses"] {
+  return activity.questions.map((question) => ({
     questionId: question.id,
     selectedAnswer: "",
     confidence: null,
+    judgedCorrect: null,
     hintCount: 0,
+    hintRequestedBeforeAttempt: false,
     answerChangeCount: 0,
     firstInteractionSeconds: null,
     questionTimeSeconds: 0,
     passageRevisitCount: 0,
+    repairAttempted: false,
   }));
 }
 
@@ -75,6 +97,19 @@ function createSession(
   classRecord?: ClassRecord,
 ): ActivitySession {
   const now = Date.now();
+  // Rotate through activities based on how many this student has already
+  // completed, so repeated use (as intended by the activity's design)
+  // shows a different passage each time rather than repeating one.
+  // Guarded for SSR: this only needs to be accurate once startActivity()
+  // runs client-side; the initial placeholder session never reaches the
+  // student.
+  const priorAttempts =
+    typeof window === "undefined"
+      ? 0
+      : loadActivityResults().filter(
+          (result) => result.response.studentId === student.id,
+        ).length;
+  const activity = getActivityForAttemptNumber(priorAttempts);
 
   return {
     id: crypto.randomUUID(),
@@ -82,13 +117,13 @@ function createSession(
     studentName: student.name,
     classId: student.classId,
     className: classRecord?.name,
-    activityId: literacyActivity.id,
+    activityId: activity.id,
     startedAt: now,
     readingStartedAt: null,
     questionStartedAt: null,
     readingTimeSeconds: 0,
     currentQuestionIndex: 0,
-    questionResponses: createQuestionResponses(),
+    questionResponses: createQuestionResponses(activity),
     perceivedDifficulty: null,
     reflectionComment: "",
     completed: false,
@@ -151,7 +186,11 @@ export function StudentActivity() {
     useState<StudentResponse | null>(null);
 
   const currentQuestionIndex = session.currentQuestionIndex;
-  const currentQuestion = literacyActivity.questions[currentQuestionIndex];
+  const currentActivity = useMemo(
+    () => getActivityById(session.activityId),
+    [session.activityId],
+  );
+  const currentQuestion = currentActivity.questions[currentQuestionIndex];
   const currentResponse = session.questionResponses[currentQuestionIndex];
   const selectedClass =
     roster.classes.find((classRecord) => classRecord.id === selectedClassId) ??
@@ -168,7 +207,9 @@ export function StudentActivity() {
     studentsInSelectedClass[0] ??
     roster.students[0];
   const canMoveFromQuestion =
-    currentResponse.selectedAnswer.length > 0 && currentResponse.confidence !== null;
+    currentResponse.selectedAnswer.length > 0 &&
+    currentResponse.confidence !== null &&
+    currentResponse.judgedCorrect !== null;
   const canFinishReflection = session.perceivedDifficulty !== null;
 
   function startActivity() {
@@ -228,6 +269,9 @@ export function StudentActivity() {
             questionTimeSeconds:
               response.questionTimeSeconds + elapsedQuestionSeconds,
             passageRevisitCount: response.passageRevisitCount + 1,
+            // Rereading the passage after already needing a hint is a
+            // repair action in response to a signal of difficulty.
+            repairAttempted: response.repairAttempted || response.hintCount > 0,
           }),
         ),
         readingStartedAt: Date.now(),
@@ -258,6 +302,9 @@ export function StudentActivity() {
       const questionStartedAt = currentSession.questionStartedAt ?? Date.now();
       const elapsedBeforeInteraction = secondsSince(questionStartedAt);
 
+      const isRevision =
+        response_selectedAnswerChanged(currentSession, answer);
+
       return updateQuestionAt(
         currentSession,
         currentSession.currentQuestionIndex,
@@ -270,9 +317,21 @@ export function StudentActivity() {
               : response.answerChangeCount,
           firstInteractionSeconds:
             response.firstInteractionSeconds ?? elapsedBeforeInteraction,
+          // A revision made after a hint was already used counts as a
+          // "repair" action following a signal of difficulty.
+          repairAttempted:
+            response.repairAttempted || (isRevision && response.hintCount > 0),
         }),
       );
     });
+  }
+
+  function response_selectedAnswerChanged(
+    session: ActivitySession,
+    nextAnswer: string,
+  ) {
+    const current = session.questionResponses[session.currentQuestionIndex];
+    return current.selectedAnswer.length > 0 && current.selectedAnswer !== nextAnswer;
   }
 
   function showHint() {
@@ -283,6 +342,12 @@ export function StudentActivity() {
         (response) => ({
           ...response,
           hintCount: response.hintCount + 1,
+          // A hint requested while no answer has been selected yet is a
+          // pre-attempt hint request — a stronger struggle signal than
+          // hints requested after a genuine attempt.
+          hintRequestedBeforeAttempt:
+            response.hintRequestedBeforeAttempt ||
+            (response.hintCount === 0 && response.selectedAnswer.length === 0),
           firstInteractionSeconds:
             response.firstInteractionSeconds ??
             (currentSession.questionStartedAt
@@ -301,6 +366,19 @@ export function StudentActivity() {
         (response) => ({
           ...response,
           confidence,
+        }),
+      ),
+    );
+  }
+
+  function setQuestionJudgment(judgedCorrect: JudgedCorrectness) {
+    setSession((currentSession) =>
+      updateQuestionAt(
+        currentSession,
+        currentSession.currentQuestionIndex,
+        (response) => ({
+          ...response,
+          judgedCorrect,
         }),
       ),
     );
@@ -326,7 +404,7 @@ export function StudentActivity() {
 
       if (
         currentSession.currentQuestionIndex ===
-        literacyActivity.questions.length - 1
+        currentActivity.questions.length - 1
       ) {
         return {
           ...updatedSession,
@@ -341,7 +419,7 @@ export function StudentActivity() {
       };
     });
 
-    if (currentQuestionIndex === literacyActivity.questions.length - 1) {
+    if (currentQuestionIndex === currentActivity.questions.length - 1) {
       setStage("reflection");
     }
   }
@@ -353,13 +431,16 @@ export function StudentActivity() {
 
     const questionResponses: QuestionResponse[] = session.questionResponses.map(
       (response) => {
-        const question = literacyActivity.questions.find(
+        const question = currentActivity.questions.find(
           (item) => item.id === response.questionId,
         );
 
         return {
           ...response,
           confidence: response.confidence ?? 1,
+          // Fallback should not normally be reached since canMoveFromQuestion
+          // requires a judgment before advancing.
+          judgedCorrect: response.judgedCorrect ?? "unsure",
           isCorrect: response.selectedAnswer === question?.correctAnswer,
         };
       },
@@ -387,9 +468,17 @@ export function StudentActivity() {
       submittedAt,
     };
 
+    // Earlier sessions from this student, newest first, so the engine can
+    // pool passages for the comprehension-pattern check.
+    const priorResponses = session.studentId
+      ? loadActivityResults()
+          .filter((result) => result.response.studentId === session.studentId)
+          .map((result) => result.response)
+      : [];
+
     saveActivityResult({
       response,
-      recommendation: generateRecommendation(response),
+      recommendation: generateRecommendation(response, priorResponses),
     });
     setSubmittedResponse(response);
     setSession((currentSession) => ({
@@ -539,12 +628,12 @@ export function StudentActivity() {
               Story
             </p>
             <h1 className="mt-2 text-center text-3xl font-bold">
-              {literacyActivity.storyTitle}
+              {currentActivity.storyTitle}
             </h1>
             <div className="mx-auto mt-6 grid h-32 max-w-sm place-items-center rounded-lg bg-amber-100 text-sm font-semibold uppercase tracking-wide text-amber-900">
               Story illustration
             </div>
-            <p className="mt-6 text-lg leading-9">{literacyActivity.passage}</p>
+            <p className="mt-6 text-lg leading-9">{currentActivity.passage}</p>
           </article>
           <button
             type="button"
@@ -632,7 +721,7 @@ export function StudentActivity() {
         <Progress stage={stage} />
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm font-bold uppercase tracking-wide text-emerald-700">
-            Question {currentQuestionIndex + 1} of {literacyActivity.questions.length}
+            Question {currentQuestionIndex + 1} of {currentActivity.questions.length}
           </p>
           <button
             type="button"
@@ -687,6 +776,28 @@ export function StudentActivity() {
           </div>
         </fieldset>
 
+        <fieldset>
+          <legend className="text-lg font-bold">
+            Now that you&apos;ve answered — do you think you got it right?
+          </legend>
+          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            {judgmentOptions.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => setQuestionJudgment(option.value)}
+                className={`rounded-md border px-4 py-3 text-sm font-bold ${
+                  currentResponse.judgedCorrect === option.value
+                    ? "border-emerald-700 bg-emerald-700 text-white"
+                    : "border-slate-300 bg-white"
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </fieldset>
+
         <div className="rounded-md border border-sky-200 bg-sky-50 p-4">
           <button
             type="button"
@@ -708,7 +819,7 @@ export function StudentActivity() {
           disabled={!canMoveFromQuestion}
           className="rounded-md bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-300"
         >
-          {currentQuestionIndex === literacyActivity.questions.length - 1
+          {currentQuestionIndex === currentActivity.questions.length - 1
             ? "Continue to reflection"
             : "Next question"}
         </button>
