@@ -1,0 +1,114 @@
+[
+  {
+    "id": "A1",
+    "check": "Unauthenticated GET of every /admin/*, /facilitator/*, /dashboard route [local prod build]",
+    "expected": "all redirect to /login (307), no page content",
+    "actual": "20/20 redirect to /login; non-conforming: none",
+    "pass": true,
+    "evidence": "/admin -> 307 /login\n/admin/classes -> 307 /login\n/admin/classes/cmrfsja930009tdbzkefp6pp0 -> 307 /login\n/admin/classes/cmrfsja930009tdbzkefp6pp0/subjects/cmrfsjad0000ctdbzkt77swko -> 307 /login\n/admin/facilitators -> 307 /login\n/admin/lessons -> 307 /login\n/admin/lessons/cmvdp0lsa002btdwh0tmtt9qy -> 307 /login\n/admin/lessons/cmvdp0lsa002btdwh0tmtt9qy/worksheet-generator -> 307 /login\n/admin/lessons/new -> 307 /login\n/admin/messages -> 307 /login\n/admin/requests -> 307 /login\n/admin/settings -> 307 /login\n/facilitator -> 307 /login\n/facilitator/classes/cmrfsja930009tdbzkefp6pp0 -> 307 /login\n/facilitator/classes/cmrfsja930009tdbzkefp6pp0/subjects/cmrfsjad0000ctdbzkt77swko -> 307 /login\n/facilitator/classes/cmrfsja930009tdbzkefp6pp0/subjects/cmrfsjad0000ctdbzkt77swko/lessons/cmvdp0f5k0001tdwhlnxjbwxy -> 307 /login\n/facilitator/classes/cmrfsja930009tdbzkefp6pp0/subjects/cmrfsjad0000ctdbzkt77swko/lessons/cmvdp0f5k0001tdwhlnxjbwxy/complete -> 307 /login\n/facilitator/messages -> 307 /login\n/facilitator/notifications -> 307 /login\n/dashboard -> 307 /login"
+  },
+  {
+    "id": "A1",
+    "check": "Unauthenticated GET of every /admin/*, /facilitator/*, /dashboard route [live production (syd1)]",
+    "expected": "all redirect to /login (307), no page content",
+    "actual": "20/20 redirect to /login; non-conforming: none",
+    "pass": true,
+    "evidence": "/admin -> 307 /login\n/admin/classes -> 307 /login\n/admin/classes/cmrfsja930009tdbzkefp6pp0 -> 307 /login\n/admin/classes/cmrfsja930009tdbzkefp6pp0/subjects/cmrfsjad0000ctdbzkt77swko -> 307 /login\n/admin/facilitators -> 307 /login\n/admin/lessons -> 307 /login\n/admin/lessons/cmvdp0lsa002btdwh0tmtt9qy -> 307 /login\n/admin/lessons/cmvdp0lsa002btdwh0tmtt9qy/worksheet-generator -> 307 /login\n/admin/lessons/new -> 307 /login\n/admin/messages -> 307 /login\n/admin/requests -> 307 /login\n/admin/settings -> 307 /login\n/facilitator -> 307 /login\n/facilitator/classes/cmrfsja930009tdbzkefp6pp0 -> 307 /login\n/facilitator/classes/cmrfsja930009tdbzkefp6pp0/subjects/cmrfsjad0000ctdbzkt77swko -> 307 /login\n/facilitator/classes/cmrfsja930009tdbzkefp6pp0/subjects/cmrfsjad0000ctdbzkt77swko/lessons/cmvdp0f5k0001tdwhlnxjbwxy -> 307 /login\n/facilitator/classes/cmrfsja930009tdbzkefp6pp0/subjects/cmrfsjad0000ctdbzkt77swko/lessons/cmvdp0f5k0001tdwhlnxjbwxy/complete -> 307 /login\n/facilitator/messages -> 307 /login\n/facilitator/notifications -> 307 /login\n/dashboard -> 307 /login"
+  },
+  {
+    "id": "A1b",
+    "check": "Unauthenticated forged Server Action (createClass) with no cookie",
+    "expected": "blocked before the action runs; no class created",
+    "actual": "HTTP 307 -> /login; classes 8 -> 8",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A2b",
+    "check": "Forged admin Server Actions sent with a facilitator session (19 actions, raw POST with Next-Action header)",
+    "expected": "every call rejected with 'Unauthorized' (server log) and no data changed",
+    "actual": "19/19 rejected with \"Unauthorized\"; unguarded: none; data unchanged (classes, subjects, blocks, publish status, block title, Moksh's assignments, names, org name): true; fake requests still PENDING: PENDING/PENDING; Moksh's password unchanged: true",
+    "pass": true,
+    "evidence": "createClass: HTTP 500, server error=\"Unauthorized\"\ncreateSubject: HTTP 500, server error=\"Unauthorized\"\nsyncClassAssignments: HTTP 500, server error=\"Unauthorized\"\naddBlock: HTTP 500, server error=\"Unauthorized\"\nupdateBlock: HTTP 500, server error=\"Unauthorized\"\ndeleteBlock: HTTP 500, server error=\"Unauthorized\"\nreorderBlocks: HTTP 500, server error=\"Unauthorized\"\nremoveBlockFile: HTTP 500, server error=\"Unauthorized\"\ngetBlockFilePreviewUrl: HTTP 500, server error=\"Unauthorized\"\ntogglePublish: HTTP 500, server error=\"Unauthorized\"\nanalyzeLessonContent: HTTP 500, server error=\"Unauthorized\"\ngenerateWorksheetDraft: HTTP 500, server error=\"Unauthorized\"\nfinalizeWorksheetBlock: HTTP 500, server error=\"Unauthorized\"\napproveRequest: HTTP 500, server error=\"Unauthorized\"\nrejectRequest: HTTP 500, server error=\"Unauthorized\"\nupdateProfile: HTTP 500, server error=\"Unauthorized\"\nchangePassword: HTTP 500, server error=\"Unauthorized\"\nupdateOrganisationName: HTTP 500, server error=\"Unauthorized\"\nremoveClassBanner: HTTP 500, server error=\"Unauthorized\""
+  },
+  {
+    "id": "A10",
+    "check": "Worksheet generator endpoints (analyze, generate, finalize) called by a non-admin",
+    "expected": "rejected; no Anthropic API call made; no block created",
+    "actual": "analyzeLessonContent: HTTP 500 \"Unauthorized\"; generateWorksheetDraft: HTTP 500 \"Unauthorized\"; finalizeWorksheetBlock: HTTP 500 \"Unauthorized\"; Anthropic calls logged during test: 0; blocks in test lesson 2 -> 2",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A10b",
+    "check": "Worksheet generator action with no session at all",
+    "expected": "redirected to /login, no API call",
+    "actual": "HTTP 307 -> /login; Anthropic calls: 0",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A2c",
+    "check": "Positive control: the same forged-request format with an ADMIN session",
+    "expected": "accepted and executes (proves the facilitator rejections are role-based, not malformed requests)",
+    "actual": "HTTP 200; blocks 2 -> 3",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A3",
+    "check": "Facilitator opens a lesson/class/subject they were not granted (incl. guessing the URL)",
+    "expected": "404 for every case, nothing leaked",
+    "actual": "8/8 returned 404; non-conforming: none",
+    "pass": true,
+    "evidence": "Moksh -> lesson in a class he is NOT assigned to (Grade 4 Maths), correct URL: HTTP 404\nMoksh -> that class's subject list: HTTP 404\nMoksh -> that subject's lesson list: HTTP 404\nMoksh -> URL-guess: his OWN class+subject path but the other class's lesson id: HTTP 404\nMoksh -> completion page of a lesson he is not assigned to: HTTP 404\nMay -> class she IS assigned to, subject she is NOT (Grade 4 English), correct URL: HTTP 404\nMay -> that subject's lesson list: HTTP 404\nMay -> URL-guess: her granted Grade 4 Maths path with the English lesson id: HTTP 404"
+  },
+  {
+    "id": "A3b",
+    "check": "Forged markBlockDone on a lesson the facilitator was not granted (class not granted / subject not granted)",
+    "expected": "rejected 'Not assigned to this lesson'; no progress row created",
+    "actual": "Moksh: HTTP 500 \"Not assigned to this lesson\"; May: HTTP 500 \"Not assigned to this lesson\"; progress rows created: 0",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A3c",
+    "check": "Positive control: Moksh opens a lesson in his own granted subject",
+    "expected": "200",
+    "actual": "HTTP 200",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A4",
+    "check": "Draft lesson in a facilitator's own granted subject: open by URL, see in list, mark a step done",
+    "expected": "404 on open + complete; absent from the lesson list; markBlockDone rejected; no progress row",
+    "actual": "open=404; complete=404; listed in subject list=false; markBlockDone HTTP 500 \"Lesson not found\"; progress rows=0",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A4b",
+    "check": "Positive control: admin publishes the draft, then unpublishes it",
+    "expected": "visible+openable only while PUBLISHED",
+    "actual": "published: open=200, in list=true; unpublished again: open=404",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "X4",
+    "check": "CSRF: valid admin session cookie, Server Action POST with Origin: https://evil.example",
+    "expected": "rejected by the framework's origin check; no block added",
+    "actual": "HTTP 500; blocks 3 -> 3; log=\"x-forwarded-host` header with value `localhost:3002` does not match `origin` header with value `evil.example` from a forwarded Server Actions request. Aborting the action.\"",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "X7",
+    "check": "Facilitator tries to message another facilitator (and so read/pollute a non-admin thread)",
+    "expected": "rejected; no message stored",
+    "actual": "HTTP 500; server error=\"Messaging is only between admins and facilitators.\"; messages 1 -> 1",
+    "pass": true,
+    "evidence": ""
+  }
+]

@@ -1,0 +1,114 @@
+[
+  {
+    "id": "B1",
+    "check": "First open: only block 1 unlocked",
+    "expected": "states = active,locked,locked,locked,locked; locked content null",
+    "actual": "states=allll (a=active,l=locked); locked content null=true; currentBlockIndex=0",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "B1b",
+    "check": "Locked blocks' content never reaches the browser",
+    "expected": "no SECRET-CONTENT-OF-STEP-2..5 anywhere in the HTML/RSC payload",
+    "actual": "leaked=[]; step1 present=true",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A9a",
+    "check": "Forge: mark block 3 done while block 1 active (skips block 2)",
+    "expected": "Rejected server-side, progress unchanged",
+    "actual": "HTTP 500; server error=\"This step is locked.\"; completedBlockIds=[]; index=0",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A9b",
+    "check": "Forge: mark the LAST block done first (jump to completion)",
+    "expected": "Rejected, lesson not completed",
+    "actual": "HTTP 500; server error=\"This step is locked.\"; completedAt=null",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A9c",
+    "check": "Forge: block id from a different lesson",
+    "expected": "Rejected (Block not found)",
+    "actual": "HTTP 500; server error=\"Block not found\"",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "B2",
+    "check": "Finishing block 1 unlocks exactly block 2",
+    "expected": "states = done,active,locked,locked,locked",
+    "actual": "states=dalll (d=done); HTTP 200; index=1; step2 content now present=true; step3 leaked=false",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A9d",
+    "check": "Forge: mark block 3 done while block 2 is the active step",
+    "expected": "Rejected",
+    "actual": "HTTP 500; server error=\"This step is locked.\"",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "B2b",
+    "check": "Re-marking an already-finished block does not move progress",
+    "expected": "index stays 1, no duplicate ids",
+    "actual": "HTTP 200; index=1; ids=1",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "B3",
+    "check": "Progress survives page refresh",
+    "expected": "same states after reload",
+    "actual": "before=ddall after=ddall",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "B3b",
+    "check": "Progress survives sign-out and sign-in (new session)",
+    "expected": "same states after logout+login; logged-out request is redirected",
+    "actual": "after relogin=ddall; logged-out GET /facilitator => 307 /login",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "B4",
+    "check": "Completion page not reachable before the lesson is finished",
+    "expected": "redirect back into the lesson",
+    "actual": "GET /complete => 307 lessons/cmvdp0f5k0001tdwhlnxjbwxy",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "B5",
+    "check": "Finishing the last block completes the lesson and unlocks everything",
+    "expected": "completedAt set; no block locked; all content present; /complete returns 200",
+    "actual": "completedAt=2026-10-18T10:43:20.379Z; states=ddddd; contents present=5/5; /complete=200",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "B5b",
+    "check": "After completion, revisiting a step does not regress progress",
+    "expected": "completedAt retained, index unchanged",
+    "actual": "index 4 -> 4; completedAt kept=true",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "B6",
+    "check": "Admin deletes a finished block mid-lesson: facilitator must not skip an unfinished step",
+    "expected": "every step shown as 'done' was actually completed",
+    "actual": "states=ddal; steps shown done but never completed by this facilitator: Mid 3; currentBlockIndex=2 now points at \"Mid 4\"",
+    "pass": false,
+    "evidence": "Progress is stored as a position (currentBlockIndex) plus a set of ids; deleting/reordering blocks renumbers positions but not stored progress."
+  }
+]

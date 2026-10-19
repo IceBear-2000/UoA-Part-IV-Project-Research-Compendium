@@ -1,0 +1,13 @@
+Counting and Ordering to 20
+
+We can count forwards and backwards to 20. Forwards: 1, 2, 3, ... 19, 20. Backwards from 20: 20, 19, 18, 17, ... 2, 1.
+
+The numbers after ten are called the teen numbers: eleven (11), twelve (12), thirteen (13), fourteen (14), fifteen (15), sixteen (16), seventeen (17), eighteen (18), nineteen (19), and then twenty (20).
+
+A ten frame has two rows of five boxes, so it holds ten counters when it is full. For fourteen, fill one whole ten frame and put four counters on a second frame. That is 10 and 4 more.
+
+One more and one less: one more than 8 is 9. One less than 8 is 7. One more than 15 is 16. One less than 15 is 14.
+
+Ordering: to put numbers in order from smallest to largest we look at which one comes first when we count. The cards 12, 6, 19 and 9 in order are 6, 9, 12, 19.
+
+Number lines help us see the order. On a number line from 0 to 20, numbers on the right are bigger than numbers on the left.

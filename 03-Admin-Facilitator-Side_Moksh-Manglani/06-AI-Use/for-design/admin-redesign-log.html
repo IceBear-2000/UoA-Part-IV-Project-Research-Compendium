@@ -1,0 +1,424 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="UTF-8">
+<title>Admin Redesign Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f0e6; --bg-2:#ece6d8; --surface:#fcfaf4; --ink:#33302a; --muted:#847c6c; --line:#e4ddcc; --line-soft:#ede7da;
+    --clay:#be8264; --clay-soft:#eddfd4; --clay-ink:#8c5538;
+    --sage:#8fa585; --sage-soft:#e6ebe0; --sage-ink:#4d6144;
+    --rose:#c0959f; --rose-soft:#f0e4e7; --rose-ink:#8f4f5c;
+    --blue:#88a0b4; --blue-soft:#e3eaef; --blue-ink:#3f5b6e;
+    --shadow: 0 1px 0 rgba(51,48,42,.03), 0 1px 3px rgba(51,48,42,.05);
+    --shadow-2: 0 1px 0 rgba(51,48,42,.03), 0 6px 16px rgba(51,48,42,.07);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#18160f; --bg-2:#211e16; --surface:#211e17; --ink:#efe9dd; --muted:#a89d87; --line:#3a3527; --line-soft:#2b2820;
+      --clay:#d9a17e; --clay-soft:#3a2c22; --clay-ink:#f0c8ac;
+      --sage:#a3bb98; --sage-soft:#243024; --sage-ink:#bcd4b0;
+      --rose:#d3a7b1; --rose-soft:#332327; --rose-ink:#e4c0c8;
+      --blue:#a2bccf; --blue-soft:#20282f; --blue-ink:#c2d7e6;
+      --shadow: 0 1px 0 rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3);
+      --shadow-2: 0 1px 0 rgba(0,0,0,.15), 0 8px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#18160f; --bg-2:#211e16; --surface:#211e17; --ink:#efe9dd; --muted:#a89d87; --line:#3a3527; --line-soft:#2b2820;
+    --clay:#d9a17e; --clay-soft:#3a2c22; --clay-ink:#f0c8ac;
+    --sage:#a3bb98; --sage-soft:#243024; --sage-ink:#bcd4b0;
+    --rose:#d3a7b1; --rose-soft:#332327; --rose-ink:#e4c0c8;
+    --blue:#a2bccf; --blue-soft:#20282f; --blue-ink:#c2d7e6;
+    --shadow: 0 1px 0 rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3);
+    --shadow-2: 0 1px 0 rgba(0,0,0,.15), 0 8px 20px rgba(0,0,0,.35);
+  }
+  :root{ color-scheme: light dark; }
+
+  *{ box-sizing: border-box; }
+  body{
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3,p,blockquote,ul,ol{ margin: 0; }
+
+  .wrap{ max-width: 760px; margin: 0 auto; padding: 64px 24px 96px; }
+
+  header.doc{ margin-bottom: 44px; }
+  .eyebrow{
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--clay-ink); background: var(--clay-soft); padding: 5px 11px; border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  h1.title{
+    font-size: 34px; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance; color: var(--ink);
+  }
+  .subtitle{ margin-top: 10px; font-size: 16px; color: var(--muted); max-width: 58ch; }
+  .meta-row{
+    display: flex; gap: 22px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--muted);
+  }
+  .meta-row strong{ color: var(--ink); font-weight: 600; }
+
+  .intro{ margin: 30px 0 48px; font-size: 15px; color: var(--ink); max-width: 62ch; }
+  .intro p + p{ margin-top: 12px; }
+
+  .influences{
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 0 0 52px;
+  }
+  .influence{
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 15px 16px;
+    box-shadow: var(--shadow);
+  }
+  .influence .k{ font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .influence .v{ margin-top: 5px; font-size: 13.5px; font-weight: 600; color: var(--ink); }
+
+  .entry{ margin-bottom: 40px; }
+  .entry-head{ display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+  .entry-num{
+    font-family: "Source Serif 4", Georgia, serif; font-weight: 600; font-size: 15px; color: var(--muted);
+    flex-shrink: 0;
+  }
+  .entry-title{ font-size: 20px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+
+  .block{
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  .section{ padding: 20px 24px; }
+  .section + .section{ border-top: 1px solid var(--line-soft); }
+
+  .label{
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+    padding: 3px 9px; border-radius: 20px; margin-bottom: 11px;
+  }
+  .label.feedback{ background: var(--rose-soft); color: var(--rose-ink); }
+  .label.problem{ background: var(--bg-2); color: var(--muted); }
+  .label.change{ background: var(--blue-soft); color: var(--blue-ink); }
+  .label.why{ background: var(--sage-soft); color: var(--sage-ink); }
+
+  blockquote{
+    font-family: "Source Serif 4", Georgia, serif; font-style: italic; font-weight: 500;
+    font-size: 16.5px; line-height: 1.6; color: var(--ink);
+  }
+  blockquote cite{ display: block; margin-top: 8px; font-style: normal; font-size: 12.5px; color: var(--muted); }
+
+  .section p{ font-size: 14.5px; color: var(--ink); }
+  .section p + p{ margin-top: 10px; }
+  .section.why p{ color: var(--ink); }
+
+  .divider{ height: 1px; background: var(--line); margin: 56px 0; border: 0; }
+
+  .footer{ font-size: 13px; color: var(--muted); text-align: center; margin-top: 56px; }
+
+  @media (max-width: 640px){
+    .influences{ grid-template-columns: 1fr; }
+    h1.title{ font-size: 27px; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="doc">
+    <span class="eyebrow">Admin panel · redesign log</span>
+    <h1 class="title">From "this doesn't work" to a shipped decision</h1>
+    <p class="subtitle">
+      Six rounds of feedback on StudyBuddy's admin panel, what changed in response to each one, and the
+      reasoning behind it — kept as a record for the project write-up and for anyone picking this up later.
+    </p>
+    <div class="meta-row">
+      <span><strong>Scope</strong> — Classes, Lessons, Overview, Settings, theming</span>
+      <span><strong>Entries</strong> — 6</span>
+      <span><strong>Reviewer</strong> — Gill Dobbie (admin)</span>
+    </div>
+  </header>
+
+  <div class="intro">
+    <p>
+      Every entry below follows the same shape: what was actually said, what was wrong with the page at the
+      time, what got built in response, and why that specific change is a better answer than the alternatives.
+      The feedback is lightly cleaned up for readability but not reworded in substance — where a comment was
+      vague ("this looks off"), the problem section spells out what that turned out to mean once traced down.
+    </p>
+    <p>
+      Three things ran underneath most of these decisions, worth naming up front because they explain choices
+      that might otherwise look arbitrary entry-by-entry.
+    </p>
+  </div>
+
+  <div class="influences">
+    <div class="influence">
+      <div class="k">Reference point</div>
+      <div class="v">Canvas LMS course cards — the banner-image pattern most facilitators already recognise</div>
+    </div>
+    <div class="influence">
+      <div class="k">Architecture</div>
+      <div class="v">One token layer (colour, radius, shadow, type) driving every page, not per-page rebuilds</div>
+    </div>
+    <div class="influence">
+      <div class="k">Decision method</div>
+      <div class="v">Six full mock-ups built on real data before committing to a direction, not one guess</div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-num">01</span>
+      <h2 class="entry-title">Classes and Lessons didn't do different jobs</h2>
+    </div>
+    <div class="block">
+      <div class="section">
+        <span class="label feedback">Feedback</span>
+        <blockquote>
+          "For the admin Classes page — what I wanted to do is change that so each class comes up as a card,
+          and you can click into it and see what lessons belong to it. That would allow us to more accurately
+          navigate around the system. And the Lessons tab — right now it just has a table in it. I want it
+          organised in a much better way."
+        </blockquote>
+      </div>
+      <div class="section">
+        <span class="label problem">Problem</span>
+        <p>
+          Classes was a flat list — a name and some subject tags, no way to get from "Classes" to an actual
+          lesson without leaving the page. Lessons was a single unsorted table showing the same information
+          Classes already had, with no search, no filter, and no grouping by grade or subject.
+        </p>
+      </div>
+      <div class="section">
+        <span class="label change">Change</span>
+        <p>
+          Classes became a three-level structure: class cards, then subject cards inside a class, then a
+          lesson list scoped to that subject — each level with a breadcrumb and a "Create lesson" shortcut
+          pre-filled for that subject. Lessons stayed a separate, org-wide index: sectioned by Class · Subject,
+          collapsible, with a search box and a status filter.
+        </p>
+      </div>
+      <div class="section why">
+        <span class="label why">Why it's better</span>
+        <p>
+          The two pages now do different jobs instead of one quietly duplicating the other. Classes mirrors
+          the real data model — a class contains subjects, a subject contains lessons — so navigating it
+          matches how an admin already thinks about their curriculum. Lessons is the "find anything fast"
+          surface, which only starts to matter once there are more lessons than fit on one screen.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-num">02</span>
+      <h2 class="entry-title">No account controls, and a dashboard with nothing on it</h2>
+    </div>
+    <div class="block">
+      <div class="section">
+        <span class="label feedback">Feedback</span>
+        <blockquote>
+          "Maybe a settings page for — let's say — this Gill Dobbie, which I'm logged in as. So if I click
+          there, there's a settings page which would allow me to change things."
+        </blockquote>
+      </div>
+      <div class="section">
+        <span class="label problem">Problem</span>
+        <p>
+          There was no account page anywhere in the app — "Sign out" was the only control an admin had over
+          their own account. Overview, the first screen after logging in, showed two numbers and a single link.
+        </p>
+      </div>
+      <div class="section">
+        <span class="label change">Change</span>
+        <p>
+          A real Settings page: change display name, change password (with the current password verified
+          before it's accepted), change the organisation's name. Overview grew five stat tiles, three
+          quick-links, and a recently-updated lessons list.
+        </p>
+      </div>
+      <div class="section why">
+        <span class="label why">Why it's better</span>
+        <p>
+          An admin can manage their own account without a developer doing it for them. Overview now answers
+          "what needs my attention" on sight, instead of making that a click into Lessons to find out.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-num">03</span>
+      <h2 class="entry-title">Picking a direction by looking, not guessing</h2>
+    </div>
+    <div class="block">
+      <div class="section">
+        <span class="label feedback">Feedback</span>
+        <blockquote>
+          "I like the minimalistic design we have going on, so I want to stay on theme with that — but maybe
+          add one or two variants which are completely different, so we can identify which one suits the users
+          best." Then, after seeing three options: "make it a total of six completely different design styles
+          — different libraries, different components — to give me a sense of what's possible."
+        </blockquote>
+      </div>
+      <div class="section">
+        <span class="label problem">Problem</span>
+        <p>
+          Proposing a single redesign and asking "do you like it" isn't really a design decision — it's a
+          guess dressed up as one, with nothing to compare it against.
+        </p>
+      </div>
+      <div class="section">
+        <span class="label change">Change</span>
+        <p>
+          Built a single comparison page rendering the same real data — Gill Dobbie's actual lesson counts,
+          the actual four grades — across six distinct systems: a dark developer-console style, a formal
+          enterprise style, a soft "productivity tool" style, Material Design 3, a schoolbook/notebook style
+          built specifically around the K-12 subject matter, and a polished version of the existing palette.
+        </p>
+      </div>
+      <div class="section why">
+        <span class="label why">Why it's better</span>
+        <p>
+          Comparing six fully worked examples side by side, on real data instead of lorem ipsum, turns
+          "what should this look like" into something you can actually see and decide on quickly — rather
+          than something you have to picture from a written description.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-num">04</span>
+      <h2 class="entry-title">Committing: three themes, no more emoji, real course cards</h2>
+    </div>
+    <div class="block">
+      <div class="section">
+        <span class="label feedback">Feedback</span>
+        <blockquote>
+          "I really like the Refined Current, the Studio — but with class cards similar to the Atlas one —
+          and the Ledger one, though refine this one more. I'm not a big fan of those emojis, so let's take
+          those out and replace them with good images. And I want the class cards to look like the Canvas
+          cards, with the image banner."
+        </blockquote>
+      </div>
+      <div class="section">
+        <span class="label problem">Problem</span>
+        <p>
+          Emoji render differently across operating systems and browsers, can't be recoloured or resized to
+          match a design system, and read as informal for a platform whose entire premise is giving
+          unqualified facilitators something structured and dependable. Class cards had no visual identity
+          past a name and a count.
+        </p>
+      </div>
+      <div class="section">
+        <span class="label change">Change</span>
+        <p>
+          A real, switchable theme system: one set of colour/radius/shadow/type tokens per style, driving the
+          same shared components — no page needs its own copy of anything. Sidebar and dashboard emoji
+          replaced with lucide icons (the same set shadcn/ui ships with by default). Class cards rebuilt
+          Canvas-style — a banner on top, title and counts below — with generated art as the always-on
+          default so a class never looks unfinished, and a real upload option layered on top of that.
+        </p>
+      </div>
+      <div class="section why">
+        <span class="label why">Why it's better</span>
+        <p>
+          Because the look lives in tokens, not per-page styling, trying a different theme costs nothing
+          structurally — flip one attribute and the whole admin panel repaints. Icons now read consistently
+          and recolour correctly per theme. Canvas is the LMS most people have actually used, so classes now
+          look the way a course catalogue is expected to look — closing exactly the gap the flat list left.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-num">05</span>
+      <h2 class="entry-title">Controls you set once shouldn't sit in the way forever</h2>
+    </div>
+    <div class="block">
+      <div class="section">
+        <span class="label feedback">Feedback</span>
+        <blockquote>
+          "I kind of want those toggles to be in the settings cog. When you click that settings icon, it shows
+          you those two toggles in a dropdown — and it also has a third option, to go to advanced settings."
+        </blockquote>
+      </div>
+      <div class="section">
+        <span class="label problem">Problem</span>
+        <p>
+          The nav-layout and theme switches lived as two permanently visible controls in the top-right of
+          every page — competing with actual page content for attention on every single screen, for a
+          decision an admin makes once and rarely touches again.
+        </p>
+      </div>
+      <div class="section">
+        <span class="label change">Change</span>
+        <p>
+          Both switches collapsed behind one settings-gear icon. Clicking it opens a dropdown with the two
+          toggles stacked, plus an "Advanced settings" link through to the real account settings page.
+        </p>
+      </div>
+      <div class="section why">
+        <span class="label why">Why it's better</span>
+        <p>
+          Controls used constantly should stay visible; controls set once and forgotten shouldn't. One
+          familiar icon — the same pattern Linear, Notion, and GitHub all use for display preferences — keeps
+          the page quiet by default without making the options any harder to reach.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-num">06</span>
+      <h2 class="entry-title">Diligence: chasing down a layout bug that turned out to be two</h2>
+    </div>
+    <div class="block">
+      <div class="section">
+        <span class="label feedback">Feedback</span>
+        <blockquote>
+          "Why is the full space not being utilised? The other pages look great." — then, after a first fix
+          shipped: "this looks off, need to fix this."
+        </blockquote>
+      </div>
+      <div class="section">
+        <span class="label problem">Problem</span>
+        <p>
+          Two separate bugs, stacked. First, Classes and its subject pages still carried a width limit left
+          over from before the card-grid redesign — meant to keep a single "add a class" form narrow, it was
+          quietly capping the entire page, cards included. Fixing that exposed a second, subtler bug: with
+          the sidebar layout active, the main content area sits inside a CSS Grid cell, and a Grid item's
+          default width is "shrink to fit its content," not "stretch to fill the column" — so the centering
+          rule had no spare room to distribute, because there wasn't any.
+        </p>
+      </div>
+      <div class="section">
+        <span class="label change">Change</span>
+        <p>
+          Moved the width limit off the page and onto just the add-class form. Forced the main content area
+          to actually claim its column's full width before capping and centering it.
+        </p>
+      </div>
+      <div class="section why">
+        <span class="label why">Why it's better</span>
+        <p>
+          Small fixes, but they're the difference between a page that looks unfinished on a wide monitor and
+          one that doesn't. Worth keeping on record because the second bug is a genuine, easy-to-repeat CSS
+          Grid behaviour — not a typo, and not obvious from the symptom alone.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <p class="footer">Admin Redesign Log · StudyBuddy · compiled from the working session that produced these changes</p>
+</div>
+
+</body></html>

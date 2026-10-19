@@ -1,0 +1,10 @@
+Measure,Result
+Lessons tested,"15 (14 worksheets; 1 empty lesson refused, no AI call)"
+Questions checked,158; no wrong numeric or science answers
+Summary accuracy (0 to 2),Mean 1.64
+Curriculum fit (0 to 2),Mean 1.29
+Answer key (0 to 2),Mean 1.71
+Edits needed per worksheet,Median 2
+Regenerate,Worked in 2 of 2
+Existing blocks overwritten,0 of 14
+Time and cost per worksheet (20 runs),Median 15.6 s and $0.017

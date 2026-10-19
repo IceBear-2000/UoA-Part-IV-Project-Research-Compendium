@@ -1,0 +1,21 @@
+# Never commit secrets
+.env
+.env.*
+!.env.example
+*.env
+
+# Dependencies and build output
+node_modules/
+.next/
+out/
+dist/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,151 @@
+{
+  "byTable": {
+    "Block": [
+      "id:text",
+      "lessonId:text",
+      "type:USER-DEFINED",
+      "title:text",
+      "order:integer",
+      "facilitatorNote:text",
+      "content:jsonb",
+      "createdAt:timestamp without time zone",
+      "updatedAt:timestamp without time zone"
+    ],
+    "Class": [
+      "id:text",
+      "name:text",
+      "organisationId:text",
+      "createdAt:timestamp without time zone",
+      "bannerImagePath:text",
+      "curriculum:USER-DEFINED"
+    ],
+    "FacilitatorAssignment": [
+      "id:text",
+      "facilitatorId:text",
+      "classId:text",
+      "subjectId:text",
+      "createdAt:timestamp without time zone"
+    ],
+    "Lesson": [
+      "id:text",
+      "subjectId:text",
+      "name:text",
+      "status:USER-DEFINED",
+      "durationMinutes:integer",
+      "description:text",
+      "learningObjectives:text",
+      "createdAt:timestamp without time zone",
+      "updatedAt:timestamp without time zone"
+    ],
+    "LessonProgress": [
+      "id:text",
+      "facilitatorId:text",
+      "lessonId:text",
+      "currentBlockIndex:integer",
+      "completedBlockIds:ARRAY",
+      "completedAt:timestamp without time zone",
+      "startedAt:timestamp without time zone",
+      "updatedAt:timestamp without time zone"
+    ],
+    "Message": [
+      "id:text",
+      "senderId:text",
+      "receiverId:text",
+      "body:text",
+      "createdAt:timestamp without time zone"
+    ],
+    "Notification": [
+      "id:text",
+      "userId:text",
+      "fromUserId:text",
+      "body:text",
+      "link:text",
+      "read:boolean",
+      "createdAt:timestamp without time zone"
+    ],
+    "Organisation": [
+      "id:text",
+      "name:text",
+      "createdAt:timestamp without time zone"
+    ],
+    "SignupRequest": [
+      "id:text",
+      "name:text",
+      "email:text",
+      "requestedClassNote:text",
+      "status:USER-DEFINED",
+      "organisationId:text",
+      "reviewedByUserId:text",
+      "reviewedAt:timestamp without time zone",
+      "rejectionReason:text",
+      "createdUserId:text",
+      "createdAt:timestamp without time zone"
+    ],
+    "Subject": [
+      "id:text",
+      "name:text",
+      "classId:text",
+      "createdAt:timestamp without time zone"
+    ],
+    "User": [
+      "id:text",
+      "authId:text",
+      "name:text",
+      "email:text",
+      "role:USER-DEFINED",
+      "organisationId:text",
+      "createdAt:timestamp without time zone"
+    ]
+  },
+  "authCols": [
+    "instance_id",
+    "id",
+    "aud",
+    "role",
+    "email",
+    "encrypted_password",
+    "email_confirmed_at",
+    "invited_at",
+    "confirmation_token",
+    "confirmation_sent_at",
+    "recovery_token",
+    "recovery_sent_at",
+    "email_change_token_new",
+    "email_change",
+    "email_change_sent_at",
+    "last_sign_in_at",
+    "raw_app_meta_data",
+    "raw_user_meta_data",
+    "is_super_admin",
+    "created_at",
+    "updated_at",
+    "phone",
+    "phone_confirmed_at",
+    "phone_change",
+    "phone_change_token",
+    "phone_change_sent_at",
+    "confirmed_at",
+    "email_change_token_current",
+    "email_change_confirm_status",
+    "banned_until",
+    "reauthentication_token",
+    "reauthentication_sent_at",
+    "is_sso_user",
+    "deleted_at",
+    "is_anonymous"
+  ],
+  "counts": {
+    "User": 4,
+    "SignupRequest": 3,
+    "Message": 1,
+    "Notification": 12,
+    "LessonProgress": 10,
+    "Organisation": 1,
+    "Class": 8,
+    "Subject": 22,
+    "Lesson": 122,
+    "Block": 373,
+    "FacilitatorAssignment": 9
+  },
+  "studentish": []
+}

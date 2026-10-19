@@ -1,0 +1,2 @@
+StudyBuddy evaluation fixture.
+Plants need water, sunlight and air to grow.

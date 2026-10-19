@@ -1,0 +1,10 @@
+Check,Result
+Open 20 protected routes without signing in,20 of 20 redirected to login (local build and live site)
+Send 19 forged admin actions with a facilitator session,"19 of 19 rejected, no data changed"
+"Open lessons, classes or subjects not granted (8 cases)",8 of 8 not found
+Open or progress a draft lesson in a granted subject,Hidden and rejected
+Sign in before approval or before using the invite (7 attempts),0 of 7 worked
+"Use an altered, reused or genuine invite link","Altered and reused rejected, genuine accepted once"
+Change password in Settings with a wrong or missing current password,Rejected
+Request a stored file without a signed link,"Rejected; signed links expire after 3,600 s"
+Student data stored,None; staff data only

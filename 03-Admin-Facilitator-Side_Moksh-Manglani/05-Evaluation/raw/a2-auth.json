@@ -1,0 +1,106 @@
+[
+  {
+    "id": "A5",
+    "check": "Person who requested access but has not been approved tries to sign in",
+    "expected": "request stored as PENDING, no auth account exists, every sign-in attempt rejected",
+    "actual": "signup redirect=/signup?submitted=1; request status=PENDING; Supabase auth user exists=false; sign-in attempts (4 passwords) succeeded=0/4, all redirected to /login?error=Incorrect%20email%20or%20password.",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A6-setup",
+    "check": "Admin approves a request (as the real flow does)",
+    "expected": "unconfirmed Supabase user + facilitator row + invite link; email send disabled for the test",
+    "actual": "HTTP 200; app user=FACILITATOR; auth user confirmed=false; link host=<supabase-project-ref>.supabase.co",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A5b",
+    "check": "Approved person who has NOT yet opened the invite link tries to sign in (guessed passwords + the link's own token as password)",
+    "expected": "rejected (no password exists yet)",
+    "actual": "succeeded=0/3",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A6a",
+    "check": "Tampered invite link (last character of the token changed)",
+    "expected": "rejected, no session tokens issued",
+    "actual": "HTTP 303; no tokens; Email link is invalid or has expired",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A6b",
+    "check": "Genuine invite link used once",
+    "expected": "issues a session (access + refresh token) and redirects to /auth/confirm",
+    "actual": "HTTP 303; redirect host/path=http://localhost:3001/auth/confirm; access_token issued=true; refresh_token issued=true",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A6c",
+    "check": "Same invite link used a second time",
+    "expected": "rejected (single-use)",
+    "actual": "HTTP 303; no tokens; Email link is invalid or has expired",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A6d",
+    "check": "Expired invite link",
+    "expected": "rejected after expiry",
+    "actual": "NOT RUN: Supabase invite-link lifetime is a project auth setting that cannot be read with the keys available here, and waiting out an unknown lifetime was not practical. The app's /auth/confirm page and /set-password show 'This link has expired or already been used' for expired/invalid links (code review).",
+    "pass": null,
+    "evidence": ""
+  },
+  {
+    "id": "A5c",
+    "check": "After using the invite link and setting a password, the approved facilitator can sign in",
+    "expected": "sign-in succeeds and lands on /dashboard",
+    "actual": "updateUser error=none; sign-in ok=true",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A7",
+    "check": "Admin changes password without the correct current password (wrong / empty / too-short new)",
+    "expected": "each rejected; password unchanged",
+    "actual": "wrong current -> HTTP 500 \"Current password is incorrect.\"; empty current -> \"Enter your current password.\"; new password 3 chars -> \"New password must be at least 6 characters.\"; old password still signs in=true; attempted new password signs in=false",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A7c",
+    "check": "Visiting /set-password with no session",
+    "expected": "shows 'Link expired', no form",
+    "actual": "HTTP 200; form shown=false; says link expired=true",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A8",
+    "check": "Uploaded worksheet/workbook file requested without a signed link (public URL, anon-key authenticated URL, anon bucket listing)",
+    "expected": "none of them returns the file; bucket is private",
+    "actual": "public URL -> HTTP 400; authenticated URL with anon key -> HTTP 400; list with anon key -> HTTP 200 []; bucket.public=false",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A8b",
+    "check": "Signed link the app issues to the facilitator",
+    "expected": "works, expires (1 hour in code)",
+    "actual": "app-issued link: HTTP 200 application/pdf 13201 bytes; lifetime exp-iat=3600s (code: createSignedUrl(path, 3600))",
+    "pass": true,
+    "evidence": ""
+  },
+  {
+    "id": "A8d",
+    "check": "Signed link after it expires (3-second link created on the same file to demonstrate the mechanism; the app's own links use 3600 s)",
+    "expected": "200 while valid, rejected once expired",
+    "actual": "at t=0s HTTP 200; at t=6s HTTP 400 {\"statusCode\":\"400\",\"error\":\"InvalidJWT\",\"message\":\"\\\"exp\\\" claim timestamp check failed\",\"code\":\"InvalidJWT\"}",
+    "pass": true,
+    "evidence": ""
+  }
+]

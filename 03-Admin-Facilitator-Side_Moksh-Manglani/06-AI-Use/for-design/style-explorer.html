@@ -1,0 +1,730 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="UTF-8">
+<title>StudyBuddy Style Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --host-bg:#f4f0e6; --host-surface:#fcfaf4; --host-ink:#2a271f; --host-muted:#928b7c; --host-line:#e4ddcc; --host-accent:#be8264;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --host-bg:#171510; --host-surface:#211e18; --host-ink:#efe9dd; --host-muted:#a39a87; --host-line:#39352a; --host-accent:#d9a17e;
+    }
+  }
+  :root[data-theme="dark"]{
+    --host-bg:#171510; --host-surface:#211e18; --host-ink:#efe9dd; --host-muted:#a39a87; --host-line:#39352a; --host-accent:#d9a17e;
+  }
+
+  *{ box-sizing:border-box; }
+  :root{ color-scheme:light dark; }
+  body{
+    background:var(--host-bg); color:var(--host-ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    padding-bottom:64px;
+  }
+
+  /* Each of the 6 variants below commits to one deliberate visual world
+     (a real design system shown at its canonical light/dark treatment) —
+     color-scheme stops the browser's forced-dark rewriting from
+     "correcting" colors that are already intentional. */
+  [data-variant="console"]{ color-scheme:dark; }
+  [data-variant="ledger"],
+  [data-variant="studio"],
+  [data-variant="atlas"],
+  [data-variant="fieldnotes"],
+  [data-variant="refined"]{ color-scheme:light; }
+  /* :where() carries zero specificity, so every .class color rule below
+     still wins — this just stops inherited-only text (which some browsers'
+     forced-dark heuristics treat as "unstyled" and auto-relighten) from
+     ever rendering without its own explicit color. */
+  [data-variant="ledger"] :where(h1,td,th,div,span,p,strong,td,li),
+  [data-variant="studio"] :where(h1,td,th,div,span,p,strong,td,li),
+  [data-variant="atlas"] :where(h1,td,th,div,span,p,strong,td,li),
+  [data-variant="fieldnotes"] :where(h1,td,th,div,span,p,strong,td,li),
+  [data-variant="refined"] :where(h1,td,th,div,span,p,strong,td,li){ color:var(--ink); }
+
+  /* ---------- switcher chrome ---------- */
+  .switcher{
+    position:sticky; top:0; z-index:50;
+    background:var(--host-surface); border-bottom:1px solid var(--host-line);
+    padding:14px 20px; display:flex; flex-direction:column; gap:10px;
+  }
+  .switcher-top{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .switcher-title{ font-size:14px; font-weight:700; letter-spacing:-0.01em; }
+  .switcher-sub{ font-size:12.5px; color:var(--host-muted); }
+  .variant-tabs{ display:flex; gap:6px; flex-wrap:wrap; }
+  .variant-tab{
+    appearance:none; border:1px solid var(--host-line); background:transparent; color:var(--host-ink);
+    font:inherit; font-size:12.5px; font-weight:600; padding:7px 12px; border-radius:8px; cursor:pointer;
+    transition:background .15s, border-color .15s;
+  }
+  .variant-tab:hover{ border-color:var(--host-accent); }
+  .variant-tab[aria-pressed="true"]{ background:var(--host-accent); color:#fff; border-color:var(--host-accent); }
+  .variant-tab:focus-visible{ outline:2px solid var(--host-accent); outline-offset:2px; }
+  .page-tabs{ display:inline-flex; gap:4px; background:var(--host-bg); border:1px solid var(--host-line); border-radius:9px; padding:3px; width:fit-content; }
+  .page-tab{
+    appearance:none; border:0; background:transparent; color:var(--host-muted); font:inherit; font-size:12.5px; font-weight:600;
+    padding:6px 13px; border-radius:6px; cursor:pointer;
+  }
+  .page-tab[aria-pressed="true"]{ background:var(--host-surface); color:var(--host-ink); box-shadow:0 1px 2px rgba(0,0,0,.08); }
+  .page-tab:focus-visible{ outline:2px solid var(--host-accent); outline-offset:2px; }
+
+  .variant{ }
+  .variant[hidden]{ display:none !important; }
+  .vpage[hidden]{ display:none !important; }
+
+  img{ max-width:100%; }
+  button{ font:inherit; }
+  a{ text-decoration:none; color:inherit; }
+
+  /* ====================================================================
+     1) CONSOLE — dark developer-tool console (Linear/Vercel-adjacent)
+     ==================================================================== */
+  [data-variant="console"]{
+    --bg:#0d0e10; --surface:#141518; --surface-2:#1b1d21; --border:#2a2c31; --ink:#e7e8ea; --muted:#8b8d94;
+    --accent:#7c6ff0; --accent-ink:#efeeff; --good:#3fb97c; --warn:#d9a441;
+    background:var(--bg); color:var(--ink); font-family:"IBM Plex Sans",-apple-system,sans-serif;
+  }
+  [data-variant="console"] .shell{ display:grid; grid-template-columns:212px 1fr; min-height:600px; }
+  [data-variant="console"] .rail{ border-right:1px solid var(--border); padding:18px 14px; display:flex; flex-direction:column; gap:2px; }
+  [data-variant="console"] .rail-brand{ display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; padding:0 8px 16px; }
+  [data-variant="console"] .rail-mark{ width:18px; height:18px; border-radius:5px; background:var(--accent); display:grid; place-items:center; font-size:11px; color:#fff; font-weight:700; }
+  [data-variant="console"] .rail-item{ font-size:12.5px; color:var(--muted); padding:7px 8px; border-radius:6px; display:flex; align-items:center; gap:8px; }
+  [data-variant="console"] .rail-item svg{ width:14px; height:14px; opacity:.85; }
+  [data-variant="console"] .rail-item.active{ background:var(--surface-2); color:var(--ink); }
+  [data-variant="console"] .rail-foot{ margin-top:auto; padding-top:10px; border-top:1px solid var(--border); font-size:11.5px; color:var(--muted); display:flex; align-items:center; gap:8px; }
+  [data-variant="console"] .rail-avatar{ width:20px; height:20px; border-radius:5px; background:var(--surface-2); border:1px solid var(--border); display:grid; place-items:center; font-size:9px; font-weight:700; color:var(--ink); }
+  [data-variant="console"] .main{ padding:26px 30px; }
+  [data-variant="console"] .pagehead{ display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+  [data-variant="console"] h1{ font-size:15px; font-weight:600; letter-spacing:-0.01em; margin:0; }
+  [data-variant="console"] .lede{ font-size:12px; color:var(--muted); margin-top:3px; font-family:"IBM Plex Mono",monospace; }
+  [data-variant="console"] .btn-primary{ background:var(--accent); color:#fff; border:0; border-radius:6px; padding:7px 13px; font-size:12px; font-weight:600; cursor:default; }
+  [data-variant="console"] .stat-strip{ display:grid; grid-template-columns:repeat(5,1fr); border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:22px; }
+  [data-variant="console"] .stat-cell{ padding:14px 16px; border-right:1px solid var(--border); }
+  [data-variant="console"] .stat-cell:last-child{ border-right:0; }
+  [data-variant="console"] .stat-num{ font-family:"IBM Plex Mono",monospace; font-size:22px; font-weight:600; font-variant-numeric:tabular-nums; }
+  [data-variant="console"] .stat-label{ font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-top:3px; }
+  [data-variant="console"] .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:24px; }
+  [data-variant="console"] .qcard{ border:1px solid var(--border); border-radius:8px; padding:13px; background:var(--surface); }
+  [data-variant="console"] .qcard-label{ font-size:12.5px; font-weight:600; }
+  [data-variant="console"] .qcard-desc{ font-size:11.5px; color:var(--muted); margin-top:3px; }
+  [data-variant="console"] .section-label{ font-size:10.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); margin-bottom:10px; font-weight:600; }
+  [data-variant="console"] .rowlist{ border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  [data-variant="console"] .row{ display:flex; align-items:center; justify-content:space-between; padding:11px 14px; border-bottom:1px solid var(--border); }
+  [data-variant="console"] .row:last-child{ border-bottom:0; }
+  [data-variant="console"] .row-title{ font-size:12.5px; font-weight:500; }
+  [data-variant="console"] .row-sub{ font-size:11px; color:var(--muted); font-family:"IBM Plex Mono",monospace; margin-top:2px; }
+  [data-variant="console"] .pill{ font-size:10px; font-weight:600; padding:3px 8px; border-radius:20px; font-family:"IBM Plex Mono",monospace; }
+  [data-variant="console"] .pill.good{ background:rgba(63,185,124,.14); color:var(--good); }
+  [data-variant="console"] .pill.warn{ background:rgba(217,164,65,.14); color:var(--warn); }
+  [data-variant="console"] .cc-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  [data-variant="console"] .cc{ border:1px solid var(--border); border-radius:8px; padding:16px; background:var(--surface); }
+  [data-variant="console"] .cc-name{ font-size:13.5px; font-weight:600; }
+  [data-variant="console"] .cc-meta{ font-size:11px; color:var(--muted); font-family:"IBM Plex Mono",monospace; margin-top:6px; }
+  [data-variant="console"] .add-row{ display:flex; gap:8px; margin-bottom:18px; }
+  [data-variant="console"] .add-row input{ flex:1; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:8px 10px; color:var(--ink); font-size:12.5px; font-family:inherit; }
+  [data-variant="console"] .add-row input::placeholder{ color:var(--muted); }
+
+  /* ====================================================================
+     2) LEDGER — formal enterprise admin console
+     ==================================================================== */
+  [data-variant="ledger"]{
+    --bg:#eef1f5; --surface:#ffffff; --border:#d7dce3; --ink:#1c2430; --muted:#66707d;
+    --accent:#2c4a6e; --good:#1d7a4c; --warn:#b45309; --danger:#b42318;
+    background:var(--bg); color:var(--ink); font-family:"Public Sans",-apple-system,sans-serif;
+  }
+  [data-variant="ledger"] .topbar{ background:var(--accent); color:#fff; padding:0 26px; height:48px; display:flex; align-items:center; justify-content:space-between; }
+  [data-variant="ledger"] .topbar-brand{ font-family:"Source Serif 4",serif; font-weight:600; font-size:16px; letter-spacing:.01em; }
+  [data-variant="ledger"] .topbar-nav{ display:flex; gap:22px; font-size:12.5px; font-weight:500; }
+  [data-variant="ledger"] .topbar-nav span{ opacity:.75; padding-bottom:14px; border-bottom:2px solid transparent; }
+  [data-variant="ledger"] .topbar-nav span.active{ opacity:1; border-color:#fff; }
+  [data-variant="ledger"] .topbar-user{ font-size:12px; opacity:.85; }
+  [data-variant="ledger"] .main{ max-width:1040px; margin:0 auto; padding:28px 26px 40px; }
+  [data-variant="ledger"] .pagehead{ display:flex; align-items:flex-end; justify-content:space-between; border-bottom:1px solid var(--border); padding-bottom:14px; margin-bottom:20px; }
+  [data-variant="ledger"] h1{ font-family:"Source Serif 4",serif; font-size:24px; font-weight:600; margin:0; }
+  [data-variant="ledger"] .lede{ font-size:13px; color:var(--muted); margin-top:4px; }
+  [data-variant="ledger"] .btn-primary{ background:var(--accent); color:#fff; border:0; border-radius:3px; padding:9px 16px; font-size:12.5px; font-weight:600; cursor:default; }
+  [data-variant="ledger"] .stat-strip{ display:flex; background:var(--surface); border:1px solid var(--border); border-radius:4px; margin-bottom:22px; }
+  [data-variant="ledger"] .stat-cell{ flex:1; padding:14px 18px; border-right:1px solid var(--border); }
+  [data-variant="ledger"] .stat-cell:last-child{ border-right:0; }
+  [data-variant="ledger"] .stat-num{ font-size:23px; font-weight:700; font-variant-numeric:tabular-nums; }
+  [data-variant="ledger"] .stat-label{ font-size:11.5px; color:var(--muted); margin-top:2px; }
+  [data-variant="ledger"] .section-label{ font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); font-weight:700; margin:22px 0 8px; }
+  [data-variant="ledger"] table{ width:100%; border-collapse:collapse; background:var(--surface); border:1px solid var(--border); font-size:13px; }
+  [data-variant="ledger"] th{ text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-weight:700; padding:9px 14px; border-bottom:1px solid var(--border); background:#f6f7f9; }
+  [data-variant="ledger"] td{ padding:10px 14px; border-bottom:1px solid var(--border); }
+  [data-variant="ledger"] tr:last-child td{ border-bottom:0; }
+  [data-variant="ledger"] .badge{ font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:3px; text-transform:uppercase; letter-spacing:.03em; }
+  [data-variant="ledger"] .badge.good{ background:#e6f4ec; color:var(--good); }
+  [data-variant="ledger"] .badge.warn{ background:#fbead2; color:var(--warn); }
+  [data-variant="ledger"] .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-top:22px; }
+  [data-variant="ledger"] .qcard{ background:var(--surface); padding:14px; }
+  [data-variant="ledger"] .qcard-label{ font-size:13px; font-weight:700; }
+  [data-variant="ledger"] .qcard-desc{ font-size:11.5px; color:var(--muted); margin-top:3px; }
+  [data-variant="ledger"] .add-row{ display:flex; gap:0; margin-bottom:18px; border:1px solid var(--border); border-radius:3px; overflow:hidden; width:fit-content; }
+  [data-variant="ledger"] .add-row input{ border:0; padding:9px 12px; font-size:12.5px; font-family:inherit; width:200px; }
+  [data-variant="ledger"] .add-row button{ background:var(--accent); color:#fff; border:0; padding:9px 16px; font-size:12.5px; font-weight:600; }
+
+  /* ====================================================================
+     3) STUDIO — soft productivity tool
+     ==================================================================== */
+  [data-variant="studio"]{
+    --bg:#f6f5fa; --surface:#ffffff; --border:#e7e4f0; --ink:#2c2a38; --muted:#8b8798;
+    --accent:#c9852e; --accent-soft:#f5e6cd; --good:#3e9668; --warn:#c9762e;
+    background:var(--bg); color:var(--ink); font-family:"Karla",-apple-system,sans-serif;
+  }
+  [data-variant="studio"] .shell{ display:grid; grid-template-columns:220px 1fr; min-height:600px; }
+  [data-variant="studio"] .rail{ padding:22px 16px; display:flex; flex-direction:column; gap:3px; }
+  [data-variant="studio"] .rail-brand{ font-family:"Fraunces",serif; font-size:17px; font-weight:600; padding:2px 10px 20px; }
+  [data-variant="studio"] .rail-item{ font-size:13.5px; color:var(--muted); padding:9px 12px; border-radius:10px; font-weight:500; }
+  [data-variant="studio"] .rail-item.active{ background:var(--surface); color:var(--ink); font-weight:700; box-shadow:0 1px 2px rgba(44,42,56,.06); }
+  [data-variant="studio"] .rail-foot{ margin-top:auto; font-size:12px; color:var(--muted); padding:10px 12px; }
+  [data-variant="studio"] .main{ padding:30px 34px; }
+  [data-variant="studio"] .pagehead{ margin-bottom:22px; }
+  [data-variant="studio"] h1{ font-family:"Fraunces",serif; font-size:27px; font-weight:600; margin:0; letter-spacing:-.01em; }
+  [data-variant="studio"] .lede{ font-size:13.5px; color:var(--muted); margin-top:4px; }
+  [data-variant="studio"] .btn-primary{ background:var(--accent); color:#fff; border:0; border-radius:20px; padding:9px 18px; font-size:13px; font-weight:700; cursor:default; }
+  [data-variant="studio"] .stat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:24px; }
+  [data-variant="studio"] .stat-card{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:18px; }
+  [data-variant="studio"] .stat-num{ font-family:"Fraunces",serif; font-size:30px; font-weight:600; }
+  [data-variant="studio"] .stat-label{ font-size:12px; color:var(--muted); margin-top:2px; }
+  [data-variant="studio"] .section-label{ font-size:12px; font-weight:700; color:var(--ink); margin:24px 0 10px; }
+  [data-variant="studio"] .qlist{ display:flex; flex-direction:column; gap:8px; margin-bottom:6px; }
+  [data-variant="studio"] .qrow{ display:flex; align-items:center; gap:12px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:12px 15px; }
+  [data-variant="studio"] .qrow-mark{ width:30px; height:30px; border-radius:9px; background:var(--accent-soft); display:grid; place-items:center; font-family:"Fraunces",serif; font-weight:700; color:var(--accent); font-size:13px; }
+  [data-variant="studio"] .qrow-label{ font-size:13.5px; font-weight:700; }
+  [data-variant="studio"] .qrow-desc{ font-size:12px; color:var(--muted); margin-top:1px; }
+  [data-variant="studio"] .rlist{ display:flex; flex-direction:column; gap:7px; }
+  [data-variant="studio"] .rrow{ display:flex; align-items:center; justify-content:space-between; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:11px 15px; }
+  [data-variant="studio"] .rrow-title{ font-size:13px; font-weight:700; }
+  [data-variant="studio"] .rrow-sub{ font-size:11.5px; color:var(--muted); margin-top:1px; }
+  [data-variant="studio"] .tag{ font-size:10.5px; font-weight:700; padding:4px 10px; border-radius:20px; }
+  [data-variant="studio"] .tag.good{ background:#e2f2e8; color:var(--good); }
+  [data-variant="studio"] .cc-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  [data-variant="studio"] .cc{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:19px; }
+  [data-variant="studio"] .cc-name{ font-family:"Fraunces",serif; font-size:16px; font-weight:600; }
+  [data-variant="studio"] .cc-meta{ font-size:12px; color:var(--muted); margin-top:5px; }
+  [data-variant="studio"] .cc-bar{ height:5px; border-radius:3px; background:var(--accent-soft); margin-top:12px; overflow:hidden; }
+  [data-variant="studio"] .cc-bar span{ display:block; height:100%; background:var(--accent); border-radius:3px; }
+  [data-variant="studio"] .add-row{ display:flex; gap:8px; margin-bottom:18px; }
+  [data-variant="studio"] .add-row input{ flex:1; max-width:260px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:9px 14px; font-size:13px; font-family:inherit; }
+  [data-variant="studio"] .add-row button{ background:var(--accent); color:#fff; border:0; border-radius:14px; padding:9px 16px; font-size:13px; font-weight:700; }
+
+  /* ====================================================================
+     4) ATLAS — Material 3 tonal admin console
+     ==================================================================== */
+  [data-variant="atlas"]{
+    --bg:#f2faf6; --surface:#ffffff; --tonal:#dcf1e8; --border:#c7d4ce; --ink:#161d1b; --muted:#4c5955;
+    --accent:#0b6b5c; --accent-ink:#ffffff; --good:#0b6b5c; --warn:#7a5900;
+    background:var(--bg); color:var(--ink); font-family:"Roboto",-apple-system,sans-serif;
+  }
+  [data-variant="atlas"] .shell{ display:grid; grid-template-columns:96px 1fr; min-height:600px; }
+  [data-variant="atlas"] .rail{ padding:20px 10px; display:flex; flex-direction:column; align-items:center; gap:10px; }
+  [data-variant="atlas"] .rail-mark{ width:34px; height:34px; border-radius:10px; background:var(--accent); color:#fff; display:grid; place-items:center; font-weight:700; font-size:14px; margin-bottom:14px; }
+  [data-variant="atlas"] .rail-item{ width:100%; display:flex; flex-direction:column; align-items:center; gap:3px; font-size:10.5px; color:var(--muted); font-weight:500; padding:7px 4px; }
+  [data-variant="atlas"] .rail-pill{ width:46px; height:26px; border-radius:13px; display:grid; place-items:center; }
+  [data-variant="atlas"] .rail-item.active .rail-pill{ background:var(--tonal); }
+  [data-variant="atlas"] .rail-item.active{ color:var(--ink); font-weight:700; }
+  [data-variant="atlas"] .rail-item svg{ width:18px; height:18px; }
+  [data-variant="atlas"] .main{ padding:26px 32px; }
+  [data-variant="atlas"] .pagehead{ display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; }
+  [data-variant="atlas"] h1{ font-size:22px; font-weight:500; margin:0; letter-spacing:-.005em; }
+  [data-variant="atlas"] .lede{ font-size:13px; color:var(--muted); margin-top:3px; }
+  [data-variant="atlas"] .btn-primary{ background:var(--accent); color:#fff; border:0; border-radius:20px; padding:10px 20px; font-size:13px; font-weight:600; cursor:default; }
+  [data-variant="atlas"] .stat-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:24px; }
+  [data-variant="atlas"] .stat-card{ background:var(--tonal); border-radius:20px; padding:16px 14px; }
+  [data-variant="atlas"] .stat-num{ font-size:24px; font-weight:700; font-family:"Roboto Mono",monospace; }
+  [data-variant="atlas"] .stat-label{ font-size:11px; color:var(--muted); margin-top:3px; font-weight:500; }
+  [data-variant="atlas"] .section-label{ font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); font-weight:700; margin:24px 0 10px; }
+  [data-variant="atlas"] .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:8px; }
+  [data-variant="atlas"] .qcard{ background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:16px; box-shadow:0 1px 3px rgba(11,107,92,.08); }
+  [data-variant="atlas"] .qcard-label{ font-size:14px; font-weight:600; }
+  [data-variant="atlas"] .qcard-desc{ font-size:12px; color:var(--muted); margin-top:3px; }
+  [data-variant="atlas"] .rlist{ display:flex; flex-direction:column; gap:8px; }
+  [data-variant="atlas"] .rrow{ display:flex; align-items:center; justify-content:space-between; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:12px 16px; }
+  [data-variant="atlas"] .rrow-title{ font-size:13.5px; font-weight:500; }
+  [data-variant="atlas"] .rrow-sub{ font-size:11.5px; color:var(--muted); margin-top:2px; }
+  [data-variant="atlas"] .chip{ font-size:11px; font-weight:600; padding:5px 12px; border-radius:20px; background:var(--tonal); color:var(--accent); }
+  [data-variant="atlas"] .cc-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  [data-variant="atlas"] .cc{ background:var(--surface); border:1px solid var(--border); border-radius:24px; padding:18px; box-shadow:0 1px 3px rgba(11,107,92,.08); }
+  [data-variant="atlas"] .cc-mark{ width:38px; height:38px; border-radius:12px; background:var(--tonal); display:grid; place-items:center; font-weight:700; color:var(--accent); font-size:14px; margin-bottom:10px; }
+  [data-variant="atlas"] .cc-name{ font-size:15px; font-weight:600; }
+  [data-variant="atlas"] .cc-meta{ font-size:11.5px; color:var(--muted); margin-top:4px; }
+  [data-variant="atlas"] .add-row{ display:flex; gap:8px; margin-bottom:18px; }
+  [data-variant="atlas"] .add-row input{ flex:1; max-width:260px; background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:10px 16px; font-size:13px; font-family:inherit; }
+  [data-variant="atlas"] .add-row button{ background:var(--tonal); color:var(--accent); border:0; border-radius:20px; padding:10px 18px; font-size:13px; font-weight:700; }
+
+  /* ====================================================================
+     5) FIELD NOTES — schoolbook / notebook, subject-grounded
+     ==================================================================== */
+  [data-variant="fieldnotes"]{
+    --bg:#ece3d0; --surface:#faf5e8; --rule:#ddd0b3; --border:#cfc09a; --ink:#2c352e; --muted:#7a7259;
+    --accent:#33564a; --pencil:#a5432f;
+    background:var(--bg); color:var(--ink); font-family:"Spectral",Georgia,serif;
+  }
+  [data-variant="fieldnotes"] .shell{ display:grid; grid-template-columns:200px 1fr; min-height:600px; }
+  [data-variant="fieldnotes"] .rail{ padding:24px 18px; border-right:1px dashed var(--border); display:flex; flex-direction:column; gap:4px; }
+  [data-variant="fieldnotes"] .rail-brand{ font-size:19px; font-weight:700; padding-bottom:20px; }
+  [data-variant="fieldnotes"] .rail-item{ font-size:14px; color:var(--muted); padding:7px 4px; border-bottom:1px solid transparent; }
+  [data-variant="fieldnotes"] .rail-item.active{ color:var(--accent); font-weight:700; border-bottom-color:var(--accent); }
+  [data-variant="fieldnotes"] .rail-foot{ margin-top:auto; font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--muted); }
+  [data-variant="fieldnotes"] .main{
+    padding:28px 34px;
+    background-image:repeating-linear-gradient(var(--surface) 0 31px, var(--rule) 31px 32px);
+  }
+  [data-variant="fieldnotes"] .pagehead{ margin-bottom:20px; }
+  [data-variant="fieldnotes"] h1{ font-size:26px; font-weight:700; margin:0; }
+  [data-variant="fieldnotes"] .lede{ font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--muted); margin-top:4px; }
+  [data-variant="fieldnotes"] .btn-primary{ background:var(--accent); color:#faf5e8; border:0; padding:8px 16px; font-size:12.5px; font-weight:700; font-family:"JetBrains Mono",monospace; cursor:default; }
+  [data-variant="fieldnotes"] .stat-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:26px; }
+  [data-variant="fieldnotes"] .stat-stamp{ text-align:center; }
+  [data-variant="fieldnotes"] .stat-num{ width:56px; height:56px; margin:0 auto; border:2px solid var(--accent); border-radius:50%; display:grid; place-items:center; font-family:"JetBrains Mono",monospace; font-size:19px; font-weight:700; color:var(--accent); transform:rotate(-3deg); }
+  [data-variant="fieldnotes"] .stat-label{ font-size:11px; color:var(--muted); margin-top:7px; text-transform:uppercase; letter-spacing:.04em; }
+  [data-variant="fieldnotes"] .section-label{ font-family:"JetBrains Mono",monospace; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:22px 0 10px; }
+  [data-variant="fieldnotes"] .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:6px; }
+  [data-variant="fieldnotes"] .qcard{ border:1px solid var(--border); padding:13px 14px; background:rgba(255,255,255,.35); }
+  [data-variant="fieldnotes"] .qcard-label{ font-size:14px; font-weight:700; }
+  [data-variant="fieldnotes"] .qcard-desc{ font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--muted); margin-top:4px; }
+  [data-variant="fieldnotes"] .rlist{ display:flex; flex-direction:column; }
+  [data-variant="fieldnotes"] .rrow{ display:flex; align-items:center; justify-content:space-between; padding:9px 2px; border-bottom:1px solid var(--border); }
+  [data-variant="fieldnotes"] .rrow-title{ font-size:14px; font-weight:600; }
+  [data-variant="fieldnotes"] .rrow-sub{ font-family:"JetBrains Mono",monospace; font-size:10.5px; color:var(--muted); margin-top:2px; }
+  [data-variant="fieldnotes"] .check{ font-size:15px; color:var(--pencil); font-weight:700; }
+  [data-variant="fieldnotes"] .cc-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  [data-variant="fieldnotes"] .cc{ background:rgba(255,255,255,.4); border:1px solid var(--border); border-top:6px solid var(--accent); padding:16px; }
+  [data-variant="fieldnotes"] .cc-name{ font-size:15px; font-weight:700; }
+  [data-variant="fieldnotes"] .cc-meta{ font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--muted); margin-top:6px; }
+  [data-variant="fieldnotes"] .add-row{ display:flex; gap:0; margin-bottom:18px; width:fit-content; border:1px solid var(--border); }
+  [data-variant="fieldnotes"] .add-row input{ border:0; background:transparent; padding:8px 12px; font-size:13px; font-family:"JetBrains Mono",monospace; width:180px; }
+  [data-variant="fieldnotes"] .add-row button{ background:var(--accent); color:#faf5e8; border:0; padding:8px 16px; font-size:12px; font-weight:700; font-family:"JetBrains Mono",monospace; }
+
+  /* ====================================================================
+     6) REFINED CURRENT — polished version of the existing warm palette
+     ==================================================================== */
+  [data-variant="refined"]{
+    --bg:#f4f0e6; --surface:#fcfaf4; --border:#e4ddcc; --ink:#33302a; --muted:#928b7c;
+    --clay:#be8264; --clay-soft:#eddfd4; --sage:#8fa585; --sage-soft:#e6ebe0; --blue:#88a0b4; --blue-soft:#e3eaef;
+    --gold:#c9b173; --gold-soft:#f0e9d4;
+    background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  [data-variant="refined"] .shell{ display:grid; grid-template-columns:216px 1fr; min-height:600px; }
+  [data-variant="refined"] .rail{ background:var(--bg); padding:20px 14px; display:flex; flex-direction:column; gap:2px; }
+  [data-variant="refined"] .rail-brand{ display:flex; align-items:center; gap:9px; font-size:15px; font-weight:700; padding:2px 8px 20px; letter-spacing:-.01em; }
+  [data-variant="refined"] .rail-mark{ width:26px; height:26px; border-radius:8px; background:var(--clay); }
+  [data-variant="refined"] .rail-item{ font-size:13.5px; color:var(--muted); padding:9px 11px; border-radius:9px; font-weight:500; }
+  [data-variant="refined"] .rail-item.active{ background:var(--surface); color:var(--ink); font-weight:600; box-shadow:0 1px 0 rgba(51,48,42,.03),0 1px 3px rgba(51,48,42,.05); }
+  [data-variant="refined"] .rail-foot{ margin-top:auto; font-size:12px; color:var(--muted); padding:10px; }
+  [data-variant="refined"] .main{ padding:28px 32px; }
+  [data-variant="refined"] .pagehead{ display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; }
+  [data-variant="refined"] h1{ font-size:24px; font-weight:700; margin:0; letter-spacing:-.01em; }
+  [data-variant="refined"] .lede{ font-size:13.5px; color:var(--muted); margin-top:3px; }
+  [data-variant="refined"] .btn-primary{ background:var(--clay); color:#fff; border:0; border-radius:9px; padding:10px 17px; font-size:13px; font-weight:600; cursor:default; box-shadow:0 1px 0 rgba(51,48,42,.03),0 4px 10px rgba(190,130,100,.22); }
+  [data-variant="refined"] .stat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:24px; }
+  [data-variant="refined"] .stat-card{ background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px; box-shadow:0 1px 0 rgba(51,48,42,.03),0 1px 3px rgba(51,48,42,.05); }
+  [data-variant="refined"] .stat-num{ font-size:27px; font-weight:700; letter-spacing:-.01em; }
+  [data-variant="refined"] .stat-label{ font-size:12px; color:var(--muted); margin-top:3px; }
+  [data-variant="refined"] .section-label{ font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-weight:600; margin:24px 0 10px; }
+  [data-variant="refined"] .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:6px; }
+  [data-variant="refined"] .qcard{ background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:15px; display:flex; gap:11px; align-items:flex-start; box-shadow:0 1px 0 rgba(51,48,42,.03),0 1px 3px rgba(51,48,42,.05); }
+  [data-variant="refined"] .qcard-mark{ width:34px; height:34px; border-radius:10px; background:var(--clay-soft); flex-shrink:0; }
+  [data-variant="refined"] .qcard-label{ font-size:13.5px; font-weight:600; }
+  [data-variant="refined"] .qcard-desc{ font-size:12px; color:var(--muted); margin-top:2px; }
+  [data-variant="refined"] .rlist{ display:flex; flex-direction:column; gap:7px; }
+  [data-variant="refined"] .rrow{ display:flex; align-items:center; justify-content:space-between; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 15px; box-shadow:0 1px 0 rgba(51,48,42,.03),0 1px 3px rgba(51,48,42,.05); }
+  [data-variant="refined"] .rrow-title{ font-size:13.5px; font-weight:600; }
+  [data-variant="refined"] .rrow-sub{ font-size:12px; color:var(--muted); margin-top:2px; }
+  [data-variant="refined"] .tag{ font-size:11px; font-weight:600; padding:4px 10px; border-radius:8px; }
+  [data-variant="refined"] .tag.good{ background:var(--sage-soft); color:#5f7355; }
+  [data-variant="refined"] .cc-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  [data-variant="refined"] .cc{ background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:19px; box-shadow:0 1px 0 rgba(51,48,42,.03),0 1px 3px rgba(51,48,42,.05); }
+  [data-variant="refined"] .cc-mark{ width:38px; height:38px; border-radius:11px; background:var(--clay-soft); margin-bottom:11px; }
+  [data-variant="refined"] .cc-name{ font-size:15.5px; font-weight:700; }
+  [data-variant="refined"] .cc-meta{ font-size:12.5px; color:var(--muted); margin-top:4px; }
+  [data-variant="refined"] .add-row{ display:flex; gap:9px; margin-bottom:18px; }
+  [data-variant="refined"] .add-row input{ flex:1; max-width:260px; background:var(--surface); border:1px solid var(--border); border-radius:9px; padding:10px 13px; font-size:13px; font-family:inherit; }
+  [data-variant="refined"] .add-row button{ background:var(--clay); color:#fff; border:0; border-radius:9px; padding:10px 16px; font-size:13px; font-weight:600; }
+
+</style>
+
+<div class="switcher">
+  <div class="switcher-top">
+    <div>
+      <div class="switcher-title">StudyBuddy Style Explorer</div>
+      <div class="switcher-sub">Six full visual directions, same real data — pick a style, then flip between Overview and Classes.</div>
+    </div>
+    <div class="page-tabs" role="tablist" aria-label="Page">
+      <button class="page-tab" data-page="overview" aria-pressed="true">Overview</button>
+      <button class="page-tab" data-page="classes" aria-pressed="false">Classes</button>
+    </div>
+  </div>
+  <div class="variant-tabs" role="tablist" aria-label="Style">
+    <button class="variant-tab" data-variant="console" aria-pressed="true">1 · Console</button>
+    <button class="variant-tab" data-variant="ledger" aria-pressed="false">2 · Ledger</button>
+    <button class="variant-tab" data-variant="studio" aria-pressed="false">3 · Studio</button>
+    <button class="variant-tab" data-variant="atlas" aria-pressed="false">4 · Atlas</button>
+    <button class="variant-tab" data-variant="fieldnotes" aria-pressed="false">5 · Field Notes</button>
+    <button class="variant-tab" data-variant="refined" aria-pressed="false">6 · Refined Current</button>
+  </div>
+</div>
+
+<!-- =================================================================== -->
+<!-- 1) CONSOLE -->
+<!-- =================================================================== -->
+<section class="variant" data-variant="console">
+  <div class="shell">
+    <nav class="rail">
+      <div class="rail-brand"><span class="rail-mark">S</span>studybuddy</div>
+      <div class="rail-item vpage-item active" data-for="overview">Overview</div>
+      <div class="rail-item">Requests</div>
+      <div class="rail-item vpage-item" data-for="classes">Classes</div>
+      <div class="rail-item">Lessons</div>
+      <div class="rail-item">Facilitators</div>
+      <div class="rail-item">Messages</div>
+      <div class="rail-foot"><span class="rail-avatar">GD</span>Gill Dobbie</div>
+    </nav>
+    <div class="main">
+      <div class="vpage" data-page="overview">
+        <div class="pagehead">
+          <div><h1>Overview</h1><div class="lede">welcome_back(gill_dobbie)</div></div>
+          <button class="btn-primary">+ New lesson</button>
+        </div>
+        <div class="stat-strip">
+          <div class="stat-cell"><div class="stat-num">18</div><div class="stat-label">Lessons</div></div>
+          <div class="stat-cell"><div class="stat-num">16</div><div class="stat-label">Published</div></div>
+          <div class="stat-cell"><div class="stat-num">02</div><div class="stat-label">Draft</div></div>
+          <div class="stat-cell"><div class="stat-num">00</div><div class="stat-label">Requests</div></div>
+          <div class="stat-cell"><div class="stat-num">02</div><div class="stat-label">Facilitators</div></div>
+        </div>
+        <div class="grid3">
+          <div class="qcard"><div class="qcard-label">Classes</div><div class="qcard-desc">Browse grades and subjects</div></div>
+          <div class="qcard"><div class="qcard-label">Lessons</div><div class="qcard-desc">Edit and publish all lessons</div></div>
+          <div class="qcard"><div class="qcard-label">Facilitators</div><div class="qcard-desc">Assignments and messages</div></div>
+        </div>
+        <div class="section-label">// recently_updated</div>
+        <div class="rowlist">
+          <div class="row"><div><div class="row-title">States of Matter</div><div class="row-sub">grade-2/science</div></div><span class="pill good">published</span></div>
+          <div class="row"><div><div class="row-title">Life Cycles</div><div class="row-sub">grade-2/science</div></div><span class="pill good">published</span></div>
+          <div class="row"><div><div class="row-title">Introduction to Fractions</div><div class="row-sub">grade-2/maths</div></div><span class="pill good">published</span></div>
+          <div class="row"><div><div class="row-title">Addition &amp; Subtraction to 100</div><div class="row-sub">grade-2/maths</div></div><span class="pill good">published</span></div>
+          <div class="row"><div><div class="row-title">Story Time — Sequencing</div><div class="row-sub">grade-1/english</div></div><span class="pill good">published</span></div>
+        </div>
+      </div>
+      <div class="vpage" data-page="classes" hidden>
+        <div class="pagehead">
+          <div><h1>Classes</h1><div class="lede">4 records</div></div>
+        </div>
+        <div class="add-row"><input placeholder="new class name…"><button class="btn-primary">Add</button></div>
+        <div class="cc-grid">
+          <div class="cc"><div class="cc-name">Grade 1</div><div class="cc-meta">3 subjects · 11 lessons</div></div>
+          <div class="cc"><div class="cc-name">Grade 2</div><div class="cc-meta">2 subjects · 06 lessons</div></div>
+          <div class="cc"><div class="cc-name">Grade 3</div><div class="cc-meta">1 subject · 00 lessons</div></div>
+          <div class="cc"><div class="cc-name">Grade 4</div><div class="cc-meta">2 subjects · 01 lesson</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<!-- 2) LEDGER -->
+<!-- =================================================================== -->
+<section class="variant" data-variant="ledger" hidden>
+  <div class="topbar">
+    <div class="topbar-brand">StudyBuddy</div>
+    <div class="topbar-nav">
+      <span class="vpage-item active" data-for="overview">Overview</span>
+      <span>Requests</span>
+      <span class="vpage-item" data-for="classes">Classes</span>
+      <span>Lessons</span>
+      <span>Facilitators</span>
+      <span>Messages</span>
+    </div>
+    <div class="topbar-user">Gill Dobbie · Coordinator</div>
+  </div>
+  <div class="main">
+    <div class="vpage" data-page="overview">
+      <div class="pagehead">
+        <div><h1>Administrator Overview</h1><div class="lede">Session welcome — Gill Dobbie</div></div>
+        <button class="btn-primary">New Lesson</button>
+      </div>
+      <div class="stat-strip">
+        <div class="stat-cell"><div class="stat-num">18</div><div class="stat-label">Total Lessons</div></div>
+        <div class="stat-cell"><div class="stat-num">16</div><div class="stat-label">Published</div></div>
+        <div class="stat-cell"><div class="stat-num">2</div><div class="stat-label">Draft</div></div>
+        <div class="stat-cell"><div class="stat-num">0</div><div class="stat-label">Pending Requests</div></div>
+        <div class="stat-cell"><div class="stat-num">2</div><div class="stat-label">Facilitators</div></div>
+      </div>
+      <div class="section-label">Quick Access</div>
+      <div class="grid3">
+        <div class="qcard"><div class="qcard-label">Classes</div><div class="qcard-desc">Browse grades and subjects</div></div>
+        <div class="qcard"><div class="qcard-label">Lessons</div><div class="qcard-desc">Edit and publish all lessons</div></div>
+        <div class="qcard"><div class="qcard-label">Facilitators</div><div class="qcard-desc">Assignments and messages</div></div>
+      </div>
+      <div class="section-label">Recently Updated</div>
+      <table>
+        <thead><tr><th>Lesson</th><th>Class / Subject</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>States of Matter</td><td>Grade 2 · Science</td><td><span class="badge good">Published</span></td></tr>
+          <tr><td>Life Cycles</td><td>Grade 2 · Science</td><td><span class="badge good">Published</span></td></tr>
+          <tr><td>Introduction to Fractions</td><td>Grade 2 · Maths</td><td><span class="badge good">Published</span></td></tr>
+          <tr><td>Addition &amp; Subtraction to 100</td><td>Grade 2 · Maths</td><td><span class="badge good">Published</span></td></tr>
+          <tr><td>Story Time — Sequencing</td><td>Grade 1 · English</td><td><span class="badge good">Published</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="vpage" data-page="classes" hidden>
+      <div class="pagehead"><div><h1>Classes</h1><div class="lede">Manage grades and subjects</div></div></div>
+      <div class="add-row"><input placeholder="e.g. Grade 5"><button>Add Class</button></div>
+      <table>
+        <thead><tr><th>Class</th><th>Subjects</th><th>Lessons</th></tr></thead>
+        <tbody>
+          <tr><td>Grade 1</td><td>3</td><td>11</td></tr>
+          <tr><td>Grade 2</td><td>2</td><td>6</td></tr>
+          <tr><td>Grade 3</td><td>1</td><td>0</td></tr>
+          <tr><td>Grade 4</td><td>2</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<!-- 3) STUDIO -->
+<!-- =================================================================== -->
+<section class="variant" data-variant="studio" hidden>
+  <div class="shell">
+    <nav class="rail">
+      <div class="rail-brand">studybuddy</div>
+      <div class="rail-item active vpage-item" data-for="overview">Overview</div>
+      <div class="rail-item">Requests</div>
+      <div class="rail-item vpage-item" data-for="classes">Classes</div>
+      <div class="rail-item">Lessons</div>
+      <div class="rail-item">Facilitators</div>
+      <div class="rail-item">Messages</div>
+      <div class="rail-foot">Gill Dobbie</div>
+    </nav>
+    <div class="main">
+      <div class="vpage" data-page="overview">
+        <div class="pagehead"><h1>Good to see you, Gill</h1><div class="lede">Here's what's happening across StudyBuddy</div></div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-num">18</div><div class="stat-label">Total lessons</div></div>
+          <div class="stat-card"><div class="stat-num">16</div><div class="stat-label">Published</div></div>
+          <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">Still in draft</div></div>
+        </div>
+        <div class="section-label">Jump back in</div>
+        <div class="qlist">
+          <div class="qrow"><div class="qrow-mark">C</div><div><div class="qrow-label">Classes</div><div class="qrow-desc">Browse grades and subjects</div></div></div>
+          <div class="qrow"><div class="qrow-mark">L</div><div><div class="qrow-label">Lessons</div><div class="qrow-desc">Edit and publish all lessons</div></div></div>
+          <div class="qrow"><div class="qrow-mark">F</div><div><div class="qrow-label">Facilitators</div><div class="qrow-desc">See assignments, reach out</div></div></div>
+        </div>
+        <div class="section-label">Recently updated</div>
+        <div class="rlist">
+          <div class="rrow"><div><div class="rrow-title">States of Matter</div><div class="rrow-sub">Grade 2 · Science</div></div><span class="tag good">Published</span></div>
+          <div class="rrow"><div><div class="rrow-title">Life Cycles</div><div class="rrow-sub">Grade 2 · Science</div></div><span class="tag good">Published</span></div>
+          <div class="rrow"><div><div class="rrow-title">Introduction to Fractions</div><div class="rrow-sub">Grade 2 · Maths</div></div><span class="tag good">Published</span></div>
+          <div class="rrow"><div><div class="rrow-title">Addition &amp; Subtraction to 100</div><div class="rrow-sub">Grade 2 · Maths</div></div><span class="tag good">Published</span></div>
+          <div class="rrow"><div><div class="rrow-title">Story Time — Sequencing</div><div class="rrow-sub">Grade 1 · English</div></div><span class="tag good">Published</span></div>
+        </div>
+      </div>
+      <div class="vpage" data-page="classes" hidden>
+        <div class="pagehead"><h1>Classes</h1><div class="lede">Every grade you teach, and what's inside</div></div>
+        <div class="add-row"><input placeholder="Add a class, e.g. Grade 5"><button>Add</button></div>
+        <div class="cc-grid">
+          <div class="cc"><div class="cc-name">Grade 1</div><div class="cc-meta">3 subjects · 11 lessons</div><div class="cc-bar"><span style="width:92%"></span></div></div>
+          <div class="cc"><div class="cc-name">Grade 2</div><div class="cc-meta">2 subjects · 6 lessons</div><div class="cc-bar"><span style="width:55%"></span></div></div>
+          <div class="cc"><div class="cc-name">Grade 3</div><div class="cc-meta">1 subject · 0 lessons</div><div class="cc-bar"><span style="width:4%"></span></div></div>
+          <div class="cc"><div class="cc-name">Grade 4</div><div class="cc-meta">2 subjects · 1 lesson</div><div class="cc-bar"><span style="width:15%"></span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<!-- 4) ATLAS -->
+<!-- =================================================================== -->
+<section class="variant" data-variant="atlas" hidden>
+  <div class="shell">
+    <nav class="rail">
+      <div class="rail-mark">S</div>
+      <div class="rail-item active vpage-item" data-for="overview"><span class="rail-pill">🏠</span>Home</div>
+      <div class="rail-item"><span class="rail-pill">📥</span>Requests</div>
+      <div class="rail-item vpage-item" data-for="classes"><span class="rail-pill">🏫</span>Classes</div>
+      <div class="rail-item"><span class="rail-pill">🧩</span>Lessons</div>
+      <div class="rail-item"><span class="rail-pill">👥</span>Facilit.</div>
+    </nav>
+    <div class="main">
+      <div class="vpage" data-page="overview">
+        <div class="pagehead"><div><h1>Overview</h1><div class="lede">Welcome back, Gill Dobbie</div></div><button class="btn-primary">+ Create lesson</button></div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-num">18</div><div class="stat-label">Total lessons</div></div>
+          <div class="stat-card"><div class="stat-num">16</div><div class="stat-label">Published</div></div>
+          <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">Draft</div></div>
+          <div class="stat-card"><div class="stat-num">0</div><div class="stat-label">Requests</div></div>
+          <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">Facilitators</div></div>
+        </div>
+        <div class="section-label">Quick links</div>
+        <div class="grid3">
+          <div class="qcard"><div class="qcard-label">Classes</div><div class="qcard-desc">Browse grades and subjects</div></div>
+          <div class="qcard"><div class="qcard-label">Lessons</div><div class="qcard-desc">View, edit, publish lessons</div></div>
+          <div class="qcard"><div class="qcard-label">Facilitators</div><div class="qcard-desc">See assignments, reach out</div></div>
+        </div>
+        <div class="section-label">Recently updated</div>
+        <div class="rlist">
+          <div class="rrow"><div><div class="rrow-title">States of Matter</div><div class="rrow-sub">Grade 2 · Science</div></div><span class="chip">Published</span></div>
+          <div class="rrow"><div><div class="rrow-title">Life Cycles</div><div class="rrow-sub">Grade 2 · Science</div></div><span class="chip">Published</span></div>
+          <div class="rrow"><div><div class="rrow-title">Introduction to Fractions</div><div class="rrow-sub">Grade 2 · Maths</div></div><span class="chip">Published</span></div>
+          <div class="rrow"><div><div class="rrow-title">Addition &amp; Subtraction to 100</div><div class="rrow-sub">Grade 2 · Maths</div></div><span class="chip">Published</span></div>
+          <div class="rrow"><div><div class="rrow-title">Story Time — Sequencing</div><div class="rrow-sub">Grade 1 · English</div></div><span class="chip">Published</span></div>
+        </div>
+      </div>
+      <div class="vpage" data-page="classes" hidden>
+        <div class="pagehead"><div><h1>Classes</h1><div class="lede">Manage grades and subjects</div></div></div>
+        <div class="add-row"><input placeholder="Add a class"><button>Add class</button></div>
+        <div class="cc-grid">
+          <div class="cc"><div class="cc-mark">1</div><div class="cc-name">Grade 1</div><div class="cc-meta">3 subjects · 11 lessons</div></div>
+          <div class="cc"><div class="cc-mark">2</div><div class="cc-name">Grade 2</div><div class="cc-meta">2 subjects · 6 lessons</div></div>
+          <div class="cc"><div class="cc-mark">3</div><div class="cc-name">Grade 3</div><div class="cc-meta">1 subject · 0 lessons</div></div>
+          <div class="cc"><div class="cc-mark">4</div><div class="cc-name">Grade 4</div><div class="cc-meta">2 subjects · 1 lesson</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<!-- 5) FIELD NOTES -->
+<!-- =================================================================== -->
+<section class="variant" data-variant="fieldnotes" hidden>
+  <div class="shell">
+    <nav class="rail">
+      <div class="rail-brand">StudyBuddy</div>
+      <div class="rail-item active vpage-item" data-for="overview">Overview</div>
+      <div class="rail-item">Requests</div>
+      <div class="rail-item vpage-item" data-for="classes">Classes</div>
+      <div class="rail-item">Lessons</div>
+      <div class="rail-item">Facilitators</div>
+      <div class="rail-item">Messages</div>
+      <div class="rail-foot">MRS. DOBBIE</div>
+    </nav>
+    <div class="main">
+      <div class="vpage" data-page="overview">
+        <div class="pagehead"><h1>Term overview</h1><div class="lede">welcome back, gill dobbie</div></div>
+        <div class="stat-grid">
+          <div class="stat-stamp"><div class="stat-num">18</div><div class="stat-label">Lessons</div></div>
+          <div class="stat-stamp"><div class="stat-num">16</div><div class="stat-label">Published</div></div>
+          <div class="stat-stamp"><div class="stat-num">02</div><div class="stat-label">Draft</div></div>
+          <div class="stat-stamp"><div class="stat-num">00</div><div class="stat-label">Requests</div></div>
+          <div class="stat-stamp"><div class="stat-num">02</div><div class="stat-label">Staff</div></div>
+        </div>
+        <div class="section-label">Shortcuts</div>
+        <div class="grid3">
+          <div class="qcard"><div class="qcard-label">Classes</div><div class="qcard-desc">grades &amp; subjects</div></div>
+          <div class="qcard"><div class="qcard-label">Lessons</div><div class="qcard-desc">edit &amp; publish</div></div>
+          <div class="qcard"><div class="qcard-label">Facilitators</div><div class="qcard-desc">assignments</div></div>
+        </div>
+        <div class="section-label">Grade book — recently updated</div>
+        <div class="rlist">
+          <div class="rrow"><div><div class="rrow-title">States of Matter</div><div class="rrow-sub">grade 2 · science</div></div><span class="check">✓</span></div>
+          <div class="rrow"><div><div class="rrow-title">Life Cycles</div><div class="rrow-sub">grade 2 · science</div></div><span class="check">✓</span></div>
+          <div class="rrow"><div><div class="rrow-title">Introduction to Fractions</div><div class="rrow-sub">grade 2 · maths</div></div><span class="check">✓</span></div>
+          <div class="rrow"><div><div class="rrow-title">Addition &amp; Subtraction to 100</div><div class="rrow-sub">grade 2 · maths</div></div><span class="check">✓</span></div>
+          <div class="rrow"><div><div class="rrow-title">Story Time — Sequencing</div><div class="rrow-sub">grade 1 · english</div></div><span class="check">✓</span></div>
+        </div>
+      </div>
+      <div class="vpage" data-page="classes" hidden>
+        <div class="pagehead"><h1>Classes</h1><div class="lede">every grade on the roll</div></div>
+        <div class="add-row"><input placeholder="new class…"><button>+ Add</button></div>
+        <div class="cc-grid">
+          <div class="cc"><div class="cc-name">Grade 1</div><div class="cc-meta">3 subjects · 11 lessons</div></div>
+          <div class="cc"><div class="cc-name">Grade 2</div><div class="cc-meta">2 subjects · 6 lessons</div></div>
+          <div class="cc"><div class="cc-name">Grade 3</div><div class="cc-meta">1 subject · 0 lessons</div></div>
+          <div class="cc"><div class="cc-name">Grade 4</div><div class="cc-meta">2 subjects · 1 lesson</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================== -->
+<!-- 6) REFINED CURRENT -->
+<!-- =================================================================== -->
+<section class="variant" data-variant="refined" hidden>
+  <div class="shell">
+    <nav class="rail">
+      <div class="rail-brand"><span class="rail-mark"></span>StudyBuddy</div>
+      <div class="rail-item active vpage-item" data-for="overview">Overview</div>
+      <div class="rail-item">Requests</div>
+      <div class="rail-item vpage-item" data-for="classes">Classes</div>
+      <div class="rail-item">Lessons</div>
+      <div class="rail-item">Facilitators</div>
+      <div class="rail-item">Messages</div>
+      <div class="rail-foot">Gill Dobbie · Settings</div>
+    </nav>
+    <div class="main">
+      <div class="vpage" data-page="overview">
+        <div class="pagehead"><div><h1>Admin overview</h1><div class="lede">Welcome back, Gill Dobbie</div></div><button class="btn-primary">+ Create lesson</button></div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-num">18</div><div class="stat-label">Total lessons</div></div>
+          <div class="stat-card"><div class="stat-num">16</div><div class="stat-label">Published</div></div>
+          <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">Draft</div></div>
+        </div>
+        <div class="section-label">Quick links</div>
+        <div class="grid3">
+          <div class="qcard"><div class="qcard-mark"></div><div><div class="qcard-label">Classes</div><div class="qcard-desc">Browse grades and subjects</div></div></div>
+          <div class="qcard"><div class="qcard-mark"></div><div><div class="qcard-label">Lessons</div><div class="qcard-desc">Edit and publish lessons</div></div></div>
+          <div class="qcard"><div class="qcard-mark"></div><div><div class="qcard-label">Facilitators</div><div class="qcard-desc">See assignments, reach out</div></div></div>
+        </div>
+        <div class="section-label">Recently updated</div>
+        <div class="rlist">
+          <div class="rrow"><div><div class="rrow-title">States of Matter</div><div class="rrow-sub">Grade 2 · Science</div></div><span class="tag good">Published</span></div>
+          <div class="rrow"><div><div class="rrow-title">Life Cycles</div><div class="rrow-sub">Grade 2 · Science</div></div><span class="tag good">Published</span></div>
+          <div class="rrow"><div><div class="rrow-title">Introduction to Fractions</div><div class="rrow-sub">Grade 2 · Maths</div></div><span class="tag good">Published</span></div>
+          <div class="rrow"><div><div class="rrow-title">Addition &amp; Subtraction to 100</div><div class="rrow-sub">Grade 2 · Maths</div></div><span class="tag good">Published</span></div>
+          <div class="rrow"><div><div class="rrow-title">Story Time — Sequencing</div><div class="rrow-sub">Grade 1 · English</div></div><span class="tag good">Published</span></div>
+        </div>
+      </div>
+      <div class="vpage" data-page="classes" hidden>
+        <div class="pagehead"><div><h1>Classes</h1><div class="lede">Manage the classes and subjects available across lessons</div></div></div>
+        <div class="add-row"><input placeholder="e.g. Grade 5"><button>+ Add class</button></div>
+        <div class="cc-grid">
+          <div class="cc"><div class="cc-mark"></div><div class="cc-name">Grade 1</div><div class="cc-meta">3 subjects · 11 lessons</div></div>
+          <div class="cc"><div class="cc-mark"></div><div class="cc-name">Grade 2</div><div class="cc-meta">2 subjects · 6 lessons</div></div>
+          <div class="cc"><div class="cc-mark"></div><div class="cc-name">Grade 3</div><div class="cc-meta">1 subject · 0 lessons</div></div>
+          <div class="cc"><div class="cc-mark"></div><div class="cc-name">Grade 4</div><div class="cc-meta">2 subjects · 1 lesson</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  var variantButtons = Array.prototype.slice.call(document.querySelectorAll('.variant-tab'));
+  var pageButtons = Array.prototype.slice.call(document.querySelectorAll('.page-tab'));
+  var variants = Array.prototype.slice.call(document.querySelectorAll('.variant'));
+  var currentPage = 'overview';
+
+  function showVariant(name) {
+    variants.forEach(function (v) { v.hidden = v.getAttribute('data-variant') !== name; });
+    variantButtons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-variant') === name)); });
+  }
+  function showPage(page) {
+    currentPage = page;
+    pageButtons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-page') === page)); });
+    document.querySelectorAll('.vpage').forEach(function (p) { p.hidden = p.getAttribute('data-page') !== page; });
+    document.querySelectorAll('.vpage-item').forEach(function (n) {
+      n.classList.toggle('active', n.getAttribute('data-for') === page);
+    });
+  }
+  variantButtons.forEach(function (b) { b.addEventListener('click', function () { showVariant(b.getAttribute('data-variant')); }); });
+  pageButtons.forEach(function (b) { b.addEventListener('click', function () { showPage(b.getAttribute('data-page')); }); });
+
+  showVariant('console');
+  showPage('overview');
+</script>
+
+</body></html>

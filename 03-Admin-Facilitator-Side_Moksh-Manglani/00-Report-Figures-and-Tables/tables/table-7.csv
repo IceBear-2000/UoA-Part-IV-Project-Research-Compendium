@@ -1,0 +1,8 @@
+Check,Result
+Only block 1 unlocked on first open; locked content not sent to the browser,Pass (0 of 4 locked steps leaked)
+Finishing a block unlocks exactly the next one,Pass
+"Progress kept after refresh, and after sign-out and sign-in",Pass
+Completion page opened before the last block,Redirected back into the lesson
+Last block done completes the lesson and unlocks everything,Pass
+Forged skip-ahead and cross-lesson progress calls (4),4 of 4 rejected
+Admin deletes a finished block mid-lesson,Failed: facilitator skips a step

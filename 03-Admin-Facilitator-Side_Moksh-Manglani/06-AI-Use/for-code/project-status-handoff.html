@@ -1,0 +1,192 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<style>:root{color-scheme:light dark;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}}:root[data-theme="dark"]{color-scheme:dark;--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}:root[data-theme="light"]{color-scheme:light}@media print{:root,:root[data-theme="dark"]{color-scheme:light;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}}body{background:var(--md-bg);color:var(--md-text);max-width:720px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:10px;font:14px/1.55 -apple-system,BlinkMacSystemFont,'SF Pro','Segoe UI',sans-serif;overflow-wrap:break-word}body>:first-child{margin-top:0}h1,h2,h3,h4,h5,h6{margin:6px 0 0;line-height:1.25;font-weight:600;text-wrap:balance}h1{font-size:1.35em}h2{font-size:1.15em;color:var(--md-muted)}h3,h4,h5,h6{font-size:1em}p,ul,ol,blockquote,table,pre,hr{margin:0}strong{font-weight:600}a{color:var(--md-link);text-decoration:none}a:hover{text-decoration:underline}ul,ol{display:flex;flex-direction:column;gap:6px;padding-left:22px}ul{list-style:disc}ol{list-style:decimal}:is(li,td,th)>*+:is(p,ul,ol,blockquote){margin-top:6px}blockquote{display:flex;flex-direction:column;gap:10px;border-left:2px solid var(--md-rule);padding-left:10px;color:var(--md-muted)}:not(pre)>code{background:var(--md-fill);padding:1px 3px;border-radius:4px;font:.92em 'SF Mono',ui-monospace,Menlo,Consolas,monospace}a>code{background:none;color:inherit}pre{background:var(--md-fill);padding:10px 12px;border-radius:6px;overflow-x:auto;font:12px/1.5 'SF Mono',ui-monospace,Menlo,Consolas,monospace;margin-block:4px}pre code{background:none;padding:0;font:inherit}table{width:100%;border-collapse:separate;border-spacing:2px;font:inherit}th,td{padding:6px 8px;border-radius:3px;text-align:left;vertical-align:top}th{background:var(--md-fill-strong);font-weight:600}td{background:var(--md-fill)}:is(th,td) :not(pre)>code{background:transparent}hr{border:0;border-top:1px solid var(--md-rule-strong);margin-block:10px}img{max-width:100%;height:auto;border-radius:4px}</style>
+<h1>StudyBuddy — Project Status Handoff</h1>
+<p><strong>Purpose of this document:</strong> This is a context-transfer file. If you are a Claude instance reading this in a fresh conversation, treat everything below as verified project history — it was written by a Claude instance that built this project across many sessions with the user, has read the actual codebase, and tested every claim of &quot;working&quot; live in a browser rather than assuming from code alone. The user&#39;s goal in sharing this with you is to get help writing a <strong>midyear academic project report</strong>, so this document is organized to surface exactly what a report needs: what was built, what was deployed, what design decisions were made and why, what went wrong and how it was diagnosed/fixed, and where the project currently stands.</p>
+<p>Last updated: 2026-07-14 (New Zealand context — University of Auckland academic year).</p>
+<hr>
+<h2>1. At a Glance</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Project name</strong></td>
+<td>StudyBuddy</td>
+</tr>
+<tr>
+<td><strong>Academic context</strong></td>
+<td>University of Auckland, SOFTENG 700A (Honours-level software engineering project)</td>
+</tr>
+<tr>
+<td><strong>One-line pitch</strong></td>
+<td>A platform that lets <strong>unqualified facilitators</strong> deliver <strong>structured K-12 lessons</strong> by putting the teaching expertise <em>into the platform</em> — pre-built lesson flows, block-by-block instructions, facilitator notes — rather than requiring the person running the class to be a trained teacher.</td>
+</tr>
+<tr>
+<td><strong>Tech stack</strong></td>
+<td>Next.js 14 (App Router, TypeScript), Supabase (Postgres + Auth + Storage), Prisma ORM (pinned to v6.19.3), Tailwind CSS with a custom design-token system, Resend (transactional email)</td>
+</tr>
+<tr>
+<td><strong>Repo</strong></td>
+<td><code>github.com/IceBear-2000/StudyBuddy-UoA-Project</code></td>
+</tr>
+<tr>
+<td><strong>Deployment target</strong></td>
+<td>Vercel</td>
+</tr>
+<tr>
+<td><strong>Current build status</strong></td>
+<td>Builds cleanly for production (<code>npm run build</code> verified, zero errors)</td>
+</tr>
+<tr>
+<td><strong>Current git/deploy status</strong></td>
+<td>⚠️ See §7 — code exists locally and one snapshot is pushed, but a second batch of work (admin Classes/Subjects management) is <strong>not yet pushed</strong>. Live Vercel URL was never confirmed back to the assistant — see §7 for exactly what&#39;s outstanding.</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>2. What StudyBuddy Actually Does</h2>
+<p><strong>The problem it solves:</strong> running structured K-12 lessons normally requires a trained facilitator who can plan and adapt content. StudyBuddy inverts this — an admin/coordinator builds a lesson once as a sequence of typed &quot;blocks&quot; (video, workbook, activity, worksheet, reading, quiz, discussion, break, note), and any facilitator — qualified or not — can deliver that exact lesson by following the platform&#39;s own guided flow, step by step, with facilitator notes at each stage.</p>
+<p><strong>Two roles, strictly separated (enforced server-side, not just hidden in the UI):</strong></p>
+<ul>
+<li><strong>Admin / Coordinator</strong> — creates and publishes lessons, builds the block-by-block flow (drag-and-drop reordering), manages the class → subject hierarchy, assigns facilitators to specific classes/subjects, reviews and approves new facilitator applications, messages facilitators, and has an AI worksheet generator (currently mocked).</li>
+<li><strong>Facilitator</strong> — sees only the classes/subjects they&#39;ve been explicitly assigned, browses only <em>published</em> lessons within those, and plays through a lesson via a strict flow player: blocks are locked until you reach them in order, then once the lesson is fully completed, every block becomes freely navigable (so a facilitator can revisit any step afterwards without being able to skip ahead the first time through).</li>
+</ul>
+<p><strong>Content hierarchy:</strong> <code>Organisation → Class (a.k.a. &quot;Grade&quot;) → Subject → Lesson → Block</code></p>
+<hr>
+<h2>3. Technology Stack &amp; Why</h2>
+<table>
+<thead>
+<tr>
+<th>Choice</th>
+<th>Reasoning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Next.js 14, App Router</strong></td>
+<td>Server Components for data-heavy admin/facilitator views, Server Actions for all mutations (no separate REST/API layer needed), middleware for route-level auth gating.</td>
+</tr>
+<tr>
+<td><strong>Supabase</strong></td>
+<td>Postgres (via Prisma) + Auth (email/password, magic-link-style invite flow) + Storage (private buckets with signed URLs for uploaded lesson resources) — one vendor for three infrastructure needs.</td>
+</tr>
+<tr>
+<td><strong>Prisma ORM, pinned to <code>^6.19.3</code></strong></td>
+<td>Prisma v7 removed the inline <code>datasource.url</code> syntax the project&#39;s schema was originally written with. Rather than rewrite the schema (the project&#39;s own standing rule was &quot;never deviate from <code>schema.prisma</code> without asking first&quot;), the dependency was pinned instead.</td>
+</tr>
+<tr>
+<td><strong>Tailwind CSS + a bespoke design-token system</strong></td>
+<td>The project ships with a <code>DESIGN_TOKENS.md</code> defining an exact colour palette (a warm &quot;claymorphism&quot;/soft-paper aesthetic: <code>clay</code>, <code>sage</code>, <code>blue</code>, <code>gold</code>, <code>rose</code>, each with a <code>-soft</code> tinted variant), spacing, radii, and shadow values. These were wired into <code>tailwind.config.ts</code> as first-class theme colours (<code>bg-clay</code>, <code>bg-sage-soft</code>, etc.) in the very first session, and <strong>every feature built since — including features added months after the original plan — has matched this palette exactly</strong>, rather than drifting into ad-hoc styling.</td>
+</tr>
+<tr>
+<td><strong>Resend</strong></td>
+<td>Chosen over a fully-mocked email flow specifically so the facilitator-invite emails would be real, testable deliverability — not just a console.log. Built with a graceful no-op fallback (shows the invite link directly in the admin UI) so the whole approval flow was testable <em>before</em> a Resend account/API key existed.</td>
+</tr>
+<tr>
+<td><strong>Vercel</strong></td>
+<td>Standard zero-config deploy target for Next.js; the project&#39;s own build sequence explicitly recommended deploying early rather than waiting.</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>4. What Has Been Built — By Phase</h2>
+<p>The project was built against a 9-session sequence (<code>CLAUDE_CODE_SEQUENCE.md</code>), and then extended well beyond it as the user&#39;s needs became clearer. Both parts matter for a report: the first shows disciplined, planned execution; the second shows the project responding to real requirements as they emerged — which is exactly what a real engineering project looks like.</p>
+<h3>4.1 The original 9-session plan (all complete)</h3>
+<ol>
+<li><strong>Scaffold</strong> — Next.js + TypeScript + Tailwind project, Prisma wired to Supabase, design tokens loaded as Tailwind theme values, confirmed the dev server and Tailwind rendering worked before writing any real features.</li>
+<li><strong>Database</strong> — ran the initial migration, wrote a seed script creating one organisation, one admin, two facilitators, two classes (&quot;Grade 1&quot;, &quot;Grade 2&quot;), several subjects, and one fully-built 5-block lesson (&quot;Counting to 20&quot;) matching the original design mockup.</li>
+<li><strong>Auth &amp; roles</strong> — Supabase Auth (email/password), with every signed-in user mirrored into a local <code>User</code> table (keyed by Supabase&#39;s <code>authId</code>) so role information is queryable without extra network calls. Middleware enforces that admin routes are unreachable by facilitators and vice versa — <strong>at the request level, not just hidden nav links.</strong></li>
+<li><strong>Admin: lesson CRUD</strong> — lessons list, creation form (name/class/subject required; duration, description, learning objectives optional and marked &quot;Recommended&quot; per the product brief), Draft/Published status toggle.</li>
+<li><strong>Admin: block builder</strong> — the core lesson-authoring tool. Add-block type picker (9 types), drag-and-drop reordering (<code>@dnd-kit</code>), type-specific content editors (Video gets a URL + duration field, Workbook gets a page range, Activity gets instructions, Worksheet gets a file-or-link), and a generic instructions field for the remaining types (Reading/Quiz/Discussion/Break/Note). File upload (PDF/Word/PowerPoint) was added on top of this for Reading and Worksheet blocks specifically, backed by a private Supabase Storage bucket and signed URLs — deliberately <em>not</em> offered on Video blocks, which already have their own URL field.</li>
+<li><strong>Facilitator: browse</strong> — read-only dashboard → assigned classes → subjects → lessons. Strictly scoped by the <code>FacilitatorAssignment</code> join table and filtered to <code>Published</code> lessons only.</li>
+<li><strong>The lesson flow player — the most critical piece of the whole system.</strong> Built against real <code>LessonProgress</code> rows (one per facilitator per lesson, reused on resume rather than duplicated). State — done / active / locked / free-navigation — is derived from <code>currentBlockIndex</code>, <code>completedBlockIds</code>, and <code>completedAt</code>. Marking a block done is enforced <strong>server-side</strong>: a locked block can&#39;t be fetched or completed no matter what the client sends. Once <code>completedAt</code> is set, every block unlocks for free navigation. This was tested by literally starting a lesson, completing 2 of 5 blocks, refreshing the page, and confirming the facilitator resumed at block 3 with 1–2 still marked done — then completing the rest and confirming free click-back-to-block-1 behaviour.</li>
+<li><strong>Admin: facilitator management &amp; assignment</strong> — a facilitator list (table and card view), and an Assign modal that writes to <code>FacilitatorAssignment</code>. Reachable from two different places in the UI (the facilitator&#39;s own profile, and later, directly from class/subject context) but <strong>both write to the exact same underlying table</strong> — a deliberate decision to avoid two competing data models for the same relationship.</li>
+<li><strong>Messaging, notifications, worksheet generator (mock)</strong> — see §4.3 below; this was completed as part of the most recent working session.</li>
+</ol>
+<h3>4.2 The authorization / onboarding system (built beyond the original plan)</h3>
+<p>Partway through the project, the user asked for a proper request-based onboarding flow instead of open self-registration. Four design decisions were made explicitly with the user before building (each was proposed as a structured choice and confirmed):</p>
+<ol>
+<li><strong>&quot;Request first, invite later.&quot;</strong> The public signup form collects only a name and email — no password. This creates a <code>SignupRequest</code> row (status <code>PENDING</code>). No Supabase Auth account and no <code>User</code> row exist yet.</li>
+<li><strong>Real email, not a mock</strong>, via Resend — with a graceful no-op fallback (the generated invite link is shown directly in the admin UI instead of emailed) whenever <code>RESEND_API_KEY</code> isn&#39;t configured, so the entire flow stays testable without depending on email infrastructure.</li>
+<li><strong>One combined approval step.</strong> The admin picks which class(es)/subject(s) to grant <em>in the same action</em> as approving the request — not as a separate follow-up step. The approval modal lets the admin stage multiple class/subject grants before submitting once.</li>
+<li><strong>An optional &quot;which class are you hoping to help with?&quot; free-text field</strong> on the request form — informational only; the admin can grant anything regardless of what was requested.</li>
+</ol>
+<p><strong>The resulting flow:</strong> anonymous request → shows up on an admin &quot;Requests&quot; dashboard with a live unread-style badge count → admin approves with one or more class/subject grants staged → this simultaneously creates the real (unconfirmed) Supabase Auth account, the local <code>User</code> row, the <code>FacilitatorAssignment</code> rows, and generates a one-time invite link → Resend emails that link (or the admin sees it directly in the UI as a copy-paste fallback) → the recipient clicks it, sets a password, and lands as an active facilitator with exactly the access they were granted.</p>
+<p>New schema for this: a <code>SignupRequestStatus</code> enum (<code>PENDING</code> / <code>APPROVED</code> / <code>REJECTED</code>) and a <code>SignupRequest</code> model tracking who reviewed it, when, and (for approvals) which <code>User</code> it ultimately created.</p>
+<h3>4.3 Messaging, notifications, and the worksheet generator (most recently completed session)</h3>
+<ul>
+<li><strong>Messaging</strong> — simple 1:1 chat, strictly admin ↔ facilitator (never facilitator-to-facilitator or admin-to-admin — enforced server-side, not just by UI). Admins see a list of all their facilitators and can open a thread with each; facilitators see a single &quot;Chat with admin&quot; view. A shared <code>MessagingThread</code> component drives both, so the two role-specific pages differ only in <em>who</em> they fetch as conversation partners, not in how the chat itself renders.</li>
+<li><strong>In-app notifications</strong> — a new <code>Notification</code> model, deliberately kept simple (one flat list per user, &quot;mark all read&quot; on opening the inbox — no per-row read tracking needed for that page). The one piece of extra design: notifications carry an optional <code>fromUserId</code>, set only for message-type notifications, so opening <em>one</em> conversation thread clears only <em>that</em> thread&#39;s unread badge — not unrelated unread messages from someone else. Triggered by: a new message, being approved with class access, or being granted a new assignment via the standalone &quot;Assign&quot; flow.</li>
+<li><strong>Worksheet generator (mock)</strong> — a form (topic, class/grade, subject, number of questions, optional style notes) that, after a short simulated delay, renders a plausible-looking worksheet preview with numbered questions and answer lines, plus Regenerate and Copy-as-text actions. Deliberately built so the entire &quot;generate&quot; step lives in <strong>one isolated function</strong> (<code>lib/worksheet-generator.ts</code>) with a clean input/output contract — swapping the mock body for a real LLM call later requires touching that one function only, not any of its callers.</li>
+</ul>
+<h3>4.4 Admin Classes &amp; Subjects management (built after the above, most recent feature)</h3>
+<p>Originally, classes and subjects only existed via the seed script — there was no way to add a new class or subject from the UI. Added a <code>/admin/classes</code> page: an inline &quot;add class&quot; form, and a per-class &quot;+ Add subject&quot; control that reveals a small inline input. Both include case-insensitive duplicate-name guards (so &quot;grade 1&quot; is correctly rejected as a duplicate of &quot;Grade 1&quot;). New classes/subjects are immediately available everywhere else in the app that reads them — confirmed live by creating a test &quot;Grade 3&quot; class with a &quot;Reading&quot; subject and watching it appear correctly in the lesson-creation dropdown without any extra wiring.</p>
+<h3>4.5 Other fixes worth mentioning</h3>
+<ul>
+<li><strong>Video block playback bug.</strong> Admins could paste a YouTube link into a Video block, but the facilitator-side player used a bare HTML5 <code>&lt;video src=&quot;…&quot;&gt;</code> tag — which can only play direct video files, not a YouTube page URL (which returns an HTML page, not a raw video stream, when requested that way). Fixed with a small <code>resolveVideoEmbed()</code> helper that detects YouTube/Vimeo links and converts them into proper <code>&lt;iframe&gt;</code> embeds, falling back to a real <code>&lt;video&gt;</code> tag only for genuine direct file links. A hint was also added under the admin&#39;s &quot;Video URL&quot; field clarifying what&#39;s supported, since nothing previously told the admin what kind of link was expected.</li>
+</ul>
+<hr>
+<h2>5. Design Decisions Worth Highlighting in a Report</h2>
+<p>These are the decisions with real engineering reasoning behind them, not arbitrary choices — good material for a &quot;design and rationale&quot; section:</p>
+<ul>
+<li><strong>Server-side-only enforcement of the lesson-flow lock state.</strong> The client is never trusted to say &quot;this block is unlocked&quot; — every mutation re-derives lock state from the database. This was a deliberate integrity decision for the most important piece of the app (the flow player), not an afterthought.</li>
+<li><strong>Block content as flexible JSON, not per-type tables.</strong> A <code>Block</code> row has one <code>content: Json</code> column whose shape depends on <code>type</code> (documented directly in the Prisma schema comments). This avoids nine separate content tables for nine block types, at the cost of weaker compile-time type safety — a trade-off made consciously and documented in code (including explicit <code>eslint-disable</code> comments explaining <em>why</em> <code>any</code> is used there, rather than silently suppressing the warning).</li>
+<li><strong>&quot;Request first, invite later&quot; over open self-registration.</strong> A security/control decision — nobody can create their own facilitator account unilaterally; every account traces back to an admin&#39;s explicit approval.</li>
+<li><strong>Isolated, swappable &quot;generate&quot; functions.</strong> Both the worksheet generator and (implicitly) the video-embed resolver were built as single, narrow functions with a clean contract, specifically so the &quot;real&quot; version (an LLM call; broader embed-provider support) can replace the body later without touching any caller.</li>
+<li><strong>One data model for facilitator assignment, reached from two UI entry points.</strong> Rather than build &quot;assign from the facilitator page&quot; and &quot;assign from the class page&quot; as two different features, both write to the same <code>FacilitatorAssignment</code> table through the same server action.</li>
+<li><strong>Design-token fidelity across the entire build, not just the initially-scoped screens.</strong> Every feature added <em>after</em> the original 9-session plan — messaging, notifications, the worksheet generator, class management — was still built to match <code>DESIGN_TOKENS.md</code> exactly (same colour tokens, same card/pill/badge visual language), rather than drifting into ad-hoc styling as the project grew organically.</li>
+</ul>
+<hr>
+<h2>6. Engineering Challenges &amp; How They Were Diagnosed — the &quot;innovation&quot; narrative</h2>
+<p>This section is the strongest material for a report, because each of these is a case of <em>&quot;the code looked correct, dev-mode testing passed, and it was still wrong&quot;</em> — caught only through deliberately rigorous, live verification rather than trusting green checkmarks.</p>
+<h3>6.1 The PKCE-vs-implicit-flow bug (the single biggest one)</h3>
+<p><strong>What happened:</strong> the invite-link architecture was originally built assuming Supabase&#39;s invite emails would redirect back to the app with a <code>?code=xxx</code> query parameter (the standard PKCE OAuth pattern), to be exchanged for a session inside a Next.js Route Handler.</p>
+<p><strong>How it was caught:</strong> rather than trust this design, the actual generated invite link was captured and inspected directly — first by trying to click it in-browser, then, when that was blocked by sandboxing, by mirroring the exact request with <code>curl</code> to see the real HTTP redirect Supabase issued. The real redirect carried <code>#access_token=…&amp;refresh_token=…</code> in the URL <strong>fragment</strong>, not the query string.</p>
+<p><strong>Why this matters:</strong> browsers never send the URL fragment to the server — it&#39;s client-side only. A Route Handler literally cannot read it, under any circumstances. The root cause: Supabase&#39;s PKCE flow requires a <code>code_verifier</code> that only exists if a browser client itself initiated the sign-in — but an admin-generated invite link has no browser involved at generation time, so Supabase silently falls back to the older &quot;implicit&quot; flow (tokens directly in the fragment) instead.</p>
+<p><strong>The fix:</strong> the Route Handler was replaced with a Client Component that reads <code>window.location.hash</code> directly and calls Supabase&#39;s client-side <code>setSession()</code>, letting the browser-side Supabase client persist the session as cookies for subsequent server-rendered pages to read. Without this fix, <strong>every single real invite link would have silently failed</strong> — a bug that dev-mode testing with fake data would never have caught, because it only manifests when a real link is actually clicked.</p>
+<h3>6.2 A UI bug that would have hidden the invite link entirely</h3>
+<p>The admin approval modal was designed to show a success screen with the invite link (for the no-Resend-key fallback case). But the underlying list component had its &quot;no pending requests&quot; empty state gated <em>before</em> the modal&#39;s own render — so the instant the approved request dropped out of the pending list (which happens immediately, via the same page refresh that shows the approval succeeded), the modal unmounted before the admin ever saw the link. Fixed by decoupling the modal&#39;s render from that empty-state branch. Caught only by watching the actual UI after a real approval, not by reading the code.</p>
+<h3>6.3 A session-drop bug in the messaging feature</h3>
+<p>The message-send button initially used a <code>&lt;form&gt;</code> whose <code>action</code> was a local function that itself called a bound Server Action. Under this specific composition (rather than a plain click handler calling the Server Action directly — the pattern already proven reliable elsewhere in the app), sending a message would occasionally and then <em>consistently</em> bounce the user back to the login page mid-send. Diagnosed by comparing against the working pattern already used successfully elsewhere in the codebase (a plain <code>onClick</code> handler with local component state) and rewriting the composer to match it — which fixed it completely. A related contributing factor was also found and fixed: React 18&#39;s Strict Mode deliberately double-invokes effects in development, so the &quot;mark this conversation read&quot; effect was firing twice in quick succession; a ref-guard was added so it only fires once per thread, since two near-simultaneous mutating requests were a plausible trigger for Supabase&#39;s session-refresh logic to misbehave.</p>
+<h3>6.4 Smaller but real issues found along the way</h3>
+<ul>
+<li><strong>A missing double-submit guard</strong> caused two duplicate lessons to be created in real usage from a single button click that wasn&#39;t disabled while its request was in flight. Fixed with <code>useFormStatus</code>, then generalized into one shared <code>SubmitButton</code> component reused across the whole app instead of re-solving it per form.</li>
+<li><strong>A real, pre-existing security gap:</strong> an audit found that <em>none</em> of the existing admin Server Actions actually verified the caller&#39;s role server-side — protection existed only via hiding admin nav links in the UI, meaning a facilitator who knew (or guessed) an admin endpoint URL could have called it directly. Fixed by adding a <code>requireAdmin()</code> check retrofitted onto every admin action, not just new ones going forward.</li>
+<li><strong>The production build caught errors the dev server never showed.</strong> Running <code>next build</code> (as required before any real deploy) enforces ESLint rules that <code>next dev</code> doesn&#39;t block on. Several pre-existing <code>any</code>-typed values and unused variables across multiple files only surfaced at this point — a good reminder that &quot;works in dev&quot; and &quot;builds for production&quot; are genuinely different bars.</li>
+<li><strong>Infrastructure quirks specific to the dev environment</strong>, documented for completeness rather than treated as code bugs: an IPv6-only direct Postgres connection failing in this sandbox (fixed by switching to Supabase&#39;s Session Pooler connection string), and Supabase&#39;s connection pool (capped at 17 connections on this project&#39;s tier) occasionally being exhausted under unusually rapid automated testing — resolved by restarting the dev server, not by changing application code.</li>
+</ul>
+<hr>
+<h2>7. Deployment Status — read this section carefully, it has time-sensitive gaps</h2>
+<p>This is the one area where the report should be precise rather than optimistic, so here is the exact, honest state:</p>
+<ol>
+<li><strong>The project had never been committed to git at all</strong>, despite representing many sessions of work — discovered only when deployment was requested. The connected GitHub remote (<code>IceBear-2000/StudyBuddy-UoA-Project</code>) was completely empty.</li>
+<li>Before pushing anything, a full production build (<code>npm run build</code>) was run deliberately to catch deploy-blocking errors <em>before</em> they&#39;d surface as a failed Vercel build — and it did catch several (see §6.4). All were fixed and the build was re-verified clean.</li>
+<li><strong>First commit made:</strong> 99 files, ~15,100 lines, message &quot;Initial commit: StudyBuddy platform.&quot; Verified beforehand that no secrets were staged (<code>.env</code> is git-ignored; only the empty <code>.env.example</code> template is tracked).</li>
+<li><strong>This first commit was pushed to <code>origin main</code></strong> on GitHub successfully.</li>
+<li><strong>⚠️ Gap: the admin Classes/Subjects management feature (§4.4) was built <em>after</em> that push, and has not been committed or pushed since.</strong> As of this document, <code>git log</code> shows exactly one commit. If the live Vercel deployment was connected to this repo, it currently does <strong>not</strong> include Classes/Subjects management.</li>
+<li><strong>Vercel connection itself was handed off as instructions, not completed by the assistant</strong> — creating/logging into a Vercel account and connecting it to the GitHub repo requires the user&#39;s own authentication, which is outside what an AI assistant can or should do on someone&#39;s behalf. The assistant gave exact steps (import the repo, Vercel auto-detects Next.js, set environment variables matching <code>.env</code>, note that <code>NEXT_PUBLIC_SITE_URL</code> needs to be updated to the real production URL once assigned since the invite-link flow depends on it) — but there is <strong>no confirmation on record that this was completed</strong>, and no live production URL was ever reported back.</li>
+<li><strong>Resend email was wired up and verified for real</strong> — a real API key was added, and a live test (a real signup request, approved for real) confirmed an actual email sends via Resend&#39;s API rather than falling back to the no-op link-in-UI mode. This part is fully working, independent of the Vercel gap above.</li>
+</ol>
+<p><strong>Practical takeaway for whoever picks this up next:</strong> before treating the app as &quot;deployed,&quot; confirm (a) whether a Vercel project actually exists and is connected to this GitHub repo, (b) what URL it&#39;s live at, and (c) that the newer Classes/Subjects commit has actually been pushed and redeployed. None of these should be assumed from this document alone.</p>
+<hr>
+<h2>8. Current State (as of this snapshot)</h2>
+<ul>
+<li>All 9 originally-planned sessions are complete and were each tested live in a browser (not just type-checked) before being considered done.</li>
+<li>The authorization/onboarding system, messaging, notifications, worksheet generator mock, video-embed fix, and admin class/subject management are all complete, tested, and working in the local/dev environment.</li>
+<li>The production database was recently <strong>cleared of all facilitator test data</strong> ahead of a live showcase — 7 test/demo facilitator accounts and all their related records (assignments, lesson progress, messages, notifications, signup requests) were removed, with a JSON backup taken first and the matching Supabase Auth accounts also cleaned up so the same email addresses remain reusable. The seeded admin account and all lesson/class/subject content were left untouched.</li>
+<li>One facilitator now exists as a live demo account: assigned to Grade 1 · Maths, ready to show the assignment/lesson-access flow immediately without needing to run the full request-approval flow live during a demo, while that flow itself is also fully available to demonstrate end-to-end if wanted.</li>
+</ul>
+<h2>9. Natural Next Steps (not yet started, no commitment implied)</h2>
+<p>These were never asked for — they&#39;re just the obvious gaps left if someone were to keep building:</p>
+<ul>
+<li>Push and redeploy the Classes/Subjects feature (see §7&#39;s gap).</li>
+<li>Confirm and record the actual live Vercel URL.</li>
+<li>Replace the worksheet generator&#39;s mock body with a real LLM call (the function is already isolated for exactly this).</li>
+<li>&quot;Progress history&quot; remains a placeholder nav item on the facilitator side — never scoped or built.</li>
+<li>No edit/delete UI exists yet for classes or subjects — only creation.</li>
+<li>Verify a custom Resend sending domain if the plan is to email real, non-test facilitators (the current sender can only email the Resend account owner&#39;s own verified address).</li>
+</ul>
+<hr>
+<p><em>End of handoff document. If you&#39;re the Claude reading this to help write a report: the user was there for all of this and can confirm or add colour to any section — treat this as ground truth for what was built and how, but defer to the user on framing, emphasis, and what belongs in the final report itself.</em></p>
+
+</body></html>

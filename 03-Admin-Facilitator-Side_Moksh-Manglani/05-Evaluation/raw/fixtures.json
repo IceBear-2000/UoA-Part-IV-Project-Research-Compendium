@@ -1,0 +1,81 @@
+{
+  "created": [],
+  "files": [
+    "cmvdp0fqa0009tdwhwd2btdlc/eval-1792319933951-a8-test.pdf"
+  ],
+  "ids": {
+    "G1": "cmrfsja930009tdbzkefp6pp0",
+    "G1_MATHS": "cmrfsjad0000ctdbzkt77swko",
+    "G4_MATHS": "cmrjsp4ae0005jp047zdai36a",
+    "G4_ENGLISH": "cmu9ysjav0001tdboqs8su2f4",
+    "g4": "cmrjsoyqp0003jp04mvc80fmo"
+  },
+  "e1": {
+    "lessonId": "cmvdp0f5k0001tdwhlnxjbwxy",
+    "blockIds": [
+      "cmvdp0fb10003tdwhsu6dz1fn",
+      "cmvdp0fg50005tdwhpexn6fhf",
+      "cmvdp0fl20007tdwh8krjrna6",
+      "cmvdp0fqa0009tdwhwd2btdlc",
+      "cmvdp0fv5000btdwhwsj12za6"
+    ],
+    "filePath": "cmvdp0fqa0009tdwhwd2btdlc/eval-1792319933951-a8-test.pdf"
+  },
+  "e2": {
+    "lessonId": "cmvdp0gm2000dtdwhholcxrko",
+    "blockIds": [
+      "cmvdp0gr9000ftdwhbjrweo7k",
+      "cmvdp0gwd000htdwhjcnzgcfb"
+    ]
+  },
+  "e3": {
+    "lessonId": "cmvdp0h1j000jtdwh24xzthny",
+    "blockIds": [
+      "cmvdp0h6w000ltdwhsh45davm",
+      "cmvdp0hc0000ntdwht60gdf41"
+    ]
+  },
+  "e4": {
+    "lessonId": "cmvdp0hgp000ptdwhhyob1xxh",
+    "blockIds": [
+      "cmvdp0hms000rtdwhv3aqgx1g",
+      "cmvdp0hsi000ttdwh2els9r5a"
+    ]
+  },
+  "e5": {
+    "lessonId": "cmvdp0hzm000vtdwhmmm3essa",
+    "blockIds": [
+      "cmvdp0i4h000xtdwhzf4gc9ww",
+      "cmvdp0i9h000ztdwhf35hmew5",
+      "cmvdp0ies0011tdwhhip0zkvd",
+      "cmvdp0ik60013tdwhy8nl28tk",
+      "cmvdp0ipc0015tdwhqfzadi46",
+      "cmvdp0iuh0017tdwhth2h5l31",
+      "cmvdp0izq0019tdwh1t8w47rf",
+      "cmvdp0j4u001btdwh79lq3vdz",
+      "cmvdp0j9t001dtdwh1i770uc5",
+      "cmvdp0jex001ftdwhkcya8ns7",
+      "cmvdp0jk5001htdwh15ujd3mw",
+      "cmvdp0jpc001jtdwhoglpsech",
+      "cmvdp0juq001ltdwh5y4znrt1",
+      "cmvdp0jzt001ntdwhtgu273qs",
+      "cmvdp0k5t001ptdwhz98fnbz9",
+      "cmvdp0kb1001rtdwhi4oounu6",
+      "cmvdp0kg1001ttdwhxbyufcks",
+      "cmvdp0klq001vtdwhlffg1yq5",
+      "cmvdp0krv001xtdwhb75lg880",
+      "cmvdp0kx1001ztdwhfywsd9us",
+      "cmvdp0l250021tdwh87ykaxwu",
+      "cmvdp0l7f0023tdwh8jnyd7c8",
+      "cmvdp0lc20025tdwhhrugtq8k",
+      "cmvdp0lhp0027tdwhornj8k68",
+      "cmvdp0ln00029tdwhi8u28oom"
+    ]
+  },
+  "e6": {
+    "lessonId": "cmvdp0lsa002btdwh0tmtt9qy",
+    "blockIds": [
+      "cmvdp0lxv002dtdwh3pqh2580"
+    ]
+  }
+}

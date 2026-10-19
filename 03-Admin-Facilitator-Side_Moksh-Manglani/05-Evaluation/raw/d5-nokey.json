@@ -1,0 +1,10 @@
+{
+  "analyze": {
+    "status": 200,
+    "body": "\"summary\":\"\",\"warnings\":[\"AI generation isn't configured yet — ask an admin to add ANTHROPIC_API_KEY.\"]}"
+  },
+  "generate": {
+    "status": 200,
+    "body": "\"error\":\"AI generation isn't configured yet — ask an admin to add ANTHROPIC_API_KEY.\"}"
+  }
+}

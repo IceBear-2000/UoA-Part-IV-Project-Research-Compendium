@@ -1,0 +1,182 @@
+[
+  {
+    "n": "D01",
+    "lessonId": "cmvdpma2h0001tdbwjx7e9h48",
+    "real": "Addition",
+    "cls": "NCERT Grade 1",
+    "subject": "Maths",
+    "curriculum": "NCERT",
+    "src": "YouTube with captions (short, 1.1k chars) + worksheet block",
+    "blockCount": 2,
+    "docPaths": []
+  },
+  {
+    "n": "D02",
+    "lessonId": "cmvdpmaue0007tdbwywwel137",
+    "real": "Shapes Around Us \u2014 3D Shapes",
+    "cls": "NCERT Grade 2",
+    "subject": "Maths",
+    "curriculum": "NCERT",
+    "src": "YouTube with captions (14.9k chars) + reading + activity",
+    "blockCount": 3,
+    "docPaths": []
+  },
+  {
+    "n": "D03",
+    "lessonId": "cmvdpmbqc000ftdbwtkrvy2ml",
+    "real": "Family and Friends",
+    "cls": "NCERT Grade 3",
+    "subject": "EVS",
+    "curriculum": "NCERT",
+    "src": "YouTube with captions (9.2k chars) + reading + activity",
+    "blockCount": 3,
+    "docPaths": []
+  },
+  {
+    "n": "D04",
+    "lessonId": "cmvdpmcmj000ntdbw9o6v3cn1",
+    "real": "Multiplication",
+    "cls": "NCERT Grade 4",
+    "subject": "Maths",
+    "curriculum": "NCERT",
+    "src": "YouTube with captions (6.0k chars) + worksheet + break",
+    "blockCount": 3,
+    "docPaths": []
+  },
+  {
+    "n": "D05",
+    "lessonId": "cmvdpmdl9000vtdbw30rm9t0x",
+    "real": "Our Sky",
+    "cls": "NCERT Grade 4",
+    "subject": "EVS",
+    "curriculum": "NCERT",
+    "src": "YouTube with captions (38.6k chars, long transcript) + reading + activity",
+    "blockCount": 3,
+    "docPaths": []
+  },
+  {
+    "n": "D06",
+    "lessonId": "cmvdpmejf0013tdbwch5kqkxs",
+    "real": "Fun with Shapes",
+    "cls": "NCERT Grade 3",
+    "subject": "Maths",
+    "curriculum": "NCERT",
+    "src": "YouTube WITHOUT captions (transcripts disabled) + reading + activity",
+    "blockCount": 3,
+    "docPaths": []
+  },
+  {
+    "n": "D07",
+    "lessonId": "cmvdpmfjs001btdbwawvj8yxr",
+    "real": "Mango Treat \u2014 Numbers 1 to 9",
+    "cls": "NCERT Grade 1",
+    "subject": "Maths",
+    "curriculum": "NCERT",
+    "src": "PDF (authored) + playlist link (unreadable) + reading + activity",
+    "blockCount": 4,
+    "docPaths": [
+      "cmvdpmgg8001jtdbw47ndfiii/eval-P07_numbers_1_to_9.pdf"
+    ]
+  },
+  {
+    "n": "D08",
+    "lessonId": "cmvdpmhpv001ltdbwuc8cx74d",
+    "real": "Counting and Ordering to 20",
+    "cls": "NZC Year 1",
+    "subject": "Maths",
+    "curriculum": "NZC",
+    "src": "DOCX (authored) + channel link (unreadable) + reading + activity",
+    "blockCount": 4,
+    "docPaths": [
+      "cmvdpmiec001ttdbw5l5auix1/eval-P08_counting_ordering_20.docx"
+    ]
+  },
+  {
+    "n": "D09",
+    "lessonId": "cmvdpmj4n001vtdbwbjwix2xn",
+    "real": "Living and Non-Living Things",
+    "cls": "NZC Year 1",
+    "subject": "Science",
+    "curriculum": "NZC",
+    "src": "PDF (authored) + channel link (unreadable) + reading + activity",
+    "blockCount": 4,
+    "docPaths": [
+      "cmvdpmjrz0023tdbwkhi9jabs/eval-P09_living_nonliving.pdf"
+    ]
+  },
+  {
+    "n": "D10",
+    "lessonId": "cmvdpmkip0025tdbwevptuy8a",
+    "real": "Telling Time to the Half Hour",
+    "cls": "NZC Year 2",
+    "subject": "Maths",
+    "curriculum": "NZC",
+    "src": "As seeded: channel link (unreadable) + reading + activity text only",
+    "blockCount": 3,
+    "docPaths": []
+  },
+  {
+    "n": "D11",
+    "lessonId": "cmvdpmlfi002dtdbwdpcjl3mo",
+    "real": "States of Matter",
+    "cls": "NZC Year 2",
+    "subject": "Science",
+    "curriculum": "NZC",
+    "src": "EMPTY lesson (one blank note block)",
+    "blockCount": 1,
+    "docPaths": []
+  },
+  {
+    "n": "D12",
+    "lessonId": "cmvdpmm15002htdbwzlx5fv6t",
+    "real": "Fractions \u2014 Halves, Quarters, Thirds",
+    "cls": "NZC Year 3",
+    "subject": "Maths",
+    "curriculum": "NZC",
+    "src": "DOCX (authored) + channel link (unreadable) + reading + activity",
+    "blockCount": 4,
+    "docPaths": [
+      "cmvdpmmos002ptdbwsdhkf3nt/eval-P12_fractions.docx"
+    ]
+  },
+  {
+    "n": "D13",
+    "lessonId": "cmvdpmnfk002rtdbwp1z9xrzm",
+    "real": "Life Cycles",
+    "cls": "NZC Year 3",
+    "subject": "Science",
+    "curriculum": "NZC",
+    "src": "PDF (authored) + channel link (unreadable) + reading + activity",
+    "blockCount": 4,
+    "docPaths": [
+      "cmvdpmo4d002ztdbwxvbk6wz0/eval-P13_life_cycles.pdf"
+    ]
+  },
+  {
+    "n": "D14",
+    "lessonId": "cmvdpmoyh0031tdbwj6qj4dhn",
+    "real": "Angles and Shape Properties",
+    "cls": "NZC Year 4",
+    "subject": "Maths",
+    "curriculum": "NZC",
+    "src": "VERY LONG DOCX (308,232 chars; the lesson topic is in the last part, at char 307,513) placed first + reading + activity",
+    "blockCount": 4,
+    "docPaths": [
+      "cmvdpmp8k0033tdbwv6njetxv/eval-long.docx"
+    ]
+  },
+  {
+    "n": "D15",
+    "lessonId": "cmvdpmqda003btdbwal0vtmx0",
+    "real": "The Water Cycle",
+    "cls": "NZC Year 4",
+    "subject": "Science",
+    "curriculum": "NZC",
+    "src": "TWO documents (PDF + DOCX, authored) + channel link + reading + activity",
+    "blockCount": 5,
+    "docPaths": [
+      "cmvdpmr2j003jtdbwkxc08im2/eval-P15a_water_cycle_1.pdf",
+      "cmvdpmrjh003ltdbwcmk9ih5h/eval-P15b_water_cycle_2.docx"
+    ]
+  }
+]

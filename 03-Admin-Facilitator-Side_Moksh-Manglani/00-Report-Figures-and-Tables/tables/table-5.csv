@@ -1,0 +1,5 @@
+Heuristic,Problem found,Severity
+1. Visibility of system status,"The facilitator lesson list shows ""Not started"" for every lesson",3
+4. Consistency and standards,Labels on the login and sign-up forms are not tied to their inputs,3
+8. Aesthetic and minimalist design,Contrast in the default theme is below the WCAG AA level for muted text and the main button,3
+1. Visibility of system status,Browser tab titles are the same on every page,2

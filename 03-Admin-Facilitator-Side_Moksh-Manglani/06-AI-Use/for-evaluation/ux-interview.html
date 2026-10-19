@@ -1,0 +1,544 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="UTF-8">
+<title>StudyBuddy UX Interview</title>
+<style>
+  :root{
+    --bg:#f4f5f7; --bg-2:#e9ebef; --surface:#ffffff; --ink:#1c2128; --muted:#667085; --line:#dfe2e8; --line-soft:#edeef1;
+    --clay:#4f46e5; --clay-soft:#e8e7fc; --clay-ink:#4338ca;
+    --sage:#059669; --sage-soft:#d7f3e7; --sage-ink:#047857;
+    --blue:#2563eb; --blue-soft:#dbe6fd; --blue-ink:#1d4ed8;
+    --rose:#dc2626; --rose-soft:#fbdede; --rose-ink:#b91c1c;
+    --shadow: 0 1px 0 rgba(20,20,25,.03), 0 1px 3px rgba(20,20,25,.06);
+    --shadow-2: 0 1px 0 rgba(20,20,25,.03), 0 6px 16px rgba(20,20,25,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1115; --bg-2:#171a20; --surface:#171a20; --ink:#e8eaed; --muted:#9aa1ac; --line:#2a2e37; --line-soft:#20242b;
+      --clay:#818cf8; --clay-soft:#2a2a4a; --clay-ink:#c7d2fe;
+      --sage:#34d399; --sage-soft:#0f2e24; --sage-ink:#6ee7b7;
+      --blue:#60a5fa; --blue-soft:#122238; --blue-ink:#93c5fd;
+      --rose:#f87171; --rose-soft:#331a1a; --rose-ink:#fca5a5;
+      --shadow: 0 1px 0 rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3);
+      --shadow-2: 0 1px 0 rgba(0,0,0,.15), 0 8px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1115; --bg-2:#171a20; --surface:#171a20; --ink:#e8eaed; --muted:#9aa1ac; --line:#2a2e37; --line-soft:#20242b;
+    --clay:#818cf8; --clay-soft:#2a2a4a; --clay-ink:#c7d2fe;
+    --sage:#34d399; --sage-soft:#0f2e24; --sage-ink:#6ee7b7;
+    --blue:#60a5fa; --blue-soft:#122238; --blue-ink:#93c5fd;
+    --rose:#f87171; --rose-soft:#331a1a; --rose-ink:#fca5a5;
+    --shadow: 0 1px 0 rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3);
+    --shadow-2: 0 1px 0 rgba(0,0,0,.15), 0 8px 20px rgba(0,0,0,.35);
+  }
+  :root{ color-scheme: light dark; }
+
+  *{ box-sizing: border-box; }
+  body{
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3,p,ol,ul{ margin: 0; }
+  button{ font: inherit; }
+
+  .wrap{ max-width: 720px; margin: 0 auto; padding: 56px 22px 100px; }
+
+  header.top{ margin-bottom: 40px; }
+  .eyebrow{
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--clay-ink); background: var(--clay-soft); padding: 5px 11px; border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  h1.title{
+    font-size: 29px; font-weight: 700; letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .subtitle{ margin-top: 10px; font-size: 14.5px; color: var(--muted); max-width: 58ch; }
+
+  .page{
+    background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+    box-shadow: var(--shadow); padding: 26px 26px 28px; margin-bottom: 22px;
+  }
+  .page-head{ display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  .page-num{
+    font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted);
+  }
+  .page-title{ font-size: 19px; font-weight: 700; letter-spacing: -0.005em; }
+  .page-desc{ font-size: 13.5px; color: var(--muted); margin-bottom: 20px; max-width: 60ch; }
+
+  .q{ margin-bottom: 18px; }
+  .q:last-child{ margin-bottom: 0; }
+  .q-label{ font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .q-hint{ font-size: 12px; color: var(--muted); font-weight: 400; margin-left: 6px; }
+  textarea, input[type="text"]{
+    width: 100%; border: 1px solid var(--line); background: var(--bg-2); border-radius: 10px;
+    padding: 9px 12px; font: inherit; font-size: 13.5px; color: var(--ink); resize: vertical;
+  }
+  textarea:focus, input[type="text"]:focus{ outline: 2px solid var(--clay); outline-offset: 1px; background: var(--surface); }
+  textarea{ min-height: 54px; }
+
+  .likert{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .likert-opt{
+    display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 8px 4px;
+    border: 1px solid var(--line); border-radius: 10px; cursor: pointer; text-align: center;
+  }
+  .likert-opt input{ margin: 0; }
+  .likert-opt span{ font-size: 10px; color: var(--muted); line-height: 1.2; }
+  .likert-opt:has(input:checked){ border-color: var(--clay); background: var(--clay-soft); }
+  .likert-scale-labels{ display: flex; justify-content: space-between; font-size: 10.5px; color: var(--muted); margin-top: 4px; }
+
+  .stars{ display: flex; gap: 6px; }
+  .star{
+    width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 9px; background: var(--bg-2);
+    display: grid; place-items: center; cursor: pointer; font-size: 16px; color: var(--line);
+  }
+  .star.filled{ background: var(--clay-soft); border-color: var(--clay); color: var(--clay-ink); }
+
+  .feature-row{ display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 0; border-top: 1px solid var(--line-soft); }
+  .feature-row:first-of-type{ border-top: 0; }
+  .feature-name{ font-size: 13.5px; font-weight: 600; }
+
+  .task-row{ padding: 12px 0; border-top: 1px solid var(--line-soft); }
+  .task-row:first-of-type{ border-top: 0; }
+  .task-text{ font-size: 13.5px; font-weight: 600; margin-bottom: 8px; }
+  .task-opts{ display: flex; gap: 6px; }
+  .task-opt{
+    flex: 1; text-align: center; padding: 8px 6px; border: 1px solid var(--line); border-radius: 9px;
+    font-size: 12.5px; font-weight: 600; color: var(--muted); cursor: pointer; background: var(--bg-2);
+  }
+  .task-opt.sel-easy.selected{ background: var(--sage-soft); border-color: var(--sage); color: var(--sage-ink); }
+  .task-opt.sel-ok.selected{ background: var(--blue-soft); border-color: var(--blue); color: var(--blue-ink); }
+  .task-opt.sel-hard.selected{ background: var(--rose-soft); border-color: var(--rose); color: var(--rose-ink); }
+
+  .nps-row{ display: flex; gap: 5px; flex-wrap: wrap; }
+  .nps-opt{
+    width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-2);
+    display: grid; place-items: center; font-size: 12.5px; font-weight: 700; cursor: pointer; color: var(--muted);
+  }
+  .nps-opt.selected{ background: var(--clay); border-color: var(--clay); color: #fff; }
+  .nps-scale-labels{ display: flex; justify-content: space-between; font-size: 10.5px; color: var(--muted); margin-top: 6px; }
+
+  .theme-pick{ display: flex; gap: 8px; }
+  .theme-opt{
+    flex: 1; padding: 12px; border: 1px solid var(--line); border-radius: 12px; cursor: pointer; text-align: center;
+    background: var(--bg-2); font-size: 13px; font-weight: 700;
+  }
+  .theme-opt.selected{ border-color: var(--clay); background: var(--clay-soft); color: var(--clay-ink); }
+
+  .submit-bar{ display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 8px; }
+  .btn-submit{
+    background: var(--clay); color: #fff; border: 0; border-radius: 12px; padding: 13px 30px;
+    font-size: 14.5px; font-weight: 700; cursor: pointer; box-shadow: var(--shadow-2);
+  }
+  .btn-submit:disabled{ opacity: .6; cursor: default; }
+  .status-msg{ font-size: 12.5px; color: var(--muted); min-height: 16px; }
+  .status-msg.ok{ color: var(--sage-ink); font-weight: 600; }
+  .status-msg.err{ color: var(--rose-ink); font-weight: 600; }
+
+  .thankyou{ display: none; text-align: center; padding: 46px 26px; }
+  .thankyou.show{ display: block; }
+  .thankyou h2{ font-size: 23px; font-weight: 700; margin-bottom: 8px; }
+  .thankyou p{ color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+  .btn-secondary{
+    background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 10px;
+    padding: 9px 18px; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+
+  .footer-tools{ display: flex; justify-content: center; margin-top: 30px; }
+  .link-btn{ background: none; border: 0; color: var(--muted); font-size: 12px; text-decoration: underline; cursor: pointer; }
+
+  .results{ display: none; }
+  .results.show{ display: block; }
+  .result-stat{ display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid var(--line-soft); font-size: 13.5px; }
+  .result-stat:first-child{ border-top: 0; }
+  .result-comment{ font-size: 13px; padding: 10px 0; border-top: 1px solid var(--line-soft); color: var(--ink); }
+  .result-comment small{ display: block; color: var(--muted); margin-top: 3px; }
+
+  @media print{
+    body{ background: #fff; }
+    .footer-tools, .submit-bar, .results{ display: none !important; }
+    .page{ box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+  }
+  @media (max-width: 480px){
+    .likert{ grid-template-columns: repeat(5, 1fr); }
+    .likert-opt span{ display: none; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">UX research · ~5 minutes</span>
+    <h1 class="title">What do you think of StudyBuddy?</h1>
+    <p class="subtitle">
+      A short interview and feedback form for anyone trying out the app for the first time.
+      Part 1 is a few quick questions to talk through out loud — jot down what they say. Parts
+      2 onward, hand it over and let them fill it in themselves.
+    </p>
+  </header>
+
+  <form id="form">
+
+    <section class="page">
+      <div class="page-head"><span class="page-num">Part 1</span><span class="page-title">Quick chat</span></div>
+      <p class="page-desc">Ask these out loud. Keep it casual — you're after their honest first reaction, not a polished answer.</p>
+
+      <div class="q">
+        <label class="q-label">What's your first impression of this app?</label>
+        <textarea data-field="q1"></textarea>
+      </div>
+      <div class="q">
+        <label class="q-label">What do you think it's for?</label>
+        <textarea data-field="q2"></textarea>
+      </div>
+      <div class="q">
+        <label class="q-label">Was anything confusing, or hard to find?</label>
+        <textarea data-field="q3"></textarea>
+      </div>
+      <div class="q">
+        <label class="q-label">What did you like most?</label>
+        <textarea data-field="q4"></textarea>
+      </div>
+      <div class="q">
+        <label class="q-label">If you could change one thing, what would it be?</label>
+        <textarea data-field="q5"></textarea>
+      </div>
+      <div class="q">
+        <label class="q-label">Would you actually use something like this? Why or why not?</label>
+        <textarea data-field="q6"></textarea>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="page-head"><span class="page-num">Part 2</span><span class="page-title">The 2-minute usability check</span></div>
+      <p class="page-desc">
+        This is the System Usability Scale — a real, widely-used research tool, not something we made up.
+        For each statement, pick how much you agree.
+      </p>
+      <div id="sus"></div>
+    </section>
+
+    <section class="page">
+      <div class="page-head"><span class="page-num">Part 3</span><span class="page-title">Rate each part</span></div>
+      <p class="page-desc">1 star = not great, 5 stars = excellent. Skip anything you didn't get to see.</p>
+      <div id="features"></div>
+    </section>
+
+    <section class="page">
+      <div class="page-head"><span class="page-num">Part 4</span><span class="page-title">Try it yourself</span></div>
+      <p class="page-desc">Attempt each task below, then mark how it went.</p>
+      <div id="tasks"></div>
+      <div class="q" style="margin-top:16px">
+        <label class="q-label">Anything you expected to find but couldn't?</label>
+        <textarea data-field="missing"></textarea>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="page-head"><span class="page-num">Part 5</span><span class="page-title">Last few things</span></div>
+
+      <div class="q">
+        <label class="q-label">How likely are you to recommend this to another facilitator?<span class="q-hint">0 = not at all, 10 = definitely</span></label>
+        <div class="nps-row" id="nps"></div>
+        <div class="nps-scale-labels"><span>Not likely</span><span>Extremely likely</span></div>
+      </div>
+
+      <div class="q">
+        <label class="q-label">Which look did you like best?</label>
+        <div class="theme-pick" id="theme-pick">
+          <div class="theme-opt" data-theme="warm">Warm</div>
+          <div class="theme-opt" data-theme="studio">Studio</div>
+          <div class="theme-opt" data-theme="ledger">Ledger</div>
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label">Anything else you want to say?</label>
+        <textarea data-field="other"></textarea>
+      </div>
+
+      <div class="q">
+        <label class="q-label">Your name <span class="q-hint">optional</span></label>
+        <input type="text" data-field="name" placeholder="So we know who to thank">
+      </div>
+    </section>
+
+    <div class="submit-bar">
+      <button type="submit" class="btn-submit" id="submitBtn">Submit feedback</button>
+      <p class="status-msg" id="statusMsg"></p>
+    </div>
+  </form>
+
+  <div class="thankyou" id="thankyou">
+    <h2>Thanks! 🎉</h2>
+    <p>That's saved. Ready for the next person.</p>
+    <button type="button" class="btn-secondary" id="resetBtn">Start a new response</button>
+  </div>
+
+  <div class="footer-tools">
+    <button type="button" class="link-btn" id="toggleResults">View collected responses</button>
+  </div>
+
+  <div class="results" id="results">
+    <section class="page">
+      <div class="page-head"><span class="page-title">Collected responses</span></div>
+      <div id="resultsBody"><p class="page-desc">Loading…</p></div>
+    </section>
+  </div>
+</div>
+
+<script>
+  var SUS_ITEMS = [
+    "I think I would use this app frequently.",
+    "I found the app unnecessarily complex.",
+    "I thought the app was easy to use.",
+    "I think I would need help from a technical person to use this app.",
+    "I found the various functions in this app well integrated.",
+    "I thought there was too much inconsistency in this app.",
+    "I would imagine most people would learn to use this app very quickly.",
+    "I found the app very cumbersome/awkward to use.",
+    "I felt very confident using the app.",
+    "I needed to learn a lot of things before I could get going with this app."
+  ];
+  var LIKERT_LABELS = ["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"];
+
+  var FEATURES = [
+    ["overview", "Overview dashboard"],
+    ["classes", "Classes page"],
+    ["lessons", "Lessons page"],
+    ["worksheetGen", "AI worksheet generator"],
+    ["settings", "Settings & themes"],
+    ["nav", "Overall navigation"]
+  ];
+
+  var TASKS = [
+    ["findLesson", "Find and open any lesson under a class you pick."],
+    ["switchTheme", "Switch the app's look to a different theme."],
+    ["findWorksheetGen", "Find where you'd generate an AI worksheet for a lesson."],
+    ["findSettings", "Find the settings menu."]
+  ];
+
+  var state = { sus: {}, features: {}, tasks: {}, nps: null, theme: null };
+
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html != null) e.innerHTML = html;
+    return e;
+  }
+
+  // ---- SUS ----
+  var susRoot = document.getElementById('sus');
+  SUS_ITEMS.forEach(function (text, i) {
+    var q = el('div', 'q');
+    q.appendChild(el('label', 'q-label', (i + 1) + '. ' + text));
+    var likert = el('div', 'likert');
+    for (var v = 1; v <= 5; v++) {
+      var opt = el('label', 'likert-opt');
+      var input = document.createElement('input');
+      input.type = 'radio'; input.name = 'sus-' + i; input.value = v;
+      input.addEventListener('change', function (idx, val) { return function () { state.sus[idx] = val; }; }(i, v));
+      opt.appendChild(input);
+      opt.appendChild(el('span', null, v));
+      likert.appendChild(opt);
+    }
+    q.appendChild(likert);
+    var labels = el('div', 'likert-scale-labels', '<span>' + LIKERT_LABELS[0] + '</span><span>' + LIKERT_LABELS[4] + '</span>');
+    q.appendChild(labels);
+    susRoot.appendChild(q);
+  });
+
+  // ---- Features (stars) ----
+  var featRoot = document.getElementById('features');
+  FEATURES.forEach(function (f) {
+    var key = f[0], label = f[1];
+    var row = el('div', 'feature-row');
+    row.appendChild(el('span', 'feature-name', label));
+    var stars = el('div', 'stars');
+    for (var v = 1; v <= 5; v++) {
+      var s = el('button', 'star', '★');
+      s.type = 'button';
+      s.dataset.value = v;
+      s.addEventListener('click', function (key, val, starsEl) {
+        return function () {
+          state.features[key] = val;
+          Array.prototype.forEach.call(starsEl.children, function (c, idx) {
+            c.classList.toggle('filled', idx < val);
+          });
+        };
+      }(key, v, stars));
+      stars.appendChild(s);
+    }
+    row.appendChild(stars);
+    featRoot.appendChild(row);
+  });
+
+  // ---- Tasks ----
+  var taskRoot = document.getElementById('tasks');
+  var TASK_OPTS = [["easy", "Easy"], ["ok", "Took a moment"], ["hard", "Hard / couldn't"]];
+  TASKS.forEach(function (t) {
+    var key = t[0], text = t[1];
+    var row = el('div', 'task-row');
+    row.appendChild(el('div', 'task-text', text));
+    var opts = el('div', 'task-opts');
+    TASK_OPTS.forEach(function (o) {
+      var btn = el('div', 'task-opt sel-' + o[0], o[1]);
+      btn.addEventListener('click', function () {
+        state.tasks[key] = o[0];
+        Array.prototype.forEach.call(opts.children, function (c) { c.classList.remove('selected'); });
+        btn.classList.add('selected');
+      });
+      opts.appendChild(btn);
+    });
+    row.appendChild(opts);
+    taskRoot.appendChild(row);
+  });
+
+  // ---- NPS ----
+  var npsRoot = document.getElementById('nps');
+  for (var n = 0; n <= 10; n++) {
+    var b = el('div', 'nps-opt', n);
+    b.addEventListener('click', function (val, btn) {
+      return function () {
+        state.nps = val;
+        Array.prototype.forEach.call(npsRoot.children, function (c) { c.classList.remove('selected'); });
+        btn.classList.add('selected');
+      };
+    }(n, b));
+    npsRoot.appendChild(b);
+  }
+
+  // ---- Theme pick ----
+  var themeOpts = document.querySelectorAll('#theme-pick .theme-opt');
+  themeOpts.forEach(function (opt) {
+    opt.addEventListener('click', function () {
+      state.theme = opt.dataset.theme;
+      themeOpts.forEach(function (o) { o.classList.remove('selected'); });
+      opt.classList.add('selected');
+    });
+  });
+
+  // ---- SUS score ----
+  function computeSus() {
+    var vals = [];
+    for (var i = 0; i < 10; i++) vals.push(state.sus[i] || 3);
+    var total = 0;
+    for (var i = 0; i < 10; i++) {
+      total += (i % 2 === 0) ? (vals[i] - 1) : (5 - vals[i]);
+    }
+    return Math.round(total * 2.5);
+  }
+
+  // ---- db ----
+  var dbPromise = (window.claude && window.claude.use) ? window.claude.use('db') : Promise.resolve(null);
+
+  var form = document.getElementById('form');
+  var statusMsg = document.getElementById('statusMsg');
+  var submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    statusMsg.textContent = 'Saving…';
+    statusMsg.className = 'status-msg';
+
+    var textFields = {};
+    form.querySelectorAll('[data-field]').forEach(function (elx) { textFields[elx.dataset.field] = elx.value; });
+
+    var record = {
+      answers: textFields,
+      sus: state.sus,
+      susScore: computeSus(),
+      features: state.features,
+      tasks: state.tasks,
+      nps: state.nps,
+      themePreference: state.theme,
+      submittedAt: new Date().toISOString()
+    };
+
+    try {
+      var db = await dbPromise;
+      if (db) {
+        await db.collection('responses').add(record);
+        statusMsg.textContent = 'Saved.';
+        statusMsg.className = 'status-msg ok';
+      } else {
+        statusMsg.textContent = "Couldn't save automatically — screenshot this page as a backup.";
+        statusMsg.className = 'status-msg err';
+      }
+    } catch (err) {
+      statusMsg.textContent = "Couldn't save automatically — screenshot this page as a backup.";
+      statusMsg.className = 'status-msg err';
+    }
+
+    form.style.display = 'none';
+    document.getElementById('thankyou').classList.add('show');
+    submitBtn.disabled = false;
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    form.reset();
+    state = { sus: {}, features: {}, tasks: {}, nps: null, theme: null };
+    document.querySelectorAll('.star.filled').forEach(function (s) { s.classList.remove('filled'); });
+    document.querySelectorAll('.task-opt.selected, .nps-opt.selected, .theme-opt.selected').forEach(function (s) { s.classList.remove('selected'); });
+    document.getElementById('thankyou').classList.remove('show');
+    form.style.display = '';
+    statusMsg.textContent = '';
+    window.scrollTo(0, 0);
+  });
+
+  // ---- results viewer ----
+  var resultsShown = false;
+  document.getElementById('toggleResults').addEventListener('click', async function () {
+    var resultsEl = document.getElementById('results');
+    resultsShown = !resultsShown;
+    resultsEl.classList.toggle('show', resultsShown);
+    this.textContent = resultsShown ? 'Hide collected responses' : 'View collected responses';
+    if (!resultsShown) return;
+
+    var body = document.getElementById('resultsBody');
+    body.innerHTML = '<p class="page-desc">Loading…</p>';
+    var db = await dbPromise;
+    if (!db) { body.innerHTML = '<p class="page-desc">Not available in this view.</p>'; return; }
+
+    try {
+      var snap = await db.collection('responses').orderBy('submittedAt', 'desc').limit(200).get();
+      if (snap.empty) { body.innerHTML = '<p class="page-desc">No responses saved yet.</p>'; return; }
+
+      var docs = snap.docs.map(function (d) { return d.data(); });
+      var count = docs.length;
+      var avgSus = Math.round(docs.reduce(function (s, d) { return s + (d.susScore || 0); }, 0) / count);
+      var npsVals = docs.filter(function (d) { return typeof d.nps === 'number'; }).map(function (d) { return d.nps; });
+      var avgNps = npsVals.length ? (npsVals.reduce(function (a, b) { return a + b; }, 0) / npsVals.length).toFixed(1) : '—';
+
+      var html = '';
+      html += '<div class="result-stat"><strong>Responses</strong><span>' + count + '</span></div>';
+      html += '<div class="result-stat"><strong>Average SUS score</strong><span>' + avgSus + ' / 100</span></div>';
+      html += '<div class="result-stat"><strong>Average recommend score</strong><span>' + avgNps + ' / 10</span></div>';
+
+      FEATURES.forEach(function (f) {
+        var vals = docs.map(function (d) { return d.features && d.features[f[0]]; }).filter(function (v) { return v; });
+        if (!vals.length) return;
+        var avg = (vals.reduce(function (a, b) { return a + b; }, 0) / vals.length).toFixed(1);
+        html += '<div class="result-stat"><span>' + f[1] + '</span><span>' + avg + ' ★</span></div>';
+      });
+
+      html += '<div style="margin-top:14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)">Open comments</div>';
+      docs.forEach(function (d) {
+        var name = (d.answers && d.answers.name) || 'Anonymous';
+        ['q1','q2','q3','q4','q5','q6','missing','other'].forEach(function (k) {
+          var v = d.answers && d.answers[k];
+          if (v && v.trim()) html += '<div class="result-comment">' + v.replace(/</g, '&lt;') + '<small>' + name + '</small></div>';
+        });
+      });
+
+      body.innerHTML = html;
+    } catch (err) {
+      body.innerHTML = '<p class="page-desc">Couldn\'t load responses.</p>';
+    }
+  });
+</script>
+
+</body></html>

@@ -1,0 +1,292 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="UTF-8">
+<title>Worksheet Generator Spec</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f0e6; --bg-2:#ece6d8; --surface:#fcfaf4; --ink:#33302a; --muted:#847c6c; --line:#e4ddcc; --line-soft:#ede7da;
+    --clay:#be8264; --clay-soft:#eddfd4; --clay-ink:#8c5538;
+    --sage:#8fa585; --sage-soft:#e6ebe0; --sage-ink:#4d6144;
+    --blue:#88a0b4; --blue-soft:#e3eaef; --blue-ink:#3f5b6e;
+    --code-bg:#2b271f; --code-ink:#f1ead9; --code-key:#e4b48c; --code-str:#b9c99a; --code-punc:#a89d87;
+    --shadow: 0 1px 0 rgba(51,48,42,.03), 0 1px 3px rgba(51,48,42,.05);
+    --shadow-2: 0 1px 0 rgba(51,48,42,.03), 0 6px 16px rgba(51,48,42,.07);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#18160f; --bg-2:#211e16; --surface:#211e17; --ink:#efe9dd; --muted:#a89d87; --line:#3a3527; --line-soft:#2b2820;
+      --clay:#d9a17e; --clay-soft:#3a2c22; --clay-ink:#f0c8ac;
+      --sage:#a3bb98; --sage-soft:#243024; --sage-ink:#bcd4b0;
+      --blue:#a2bccf; --blue-soft:#20282f; --blue-ink:#c2d7e6;
+      --code-bg:#100e0a; --code-ink:#f1ead9; --code-key:#e4b48c; --code-str:#b9c99a; --code-punc:#8b8067;
+      --shadow: 0 1px 0 rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3);
+      --shadow-2: 0 1px 0 rgba(0,0,0,.15), 0 8px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#18160f; --bg-2:#211e16; --surface:#211e17; --ink:#efe9dd; --muted:#a89d87; --line:#3a3527; --line-soft:#2b2820;
+    --clay:#d9a17e; --clay-soft:#3a2c22; --clay-ink:#f0c8ac;
+    --sage:#a3bb98; --sage-soft:#243024; --sage-ink:#bcd4b0;
+    --blue:#a2bccf; --blue-soft:#20282f; --blue-ink:#c2d7e6;
+    --code-bg:#100e0a; --code-ink:#f1ead9; --code-key:#e4b48c; --code-str:#b9c99a; --code-punc:#8b8067;
+    --shadow: 0 1px 0 rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3);
+    --shadow-2: 0 1px 0 rgba(0,0,0,.15), 0 8px 20px rgba(0,0,0,.35);
+  }
+  :root{ color-scheme: light dark; }
+
+  *{ box-sizing: border-box; }
+  body{
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3,p,ul,ol,table{ margin: 0; }
+
+  .wrap{ max-width: 760px; margin: 0 auto; padding: 64px 24px 96px; }
+
+  .eyebrow{
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--blue-ink); background: var(--blue-soft); padding: 5px 11px; border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  h1.title{
+    font-family: "Source Serif 4", Georgia, serif; font-size: 33px; font-weight: 600; letter-spacing: -0.01em;
+    text-wrap: balance; color: var(--ink);
+  }
+  .subtitle{ margin-top: 12px; font-size: 15.5px; color: var(--muted); max-width: 62ch; }
+  .meta-row{
+    display: flex; gap: 22px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--muted); flex-wrap: wrap;
+  }
+  .meta-row strong{ color: var(--ink); font-weight: 600; }
+
+  section{ margin-top: 52px; }
+  h2.section-title{
+    font-family: "Source Serif 4", Georgia, serif; font-size: 22px; font-weight: 600; color: var(--ink);
+    letter-spacing: -0.005em; margin-bottom: 6px;
+  }
+  .section-num{ color: var(--clay-ink); margin-right: 9px; }
+  .section-desc{ font-size: 14.5px; color: var(--muted); margin-bottom: 20px; max-width: 62ch; }
+
+  .summary-card{
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px;
+    box-shadow: var(--shadow); font-size: 15px;
+  }
+
+  table.decisions{ width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); font-size: 13.5px; }
+  table.decisions th{
+    text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted);
+    font-weight: 700; padding: 11px 16px; border-bottom: 1px solid var(--line); background: var(--bg-2);
+  }
+  table.decisions td{ padding: 13px 16px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  table.decisions tr:last-child td{ border-bottom: 0; }
+  table.decisions td:first-child{ font-weight: 600; white-space: nowrap; width: 190px; }
+  table.decisions strong{ color: var(--clay-ink); }
+
+  ol.flow{ list-style: none; padding: 0; display: flex; flex-direction: column; gap: 3px; counter-reset: flow; }
+  ol.flow > li{ counter-increment: flow; display: flex; gap: 16px; }
+  ol.flow > li::before{
+    content: counter(flow);
+    font-family: "Source Serif 4", Georgia, serif; font-weight: 600; font-size: 14px;
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+    background: var(--clay-soft); color: var(--clay-ink); display: grid; place-items: center;
+  }
+  ol.flow > li{
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px 14px 14px;
+    box-shadow: var(--shadow); align-items: flex-start;
+  }
+  ol.flow .flow-body{ padding-top: 3px; font-size: 14.5px; }
+  ol.flow .flow-body strong{ color: var(--ink); }
+  ol.flow ul{ margin-top: 8px; padding-left: 18px; font-size: 13.5px; color: var(--muted); }
+  ol.flow ul li{ margin-top: 3px; }
+  ol.flow ul li strong{ color: var(--ink); }
+
+  .subsection{ margin-top: 26px; }
+  .subsection:first-child{ margin-top: 0; }
+  h3.sub-title{ font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 10px; }
+  .kv-list{ display: flex; flex-direction: column; gap: 10px; }
+  .kv-item{
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 15px;
+    box-shadow: var(--shadow); font-size: 14px;
+  }
+  .kv-item code.inline{ font-size: 12.5px; }
+  .kv-item p{ margin-top: 4px; color: var(--muted); font-size: 13.5px; }
+
+  code.inline{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: var(--bg-2); color: var(--clay-ink); padding: 1px 6px; border-radius: 5px; font-size: 13px;
+  }
+
+  pre.code{
+    background: var(--code-bg); color: var(--code-ink); border-radius: 14px; padding: 18px 20px;
+    overflow-x: auto; box-shadow: var(--shadow-2); font-size: 12.5px; line-height: 1.65;
+  }
+  pre.code code{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .tok-key{ color: var(--code-key); }
+  .tok-str{ color: var(--code-str); }
+  .tok-punc{ color: var(--code-punc); }
+
+  .note{
+    background: var(--sage-soft); border: 1px solid var(--sage); border-radius: 12px; padding: 13px 16px;
+    font-size: 13.5px; color: var(--sage-ink); margin-top: 16px;
+  }
+
+  .divider{ height: 1px; background: var(--line); margin: 56px 0 0; border: 0; }
+  .footer{ font-size: 13px; color: var(--muted); text-align: center; margin-top: 24px; padding-top: 32px; }
+
+  @media (max-width: 640px){
+    h1.title{ font-size: 26px; }
+    table.decisions td:first-child{ width: auto; }
+    table.decisions, table.decisions thead{ display: block; }
+    table.decisions tbody{ display: block; }
+    table.decisions tr{ display: block; padding: 12px 0; }
+    table.decisions td, table.decisions th{ display: block; border: 0; padding: 4px 16px; }
+    table.decisions thead{ display: none; }
+    table.decisions td:first-child{ padding-top: 12px; }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Feature spec · confirmed 2026-09-14</span>
+    <h1 class="title">AI Worksheet Generator</h1>
+    <p class="subtitle">
+      Replaces the old standalone worksheet-generator mock with a real, lesson-scoped, Claude-powered tool —
+      agreed across two rounds of discussion before a line of it was built.
+    </p>
+    <div class="meta-row">
+      <span><strong>Status</strong> — Shipped</span>
+      <span><strong>Provider</strong> — Anthropic Claude</span>
+      <span><strong>Output</strong> — Real WORKSHEET block</span>
+    </div>
+  </header>
+
+  <section>
+    <h2 class="section-title"><span class="section-num">1</span>Summary</h2>
+    <div class="summary-card">
+      Admin opens a lesson and clicks "Generate AI worksheet." The system reads every block in that lesson —
+      video transcripts, uploaded documents, activity/discussion/note instructions — and asks Claude to
+      summarise the teaching scope. That summary goes to the admin for review and correction, then the admin
+      picks question types and adds special instructions, Claude generates a structured worksheet, and the
+      admin gets a full editor with an answer key before finalising it into a real block on the lesson.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title"><span class="section-num">2</span>Confirmed decisions</h2>
+    <p class="section-desc">The constraints that shaped everything downstream — settled before any code was written.</p>
+    <table class="decisions">
+      <thead><tr><th>Decision</th><th>Choice</th></tr></thead>
+      <tbody>
+        <tr><td>AI provider</td><td><strong>Anthropic Claude</strong> (<code class="inline">@anthropic-ai/sdk</code>)</td></tr>
+        <tr><td>Video understanding</td><td><strong>Transcript only</strong> — YouTube captions as text, fed to Claude. No native video-watching.</td></tr>
+        <tr><td>Video scope</td><td><strong>YouTube only.</strong> Vimeo is skipped for understanding — no reliable public transcript route — but still shown as "no transcript available."</td></tr>
+        <tr><td>Document parsing</td><td><strong>PDF and DOCX</strong> text extraction. Other file types referenced by filename only, not parsed.</td></tr>
+        <tr><td>Transcript/parse failures</td><td><strong>Surfaced to the admin</strong> on the pre-generate review screen as an explicit note — never a silent skip, never a hard failure.</td></tr>
+        <tr><td>Answer key</td><td><strong>Always included</strong>, always shown and editable before finalising.</td></tr>
+        <tr><td>Regenerate</td><td>Re-runs from the <strong>saved/edited summary only</strong> — never re-fetches transcripts or re-parses documents.</td></tr>
+        <tr><td>Question types (v1)</td><td>MCQ, short answer, long answer/essay, coloring/drawing (a themed prompt for the admin to act on, not a drawable asset).</td></tr>
+        <tr><td>Output destination</td><td>A new real <strong>WORKSHEET block</strong>, created only on "Add worksheet block." Never overwrites an existing block.</td></tr>
+        <tr><td>Old mock tool</td><td><strong>Retired</strong> — route and nav item removed, replaced entirely by this feature.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2 class="section-title"><span class="section-num">3</span>Confirmed flow</h2>
+    <ol class="flow">
+      <li><div class="flow-body">Admin, on a lesson's edit page, clicks <strong>"Generate AI worksheet."</strong></div></li>
+      <li><div class="flow-body"><strong>Loading screen</strong> — the server reads every block, fetches YouTube transcripts for video blocks, extracts text from PDF/DOCX attachments, and collects instructions from the rest. Sends it all to Claude for a scope summary.</div></li>
+      <li><div class="flow-body">
+        <strong>Pre-generate review</strong> — shows Claude's summary, directly editable. Any transcript or parse failures are listed as plain warnings. The admin then:
+        <ul>
+          <li>Selects one or more <strong>question types</strong></li>
+          <li>Optionally adds <strong>special instructions</strong> — tone, difficulty, focus, count</li>
+          <li>Clicks <strong>Generate</strong></li>
+        </ul>
+      </div></li>
+      <li><div class="flow-body">Claude generates a structured worksheet — title, student instructions, ordered questions, answer key — from the (possibly edited) summary plus the selected types and instructions.</div></li>
+      <li><div class="flow-body">
+        <strong>Editor screen</strong> — full preview with sidebar tools:
+        <ul>
+          <li>Edit any question's text, options, or answer</li>
+          <li>View and correct the answer key</li>
+          <li>Add, remove, or reorder questions manually</li>
+          <li><strong>Regenerate</strong> — discards the draft, re-runs from the same summary, does not repeat step 2</li>
+        </ul>
+      </div></li>
+      <li><div class="flow-body">Admin clicks <strong>"Add worksheet block"</strong> — creates a real WORKSHEET block, appended to the lesson. Facilitators see it in the normal lesson flow from then on.</div></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2 class="section-title"><span class="section-num">4</span>Architecture</h2>
+
+    <div class="subsection">
+      <h3 class="sub-title">New dependencies</h3>
+      <div class="kv-list">
+        <div class="kv-item"><code class="inline">@anthropic-ai/sdk</code><p>Claude API calls</p></div>
+        <div class="kv-item"><code class="inline">youtube-transcript</code><p>Unofficial public-caption scraping — no API key needed, works only where captions exist</p></div>
+        <div class="kv-item"><code class="inline">pdf-parse</code><p>PDF text extraction</p></div>
+        <div class="kv-item"><code class="inline">mammoth</code><p>DOCX text extraction</p></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="sub-title">New environment variable</h3>
+      <div class="kv-item">
+        <code class="inline">ANTHROPIC_API_KEY</code>
+        <p>User-supplied, same constraint as Resend — an assistant can't create third-party accounts. Until set, generation returns a clear "not configured yet" state instead of crashing, so the rest of the UI stays testable.</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="sub-title">AI-generated worksheet block shape</h3>
+      <p style="font-size:13.5px;color:var(--muted);margin-bottom:12px;max-width:62ch;">
+        The existing admin-uploaded-file shape is unchanged and still supported. This second shape sits alongside it — the facilitator-side renderer handles both.
+      </p>
+      <pre class="code"><code>{
+  <span class="tok-key">"generatedByAI"</span><span class="tok-punc">:</span> <span class="tok-str">true</span>,
+  <span class="tok-key">"title"</span><span class="tok-punc">:</span> <span class="tok-str">"string"</span>,
+  <span class="tok-key">"studentInstructions"</span><span class="tok-punc">:</span> <span class="tok-str">"string"</span>,
+  <span class="tok-key">"questions"</span><span class="tok-punc">:</span> [
+    { <span class="tok-key">"type"</span><span class="tok-punc">:</span> <span class="tok-str">"mcq"</span>, <span class="tok-key">"prompt"</span><span class="tok-punc">:</span> <span class="tok-str">"string"</span>, <span class="tok-key">"options"</span><span class="tok-punc">:</span> [<span class="tok-str">"string"</span>, <span class="tok-punc">"..."</span>], <span class="tok-key">"correctIndex"</span><span class="tok-punc">:</span> <span class="tok-str">0</span> },
+    { <span class="tok-key">"type"</span><span class="tok-punc">:</span> <span class="tok-str">"short_answer"</span>, <span class="tok-key">"prompt"</span><span class="tok-punc">:</span> <span class="tok-str">"string"</span>, <span class="tok-key">"answer"</span><span class="tok-punc">:</span> <span class="tok-str">"string"</span> },
+    { <span class="tok-key">"type"</span><span class="tok-punc">:</span> <span class="tok-str">"long_answer"</span>, <span class="tok-key">"prompt"</span><span class="tok-punc">:</span> <span class="tok-str">"string"</span>, <span class="tok-key">"answer"</span><span class="tok-punc">:</span> <span class="tok-str">"string"</span> },
+    { <span class="tok-key">"type"</span><span class="tok-punc">:</span> <span class="tok-str">"coloring"</span>, <span class="tok-key">"prompt"</span><span class="tok-punc">:</span> <span class="tok-str">"string"</span> }
+  ]
+}</code></pre>
+      <div class="note">No schema migration needed — <code class="inline" style="background:transparent;padding:0;color:inherit;">Block.content</code> is already a flexible JSON column. This is a documented convention, not a structural change.</div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="sub-title">New and changed surfaces</h3>
+      <div class="kv-list">
+        <div class="kv-item"><code class="inline">/admin/lessons/[id]/worksheet-generator</code><p>The multi-step wizard — loading, review, editor. A full page, not a modal, given the depth of the flow.</p></div>
+        <div class="kv-item"><code class="inline">analyzeLessonContent(lessonId)</code><p>Gathers block content, fetches transcripts, extracts documents, calls Claude for the scope summary. Returns <code class="inline">{'{ summary, warnings[] }'}</code>.</p></div>
+        <div class="kv-item"><code class="inline">generateWorksheetDraft(...)</code><p>Calls Claude, returns the structured draft.</p></div>
+        <div class="kv-item"><code class="inline">finalizeWorksheetBlock(lessonId, draft)</code><p>Creates the real Block row.</p></div>
+        <div class="kv-item"><code class="inline">lib/youtube-transcript.ts · lib/document-text.ts · lib/ai-worksheet.ts</code><p>Isolated, single-purpose functions — each returns a result or an error, never throws past its own boundary.</p></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="sub-title">State and cost</h3>
+      <p style="font-size:14px;">
+        No database table for in-progress drafts — the wizard lives in client state until "Add worksheet
+        block" is clicked; refreshing mid-wizard loses progress, accepted for v1. No rate limiting — admin-only,
+        low volume, no objection raised when discussed.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+  <p class="footer">AI Worksheet Generator · StudyBuddy · spec confirmed 2026-09-14, shipped the same session</p>
+</div>
+
+</body></html>

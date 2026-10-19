@@ -1,0 +1,2271 @@
+[
+  {
+    "n": "D01",
+    "cls": "NCERT Grade 1",
+    "subject": "Maths",
+    "lesson": "Addition",
+    "src": "YouTube with captions (short, 1.1k chars) + worksheet block",
+    "analyze": {
+      "status": 200,
+      "ms": 4098,
+      "warnings": [],
+      "summary": "This lesson teaches students to identify and understand \"partners to 10\"—pairs of numbers that add together to equal 10. Using a visual ten-frame model, the lesson demonstrates how to find missing addends (for example, if there are 6 boxes, 4 more are needed to make 10). Students learn all eleven partner pairs: 0+10, 1+9, 2+8, 3+7, 4+6, and 5+5, along with their commutative counterparts (9+1, 8+2, etc.). The key vocabulary includes \"partners to 10\" and \"make 10,\" and the lesson emphasizes that any two numbers summing to 10 are partners, establishing foundational number combinations essential for early addition fluency.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 454,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 173,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 2557,
+          "stop": "end_turn",
+          "usd": 0.001319
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 8406,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "A ten-frame has 6 boxes filled in. How many more boxes are needed to make 10?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which pair of numbers are partners to 10?",
+            "options": [
+              "3 and 6",
+              "5 and 5",
+              "7 and 2",
+              "9 and 0"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What is the missing partner? 8 + ___ = 10",
+            "options": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "If a ten-frame shows 9 filled boxes, how many are empty?",
+            "options": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which number sentence shows partners to 10?",
+            "options": [
+              "4 + 5 = 9",
+              "6 + 4 = 10",
+              "7 + 4 = 11",
+              "3 + 3 = 6"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Fill in the missing partner: 7 + ___ = 10",
+            "answer": "3"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Fill in the missing partner: ___ + 2 = 10",
+            "answer": "8"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Write the partner pair for the number 0 that makes 10.",
+            "answer": "0 + 10 = 10"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "List all eleven partner pairs that make 10 (including order, like 1+9 and 9+1).",
+            "answer": "0+10, 10+0, 1+9, 9+1, 2+8, 8+2, 3+7, 7+3, 4+6, 6+4, 5+5"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "A ten-frame has 3 boxes filled. How many more boxes must be filled to make 10? Explain how you know.",
+            "answer": "7 more boxes, because 3 + 7 = 10, and a ten-frame holds exactly 10 boxes total."
+          }
+        ],
+        "studentInstructions": "Use what you know about ten-frames and partners to 10 to answer each question. For multiple choice questions, circle the best answer. For short answer questions, write your answer in the space provided.",
+        "title": "Partners to 10: Making Ten with Ten-Frames"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1249,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 826,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 7756,
+          "stop": "tool_use",
+          "usd": 0.010758
+        }
+      ]
+    }
+  },
+  {
+    "n": "D02",
+    "cls": "NCERT Grade 2",
+    "subject": "Maths",
+    "lesson": "Shapes Around Us — 3D Shapes",
+    "src": "YouTube with captions (14.9k chars) + reading + activity",
+    "analyze": {
+      "status": 200,
+      "ms": 4671,
+      "warnings": [],
+      "summary": "This lesson introduces students to basic 3D geometric shapes found in everyday objects. The chapter teaches students to identify and classify six primary shapes: cubes (with 6 faces, 12 edges, and 8 corners), cuboids (rectangular boxes with the same face, edge, and corner count but unequal side lengths), cylinders (with 2 circular faces, 1 curved surface, and no corners), cones (with 1 circular face, 1 curved surface, and 1 corner), spheres (round objects with 1 curved surface, no edges or corners), and triangular prisms (with 5 faces and 6 corners). Through a practical narrative about decorating a gift box with stars, ribbons, and pompoms, students learn to count faces, edges, and corners on 3D shapes, developing spatial reasoning skills. The lesson emphasizes recognizing these shapes in real-world contexts—musical instruments, household items, food packaging, and furniture—encouraging students to observe and analyze the geometric properties of objects in their surroundings.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 10589,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 233,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 3284,
+          "stop": "end_turn",
+          "usd": 0.011754
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 10446,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "How many faces does a cube have?",
+            "options": [
+              "4",
+              "5",
+              "6",
+              "8"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which shape has 2 circular faces, 1 curved surface, and no corners?",
+            "options": [
+              "Cone",
+              "Cylinder",
+              "Sphere",
+              "Cube"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which shape has only 1 circular face, 1 curved surface, and 1 corner?",
+            "options": [
+              "Sphere",
+              "Cuboid",
+              "Cone",
+              "Cylinder"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "A ball is an example of which 3D shape?",
+            "options": [
+              "Cube",
+              "Sphere",
+              "Cone",
+              "Triangular Prism"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What is the main difference between a cube and a cuboid?",
+            "options": [
+              "A cuboid has more faces than a cube",
+              "A cube has curved surfaces, a cuboid does not",
+              "A cube has all equal sides, a cuboid has unequal side lengths",
+              "A cuboid has no corners"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "How many corners does a triangular prism have?",
+            "options": [
+              "4",
+              "5",
+              "6",
+              "8"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Name one everyday object shaped like a cylinder.",
+            "answer": "A can, a musical drum, or a battery (any valid cylinder-shaped object)."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "How many edges does a cube have?",
+            "answer": "12 edges."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain why a sphere has no edges or corners.",
+            "answer": "A sphere is perfectly round with one continuous curved surface, so there are no flat faces meeting to form edges or corners."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "List the number of faces, edges, and corners for a cuboid.",
+            "answer": "A cuboid has 6 faces, 12 edges, and 8 corners."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Give two real-world examples of shapes you might use to decorate a gift box, and name the 3D shape each one represents.",
+            "answer": "Example: Star-shaped stickers could relate to flat shapes, a round pompom represents a sphere, and a ribbon roll can represent a cylinder."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Why is it useful to recognize 3D shapes in everyday objects like furniture or food packaging?",
+            "answer": "Recognizing 3D shapes helps us understand the properties of objects around us, improves spatial reasoning, and helps in tasks like packing, building, or designing things efficiently."
+          }
+        ],
+        "studentInstructions": "Read each question carefully. For multiple choice questions, circle the correct answer. For short answer questions, write your response in the space provided. Use what you learned about 3D shapes—cubes, cuboids, cylinders, cones, spheres, and triangular prisms—to help you answer.",
+        "title": "Exploring 3D Shapes: Faces, Edges, and Corners"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1360,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 1076,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 10065,
+          "stop": "tool_use",
+          "usd": 0.01348
+        }
+      ]
+    }
+  },
+  {
+    "n": "D03",
+    "cls": "NCERT Grade 3",
+    "subject": "EVS",
+    "lesson": "Family and Friends",
+    "src": "YouTube with captions (9.2k chars) + reading + activity",
+    "analyze": {
+      "status": 200,
+      "ms": 4580,
+      "warnings": [],
+      "summary": "This lesson introduces students to the concept of families and friendships as essential relationships in our lives. Using the character Bela's family as a case study, the chapter explores how families vary in size and structure, how family members share household responsibilities and activities together, and the importance of spending quality time with loved ones. The lesson covers key vocabulary including family members (parents, siblings, grandparents), household activities (playing games like hide-and-seek and peekaboo, gardening, singing), and recreational spaces both indoors and outdoors. Through Bela's experiences—such as playing together during rainy days, sharing meals like pakoras, singing rain songs, and visiting the family garden—students learn how families bond through shared activities and how relatives, friends, and neighbors form an important support network. The chapter emphasizes the value of togetherness, communication, and creating memories through simple everyday interactions.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 6602,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 191,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 3220,
+          "stop": "end_turn",
+          "usd": 0.007557
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 13017,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "Who is the main character in this lesson's story about family?",
+            "options": [
+              "Bela",
+              "Maya",
+              "Riya",
+              "Anu"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which of these is NOT mentioned as a family member in the lesson?",
+            "options": [
+              "Parents",
+              "Siblings",
+              "Grandparents",
+              "Teachers"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "type": "mcq",
+            "prompt": "What game did Bela play that involves hiding and finding?",
+            "options": [
+              "Hide-and-seek",
+              "Tag",
+              "Chess",
+              "Cricket"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "mcq",
+            "prompt": "What snack did Bela's family share together, as mentioned in the lesson?",
+            "options": [
+              "Sandwiches",
+              "Pakoras",
+              "Noodles",
+              "Cookies"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What did Bela's family do during rainy days?",
+            "options": [
+              "Watched TV silently",
+              "Played together and sang rain songs",
+              "Went to school",
+              "Stayed in separate rooms"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Besides family, who else forms an important support network according to the lesson?",
+            "options": [
+              "Strangers",
+              "Relatives, friends, and neighbors",
+              "Only classmates",
+              "Only pets"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which activity did Bela's family do in their garden?",
+            "options": [
+              "Gardening",
+              "Swimming",
+              "Cooking dinner",
+              "Watching movies"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Name two household activities that family members can do together, as described in the lesson.",
+            "answer": "Any two of: playing games (like hide-and-seek or peekaboo), gardening, singing, sharing meals."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Why is spending quality time with family important, according to the lesson?",
+            "answer": "It helps build strong bonds, creates happy memories, and shows love and togetherness among family members."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Describe one way families can be different from each other in size or structure.",
+            "answer": "Families can be small (with just parents and one child) or large (with grandparents, siblings, aunts, uncles living together); some families may have only one parent or multiple generations living together."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "What game involves covering your face and then suddenly revealing it to make a baby laugh?",
+            "answer": "Peekaboo."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "In your own words, explain what makes a group of people a 'family'.",
+            "answer": "A family is a group of people who care for each other, live together or stay connected, share responsibilities, and support one another through love and activities."
+          }
+        ],
+        "studentInstructions": "Read each question carefully and answer based on what you learned about Bela's family and the importance of family and friendships. For multiple choice questions, circle the correct answer. For short answer questions, write your response in complete sentences.",
+        "title": "Families and Friendships: Learning from Bela's Story"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1299,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 1034,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 10025,
+          "stop": "tool_use",
+          "usd": 0.012938
+        }
+      ]
+    }
+  },
+  {
+    "n": "D04",
+    "cls": "NCERT Grade 4",
+    "subject": "Maths",
+    "lesson": "Multiplication",
+    "src": "YouTube with captions (6.0k chars) + worksheet + break",
+    "analyze": {
+      "status": 200,
+      "ms": 4263,
+      "warnings": [],
+      "summary": "This lesson teaches the step-by-step procedure for multi-digit multiplication, specifically when multiplying a multi-digit number by a single digit. Students learn to restack problems vertically with the larger number on top, then break the multiplication into a series of smaller steps by multiplying the single digit by each digit in the top number from right to left (ones place first), handling two-digit products by carrying the tens digit to the next column and adding it to the subsequent multiplication result. The lesson emphasizes that knowledge of basic multiplication facts is helpful and demonstrates the algorithm with concrete examples (137 × 5 and 2,617 × 4), showing how carrying works when intermediate products exceed single digits.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 2543,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 150,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 2698,
+          "stop": "end_turn",
+          "usd": 0.003293
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 13039,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "When multiplying a multi-digit number by a single digit using the standard vertical algorithm, which digit should you multiply first?",
+            "options": [
+              "The leftmost (highest place value) digit",
+              "The rightmost (ones place) digit",
+              "The middle digit",
+              "It doesn't matter which digit you start with"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "In the problem 137 × 5, what do you do first?",
+            "options": [
+              "Multiply 5 × 1 (hundreds digit)",
+              "Multiply 5 × 3 (tens digit)",
+              "Multiply 5 × 7 (ones digit)",
+              "Add 137 + 5"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "When multiplying 5 × 7 = 35 as part of solving 137 × 5, what should you do with the result?",
+            "options": [
+              "Write down 35 and move to the next digit without carrying",
+              "Write down 5 in the ones place and carry the 3 to the tens column",
+              "Write down 3 in the ones place and carry the 5",
+              "Ignore the tens digit completely"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "When setting up a multiplication problem vertically, how should the numbers be arranged?",
+            "options": [
+              "The smaller number on top",
+              "The larger number on top",
+              "Numbers side by side horizontally",
+              "It does not matter which number is on top"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "In the problem 2,617 × 4, after multiplying 4 × 7 = 28, what happens next?",
+            "options": [
+              "Write 2 in the ones place and carry the 8",
+              "Write 8 in the ones place and carry the 2 to the tens column",
+              "Stop the problem because the product is too large",
+              "Write 28 in the ones place"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Solve 137 × 5 using the standard multiplication algorithm, showing the carrying steps.",
+            "answer": "137 × 5 = 685 (5×7=35, write 5 carry 3; 5×3=15+3=18, write 8 carry 1; 5×1=5+1=6, write 6; result: 685)"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Solve 2,617 × 4 using the standard multiplication algorithm, showing the carrying steps.",
+            "answer": "2,617 × 4 = 10,468 (4×7=28, write 8 carry 2; 4×1=4+2=6, write 6; 4×6=24, write 4 carry 2; 4×2=8+2=10, write 10; result: 10,468)"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain in your own words why we start multiplying from the ones place (rightmost digit) rather than the leftmost digit.",
+            "answer": "We start from the ones place because carrying works from right to left — the tens digit from each product must be added to the result of the next column's multiplication, and starting from the left would make it impossible to properly carry and combine values into the correct place values."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Solve 346 × 3 using the standard multiplication algorithm, showing all carrying steps.",
+            "answer": "346 × 3 = 1,038 (3×6=18, write 8 carry 1; 3×4=12+1=13, write 3 carry 1; 3×3=9+1=10, write 10; result: 1,038)"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Why is it helpful to know your basic multiplication facts (like 7×8 or 6×9) before learning this multi-digit multiplication method?",
+            "answer": "Knowing basic multiplication facts lets you quickly find each single-digit product needed at every step of the algorithm, so you can focus on correctly carrying and placing digits instead of pausing to calculate simple facts."
+          }
+        ],
+        "studentInstructions": "Complete the following questions about multiplying a multi-digit number by a single digit. Show your work for the short answer problems, including any carrying steps.",
+        "title": "Multi-Digit Multiplication: Multiplying by a Single Digit"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1248,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 1374,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 12711,
+          "stop": "tool_use",
+          "usd": 0.016236
+        }
+      ]
+    }
+  },
+  {
+    "n": "D05",
+    "cls": "NCERT Grade 4",
+    "subject": "EVS",
+    "lesson": "Our Sky",
+    "src": "YouTube with captions (38.6k chars, long transcript) + reading + activity",
+    "analyze": {
+      "status": 200,
+      "ms": 5483,
+      "warnings": [],
+      "summary": "# Chapter 10: Our Sky - Lesson Summary\n\nThis chapter explores the sky and its changes throughout the day and night. Students learn that the sky appears different at various times—orange and bright during sunrise, blue during afternoon, and dark with stars at night. The chapter covers how the sun's position creates shadows that change in length and direction: long shadows in morning and evening (when the sun is near the horizon), short shadows at noon (when the sun is overhead), and opposite-facing shadows in morning versus evening. Students observe how these shadow changes occur because light always creates shadows on the opposite side of its source. The chapter also introduces the moon's changing phases (new moon, crescent, half moon, full moon), explaining that these changes follow a regular pattern as the moon orbits Earth. Additionally, the lesson connects astronomical observations to real-world applications—ancient peoples used sun dials and moon phases to tell time and create calendars, and many cultural festivals are celebrated based on the moon's appearance. The chapter concludes with India's Chandrayaan mission, demonstrating modern scientific exploration of the moon.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 27795,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 232,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 3745,
+          "stop": "end_turn",
+          "usd": 0.028955
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 11451,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "What color does the sky usually appear during sunrise?",
+            "options": [
+              "Blue",
+              "Orange",
+              "Black",
+              "Green"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "When are shadows the shortest?",
+            "options": [
+              "Early morning",
+              "Noon, when the sun is overhead",
+              "Evening",
+              "Midnight"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Why are morning and evening shadows longer than noon shadows?",
+            "options": [
+              "The sun is farther from Earth",
+              "The sun is near the horizon",
+              "There is no sunlight at noon",
+              "The ground is colder at noon"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which direction do shadows fall relative to the light source?",
+            "options": [
+              "Same side as the light source",
+              "Opposite side of the light source",
+              "Shadows don't have a direction",
+              "Directly above the light source"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which of these is NOT a phase of the moon mentioned in the lesson?",
+            "options": [
+              "New moon",
+              "Crescent moon",
+              "Full moon",
+              "Square moon"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "type": "mcq",
+            "prompt": "What did ancient peoples use to tell time using the sun's position?",
+            "options": [
+              "Telescope",
+              "Sun dial",
+              "Calendar app",
+              "Compass"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What is Chandrayaan?",
+            "options": [
+              "A type of sun dial",
+              "India's mission to explore the moon",
+              "A festival based on moon phases",
+              "A shadow measuring tool"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Describe how the sky changes in appearance from sunrise to afternoon to night.",
+            "answer": "At sunrise, the sky appears orange and bright; during the afternoon, it turns blue; and at night, it becomes dark and stars become visible."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain why shadows point in opposite directions in the morning compared to the evening.",
+            "answer": "Because the sun's position changes from one side of the sky (east) in the morning to the other side (west) in the evening, and shadows always form on the opposite side of the light source, so they point west in the morning and east in the evening."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "How did ancient cultures use the moon's phases in their daily lives?",
+            "answer": "Ancient peoples used the regular pattern of the moon's phases to create calendars and determine the timing of festivals and important cultural events."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "What causes the moon's phases to change over time?",
+            "answer": "The moon's phases change in a regular pattern as the moon orbits around the Earth, causing different portions of its illuminated surface to be visible from Earth."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "What is the significance of India's Chandrayaan mission?",
+            "answer": "Chandrayaan represents India's modern scientific effort to explore and study the moon, building on ancient human curiosity about Earth's natural satellite."
+          }
+        ],
+        "studentInstructions": "Read each question carefully. For multiple-choice questions, circle the best answer. For short-answer questions, write your answers in complete sentences using what you learned about the sky, shadows, moon phases, and space exploration.",
+        "title": "Chapter 10: Our Sky - Worksheet"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1389,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 1144,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 11018,
+          "stop": "tool_use",
+          "usd": 0.014218
+        }
+      ]
+    }
+  },
+  {
+    "n": "D06",
+    "cls": "NCERT Grade 3",
+    "subject": "Maths",
+    "lesson": "Fun with Shapes",
+    "src": "YouTube WITHOUT captions (transcripts disabled) + reading + activity",
+    "analyze": {
+      "status": 200,
+      "ms": 3228,
+      "warnings": [
+        "Couldn't get a transcript for \"Maths Mela — Class 3 playlist\" — [YoutubeTranscript] 🚨 Transcript is disabled on this video (https://www.youtube.com/watch?v=73O60ymw9D4)"
+      ],
+      "summary": "This chapter teaches students to identify and classify basic shapes by their defining characteristics, specifically the number of sides and corners (vertices). Through hands-on shape-sorting activities, students practice counting the sides of various polygons and learn to name shapes such as triangles, squares, rectangles, and other common geometric figures. The lesson emphasizes developing foundational geometry vocabulary and visual recognition skills by having students physically sort shape cut-outs into groups based on how many sides each shape has, reinforcing the connection between a shape's name and its structural properties.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 124,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 115,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 1818,
+          "stop": "end_turn",
+          "usd": 0.000699
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 8923,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "How many sides does a triangle have?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "How many sides does a square have?",
+            "options": [
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which shape has 4 sides and 4 corners, with opposite sides equal in length but not all sides the same?",
+            "options": [
+              "Triangle",
+              "Rectangle",
+              "Circle",
+              "Pentagon"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What do we call the pointed corners where two sides of a shape meet?",
+            "options": [
+              "Edges",
+              "Vertices",
+              "Faces",
+              "Angles only"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "A shape has 5 sides and 5 corners. What is it called?",
+            "options": [
+              "Hexagon",
+              "Square",
+              "Pentagon",
+              "Triangle"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which shape has no sides and no corners?",
+            "options": [
+              "Circle",
+              "Square",
+              "Triangle",
+              "Rectangle"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Name a shape that has exactly 3 sides and 3 corners.",
+            "answer": "A triangle"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "If you are sorting shape cut-outs into groups by number of sides, which group would a square and a rectangle both belong to? Explain why.",
+            "answer": "They would both belong to the group of shapes with 4 sides, because both a square and a rectangle have exactly 4 sides and 4 corners."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "How many corners does a hexagon have?",
+            "answer": "6 corners"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Look around your classroom or home and name one object that is shaped like a rectangle.",
+            "answer": "Answers will vary; examples include a door, a book, a window, or a piece of paper."
+          }
+        ],
+        "studentInstructions": "Let's review what we learned about shapes! Answer each question by thinking about how many sides and corners each shape has. For multiple choice questions, circle the best answer. For short answer questions, write your answer in complete sentences where possible.",
+        "title": "Exploring Shapes: Sides and Corners"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1202,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 969,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 8554,
+          "stop": "tool_use",
+          "usd": 0.012094
+        }
+      ]
+    }
+  },
+  {
+    "n": "D07",
+    "cls": "NCERT Grade 1",
+    "subject": "Maths",
+    "lesson": "Mango Treat — Numbers 1 to 9",
+    "src": "PDF (authored) + playlist link (unreadable) + reading + activity",
+    "analyze": {
+      "status": 200,
+      "ms": 3752,
+      "warnings": [
+        "Couldn't get a transcript for \"Joyful Mathematics — Class 1 playlist\" — [YoutubeTranscript] 🚨 Impossible to retrieve Youtube video ID."
+      ],
+      "summary": "This lesson teaches students to understand and work with numbers 1 through 9 using mangoes as a concrete context. Students learn to count objects one by one, recognize that the last number said represents the total quantity, and match number names (one, two, three, etc.) to their written digits. The lesson introduces key concepts including counting on (continuing from a given number), comparing quantities using the language \"more than\" and \"less than,\" and identifying numbers that come before and after a given number in sequence. Students also practice backward counting from 9 to 1. Through hands-on activities with counters and drawings, students develop foundational counting skills, numeral recognition, and the ability to apply counting strategies to simple addition scenarios.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 542,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 156,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 2318,
+          "stop": "end_turn",
+          "usd": 0.001322
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 11760,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "There are 6 mangoes on a tree. What number comes right after 6?",
+            "options": [
+              "5",
+              "7",
+              "8",
+              "9"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which number comes right before 8?",
+            "options": [
+              "6",
+              "9",
+              "7",
+              "5"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "Maria has 4 mangoes and Jack has 7 mangoes. Who has MORE mangoes?",
+            "options": [
+              "Maria",
+              "Jack",
+              "They have the same",
+              "Cannot tell"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "If you count 5 mangoes one by one and stop, what number tells you the total amount of mangoes?",
+            "options": [
+              "The first number you said",
+              "The last number you said",
+              "Any number you said",
+              "You need to count again"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What is the correct order for counting backward from 5 to 1?",
+            "options": [
+              "1, 2, 3, 4, 5",
+              "5, 4, 3, 2, 1",
+              "5, 3, 1, 4, 2",
+              "1, 3, 5, 2, 4"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which number is written as the word 'seven'?",
+            "options": [
+              "5",
+              "6",
+              "7",
+              "8"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "There are 3 mangoes in a basket. If you count on, what is the next number after counting all 3 mangoes if one more mango is added?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which group has LESS mangoes: a group of 2 mangoes or a group of 9 mangoes?",
+            "options": [
+              "Group of 2",
+              "Group of 9",
+              "Both are equal",
+              "Cannot compare"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Write the number name for the digit 9.",
+            "answer": "nine"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Count the mangoes: 🥭🥭🥭🥭🥭🥭. How many mangoes are there in total? Write the number.",
+            "answer": "6"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "What number comes before 1 and after 9 when counting from 1 to 9? Explain your answer.",
+            "answer": "There is no number before 1 and no number after 9 within the range 1 to 9, since 1 is the smallest and 9 is the largest number in this counting sequence."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Write the numbers from 9 down to 1 in backward counting order.",
+            "answer": "9, 8, 7, 6, 5, 4, 3, 2, 1"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Tom has 4 mangoes. His friend gives him 2 more mangoes. Use counting on to find out how many mangoes Tom has now, and explain your counting steps.",
+            "answer": "Tom has 6 mangoes. Starting at 4, count on: 5 (one more), 6 (one more) — so 4 + 2 = 6."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Compare: Sara has 7 mangoes and Ben has 3 mangoes. Write a sentence using 'more than' or 'less than' to compare their mangoes.",
+            "answer": "Sara has more mangoes than Ben. (Ben has less mangoes than Sara.)"
+          }
+        ],
+        "title": "Counting Mangoes: Numbers 1-9",
+        "studentInstructions": "Use your counting skills with mangoes to answer the questions below! Count carefully, compare quantities, and remember what comes before and after each number. Good luck!"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1240,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 1244,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 11432,
+          "stop": "tool_use",
+          "usd": 0.01492
+        }
+      ]
+    }
+  },
+  {
+    "n": "D08",
+    "cls": "NZC Year 1",
+    "subject": "Maths",
+    "lesson": "Counting and Ordering to 20",
+    "src": "DOCX (authored) + channel link (unreadable) + reading + activity",
+    "analyze": {
+      "status": 200,
+      "ms": 3600,
+      "warnings": [
+        "Couldn't get a transcript for \"Maths resource — Counting and Ordering to 20\" — [YoutubeTranscript] 🚨 Impossible to retrieve Youtube video ID."
+      ],
+      "summary": "This lesson teaches students to count accurately from 0 to 20 in both forward and backward sequences, with a focus on understanding teen numbers (11-20) as composed of ten plus additional units. Students learn to use ten frames as a visual tool to represent numbers by filling one complete frame of ten and adding remaining counters on a second frame, and they practice finding one more and one less than any given number. The lesson also covers ordering numbers from smallest to largest by recognizing their sequence in counting and by using number lines, which visually represent that numbers increase from left to right. Key vocabulary includes teen numbers, ten frame, and ordering, with the core skill being the ability to accurately count, compare, and arrange numbers within the 0-20 range.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 455,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 161,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 2418,
+          "stop": "end_turn",
+          "usd": 0.00126
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 8885,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "What number comes right after 16 when counting forward?",
+            "options": [
+              "15",
+              "17",
+              "18",
+              "20"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "A ten frame is completely filled with 10 counters, and a second ten frame has 4 counters. What number does this represent?",
+            "options": [
+              "4",
+              "10",
+              "14",
+              "40"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which number is one less than 12?",
+            "options": [
+              "11",
+              "13",
+              "10",
+              "14"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which list of numbers is ordered from smallest to largest?",
+            "options": [
+              "18, 15, 12, 9",
+              "9, 12, 15, 18",
+              "12, 9, 18, 15",
+              "18, 12, 15, 9"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "On a number line, numbers increase in which direction?",
+            "options": [
+              "Left to right",
+              "Right to left",
+              "Top to bottom",
+              "Bottom to top"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "mcq",
+            "prompt": "What is 13 made up of using ten frames?",
+            "options": [
+              "One ten frame and 3 extra counters",
+              "Three ten frames",
+              "One ten frame and 13 extra counters",
+              "Thirteen separate ten frames"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Count backward from 20 to 15. Write the numbers in order.",
+            "answer": "20, 19, 18, 17, 16, 15"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "What number is one more than 19?",
+            "answer": "20"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Using the idea of ten frames, explain how the number 17 is made up of tens and ones.",
+            "answer": "17 is made up of 1 ten (one full ten frame of 10) and 7 ones (7 extra counters on a second ten frame)."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Write the numbers 8, 3, 15, 11, and 1 in order from smallest to largest.",
+            "answer": "1, 3, 8, 11, 15"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Count forward from 10 to 20 and write all the numbers in order.",
+            "answer": "10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20"
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain why 14 is called a 'teen number' and what it means in terms of tens and ones.",
+            "answer": "14 is called a teen number because it is made up of 1 ten and 4 ones, meaning it has one full group of ten plus 4 more units."
+          }
+        ],
+        "studentInstructions": "Complete each question below. For multiple choice questions, circle the correct answer. For short answer questions, write your answer in the space provided. Use ten frames or a number line to help you if needed!",
+        "title": "Counting, Comparing, and Ordering Numbers 0-20"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1259,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 1000,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 8568,
+          "stop": "tool_use",
+          "usd": 0.012518
+        }
+      ]
+    }
+  },
+  {
+    "n": "D09",
+    "cls": "NZC Year 1",
+    "subject": "Science",
+    "lesson": "Living and Non-Living Things",
+    "src": "PDF (authored) + channel link (unreadable) + reading + activity",
+    "analyze": {
+      "status": 200,
+      "ms": 3269,
+      "warnings": [
+        "Couldn't get a transcript for \"Science resource — Living and Non-Living Things\" — [YoutubeTranscript] 🚨 Impossible to retrieve Youtube video ID."
+      ],
+      "summary": "This lesson teaches students to classify objects as living or non-living by identifying key characteristics of each category. Living things grow, need food and water, can reproduce (have babies or make seeds), and respond to their environment—including examples like people, animals, plants, and seeds. Non-living things do not grow independently, do not eat or drink, and cannot reproduce—such as rocks, chairs, toys, and water. The lesson emphasizes that plants are living despite not moving around, and clarifies common misconceptions (clouds and fire are non-living despite appearing to grow or move). Students apply these criteria by sorting picture cards and explaining their classifications, learning the fundamental vocabulary and concept that living things require food, water, and air for survival.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 434,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 156,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 2140,
+          "stop": "end_turn",
+          "usd": 0.001214
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 10608,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "Which of the following is a characteristic of ALL living things?",
+            "options": [
+              "They can move on their own",
+              "They need food, water, and air to survive",
+              "They are made of plastic",
+              "They stay the same size forever"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which of these is a living thing?",
+            "options": [
+              "Rock",
+              "Chair",
+              "Tree",
+              "Toy car"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "Why are plants considered living things even though they don't move around like animals?",
+            "options": [
+              "They are not actually living things",
+              "They grow, need food and water, and can reproduce",
+              "They are made of the same material as rocks",
+              "They only live for one day"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which of these is NOT a living thing, even though it might seem to move or change?",
+            "options": [
+              "A dog",
+              "Fire",
+              "A flower",
+              "A child"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What is one reason a rock is classified as non-living?",
+            "options": [
+              "It cannot grow, eat, drink, or reproduce",
+              "It is too heavy to move",
+              "It is found outside",
+              "It is a dark color"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which pair correctly matches a living thing with a non-living thing?",
+            "options": [
+              "Seed and dog",
+              "Chair and toy",
+              "Plant and rock",
+              "Water and cloud"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "short_answer",
+            "prompt": "List three characteristics that all living things share.",
+            "answer": "Living things grow, need food and water (and air), and can reproduce (have babies or make seeds). They also respond to their environment."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain why a cloud is non-living even though it can change shape and seem to grow.",
+            "answer": "A cloud is non-living because it does not actually grow, eat, drink, or reproduce—it is just water vapor changing shape due to weather, not because it is alive."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Give one example of a living thing and one example of a non-living thing, and explain how you know each one fits its category.",
+            "answer": "Example: A plant is living because it grows, needs water and sunlight, and can make seeds to reproduce. A chair is non-living because it does not grow, eat, drink, or reproduce."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Why do living things need food, water, and air?",
+            "answer": "Living things need food, water, and air to survive, grow, and carry out life processes like reproducing and responding to their environment."
+          }
+        ],
+        "studentInstructions": "Review what you learned about living and non-living things. Answer each question using the characteristics we discussed in class: growing, needing food/water/air, reproducing, and responding to the environment. For multiple choice questions, circle the best answer. For short answer questions, write your response in complete sentences.",
+        "title": "Living vs. Non-Living Things"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1256,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 993,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 10231,
+          "stop": "tool_use",
+          "usd": 0.012442
+        }
+      ]
+    }
+  },
+  {
+    "n": "D10",
+    "cls": "NZC Year 2",
+    "subject": "Maths",
+    "lesson": "Telling Time to the Half Hour",
+    "src": "As seeded: channel link (unreadable) + reading + activity text only",
+    "analyze": {
+      "status": 200,
+      "ms": 2562,
+      "warnings": [
+        "Couldn't get a transcript for \"Maths resource — Telling Time to the Half Hour\" — [YoutubeTranscript] 🚨 Impossible to retrieve Youtube video ID."
+      ],
+      "summary": "This lesson teaches students to read analog clocks and identify times to the nearest half hour. Students learn to recognize the position of both the hour and minute hands, understanding that the minute hand points to the 6 when it is half past the hour. Through hands-on practice with manipulative clocks, students develop the skill of setting clock hands to specific times and reading those times accurately, focusing on whole hours and half-hour intervals (such as 3:00 and 3:30).",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 124,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 105,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 1922,
+          "stop": "end_turn",
+          "usd": 0.000649
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 9057,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "When the minute hand points to the 6, what time interval has passed since the last whole hour?",
+            "options": [
+              "15 minutes",
+              "30 minutes",
+              "45 minutes",
+              "60 minutes"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "If the hour hand is between the 3 and the 4, and the minute hand points to the 6, what time is it?",
+            "options": [
+              "3:00",
+              "3:30",
+              "4:00",
+              "4:30"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What time is shown when the hour hand points directly at the 7 and the minute hand points at the 12?",
+            "options": [
+              "6:30",
+              "7:00",
+              "7:30",
+              "8:00"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which clock position shows 9:30?",
+            "options": [
+              "Hour hand on 9, minute hand on 12",
+              "Hour hand on 9, minute hand on 6",
+              "Hour hand between 9 and 10, minute hand on 6",
+              "Hour hand on 10, minute hand on 12"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "At half past the hour, where does the minute hand point?",
+            "options": [
+              "12",
+              "3",
+              "6",
+              "9"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Draw or describe where the hour and minute hands should be to show 5:00.",
+            "answer": "The hour hand points directly at the 5, and the minute hand points directly at the 12."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Draw or describe where the hour and minute hands should be to show 8:30.",
+            "answer": "The hour hand points halfway between the 8 and the 9, and the minute hand points directly at the 6."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "If the time is 2:30, explain where each hand of the clock is pointing.",
+            "answer": "The minute hand points at the 6, and the hour hand points halfway between the 2 and the 3."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain how you can tell the difference between a clock showing 6:00 and one showing 6:30.",
+            "answer": "At 6:00, the minute hand points at the 12 and the hour hand points exactly at the 6. At 6:30, the minute hand points at the 6 and the hour hand is halfway between the 6 and the 7."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Write the time shown on a clock where the hour hand is exactly on the 10 and the minute hand is on the 12.",
+            "answer": "10:00"
+          }
+        ],
+        "studentInstructions": "Practice reading and setting analog clocks to the nearest half hour. Answer each question by choosing the best answer or writing your response in the space provided. Remember: when the minute hand points to the 6, it is half past the hour!",
+        "title": "Telling Time: Hours and Half Hours"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1166,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 969,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 8725,
+          "stop": "tool_use",
+          "usd": 0.012022
+        }
+      ]
+    }
+  },
+  {
+    "n": "D11",
+    "cls": "NZC Year 2",
+    "subject": "Science",
+    "lesson": "States of Matter",
+    "src": "EMPTY lesson (one blank note block)",
+    "analyze": {
+      "status": 200,
+      "ms": 688,
+      "warnings": [
+        "This lesson has no readable content yet (no transcripts, documents, or instructions)."
+      ],
+      "summary": "",
+      "usage": [],
+      "error": {
+        "summary": "",
+        "warnings": [
+          "This lesson has no readable content yet (no transcripts, documents, or instructions)."
+        ]
+      }
+    },
+    "generate": null
+  },
+  {
+    "n": "D12",
+    "cls": "NZC Year 3",
+    "subject": "Maths",
+    "lesson": "Fractions — Halves, Quarters, Thirds",
+    "src": "DOCX (authored) + channel link (unreadable) + reading + activity",
+    "analyze": {
+      "status": 200,
+      "ms": 3226,
+      "warnings": [
+        "Couldn't get a transcript for \"Maths resource — Fractions — Halves, Quarters, Thirds\" — [YoutubeTranscript] 🚨 Impossible to retrieve Youtube video ID."
+      ],
+      "summary": "This lesson introduces students to basic fractions—halves, quarters, and thirds—by teaching that a fraction is a part of a whole made up of equal-sized pieces. Students learn that halves divide a whole into 2 equal parts (1/2), quarters divide it into 4 equal parts (1/4), and thirds divide it into 3 equal parts (1/3). The lesson explains fraction notation, where the bottom number (denominator) shows how many equal parts the whole is divided into and the top number (numerator) shows how many parts are being discussed. Key vocabulary includes \"equal parts,\" \"whole,\" and specific relationships such as two quarters equaling one half (2/4 = 1/2) and four quarters or three thirds equaling one whole. The lesson emphasizes that parts must be equal in size to qualify as true halves, quarters, or thirds, and uses practical examples like pizza slices to illustrate these concepts.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 469,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 207,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 2249,
+          "stop": "end_turn",
+          "usd": 0.001504
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 10007,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "What is a fraction?",
+            "options": [
+              "A whole number with no parts",
+              "A part of a whole made up of equal-sized pieces",
+              "A shape with four sides",
+              "A number bigger than the whole"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "If a pizza is cut into 4 equal slices, what is each slice called?",
+            "options": [
+              "A half",
+              "A third",
+              "A quarter",
+              "A whole"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "In the fraction 1/3, what does the bottom number (3) tell you?",
+            "options": [
+              "How many parts are being discussed",
+              "How many equal parts the whole is divided into",
+              "The size of the whole",
+              "The number of wholes"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which of these is equal to 1/2?",
+            "options": [
+              "1/4",
+              "2/4",
+              "3/4",
+              "1/3"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "How many quarters make one whole?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "Why must the parts be equal to be called halves, quarters, or thirds?",
+            "options": [
+              "Because unequal parts can still be fractions",
+              "Because fractions only work with pizza",
+              "Because the parts need to be the exact same size to correctly represent the fraction",
+              "Because equal parts are easier to color"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain what the numerator and denominator of a fraction represent, using the fraction 3/4 as an example.",
+            "answer": "The denominator (4) shows how many equal parts the whole is divided into, and the numerator (3) shows how many of those parts are being discussed or counted."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "A pizza is cut into 3 equal slices. What fraction represents one slice, and what is this type of fraction called?",
+            "answer": "One slice represents 1/3, and this type of fraction is called a third."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "How many thirds make up one whole pizza? Write your answer as a fraction and explain.",
+            "answer": "Three thirds (3/3) make up one whole pizza, because the whole is divided into 3 equal parts, and all 3 parts together make the complete whole."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain why two quarters (2/4) is the same amount as one half (1/2). Use the idea of equal parts in your explanation.",
+            "answer": "If a whole is divided into 4 equal quarters, two of those quarters together make up the same amount as one half, because 2/4 and 1/2 represent the same equal-sized portion of the whole."
+          }
+        ],
+        "studentInstructions": "Read each question carefully. For multiple choice questions, circle the best answer. For short answer questions, write your answer in complete sentences, explaining your thinking.",
+        "title": "Understanding Fractions: Halves, Quarters, and Thirds"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1321,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 1013,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 9670,
+          "stop": "tool_use",
+          "usd": 0.012772
+        }
+      ]
+    }
+  },
+  {
+    "n": "D13",
+    "cls": "NZC Year 3",
+    "subject": "Science",
+    "lesson": "Life Cycles",
+    "src": "PDF (authored) + channel link (unreadable) + reading + activity",
+    "analyze": {
+      "status": 200,
+      "ms": 3733,
+      "warnings": [
+        "Couldn't get a transcript for \"Science resource — Life Cycles\" — [YoutubeTranscript] 🚨 Impossible to retrieve Youtube video ID."
+      ],
+      "summary": "This lesson teaches students about life cycles—the stages that living organisms pass through as they grow and change. The material covers complete examples including the monarch butterfly (egg, caterpillar/larva, chrysalis/pupa, adult), the frog (eggs/frogspawn, tadpole, froglet, adult), plants (seed, germination, seedling, adult plant, flowers), and humans (baby, child, teenager, adult, older adult). Key vocabulary includes life cycle, metamorphosis, larva, pupa, tadpole, germination, and seedling. The lesson emphasizes that different organisms undergo different types of change—some undergo complete metamorphosis with dramatic shape changes (butterflies, frogs), while others grow more gradually—and that life cycles repeat when organisms reproduce, continuing the pattern.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 475,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 178,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 2599,
+          "stop": "end_turn",
+          "usd": 0.001365
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 12397,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "What is the correct order of the monarch butterfly life cycle?",
+            "options": [
+              "Egg, caterpillar/larva, chrysalis/pupa, adult",
+              "Caterpillar, egg, adult, chrysalis",
+              "Chrysalis, egg, larva, adult",
+              "Larva, adult, egg, pupa"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which term describes the dramatic change in body shape that butterflies and frogs go through during their life cycle?",
+            "options": [
+              "Germination",
+              "Metamorphosis",
+              "Pollination",
+              "Reproduction"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What is the young, swimming stage of a frog's life cycle called?",
+            "options": [
+              "Larva",
+              "Seedling",
+              "Tadpole",
+              "Pupa"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which of these is the correct order of stages in a human life cycle?",
+            "options": [
+              "Teenager, baby, child, adult, older adult",
+              "Baby, child, teenager, adult, older adult",
+              "Adult, baby, older adult, teenager, child",
+              "Child, older adult, baby, teenager, adult"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What is the term for a seed beginning to sprout and grow?",
+            "options": [
+              "Germination",
+              "Metamorphosis",
+              "Pupation",
+              "Hatching"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Define 'life cycle' in your own words.",
+            "answer": "A life cycle is the series of stages a living thing passes through as it grows, changes, and develops from the start of its life until it can reproduce and the cycle begins again."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "What is a 'pupa' and which animal in this lesson has a pupa stage?",
+            "answer": "A pupa is the stage in an insect's life cycle where it transforms inside a protective covering (like a chrysalis or cocoon) from a larva into an adult. The monarch butterfly has a pupa (chrysalis) stage."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "List the stages of a plant's life cycle in order.",
+            "answer": "Seed, germination, seedling, adult plant, flowers (which produce seeds to start the cycle again)."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain the difference between how a butterfly changes during its life cycle and how a human changes during its life cycle.",
+            "answer": "A butterfly undergoes complete metamorphosis, changing dramatically in body shape through distinct stages (egg, larva, pupa, adult), while a human grows more gradually, changing size and ability over time (baby, child, teenager, adult, older adult) without changing into a completely different body form."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Why do life cycles repeat? Explain using the idea of reproduction.",
+            "answer": "Life cycles repeat because when organisms become adults, they can reproduce and create offspring (eggs, seeds, or babies), which then grow through the same stages, continuing the life cycle pattern generation after generation."
+          }
+        ],
+        "title": "Life Cycles: From Egg to Adult",
+        "studentInstructions": "Read each question carefully. For multiple choice questions, circle the best answer. For short answer questions, write your response in complete sentences using what you learned about life cycles, metamorphosis, and key vocabulary from the lesson."
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1292,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 1379,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 12021,
+          "stop": "tool_use",
+          "usd": 0.016374
+        }
+      ]
+    }
+  },
+  {
+    "n": "D14",
+    "cls": "NZC Year 4",
+    "subject": "Maths",
+    "lesson": "Angles and Shape Properties",
+    "src": "VERY LONG DOCX (308,232 chars; the lesson topic is in the last part, at char 307,513) placed first + reading + activity",
+    "analyze": {
+      "status": 200,
+      "ms": 3871,
+      "warnings": [
+        "Couldn't get a transcript for \"Maths resource — Angles and Shape Properties\" — [YoutubeTranscript] 🚨 Impossible to retrieve Youtube video ID."
+      ],
+      "summary": "This K-12 mathematics lesson resource covers twelve foundational math topics: counting, place value, addition, subtraction, number lines, even and odd numbers, skip counting, multiplication tables, division as sharing, fractions of a set, money, and time on a clock. For each topic, the material presents multiple classroom examples (typically 14 examples per topic) where students work collaboratively using various manipulatives and tools to explore mathematical concepts, record their observations and results, and articulate the underlying rules or patterns in their own words. A consistent theme throughout all lessons emphasizes that mathematical learning connects to broader ideas including number sense, mathematical reasoning, and verification that answers make sense, fostering both procedural understanding and conceptual depth in elementary mathematics.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 13457,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 158,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 2698,
+          "stop": "end_turn",
+          "usd": 0.014247
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 12861,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "What is the value of the digit 5 in the number 352?",
+            "options": [
+              "5",
+              "50",
+              "500",
+              "5000"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which of the following numbers is even?",
+            "options": [
+              "7",
+              "12",
+              "15",
+              "21"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What is 46 + 27?",
+            "options": [
+              "63",
+              "73",
+              "83",
+              "69"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What is 82 - 35?",
+            "options": [
+              "47",
+              "57",
+              "37",
+              "53"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "mcq",
+            "prompt": "If you skip count by 5s starting at 5, what is the 6th number?",
+            "options": [
+              "25",
+              "30",
+              "35",
+              "20"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What is 6 x 7?",
+            "options": [
+              "36",
+              "42",
+              "48",
+              "49"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "If 12 cookies are shared equally among 4 friends, how many cookies does each friend get?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "6"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What fraction of a set of 10 apples is 5 apples?",
+            "options": [
+              "1/5",
+              "1/2",
+              "1/4",
+              "2/3"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "How many cents are in one quarter?",
+            "options": [
+              "10",
+              "20",
+              "25",
+              "50"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "If the time is 3:30, where is the minute hand pointing on the clock?",
+            "options": [
+              "12",
+              "3",
+              "6",
+              "9"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain in your own words what place value means, using the number 428 as an example.",
+            "answer": "Place value is the value of a digit based on its position in a number. In 428, the 4 is in the hundreds place (worth 400), the 2 is in the tens place (worth 20), and the 8 is in the ones place (worth 8)."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Use a number line to find the difference between 15 and 8. Show your thinking.",
+            "answer": "Starting at 15 and counting back 8 spaces on the number line lands on 7. So 15 - 8 = 7."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain the difference between even and odd numbers, and give one example of each.",
+            "answer": "Even numbers can be split into two equal groups with nothing left over, like 8 (4 and 4). Odd numbers have one left over when split into two groups, like 7 (3 and 4, with one extra)."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Describe how you would use skip counting to count a set of 20 objects grouped in pairs.",
+            "answer": "You would count by 2s: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, counting one pair at a time until all objects are counted."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain why checking your answer to a math problem is important, using an addition or subtraction example.",
+            "answer": "Checking your answer helps make sure it makes sense and is correct. For example, after solving 25 + 17 = 42, you can check by subtracting 17 from 42 to see if you get back to 25, confirming the answer is correct."
+          }
+        ],
+        "studentInstructions": "Answer each question carefully. For multiple choice questions, circle the best answer. For short answer questions, write your response in complete sentences and show your thinking where applicable.",
+        "title": "Foundational Math Skills Worksheet"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1273,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 1214,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 12534,
+          "stop": "tool_use",
+          "usd": 0.014686
+        }
+      ]
+    }
+  },
+  {
+    "n": "D15",
+    "cls": "NZC Year 4",
+    "subject": "Science",
+    "lesson": "The Water Cycle",
+    "src": "TWO documents (PDF + DOCX, authored) + channel link + reading + activity",
+    "analyze": {
+      "status": 200,
+      "ms": 4234,
+      "warnings": [
+        "Couldn't get a transcript for \"Science resource — The Water Cycle\" — [YoutubeTranscript] 🚨 Impossible to retrieve Youtube video ID."
+      ],
+      "summary": "This lesson teaches students the complete water cycle through four key stages: evaporation (when the Sun's heat turns liquid water into invisible water vapour that rises), condensation (when water vapour cools high in the sky and forms visible water droplets and clouds), precipitation (when heavy cloud droplets fall as rain, snow, sleet, or hail), and collection (when fallen water flows into streams, rivers, and lakes, soaks into the ground, or returns to the sea to begin the cycle again). Students learn that the Sun drives this continuous process, that the same water has been recycled for millions of years, and why the water cycle matters for drinking water, farming, and healthy ecosystems—connecting to the New Zealand concept of kaitiakitanga (caring for water). The vocabulary includes evaporation, condensation, water vapour, precipitation, and collection, with real-world examples like wet washing drying on a hot day, fog on mirrors, and Fiordland's heavy rainfall.",
+      "usage": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 549,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 215,
+          "service_tier": "standard",
+          "inference_geo": "not_available",
+          "speed": "standard",
+          "ms": 2781,
+          "stop": "end_turn",
+          "usd": 0.001624
+        }
+      ]
+    },
+    "generate": {
+      "status": 200,
+      "ms": 14135,
+      "draft": {
+        "questions": [
+          {
+            "type": "mcq",
+            "prompt": "What causes liquid water to turn into water vapour during evaporation?",
+            "options": [
+              "The Sun's heat",
+              "The wind blowing",
+              "Cold air at night",
+              "Plants absorbing water"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which stage of the water cycle happens when water vapour cools high in the sky and forms clouds?",
+            "options": [
+              "Evaporation",
+              "Condensation",
+              "Precipitation",
+              "Collection"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Which of these is an example of precipitation?",
+            "options": [
+              "Fog forming on a mirror",
+              "Wet washing drying in the sun",
+              "Rain falling from clouds",
+              "Water soaking into soil"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "mcq",
+            "prompt": "During the collection stage, where might fallen water end up?",
+            "options": [
+              "Back into the Sun",
+              "Rivers, lakes, or underground",
+              "Turned into snow instantly",
+              "It disappears completely"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "What is the correct order of the four main stages of the water cycle?",
+            "options": [
+              "Condensation, Evaporation, Collection, Precipitation",
+              "Evaporation, Condensation, Precipitation, Collection",
+              "Precipitation, Collection, Evaporation, Condensation",
+              "Collection, Precipitation, Condensation, Evaporation"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "type": "mcq",
+            "prompt": "Fiordland in New Zealand is known for very heavy rainfall. Which water cycle stage does this best demonstrate?",
+            "options": [
+              "Evaporation",
+              "Condensation",
+              "Precipitation",
+              "Collection"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain why wet washing dries faster on a hot, sunny day using water cycle vocabulary.",
+            "answer": "On a hot day, the Sun's heat causes the water in the wet washing to evaporate, turning the liquid water into invisible water vapour that rises into the air, which dries the washing faster."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Describe what happens during condensation and give a real-world example of it.",
+            "answer": "Condensation happens when water vapour cools, usually high in the sky, and turns back into tiny visible water droplets, forming clouds. A real-world example is fog or mist forming on a cold mirror or window."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "What is kaitiakitanga, and how does it relate to the water cycle?",
+            "answer": "Kaitiakitanga is a New Zealand concept meaning guardianship or caring for the environment. It relates to the water cycle because people have a responsibility to protect and care for water sources like rivers, lakes, and the sea so that clean water keeps cycling for drinking, farming, and healthy ecosystems."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Why is the water cycle important for humans, farming, and ecosystems? Give at least two reasons.",
+            "answer": "The water cycle provides fresh drinking water for people and animals, supplies water for crops and farming, and helps maintain healthy rivers, lakes, and ecosystems where plants and animals live."
+          },
+          {
+            "type": "short_answer",
+            "prompt": "Explain how the same water on Earth has been recycled for millions of years using the four stages of the water cycle.",
+            "answer": "Water evaporates from oceans, rivers, and lakes due to the Sun's heat, rises as water vapour, condenses into clouds, falls back to Earth as precipitation (rain, snow, sleet, or hail), and is collected in rivers, lakes, or underground before evaporating again, repeating this cycle continuously for millions of years."
+          }
+        ],
+        "studentInstructions": "Read each question carefully. For multiple choice questions, circle the best answer. For short answer questions, write your response in complete sentences using water cycle vocabulary where you can (evaporation, condensation, water vapour, precipitation, collection).",
+        "title": "The Water Cycle: Evaporation, Condensation, Precipitation & Collection"
+      },
+      "error": null,
+      "usage": [
+        {
+          "model": "claude-sonnet-5",
+          "input_tokens": 1342,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 1560,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard",
+          "ms": 13644,
+          "stop": "tool_use",
+          "usd": 0.018284
+        }
+      ]
+    }
+  }
+]

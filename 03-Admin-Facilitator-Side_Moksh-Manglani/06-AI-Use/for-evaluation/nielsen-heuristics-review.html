@@ -1,0 +1,325 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="UTF-8">
+<title>Nielsen Heuristics Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f0e6; --bg-2:#ece6d8; --surface:#fcfaf4; --ink:#33302a; --muted:#847c6c; --line:#e4ddcc; --line-soft:#ede7da;
+    --clay:#be8264; --clay-soft:#eddfd4; --clay-ink:#8c5538;
+    --sage:#8fa585; --sage-soft:#e6ebe0; --sage-ink:#4d6144;
+    --blue:#88a0b4; --blue-soft:#e3eaef; --blue-ink:#3f5b6e;
+    --shadow: 0 1px 0 rgba(51,48,42,.03), 0 1px 3px rgba(51,48,42,.05);
+    --shadow-2: 0 1px 0 rgba(51,48,42,.03), 0 6px 16px rgba(51,48,42,.07);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#18160f; --bg-2:#211e16; --surface:#211e17; --ink:#efe9dd; --muted:#a89d87; --line:#3a3527; --line-soft:#2b2820;
+      --clay:#d9a17e; --clay-soft:#3a2c22; --clay-ink:#f0c8ac;
+      --sage:#a3bb98; --sage-soft:#243024; --sage-ink:#bcd4b0;
+      --blue:#a2bccf; --blue-soft:#20282f; --blue-ink:#c2d7e6;
+      --shadow: 0 1px 0 rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3);
+      --shadow-2: 0 1px 0 rgba(0,0,0,.15), 0 8px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#18160f; --bg-2:#211e16; --surface:#211e17; --ink:#efe9dd; --muted:#a89d87; --line:#3a3527; --line-soft:#2b2820;
+    --clay:#d9a17e; --clay-soft:#3a2c22; --clay-ink:#f0c8ac;
+    --sage:#a3bb98; --sage-soft:#243024; --sage-ink:#bcd4b0;
+    --blue:#a2bccf; --blue-soft:#20282f; --blue-ink:#c2d7e6;
+    --shadow: 0 1px 0 rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3);
+    --shadow-2: 0 1px 0 rgba(0,0,0,.15), 0 8px 20px rgba(0,0,0,.35);
+  }
+  :root{ color-scheme: light dark; }
+
+  *{ box-sizing: border-box; }
+  body{
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3,p,ol{ margin: 0; }
+
+  .wrap{ max-width: 740px; margin: 0 auto; padding: 60px 24px 96px; }
+
+  .eyebrow{
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--sage-ink); background: var(--sage-soft); padding: 5px 11px; border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  h1.title{
+    font-family: "Source Serif 4", Georgia, serif; font-size: 32px; font-weight: 600; letter-spacing: -0.01em;
+    text-wrap: balance; color: var(--ink);
+  }
+  .subtitle{ margin-top: 12px; font-size: 15px; color: var(--muted); max-width: 60ch; }
+
+  .intro{ margin-top: 28px; font-size: 14.5px; color: var(--ink); max-width: 62ch; }
+
+  .list{ display: flex; flex-direction: column; gap: 16px; margin-top: 44px; counter-reset: h; }
+
+  .card{
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  .card-head{ display: flex; gap: 14px; align-items: flex-start; padding: 20px 22px 16px; }
+  .num{
+    counter-increment: h; flex-shrink: 0;
+    width: 34px; height: 34px; border-radius: 10px; background: var(--clay-soft);
+    display: grid; place-items: center;
+    font-family: "Source Serif 4", Georgia, serif; font-weight: 600; font-size: 15px; color: var(--clay-ink);
+  }
+  .num::before{ content: counter(h); }
+  .card-head-text h2{
+    font-size: 17px; font-weight: 700; letter-spacing: -0.005em; color: var(--ink);
+  }
+  .def{ margin-top: 3px; font-size: 13.5px; color: var(--muted); font-style: italic; }
+
+  .card-body{ padding: 0 22px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .row{ border-top: 1px solid var(--line-soft); padding-top: 12px; }
+  .tag{
+    display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+    padding: 3px 8px; border-radius: 20px; margin-bottom: 6px;
+  }
+  .tag.did{ background: var(--blue-soft); color: var(--blue-ink); }
+  .tag.why{ background: var(--sage-soft); color: var(--sage-ink); }
+  .row p{ font-size: 14px; color: var(--ink); }
+  .row code{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: var(--bg-2); color: var(--clay-ink); padding: 1px 6px; border-radius: 5px; font-size: 12.5px;
+  }
+
+  .footer{ font-size: 13px; color: var(--muted); text-align: center; margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line); }
+  .footer a{ color: var(--muted); }
+
+  @media (max-width: 640px){
+    h1.title{ font-size: 25px; }
+    .card-head{ padding: 16px 16px 12px; }
+    .card-body{ padding: 0 16px 16px; }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Usability review</span>
+    <h1 class="title">StudyBuddy against Nielsen's 10 heuristics</h1>
+    <p class="subtitle">
+      Nielsen's heuristics are ten general rules of thumb for good interface design, from Jakob Nielsen
+      (Nielsen Norman Group). Below, each one in plain language, what StudyBuddy actually does about it,
+      and why that specific choice is a good fit for the rule.
+    </p>
+    <p class="intro">
+      This covers the whole app — admin panel and the facilitator-facing side that runs an actual lesson.
+    </p>
+  </header>
+
+  <div class="list">
+
+    <div class="card">
+      <div class="card-head">
+        <span class="num"></span>
+        <div class="card-head-text">
+          <h2>Visibility of system status</h2>
+          <p class="def">The app should always show what's happening, quickly.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <span class="tag did">What we did</span>
+          <p>Running a lesson, the step list on the left shows every block as done (✓), active, or locked (🔒), plus a live "X of Y complete" badge. Both update the moment a facilitator marks a step done.</p>
+        </div>
+        <div class="row">
+          <span class="tag why">Why it works</span>
+          <p>A facilitator mid-lesson never has to guess what's finished or what's next — the state of the whole lesson is visible at a glance, not hidden behind a click.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="num"></span>
+        <div class="card-head-text">
+          <h2>Match between the system and the real world</h2>
+          <p class="def">Use words and pictures people already recognise, not internal jargon.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <span class="tag did">What we did</span>
+          <p>Class cards were rebuilt to look like Canvas course cards — a banner image on top, name and count below — instead of a plain list.</p>
+        </div>
+        <div class="row">
+          <span class="tag why">Why it works</span>
+          <p>Most facilitators have used an LMS like Canvas before. Borrowing that exact pattern means they already know what a class card is and how to use it, with zero learning.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="num"></span>
+        <div class="card-head-text">
+          <h2>User control and freedom</h2>
+          <p class="def">People make mistakes. Give them an easy way out.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <span class="tag did">What we did</span>
+          <p>Deleting a lesson block takes two clicks — the button flips to "Click again to confirm?" for 3 seconds, then quietly reverts if you don't.</p>
+        </div>
+        <div class="row">
+          <span class="tag why">Why it works</span>
+          <p>It stops an accidental single click from destroying content, without a disruptive pop-up dialog you have to read and dismiss every time.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="num"></span>
+        <div class="card-head-text">
+          <h2>Consistency and standards</h2>
+          <p class="def">The same thing should always look and behave the same way.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <span class="tag did">What we did</span>
+          <p>All three admin themes (Warm, Studio, Ledger) are built from one shared set of components and one token system — colour, spacing, radius. Only the tokens change per theme.</p>
+        </div>
+        <div class="row">
+          <span class="tag why">Why it works</span>
+          <p>A button behaves like a button and a card behaves like a card everywhere in the app, no matter which theme is active — nothing to relearn page to page.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="num"></span>
+        <div class="card-head-text">
+          <h2>Error prevention</h2>
+          <p class="def">Stop the mistake before it happens, not just after.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <span class="tag did">What we did</span>
+          <p>Changing your account password requires typing the current password first — it's checked against Supabase before the new one is accepted.</p>
+        </div>
+        <div class="row">
+          <span class="tag why">Why it works</span>
+          <p>It blocks the one genuinely risky scenario — someone at an unlocked, signed-in laptop silently changing another admin's password — before it can happen.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="num"></span>
+        <div class="card-head-text">
+          <h2>Recognition rather than recall</h2>
+          <p class="def">Show information, don't make people remember it.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <span class="tag did">What we did</span>
+          <p>Every nested page — admin and facilitator side — shows a breadcrumb: <code>Classes › Grade 1 › Maths</code>. Running a lesson shows the same trail up to the lesson name.</p>
+        </div>
+        <div class="row">
+          <span class="tag why">Why it works</span>
+          <p>Nobody has to remember which grade or subject they came from to get back — it's written on the page the whole time.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="num"></span>
+        <div class="card-head-text">
+          <h2>Flexibility and efficiency of use</h2>
+          <p class="def">Let beginners do it the plain way, and give experts a faster way too.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <span class="tag did">What we did</span>
+          <p>"Create lesson" from inside a subject page pre-fills that class and subject. The same button from the main Lessons page opens a blank form instead.</p>
+        </div>
+        <div class="row">
+          <span class="tag why">Why it works</span>
+          <p>An admin who's already drilled into "Grade 1 › Maths" skips two dropdowns they'd otherwise fill in by hand — without changing anything for someone starting from scratch.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="num"></span>
+        <div class="card-head-text">
+          <h2>Aesthetic and minimalist design</h2>
+          <p class="def">Only show what's actually needed. Extra stuff competes for attention.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <span class="tag did">What we did</span>
+          <p>The Overview dashboard was rebuilt around five focused stat tiles, three quick links, and a recent-activity list — replacing an earlier version that felt cluttered.</p>
+        </div>
+        <div class="row">
+          <span class="tag why">Why it works</span>
+          <p>The first screen an admin sees now answers "what needs my attention" in one glance, instead of competing bits of information with no clear order.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="num"></span>
+        <div class="card-head-text">
+          <h2>Help users recognise, diagnose, and recover from errors</h2>
+          <p class="def">When something goes wrong, say so in plain words — and say what to do next.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <span class="tag did">What we did</span>
+          <p>If the AI worksheet tool can't read a video or file, it doesn't fail silently or throw a stack trace — it lists it in plain language: "Couldn't get a transcript for 'Warm-up song' — no captions available."</p>
+        </div>
+        <div class="row">
+          <span class="tag why">Why it works</span>
+          <p>The admin knows exactly what failed and why, in words they understand, and can still finish the task — the rest of the worksheet still gets generated.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="num"></span>
+        <div class="card-head-text">
+          <h2>Help and documentation</h2>
+          <p class="def">Ideally nobody needs it — but make it easy to find when they do.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <span class="tag did">What we did</span>
+          <p>The settings menu has a "Project docs" section linking straight to the design-exploration record and the worksheet-generator spec.</p>
+        </div>
+        <div class="row">
+          <span class="tag why">Why it works</span>
+          <p>Anyone new to the project — a teammate, a grader — can see the reasoning behind decisions from inside the app itself, without it cluttering the main screens for everyone else.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="footer">Nielsen's 10 heuristics, Jakob Nielsen / Nielsen Norman Group — <a href="https://www.nngroup.com/articles/ten-usability-heuristics/" target="_blank" rel="noopener noreferrer">nngroup.com</a> · applied to StudyBuddy</p>
+</div>
+
+</body></html>

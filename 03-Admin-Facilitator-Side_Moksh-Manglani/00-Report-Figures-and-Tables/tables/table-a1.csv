@@ -1,0 +1,11 @@
+Heuristic,How the platform responds
+1. Visibility of system status,"The step list marks every block as done, current or locked, with an ""X of Y complete"" badge that updates as steps are finished"
+2. Match with the real world,Class cards follow the Canvas course-card pattern most users already know
+3. User control and freedom,"Deleting a block needs a second click within three seconds, which prevents accidental loss without a pop-up"
+4. Consistency and standards,The three themes are built from one component set and one token system
+5. Error prevention,"Changing a password in Settings requires the current password, and a sign-up request stays a request, with no account, until an admin approves it"
+6. Recognition rather than recall,Every nested page shows a breadcrumb
+7. Flexibility and efficiency of use,Create lesson from inside a subject pre-fills the class and subject
+8. Aesthetic and minimalist design,The admin home page was redesigned around the actions an admin needs next
+9. Recognise and recover from errors,The worksheet generator reports a source it cannot read and still completes the rest
+10. Help and documentation,The settings menu links to the design record and the worksheet generator specification

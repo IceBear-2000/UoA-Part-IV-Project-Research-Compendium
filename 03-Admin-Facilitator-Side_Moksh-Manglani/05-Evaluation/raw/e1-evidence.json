@@ -1,0 +1,97 @@
+{
+  "publishedLessons": 110,
+  "publishedZeroBlocks": [
+    "NCERT Grade 1 | English | Letter Sounds A-Z",
+    "NCERT Grade 1 | English | Rhyming Words"
+  ],
+  "videoBlocksInPublishedLessons": 104,
+  "videoNotPlayable": 92,
+  "videoEmptyUrl": 1,
+  "lessonsWhoseFirstBlockIsAnUnplayableVideo": 92,
+  "byClassUnplayable": {
+    "NCERT Grade 1": {
+      "video": 9,
+      "unplayable": 7
+    },
+    "NCERT Grade 2": {
+      "video": 10,
+      "unplayable": 6
+    },
+    "NCERT Grade 4": {
+      "video": 15,
+      "unplayable": 11
+    },
+    "NCERT Grade 3": {
+      "video": 10,
+      "unplayable": 8
+    },
+    "NZC Year 1": {
+      "video": 15,
+      "unplayable": 15
+    },
+    "NZC Year 2": {
+      "video": 15,
+      "unplayable": 15
+    },
+    "NZC Year 3": {
+      "video": 15,
+      "unplayable": 15
+    },
+    "NZC Year 4": {
+      "video": 15,
+      "unplayable": 15
+    }
+  },
+  "playerForPlaylistLesson": {
+    "status": 200,
+    "firstBlockUrl": "https://www.youtube.com/playlist?list=PLUgLcpnv1YidiUdss25g4Ad-NV3jnXIVj"
+  },
+  "facilitatorListBadgeForCompletedLesson": {
+    "lessonFoundInList": true,
+    "textAround": "ZZ-EVAL Flow Lesson 5 step s · 10 min Not started <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"current",
+    "notStartedBadgeCount": 20,
+    "dbSaysCompleted": true
+  },
+  "titles": {
+    "/login": "StudyBuddy",
+    "/about": "StudyBuddy",
+    "/signup": "StudyBuddy",
+    "/admin": "StudyBuddy",
+    "/admin/classes": "StudyBuddy",
+    "/admin/lessons": "StudyBuddy",
+    "/admin/settings": "StudyBuddy",
+    "/facilitator": "StudyBuddy",
+    "/facilitator/messages": "StudyBuddy"
+  },
+  "notFound": {
+    "status": 404,
+    "text": "StudyBuddy",
+    "hasAppNotFoundFile": false,
+    "errorTsx": []
+  },
+  "loginLabels": {
+    "labels": 2,
+    "labelsWithFor": 0,
+    "inputsWithId": 0,
+    "inputsTotal": 3,
+    "hasAutocomplete": false
+  },
+  "productionErrorBody": "0:[\"$@1\",[\"xQXf9IVRJdc-nljCm4798\",null]]\n1:E{\"digest\":\"3683715349\"}\n",
+  "projectDocs": [
+    {
+      "url": "https://claude.ai/code/artifact/da6af19a-7817-48da-8464-677f",
+      "status": 200,
+      "location": null
+    },
+    {
+      "url": "https://claude.ai/code/artifact/e03fd1cd-34b6-45db-b82e-a9e1",
+      "status": 200,
+      "location": null
+    },
+    {
+      "url": "https://claude.ai/code/artifact/465dd5b9-14d8-4887-ad5c-837d",
+      "status": 200,
+      "location": null
+    }
+  ]
+}
