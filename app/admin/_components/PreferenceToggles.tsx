@@ -1,6 +1,11 @@
 "use client";
 
-import { useAdminPreferences, type AdminTheme, type NavLayout } from "./AdminPreferences";
+import {
+  useAdminPreferences,
+  DEFAULT_CONTRAST,
+  type AdminTheme,
+  type NavLayout,
+} from "./AdminPreferences";
 
 const THEMES: { value: AdminTheme; label: string }[] = [
   { value: "refined", label: "Warm" },
@@ -14,7 +19,7 @@ const NAV_LAYOUTS: { value: NavLayout; label: string }[] = [
 ];
 
 export function PreferenceToggles() {
-  const { theme, navLayout, setTheme, setNavLayout } = useAdminPreferences();
+  const { theme, navLayout, contrast, setTheme, setNavLayout, setContrast } = useAdminPreferences();
 
   return (
     <div className="flex flex-col gap-3">
@@ -53,6 +58,36 @@ export function PreferenceToggles() {
               {t.label}
             </button>
           ))}
+        </div>
+      </div>
+
+      <div>
+        <div className="mb-1.5 flex items-center justify-between px-0.5">
+          <label htmlFor="card-contrast" className="text-[11px] font-semibold text-muted">
+            Card contrast
+          </label>
+          <button
+            type="button"
+            onClick={() => setContrast(DEFAULT_CONTRAST)}
+            className="text-[11px] font-semibold text-clay hover:underline"
+          >
+            Reset
+          </button>
+        </div>
+        <input
+          id="card-contrast"
+          type="range"
+          min={0}
+          max={100}
+          step={5}
+          value={contrast}
+          onChange={(e) => setContrast(Number(e.target.value))}
+          aria-valuetext={`${contrast} out of 100`}
+          className="w-full accent-clay"
+        />
+        <div className="flex justify-between px-0.5 text-[10.5px] text-muted">
+          <span>Softer</span>
+          <span>Stronger</span>
         </div>
       </div>
     </div>

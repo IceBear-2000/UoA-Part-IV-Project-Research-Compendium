@@ -9,12 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "var(--bg)",
-        "bg-2": "var(--bg-2)",
+        bg: "var(--bg-eff)",
+        "bg-2": "var(--bg-2-eff)",
         surface: "var(--surface)",
         ink: "var(--ink)",
         muted: "var(--muted)",
-        line: "var(--line)",
+        line: "var(--line-eff)",
         "line-soft": "var(--line-soft)",
         clay: "var(--clay)",
         "clay-hover": "var(--clay-hover)",

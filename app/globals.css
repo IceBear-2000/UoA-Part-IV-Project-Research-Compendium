@@ -118,13 +118,41 @@
   --font-heading: var(--font-source-serif), Georgia, serif;
 }
 
+/* ---------------------------------------------------------------------
+   Card / page contrast. --shade darkens the page and sidebar backgrounds and
+   --edge darkens borders, so white cards stand out more. The admin Display
+   menu sets both from its "Card contrast" slider (0 to 100, default 60);
+   everywhere else the defaults below (the slider at 60) apply. Muted text
+   stays above 4.5:1 even at the slider's maximum (6% shade).
+   --------------------------------------------------------------------- */
+:root {
+  --shade: 3.6%;
+  --edge: 12%;
+}
+
+:root,
+[data-theme] {
+  --bg-eff: var(--bg);
+  --bg-2-eff: var(--bg-2);
+  --line-eff: var(--line);
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  :root,
+  [data-theme] {
+    --bg-eff: color-mix(in srgb, var(--bg), #000 var(--shade));
+    --bg-2-eff: color-mix(in srgb, var(--bg-2), #000 var(--shade));
+    --line-eff: color-mix(in srgb, var(--line), #000 var(--edge));
+  }
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   color: var(--ink);
-  background: var(--bg);
+  background: var(--bg-eff);
   font-family: var(--font-sans);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
