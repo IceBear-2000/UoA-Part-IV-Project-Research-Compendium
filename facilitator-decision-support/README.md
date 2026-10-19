@@ -2,7 +2,7 @@
 
 Proof-of-concept tool for Part IV Project #133. Learners in Years 3–6 complete a
 short reading check (one passage, two literal and two inferential questions,
-and a "Do you think you got that right?" judgement after each answer). Evidence-linked
+and a self-reported confidence judgement after each answer). Evidence-linked
 rules turn their answers and interaction signals into a status for the
 facilitator ("Needs support", "Worth a check-in" or "On track"), shown with the
 evidence behind it and a suggested next step.
