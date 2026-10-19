@@ -1,4 +1,5 @@
 import { BlockType } from "@prisma/client";
+import { resolveVideoEmbed } from "@/lib/video-embed";
 import {
   CircleCheck,
   CirclePause,
@@ -123,7 +124,9 @@ export const FILE_UPLOAD_TYPES: BlockType[] = [BlockType.READING, BlockType.WORK
 export function summarizeContent(type: BlockType, content: any): string {
   switch (type) {
     case BlockType.VIDEO:
-      return content?.url ? "Video link added" : "No video link yet";
+      if (content?.needsVideo) return "Needs video";
+      if (!content?.url) return "No video link yet";
+      return resolveVideoEmbed(String(content.url)) ? "Video link added" : "Link cannot play in the app";
     case BlockType.WORKBOOK:
       return content?.pageStart && content?.pageEnd
         ? `Pages ${content.pageStart}–${content.pageEnd}`

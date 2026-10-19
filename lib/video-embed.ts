@@ -21,6 +21,11 @@ export function resolveVideoEmbed(rawUrl: string): VideoEmbed | null {
       const id = url.searchParams.get("v");
       if (id) return { kind: "iframe", src: `https://www.youtube.com/embed/${id}` };
     }
+    // A playlist link plays from its first video, with the playlist menu available.
+    if (url.pathname === "/playlist") {
+      const list = url.searchParams.get("list");
+      if (list) return { kind: "iframe", src: `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(list)}` };
+    }
     const shortsMatch = url.pathname.match(/^\/shorts\/([\w-]+)/);
     if (shortsMatch) {
       return { kind: "iframe", src: `https://www.youtube.com/embed/${shortsMatch[1]}` };
@@ -40,5 +45,8 @@ export function resolveVideoEmbed(rawUrl: string): VideoEmbed | null {
 
   if (host === "player.vimeo.com") return { kind: "iframe", src: url.toString() };
 
-  return { kind: "file", src: rawUrl };
+  // Only real video files can use a plain <video> tag. Channel pages, search pages and other web
+  // pages cannot play inside the app, so the player shows a link card instead of a blank player.
+  if (/\.(mp4|webm|ogg|mov|m4v)$/i.test(url.pathname)) return { kind: "file", src: rawUrl };
+  return null;
 }

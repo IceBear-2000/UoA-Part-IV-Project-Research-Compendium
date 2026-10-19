@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, Check, Lock, Printer, Send } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ExternalLink, Lock, Printer, Send } from "lucide-react";
 import { BlockType } from "@prisma/client";
 import { BLOCK_META } from "@/lib/block-meta";
 import { getBlockState, type LessonProgressState } from "@/lib/lesson-progress";
@@ -31,9 +31,29 @@ function StageBody({ block }: { block: ClientBlock }) {
     case BlockType.VIDEO: {
       const embed = content.url ? resolveVideoEmbed(content.url) : null;
       if (!embed) {
+        const hasLink = typeof content.url === "string" && content.url.trim() !== "" && !content.needsVideo;
         return (
-          <div className="grid aspect-video w-full place-items-center rounded-xl bg-ink text-sm text-white/70">
-            No video added yet
+          <div className="grid aspect-video w-full place-items-center rounded-xl bg-bg-2 p-6 text-center">
+            <div>
+              <p className="text-sm font-semibold text-ink">
+                {hasLink ? "This video opens on its own page" : "Video coming soon"}
+              </p>
+              <p className="mx-auto mt-1 max-w-[360px] text-[13px] text-muted">
+                {hasLink
+                  ? "Open it in a new tab, then come back and carry on with the next step."
+                  : "There is no video for this step yet. Use the step instructions and carry on."}
+              </p>
+              {hasLink && (
+                <a
+                  href={content.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex items-center gap-1.5 rounded-input bg-clay px-3.5 py-2 text-sm font-semibold text-white shadow-paper hover:bg-clay-hover"
+                >
+                  Open video <ExternalLink className="h-4 w-4" strokeWidth={2} />
+                </a>
+              )}
+            </div>
           </div>
         );
       }
