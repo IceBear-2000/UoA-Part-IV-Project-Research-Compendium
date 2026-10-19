@@ -38,3 +38,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env*
+
+# Research compendium working folders
+_compendium-inbox/
+_compendium-staging/
