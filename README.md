@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="StudyBuddy Research Compendium, Part IV Project 133" width="100%">
+  <img src="assets/banner.svg" alt="StudyBuddy Research Compendium, Part IV Project 133. Part 1, the platform (admin and facilitator), by Moksh Manglani. Part 2, student learning insights (facilitator and students), by May Thazin" width="100%">
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@
 
 This repository is the research compendium for **Part IV Project #133**, *Making Education More Accessible and Reliable: AI-Driven Facilitator-Based Teaching*, completed in the Department of Electrical, Computer and Software Engineering at the University of Auckland in 2026.
 
-It holds everything that supports the two final reports and the project portfolio: every Canvas submission, the meeting minutes, the code with its full commit history, the design records, the raw evaluation data behind every table in the reports, and a handover for whoever picks the work up next. It is written so that a future student or researcher can understand what was done, check it, rebuild it and take it further.
+This is a joint project in **two equal parts**, one by each student. The compendium holds everything that supports both final reports and the project portfolio: every Canvas submission, the meeting minutes, the code with its full commit history, the design records, the raw evaluation data behind every table in the reports, and a handover for whoever picks the work up next. It is written so that a future student or researcher can understand what was done, check it, rebuild it and take it further.
 
 | | |
 |---|---|
@@ -23,13 +23,24 @@ It holds everything that supports the two final reports and the project portfoli
 | **Supervisor** | Professor Gill Dobbie, School of Computer Science |
 | **Course** | SOFTENG 700A/B, Part IV Research Project, 2026 |
 | **Canvas submission** | `133_mman402_mtha724-compendium.zip` (a zip of this repository) |
-| **Live platform** | [study-buddy-uoa-project.vercel.app](https://study-buddy-uoa-project.vercel.app) |
+| **Part 1 code** | StudyBuddy platform, in [`03-.../04-Code`](03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/) · live at [study-buddy-uoa-project.vercel.app](https://study-buddy-uoa-project.vercel.app) |
+| **Part 2 code** | Facilitator decision-support tool, in [`04-.../03-Code`](04-Facilitator-Student-Side_May-Thazin/03-Code/) · original repository [mtha724/partIV-facilitator-decision-support](https://github.com/mtha724/partIV-facilitator-decision-support) |
 
 ---
 
-## The project in one paragraph
+## One project, two equal parts
 
-Good teaching depends on the individual teacher, and good teachers are scarce, expensive and leave. StudyBuddy explores a **facilitator-based model of education**: a lesson is designed once by an **admin** with subject and teaching expertise, and delivered in the classroom by a **facilitator**, a person without that expertise who follows the lesson step by step. Making this work depends on two relationships, so the project was split into two parts that were researched and built in parallel.
+Good teaching depends on the individual teacher, and good teachers are scarce, expensive and leave. StudyBuddy explores a **facilitator-based model of education**: a lesson is designed once by an **admin** with subject and teaching expertise, and delivered in the classroom by a **facilitator**, a person without that expertise who follows the lesson step by step. Making this work depends on two relationships, so the project was split into two equal parts, one per student, researched and built in parallel towards the same goal:
+
+- **Part 1 (Moksh Manglani), admin and facilitator:** make sure the lesson reaches the classroom exactly as the admin designed it.
+- **Part 2 (May Thazin), facilitator and students:** make sure the facilitator can see how the students in that classroom are responding, and what to do about it.
+
+```mermaid
+flowchart LR
+    A["Admin<br/>designs the lesson"] -->|"Part 1 · StudyBuddy platform<br/>approval, walkthrough, guided delivery"| F["Facilitator<br/>runs the lesson"]
+    F -->|"delivers"| S["Students"]
+    S -->|"Part 2 · Decision-support tool<br/>reading check, rules, evidence"| F
+```
 
 | | Part 1: The Platform | Part 2: Student Learning Insights |
 |---|---|---|
@@ -43,9 +54,9 @@ Good teaching depends on the individual teacher, and good teachers are scarce, e
 
 ## Start here
 
-**If you are marking this project:** each final report has a "report chapter to compendium" table below. Every figure and table in Moksh's report also has its source data in [`00-Report-Figures-and-Tables`](03-Admin-Facilitator-Side_Moksh-Manglani/00-Report-Figures-and-Tables/).
+**If you are marking this project:** each part has its own "report chapter to compendium" map, [Moksh's below](#moksh-manglani-final-report-part-1-the-platform) and [May's in her folder](04-Facilitator-Student-Side_May-Thazin/). Every figure and table in Moksh's report has its source data in [`00-Report-Figures-and-Tables`](03-Admin-Facilitator-Side_Moksh-Manglani/00-Report-Figures-and-Tables/), and May's simulation results are reproducible from her code with fixed seeds.
 
-**If you want to run the systems:** see [Running the platform](03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/) for StudyBuddy and [May's code folder](04-Facilitator-Student-Side_May-Thazin/) for the decision-support tool and its simulation.
+**If you want to run the systems:** see [Part 1: running the platform](03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/) and [Part 2: running the decision-support tool and its simulation](04-Facilitator-Student-Side_May-Thazin/).
 
 **If you are continuing the project:** read [`05-Future-Work-and-Handover`](05-Future-Work-and-Handover/) first. It lists what works, what is known, and where to start.
 
