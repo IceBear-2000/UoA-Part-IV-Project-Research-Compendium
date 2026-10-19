@@ -1,0 +1,304 @@
+// StudyBuddy — Prisma schema
+// Run: npx prisma migrate dev --name init
+// This is the ground-truth data model. See PROJECT_BRIEF.md for the reasoning behind these decisions.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Identity & roles
+// ---------------------------------------------------------------------------
+
+enum Role {
+  ADMIN
+  FACILITATOR
+}
+
+model Organisation {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  users          User[]
+  classes        Class[]
+  signupRequests SignupRequest[]
+}
+
+model User {
+  id             String       @id @default(cuid())
+  // Mirrors the Supabase Auth user id — do not store passwords here, Supabase Auth handles that.
+  authId         String       @unique
+  name           String
+  email          String       @unique
+  role           Role
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  createdAt      DateTime     @default(now())
+
+  // facilitator-only relations
+  assignments FacilitatorAssignment[]
+  progress    LessonProgress[]
+
+  // messaging (works for both roles — a conversation is just two participants)
+  messagesSent     Message[] @relation("MessagesSent")
+  messagesReceived Message[] @relation("MessagesReceived")
+
+  // in-app notifications — fromUserId is set for message notifications (so a
+  // single thread's notifications can be cleared without touching others)
+  // and left null for system notifications like an assignment being granted.
+  notifications          Notification[] @relation("NotificationRecipient")
+  notificationsTriggered Notification[] @relation("NotificationSender")
+
+  // admin-only: signup requests this user has reviewed, and (facilitator-only)
+  // the request this account was created from, if any.
+  reviewedSignupRequests SignupRequest[] @relation("ReviewedSignupRequests")
+  createdFromRequest     SignupRequest?  @relation("CreatedFromRequest")
+
+  @@index([organisationId])
+}
+
+// ---------------------------------------------------------------------------
+// Content hierarchy: Organisation -> Class -> Subject -> Lesson -> Block
+// ---------------------------------------------------------------------------
+
+model Class {
+  // "Class" and "Grade" are the same concept — one field, one table.
+  id             String       @id @default(cuid())
+  name           String // e.g. "Grade 1"
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  createdAt      DateTime     @default(now())
+
+  // Canvas-style card banner. When bannerImagePath is null, the UI falls
+  // back to a deterministically-generated pattern (see lib/class-banner.ts)
+  // — every class always has a banner, upload is optional polish.
+  bannerImagePath String?
+
+  // Which national curriculum this class follows — powers the curriculum
+  // filter on Classes/Lessons. Defaults to NCERT since every class created
+  // before this field existed was NCERT-aligned.
+  curriculum Curriculum @default(NCERT)
+
+  subjects    Subject[]
+  assignments FacilitatorAssignment[]
+
+  @@index([organisationId])
+}
+
+enum Curriculum {
+  NCERT
+  NZC
+}
+
+model Subject {
+  id        String   @id @default(cuid())
+  name      String // e.g. "Maths"
+  classId   String
+  class     Class    @relation(fields: [classId], references: [id])
+  createdAt DateTime @default(now())
+
+  lessons     Lesson[]
+  assignments FacilitatorAssignment[]
+
+  @@index([classId])
+}
+
+enum LessonStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Lesson {
+  id        String       @id @default(cuid())
+  subjectId String
+  subject   Subject      @relation(fields: [subjectId], references: [id])
+  name      String
+  status    LessonStatus @default(DRAFT)
+
+  // Required at creation per PROJECT_BRIEF — name/class/subject are required;
+  // class is reachable via subject -> class, so not duplicated here.
+
+  // Optional-but-encouraged fields — nullable, shown with a "Recommended" tag in the UI, never enforced.
+  durationMinutes    Int?
+  description        String?
+  learningObjectives String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  blocks   Block[]
+  progress LessonProgress[]
+
+  @@index([subjectId])
+}
+
+enum BlockType {
+  VIDEO
+  WORKBOOK
+  ACTIVITY
+  WORKSHEET
+  READING
+  QUIZ
+  DISCUSSION
+  BREAK
+  NOTE
+}
+
+model Block {
+  id              String    @id @default(cuid())
+  lessonId        String
+  lesson          Lesson    @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  type            BlockType
+  title           String
+  order           Int // 0-indexed position within the lesson; resequence on reorder, don't leave gaps
+  facilitatorNote String?
+
+  // Shape depends on `type`. Examples:
+  // VIDEO:     { "url": "...", "durationSeconds": 240 }
+  // WORKBOOK:  { "pageStart": 12, "pageEnd": 13 }
+  // ACTIVITY:  { "instructions": "..." }
+  // WORKSHEET: { "fileUrl": "...", "generatedByAI": false }
+  // For READING/QUIZ/DISCUSSION/BREAK/NOTE in v1: { "instructions": "..." } is sufficient.
+  content Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([lessonId, order])
+}
+
+// ---------------------------------------------------------------------------
+// Facilitator assignment (Class + Subject -> Facilitator)
+// ---------------------------------------------------------------------------
+
+model FacilitatorAssignment {
+  id            String   @id @default(cuid())
+  facilitatorId String
+  facilitator   User     @relation(fields: [facilitatorId], references: [id])
+  classId       String
+  class         Class    @relation(fields: [classId], references: [id])
+  subjectId     String
+  subject       Subject  @relation(fields: [subjectId], references: [id])
+  createdAt     DateTime @default(now())
+
+  // A facilitator is assigned to a given class+subject combination exactly once.
+  @@unique([facilitatorId, classId, subjectId])
+  @@index([facilitatorId])
+  @@index([classId, subjectId])
+}
+
+// ---------------------------------------------------------------------------
+// Lesson progress — the core state machine. See PROJECT_BRIEF.md "lesson flow behaviour".
+// ---------------------------------------------------------------------------
+
+model LessonProgress {
+  id            String @id @default(cuid())
+  facilitatorId String
+  facilitator   User   @relation(fields: [facilitatorId], references: [id])
+  lessonId      String
+  lesson        Lesson @relation(fields: [lessonId], references: [id])
+
+  // Index of the block the facilitator is currently on (0-indexed, matches Block.order).
+  // While completedAt is null: blocks at index < currentBlockIndex are done,
+  // index == currentBlockIndex is active, index > currentBlockIndex is locked.
+  currentBlockIndex Int @default(0)
+
+  // IDs of blocks marked done. Kept explicit (not just "everything before currentBlockIndex")
+  // so free-navigation-after-completion can't accidentally re-lock anything.
+  completedBlockIds String[] @default([])
+
+  completedAt DateTime? // null until the lesson is finished; once set, ALL blocks unlock for free navigation
+  startedAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // One progress record per facilitator per lesson — resuming reuses this row, it doesn't create a new one.
+  @@unique([facilitatorId, lessonId])
+  @@index([facilitatorId])
+}
+
+// ---------------------------------------------------------------------------
+// Messaging (simple admin <-> facilitator chat)
+// ---------------------------------------------------------------------------
+
+model Message {
+  id         String   @id @default(cuid())
+  senderId   String
+  sender     User     @relation("MessagesSent", fields: [senderId], references: [id])
+  receiverId String
+  receiver   User     @relation("MessagesReceived", fields: [receiverId], references: [id])
+  body       String
+  createdAt  DateTime @default(now())
+
+  @@index([senderId, receiverId])
+}
+
+// ---------------------------------------------------------------------------
+// In-app notifications — simple flat list per user, no email/push.
+// ---------------------------------------------------------------------------
+
+model Notification {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation("NotificationRecipient", fields: [userId], references: [id])
+
+  // Set only for message notifications — lets a single thread be marked read
+  // without clearing notifications from other senders. Null for system
+  // notifications (e.g. "you've been granted access to Grade 1 Maths").
+  fromUserId String?
+  fromUser   User?   @relation("NotificationSender", fields: [fromUserId], references: [id])
+
+  body      String
+  link      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId, read])
+}
+
+// ---------------------------------------------------------------------------
+// Signup approval — a request sits here until an admin approves or rejects
+// it. No Supabase Auth account or User row exists until approval; approving
+// creates both in the same action, along with the granted class/subject
+// assignments. See PROJECT_BRIEF.md-adjacent product decision made in chat:
+// "request first, invite later" rather than letting anyone self-activate.
+// ---------------------------------------------------------------------------
+
+enum SignupRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model SignupRequest {
+  id                 String              @id @default(cuid())
+  name               String
+  email              String
+  // Free-text, informational only — e.g. "Grade 1 Maths". The admin can
+  // grant something different at approval time.
+  requestedClassNote String?
+  status             SignupRequestStatus @default(PENDING)
+  organisationId     String
+  organisation       Organisation        @relation(fields: [organisationId], references: [id])
+
+  reviewedByUserId String?
+  reviewedBy       User?     @relation("ReviewedSignupRequests", fields: [reviewedByUserId], references: [id])
+  reviewedAt       DateTime?
+  rejectionReason  String?
+
+  // Set once approved — links the request to the User it created.
+  createdUserId String? @unique
+  createdUser   User?   @relation("CreatedFromRequest", fields: [createdUserId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  // Deliberately no @@unique on email — a rejected applicant can submit a
+  // fresh request later. The "already has a pending request" check is
+  // application-level (see app/signup/actions.ts).
+  @@index([organisationId, status])
+}

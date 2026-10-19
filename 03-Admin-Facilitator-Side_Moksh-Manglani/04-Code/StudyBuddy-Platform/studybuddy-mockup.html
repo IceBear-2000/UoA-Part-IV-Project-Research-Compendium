@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyBuddy</title>
+<style>
+  :root{
+    /* paper palette */
+    --bg:#F4F0E6;          /* warm paper canvas */
+    --bg-2:#ECE6D8;        /* deeper paper */
+    --surface:#FCFAF4;     /* card paper, slightly warm white */
+    --ink:#33302A;         /* soft warm ink */
+    --muted:#928B7C;       /* faded ink */
+    --line:#E4DDCC;        /* pencil-line border */
+    --line-soft:#EDE7DA;
+    /* pastel accents (muted, no neon) */
+    --clay:#BE8264;        /* muted terracotta accent */
+    --clay-soft:#EDDFD4;   /* pale clay wash */
+    --clay-line:#DCC4B2;
+    --sage:#8FA585;        /* pastel sage */
+    --sage-soft:#E6EBE0;
+    --blue:#88A0B4;        /* pastel dusty blue */
+    --blue-soft:#E3EAEF;
+    --gold:#C9B173;        /* pastel gold */
+    --gold-soft:#F0E9D4;
+    --rose:#C0959F;        /* pastel rose */
+    --rose-soft:#F0E4E7;
+    --radius:14px;
+    --radius-sm:11px;
+    /* paper shadows: soft, low, no glow */
+    --paper:0 1px 0 rgba(51,48,42,.03), 0 1px 3px rgba(51,48,42,.05);
+    --paper-2:0 1px 0 rgba(51,48,42,.03), 0 4px 10px rgba(51,48,42,.06);
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+  /* faint paper grain */
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.025;
+    background-image:radial-gradient(circle at 1px 1px, #33302A 1px, transparent 0);background-size:22px 22px}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  select{font-family:inherit}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+  .screen{display:none;min-height:100vh;position:relative;z-index:2;animation:fade .3s ease}
+  .screen.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+
+  .shell{display:grid;grid-template-columns:244px 1fr;min-height:100vh}
+  .sidebar{background:var(--bg-2);border-right:1px solid var(--line);padding:24px 16px;display:flex;flex-direction:column;gap:3px;position:sticky;top:0;height:100vh}
+  .brand{display:flex;align-items:center;gap:10px;padding:6px 10px 22px;font-weight:700;font-size:19px;letter-spacing:-.02em}
+  .brand .logo{width:30px;height:30px;border-radius:9px;background:var(--clay);display:grid;place-items:center;color:#fff;font-size:16px}
+  .nav-item{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;color:var(--muted);font-size:14.5px;font-weight:500;width:100%;text-align:left;transition:.15s}
+  .nav-item .ic{font-size:16px;width:20px;text-align:center}
+  .nav-item:hover{background:rgba(190,130,100,.09);color:var(--ink)}
+  .nav-item.active{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--paper)}
+  .nav-spacer{flex:1}
+  .nav-foot{border-top:1px solid var(--line);padding-top:10px;margin-top:8px}
+  .profile{display:flex;align-items:center;gap:10px;padding:8px 10px}
+  .avatar{width:34px;height:34px;border-radius:50%;background:var(--sage);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:600;flex-shrink:0}
+  .profile .meta{font-size:13px;line-height:1.3}
+  .profile .meta small{color:var(--muted);font-size:11.5px}
+
+  .main{padding:34px 44px 70px;max-width:1180px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;gap:16px}
+  .crumbs{font-size:13px;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:7px}
+  .crumbs a{color:var(--muted);text-decoration:none;cursor:pointer}
+  .crumbs a:hover{color:var(--clay)}
+  h1{font-size:27px;letter-spacing:-.025em;font-weight:700}
+  .sub{color:var(--muted);font-size:14.5px;margin-top:4px}
+  h2{font-size:17px;letter-spacing:-.015em;font-weight:650;margin-bottom:2px}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--clay);color:#fff;padding:10px 17px;border-radius:10px;font-size:14px;font-weight:600;transition:.15s;box-shadow:var(--paper)}
+  .btn:hover{background:#A96E52}
+  .btn:active{transform:translateY(1px)}
+  .btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:none}
+  .btn.ghost:hover{background:var(--bg-2)}
+  .btn.sm{padding:7px 13px;font-size:13px}
+  .btn[disabled]{opacity:.4;cursor:not-allowed;pointer-events:none}
+
+  .search{display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 14px;color:var(--muted);font-size:14px;min-width:230px}
+
+  .grid{display:grid;gap:18px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:21px;box-shadow:var(--paper);transition:.15s}
+  .card.click{cursor:pointer}
+  .card.click:hover{border-color:var(--clay-line);background:#fff}
+  .section-label{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:28px 0 13px}
+
+  .tile-ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:21px;margin-bottom:15px}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:8px}
+  .pill.done{background:var(--sage-soft);color:#5f7355}
+  .pill.progress{background:var(--gold-soft);color:#8d7426}
+  .pill.todo{background:var(--bg-2);color:var(--muted)}
+  .meta-row{display:flex;gap:14px;color:var(--muted);font-size:13px;margin-top:8px}
+
+  .hero{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:flex;align-items:center;justify-content:space-between;gap:24px;box-shadow:var(--paper);margin-bottom:6px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--clay)}
+  .hero .tag{font-size:12px;font-weight:600;color:var(--clay);letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+  .hero h2{font-size:22px;margin-bottom:8px}
+  .progress-rail{height:6px;background:var(--bg-2);border-radius:8px;overflow:hidden;margin-top:13px;max-width:340px}
+  .progress-rail span{display:block;height:100%;background:var(--clay);border-radius:8px;transition:width .4s ease}
+
+  /* ---- lesson flow ---- */
+  .flow-wrap{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start}
+  .flow-list{display:flex;flex-direction:column}
+  .flow-step{display:flex;gap:13px}
+  .flow-step .rail{display:flex;flex-direction:column;align-items:center}
+  .dot{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:14px;flex-shrink:0;border:1.5px solid var(--line);background:var(--surface);color:var(--muted);transition:.18s;font-weight:600}
+  .line{width:2px;flex:1;background:var(--line);min-height:24px;transition:.18s}
+  .flow-step:last-child .line{display:none}
+  .step-card{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:12px;cursor:pointer;transition:.18s}
+  .step-card:hover{border-color:var(--clay-line)}
+  .step-card h4{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .step-card small{color:var(--muted);font-size:12px}
+  .step-type{font-size:10.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 7px;border-radius:5px;margin-left:auto}
+  /* states - paper, no glow */
+  .flow-step.done .dot{background:var(--sage);border-color:var(--sage);color:#fff}
+  .flow-step.done .line{background:var(--sage)}
+  .flow-step.active .dot{background:var(--clay);border-color:var(--clay);color:#fff}
+  .flow-step.active .step-card{background:var(--clay-soft);border-color:var(--clay-line)}
+  .flow-step.active .step-card h4{color:#8c5538}
+  .flow-step.locked{opacity:.45}
+  .flow-step.locked .step-card{cursor:not-allowed;background:var(--bg)}
+  .flow-step.locked .step-card:hover{border-color:var(--line)}
+
+  .stage{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:25px;box-shadow:var(--paper);min-height:430px}
+  .stage-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .stage-ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:21px}
+  .video-frame{background:#33302A;border-radius:12px;aspect-ratio:16/9;display:grid;place-items:center;color:#fff;position:relative;overflow:hidden}
+  .video-frame .play{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:22px;border:1px solid rgba(255,255,255,.28)}
+  .video-frame .vmeta{position:absolute;left:16px;bottom:13px;font-size:13px;opacity:.82}
+  .stage-foot{display:flex;justify-content:space-between;align-items:center;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+  .doc{border:1px solid var(--line);border-radius:11px;padding:22px;background:#fff}
+  .doc .ln{height:8px;border-radius:4px;background:var(--bg-2);margin:10px 0}
+  .wb-page{display:flex;gap:16px}
+  .wb-thumb{width:120px;height:150px;border:1px solid var(--line);border-radius:8px;background:#fff;flex-shrink:0;padding:12px}
+  .wb-thumb .ln{height:6px;margin:7px 0}
+  .activity-box{background:var(--gold-soft);border:1px solid #E4D7A8;border-radius:11px;padding:18px}
+  .check-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:12px}
+  .check-list li{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+  .check-list .b{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--clay-line);flex-shrink:0;margin-top:1px}
+
+  /* builder */
+  .builder{display:grid;grid-template-columns:1fr 318px;gap:25px;align-items:start}
+  .field{margin-bottom:15px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+  .field label .req{color:var(--clay)}
+  .field label .rec{color:var(--muted);font-weight:500;font-size:11px;background:var(--bg-2);padding:2px 7px;border-radius:5px;margin-left:6px}
+  .input{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
+  .input:focus{outline:none;border-color:var(--clay);box-shadow:0 0 0 3px var(--clay-soft)}
+  textarea.input{resize:vertical;min-height:70px}
+  .builder-block{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:14px 15px;margin-bottom:12px;display:flex;align-items:center;gap:12px;box-shadow:var(--paper);transition:.15s}
+  .builder-block:hover{border-color:var(--clay-line)}
+  .drag{color:var(--muted);cursor:grab;font-size:16px}
+  .block-ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:18px;flex-shrink:0}
+  .add-block{border:1.5px dashed var(--line);border-radius:11px;padding:15px;text-align:center;color:var(--muted);font-weight:600;font-size:14px;cursor:pointer;transition:.15s;background:transparent;width:100%}
+  .add-block:hover{border-color:var(--clay);color:var(--clay);background:var(--clay-soft)}
+  .type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+  .type-opt{border:1px solid var(--line);border-radius:11px;padding:13px 10px;text-align:center;cursor:pointer;transition:.15s;background:var(--surface)}
+  .type-opt:hover{border-color:var(--clay-line);background:#fff}
+  .type-opt .ti{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;font-size:17px;margin:0 auto 8px}
+  .type-opt small{font-size:12px;font-weight:600}
+
+  .toggle{display:inline-flex;background:var(--bg-2);border-radius:9px;padding:3px}
+  .toggle button{padding:7px 14px;border-radius:7px;font-size:13px;font-weight:600;color:var(--muted)}
+  .toggle button.on{background:var(--surface);color:var(--ink);box-shadow:var(--paper)}
+  table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--paper)}
+  th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:13px 18px;border-bottom:1px solid var(--line);font-weight:600}
+  td{padding:14px 18px;border-bottom:1px solid var(--line);font-size:14px}
+  tr:last-child td{border-bottom:none}
+  tr.row:hover td{background:var(--bg)}
+  .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tag-sm{font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:6px;background:var(--bg-2);color:var(--ink)}
+  .status-dot{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500}
+  .status-dot::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--sage)}
+  .status-dot.off::before{background:var(--muted)}
+
+  .overlay{position:fixed;inset:0;background:rgba(51,48,42,.34);display:none;place-items:center;z-index:50;animation:fade .2s}
+  .overlay.show{display:grid}
+  .modal{background:var(--surface);border-radius:16px;padding:26px;width:430px;max-width:92vw;box-shadow:var(--paper-2);border:1px solid var(--line);animation:pop .24s ease}
+  @keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+  .modal h3{font-size:18px;letter-spacing:-.015em;margin-bottom:4px}
+
+  .login-wrap{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr}
+  .login-art{background:var(--clay);color:#fff;padding:54px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+  .login-art::before{content:"";position:absolute;inset:0;opacity:.06;background-image:radial-gradient(circle at 1px 1px,#fff 1px,transparent 0);background-size:20px 20px}
+  .login-art h2{font-size:32px;line-height:1.2;letter-spacing:-.03em;max-width:420px;color:#fff;position:relative}
+  .login-art p{opacity:.92;margin-top:14px;max-width:380px;font-size:15px;position:relative}
+  .login-art .brand,.login-art .foot{position:relative}
+  .login-form{display:grid;place-items:center;padding:40px}
+  .login-card{width:100%;max-width:356px}
+  .login-card .brand{padding-left:0;font-size:22px}
+  .role-switch{display:flex;gap:10px;margin:22px 0}
+  .role-opt{flex:1;border:1px solid var(--line);border-radius:11px;padding:13px;text-align:center;cursor:pointer;font-size:13.5px;font-weight:600;transition:.15s;background:var(--surface)}
+  .role-opt.on{border-color:var(--clay);background:var(--clay-soft);color:#8c5538}
+
+  .complete-wrap{min-height:100vh;display:grid;place-items:center;text-align:center;padding:40px}
+  .check-big{width:90px;height:90px;border-radius:50%;background:var(--sage);color:#fff;display:grid;place-items:center;font-size:42px;margin:0 auto 24px;animation:pop .45s ease}
+  .complete-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:44px;box-shadow:var(--paper);max-width:460px}
+
+  .chat-wrap{display:grid;grid-template-columns:280px 1fr;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--paper);height:560px}
+  .chat-list{border-right:1px solid var(--line);overflow:auto}
+  .chat-person{display:flex;gap:11px;padding:14px 16px;border-bottom:1px solid var(--line);cursor:pointer}
+  .chat-person:hover,.chat-person.on{background:var(--bg)}
+  .chat-main{display:flex;flex-direction:column}
+  .chat-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:11px}
+  .chat-body{flex:1;padding:20px;overflow:auto;display:flex;flex-direction:column;gap:12px;background:var(--bg)}
+  .bubble{max-width:64%;padding:11px 15px;border-radius:14px;font-size:14px}
+  .bubble.them{background:var(--surface);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+  .bubble.me{background:var(--clay);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+  .chat-input{padding:14px 18px;border-top:1px solid var(--line);display:flex;gap:10px}
+
+  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:6px}
+  .stat .n{font-size:29px;font-weight:700;letter-spacing:-.03em}
+  .stat .l{color:var(--muted);font-size:13px;margin-top:2px}
+  .quick{display:flex;align-items:center;gap:13px;width:100%;text-align:left;padding:16px;border-radius:12px;border:1px solid var(--line);background:var(--surface);transition:.15s;cursor:pointer}
+  .quick:hover{border-color:var(--clay-line);background:#fff}
+
+  .hint{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:12.5px;padding:9px 16px;border-radius:24px;opacity:.85;z-index:40}
+  @media(max-width:1080px){.flow-wrap,.builder{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="screen active" id="login">
+  <div class="login-wrap">
+    <div class="login-art">
+      <div class="brand" style="color:#fff;padding-left:0"><div class="logo" style="background:rgba(255,255,255,.2)">📚</div> StudyBuddy</div>
+      <div>
+        <h2>Quality lessons, ready for anyone to teach.</h2>
+        <p>StudyBuddy puts the teaching expertise into the platform — so structured, consistent lessons can be delivered by anyone, anywhere.</p>
+      </div>
+      <div class="foot" style="font-size:13px;opacity:.85">University of Auckland · SOFTENG 700A</div>
+    </div>
+    <div class="login-form">
+      <div class="login-card">
+        <div class="brand"><div class="logo">📚</div> StudyBuddy</div>
+        <h1 style="margin-top:24px;font-size:23px">Welcome back</h1>
+        <p class="sub">Sign in to continue</p>
+        <div class="role-switch">
+          <div class="role-opt on" id="roleFac" onclick="pickRole('fac')">I'm a Facilitator</div>
+          <div class="role-opt" id="roleAdmin" onclick="pickRole('admin')">I'm an Admin</div>
+        </div>
+        <div class="field"><label>Email</label><input class="input" value="aroha@school.nz"></div>
+        <div class="field"><label>Password</label><input class="input" type="password" value="password"></div>
+        <button class="btn" style="width:100%;justify-content:center;margin-top:6px" onclick="login()">Sign in →</button>
+        <p class="sub" style="text-align:center;margin-top:18px;font-size:13px">Forgot password?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FACILITATOR DASHBOARD -->
+<div class="screen" id="facDash">
+  <div class="shell">
+    <aside class="sidebar" id="facNav"></aside>
+    <main class="main">
+      <div class="topbar"><div><h1>Kia ora, Aroha 👋</h1><p class="sub">Here's what's on for today</p></div><div class="search">🔍 Search lessons…</div></div>
+      <div class="hero">
+        <div>
+          <div class="tag">Recommended next · Today</div>
+          <h2>Grade 1 · Maths — Lesson 3: Counting to 20</h2>
+          <p class="sub" id="heroSub">You're 2 of 5 steps in. Pick up where you left off.</p>
+          <div class="progress-rail"><span id="heroBar" style="width:40%"></span></div>
+        </div>
+        <button class="btn" onclick="go('flow')">Continue lesson →</button>
+      </div>
+      <div class="section-label">My classes</div>
+      <div class="grid g3">
+        <div class="card click" onclick="go('subjects')"><div class="tile-ic" style="background:var(--blue-soft)">🔢</div><h2>Grade 1</h2><div class="meta-row"><span>3 subjects</span><span>·</span><span>12 lessons</span></div></div>
+        <div class="card click" onclick="go('subjects')"><div class="tile-ic" style="background:var(--sage-soft)">🌱</div><h2>Grade 2</h2><div class="meta-row"><span>4 subjects</span><span>·</span><span>18 lessons</span></div></div>
+        <div class="card click" onclick="go('subjects')"><div class="tile-ic" style="background:var(--gold-soft)">⭐</div><h2>Grade 3</h2><div class="meta-row"><span>4 subjects</span><span>·</span><span>21 lessons</span></div></div>
+      </div>
+      <div class="section-label">Today's schedule</div>
+      <div class="grid g2">
+        <div class="card" style="display:flex;align-items:center;gap:16px"><div class="tile-ic" style="background:var(--clay-soft);margin:0">9:00</div><div><h2 style="font-size:15px">Grade 1 · Maths</h2><p class="sub">Lesson 3 — Counting to 20</p></div><span class="pill progress" id="schedPill" style="margin-left:auto">In progress</span></div>
+        <div class="card" style="display:flex;align-items:center;gap:16px"><div class="tile-ic" style="background:var(--blue-soft);margin:0">11:00</div><div><h2 style="font-size:15px">Grade 2 · Science</h2><p class="sub">Lesson 5 — Living things</p></div><span class="pill todo" style="margin-left:auto">Upcoming</span></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- CLASS > SUBJECTS -->
+<div class="screen" id="subjects">
+  <div class="shell">
+    <aside class="sidebar" id="facNav2"></aside>
+    <main class="main">
+      <div class="crumbs"><a onclick="go('facDash')">Dashboard</a> › <span>Grade 1</span></div>
+      <div class="topbar"><div><h1>Grade 1</h1><p class="sub">Choose a subject to see its lessons</p></div></div>
+      <div class="grid g3">
+        <div class="card click" onclick="go('lessons')"><div class="tile-ic" style="background:var(--blue-soft)">🔢</div><h2>Maths</h2><p class="sub">5 lessons</p><div class="progress-rail"><span style="width:40%;background:var(--blue)"></span></div></div>
+        <div class="card click" onclick="go('lessons')"><div class="tile-ic" style="background:var(--sage-soft)">🔬</div><h2>Science</h2><p class="sub">4 lessons</p><div class="progress-rail"><span style="width:25%;background:var(--sage)"></span></div></div>
+        <div class="card click" onclick="go('lessons')"><div class="tile-ic" style="background:var(--rose-soft)">📖</div><h2>English</h2><p class="sub">3 lessons</p><div class="progress-rail"><span style="width:66%;background:var(--rose)"></span></div></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- SUBJECT > LESSONS -->
+<div class="screen" id="lessons">
+  <div class="shell">
+    <aside class="sidebar" id="facNav3"></aside>
+    <main class="main">
+      <div class="crumbs"><a onclick="go('facDash')">Dashboard</a> › <a onclick="go('subjects')">Grade 1</a> › <span>Maths</span></div>
+      <div class="topbar"><div><h1>Grade 1 · Maths</h1><p class="sub" id="lessonsSub">5 lessons · 2 completed</p></div></div>
+      <div class="grid" style="gap:13px" id="lessonsList"></div>
+    </main>
+  </div>
+</div>
+
+<!-- LESSON FLOW PLAYER -->
+<div class="screen" id="flow">
+  <div class="shell">
+    <aside class="sidebar" id="facNav4"></aside>
+    <main class="main">
+      <div class="crumbs"><a onclick="go('facDash')">Dashboard</a> › <a onclick="go('subjects')">Grade 1</a> › <a onclick="go('lessons')">Maths</a> › <span id="flowCrumb">Lesson 3</span></div>
+      <div class="topbar">
+        <div><h1 id="flowTitle">Counting to 20</h1><p class="sub" id="flowHint">Grade 1 · Maths — follow each step in order</p></div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <span class="pill progress" id="flowProgress">0 of 5 complete</span>
+          <button class="btn ghost sm" onclick="restartLesson()">↻ Restart</button>
+        </div>
+      </div>
+      <div class="flow-wrap">
+        <div class="flow-list" id="flowList"></div>
+        <div class="stage" id="stage"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- LESSON COMPLETE -->
+<div class="screen" id="complete">
+  <div class="complete-wrap">
+    <div class="complete-card">
+      <div class="check-big">✓</div>
+      <h1 style="font-size:25px">Lesson complete</h1>
+      <p class="sub" style="font-size:15px;margin-top:8px">Thank you for your time, Aroha.<br><span id="completeName">Grade 1 · Maths · Lesson 3 — Counting to 20</span></p>
+      <div class="card" style="background:var(--bg);margin:22px 0;text-align:left;display:flex;gap:14px;align-items:center"><div class="tile-ic" style="background:var(--sage-soft);margin:0">📅</div><div><strong style="font-size:14px">Marked complete</strong><p class="sub" id="completeDate">just now</p></div></div>
+      <p class="sub" style="margin-bottom:20px">This lesson is now unlocked for free navigation — revisit any step anytime.</p>
+      <div style="display:flex;gap:12px;justify-content:center"><button class="btn ghost" onclick="go('flow')">Review lesson</button><button class="btn" onclick="go('lessons')">Back to lessons →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div class="screen" id="adminDash">
+  <div class="shell">
+    <aside class="sidebar" id="adminNav"></aside>
+    <main class="main">
+      <div class="topbar"><div><h1>Admin overview</h1><p class="sub">StudyBuddy · Auckland pilot</p></div><button class="btn" onclick="go('builder')">＋ Create lesson</button></div>
+      <div class="stat-row">
+        <div class="card stat"><div class="n">24</div><div class="l">Facilitators</div></div>
+        <div class="card stat"><div class="n">51</div><div class="l">Lessons published</div></div>
+        <div class="card stat"><div class="n" style="color:var(--clay)">3</div><div class="l">Worksheets pending</div></div>
+        <div class="card stat"><div class="n">312</div><div class="l">Lessons delivered</div></div>
+      </div>
+      <div class="section-label">Quick actions</div>
+      <div class="grid g3">
+        <button class="quick" onclick="go('builder')"><div class="block-ic" style="background:var(--clay-soft)">➕</div><div><strong>Create new lesson</strong><p class="sub">Build a block-based flow</p></div></button>
+        <button class="quick" onclick="go('worksheet')"><div class="block-ic" style="background:var(--sage-soft)">✨</div><div><strong>Generate worksheet</strong><p class="sub">AI-assisted, you approve</p></div></button>
+        <button class="quick" onclick="go('manage')"><div class="block-ic" style="background:var(--blue-soft)">👥</div><div><strong>Manage facilitators</strong><p class="sub">Assign classes & subjects</p></div></button>
+      </div>
+      <div class="section-label">Pending approvals</div>
+      <div class="card" style="display:flex;align-items:center;gap:16px"><div class="block-ic" style="background:var(--gold-soft);margin:0">📄</div><div style="flex:1"><strong style="font-size:14.5px">Counting to 20 — practice worksheet</strong><p class="sub">AI-generated · Grade 1 Maths · 4 min ago</p></div><button class="btn ghost sm">Review</button><button class="btn sm">Approve</button></div>
+    </main>
+  </div>
+</div>
+
+<!-- FACILITATOR MANAGEMENT -->
+<div class="screen" id="manage">
+  <div class="shell">
+    <aside class="sidebar" id="adminNav2"></aside>
+    <main class="main">
+      <div class="topbar"><div><h1>Facilitators</h1><p class="sub">24 active · manage assignments</p></div>
+        <div style="display:flex;gap:12px;align-items:center"><div class="toggle"><button class="on" id="tList" onclick="setView('list')">List</button><button id="tCard" onclick="setView('card')">Cards</button></div><button class="btn sm">＋ Invite</button></div></div>
+      <div id="listView">
+        <table>
+          <thead><tr><th>Facilitator</th><th>Assigned classes</th><th>Subjects</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr class="row"><td><div style="display:flex;gap:11px;align-items:center"><div class="avatar">AR</div><div><strong>Aroha Reweti</strong><br><small style="color:var(--muted)">aroha@school.nz</small></div></div></td><td><div class="tags"><span class="tag-sm">Grade 1</span><span class="tag-sm">Grade 2</span></div></td><td><div class="tags"><span class="tag-sm">Maths</span><span class="tag-sm">Science</span></div></td><td><span class="status-dot">Active</span></td><td><button class="btn ghost sm" onclick="openAssign()">Assign</button></td></tr>
+            <tr class="row"><td><div style="display:flex;gap:11px;align-items:center"><div class="avatar" style="background:var(--blue)">TM</div><div><strong>Tama Mahuta</strong><br><small style="color:var(--muted)">tama@school.nz</small></div></div></td><td><div class="tags"><span class="tag-sm">Grade 3</span></div></td><td><div class="tags"><span class="tag-sm">English</span></div></td><td><span class="status-dot">Active</span></td><td><button class="btn ghost sm" onclick="openAssign()">Assign</button></td></tr>
+            <tr class="row"><td><div style="display:flex;gap:11px;align-items:center"><div class="avatar" style="background:var(--gold)">PS</div><div><strong>Priya Sharma</strong><br><small style="color:var(--muted)">priya@school.nz</small></div></div></td><td><div class="tags"><span class="tag-sm">Grade 2</span></div></td><td><div class="tags"><span class="tag-sm">Maths</span><span class="tag-sm">English</span></div></td><td><span class="status-dot off">Invited</span></td><td><button class="btn ghost sm" onclick="openAssign()">Assign</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="cardView" style="display:none">
+        <div class="grid g3">
+          <div class="card"><div style="display:flex;gap:12px;align-items:center;margin-bottom:14px"><div class="avatar" style="width:44px;height:44px;font-size:15px">AR</div><div><strong>Aroha Reweti</strong><br><small style="color:var(--muted)">Active</small></div></div><div class="tags" style="margin-bottom:14px"><span class="tag-sm">Grade 1</span><span class="tag-sm">Grade 2</span><span class="tag-sm">Maths</span><span class="tag-sm">Science</span></div><button class="btn ghost sm" style="width:100%;justify-content:center" onclick="openAssign()">Assign</button></div>
+          <div class="card"><div style="display:flex;gap:12px;align-items:center;margin-bottom:14px"><div class="avatar" style="width:44px;height:44px;font-size:15px;background:var(--blue)">TM</div><div><strong>Tama Mahuta</strong><br><small style="color:var(--muted)">Active</small></div></div><div class="tags" style="margin-bottom:14px"><span class="tag-sm">Grade 3</span><span class="tag-sm">English</span></div><button class="btn ghost sm" style="width:100%;justify-content:center" onclick="openAssign()">Assign</button></div>
+          <div class="card"><div style="display:flex;gap:12px;align-items:center;margin-bottom:14px"><div class="avatar" style="width:44px;height:44px;font-size:15px;background:var(--gold)">PS</div><div><strong>Priya Sharma</strong><br><small style="color:var(--muted)">Invited</small></div></div><div class="tags" style="margin-bottom:14px"><span class="tag-sm">Grade 2</span><span class="tag-sm">Maths</span><span class="tag-sm">English</span></div><button class="btn ghost sm" style="width:100%;justify-content:center" onclick="openAssign()">Assign</button></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- LESSON BUILDER -->
+<div class="screen" id="builder">
+  <div class="shell">
+    <aside class="sidebar" id="adminNav3"></aside>
+    <main class="main">
+      <div class="crumbs"><a onclick="go('adminDash')">Dashboard</a> › <span>New lesson</span></div>
+      <div class="topbar"><div><h1>Create lesson</h1><p class="sub">Build the flow students will be guided through</p></div><div style="display:flex;gap:10px"><button class="btn ghost">Save draft</button><button class="btn">Publish</button></div></div>
+      <div class="builder">
+        <div>
+          <div class="section-label" style="margin-top:0">Lesson flow</div>
+          <div class="builder-block"><span class="drag">⠿</span><div class="block-ic" style="background:var(--clay-soft)">🎬</div><div style="flex:1"><strong style="font-size:14px">Warm-up song</strong><br><small style="color:var(--muted)">Video · youtube link added</small></div><span class="step-type" style="background:var(--clay-soft);color:#8c5538">Video</span></div>
+          <div class="builder-block"><span class="drag">⠿</span><div class="block-ic" style="background:var(--blue-soft)">📓</div><div style="flex:1"><strong style="font-size:14px">Counting workbook</strong><br><small style="color:var(--muted)">Workbook · pages 12–13</small></div><span class="step-type" style="background:var(--blue-soft);color:#54707f">Workbook</span></div>
+          <div class="builder-block"><span class="drag">⠿</span><div class="block-ic" style="background:var(--gold-soft)">🎲</div><div style="flex:1"><strong style="font-size:14px">Class counting game</strong><br><small style="color:var(--muted)">Activity · instructions added</small></div><span class="step-type" style="background:var(--gold-soft);color:#8d7426">Activity</span></div>
+          <div class="builder-block"><span class="drag">⠿</span><div class="block-ic" style="background:var(--sage-soft)">📄</div><div style="flex:1"><strong style="font-size:14px">Practice worksheet</strong><br><small style="color:var(--muted)">Worksheet · AI-generated ✨</small></div><span class="step-type" style="background:var(--sage-soft);color:#5f7355">Worksheet</span></div>
+          <button class="add-block" onclick="openPicker()">＋ Add block</button>
+        </div>
+        <div>
+          <div class="card">
+            <h2 style="margin-bottom:16px">Lesson details</h2>
+            <div class="field"><label>Lesson name <span class="req">*</span></label><input class="input" value="Counting to 20"></div>
+            <div class="field"><label>Class / Grade <span class="req">*</span></label><input class="input" value="Grade 1"></div>
+            <div class="field"><label>Subject <span class="req">*</span></label><input class="input" value="Maths"></div>
+            <div class="field"><label>Duration <span class="rec">Recommended</span></label><input class="input" placeholder="e.g. 45 min"></div>
+            <div class="field"><label>Description <span class="rec">Recommended</span></label><textarea class="input" placeholder="What this lesson covers…"></textarea></div>
+            <div class="field" style="margin-bottom:0"><label>Learning objectives <span class="rec">Recommended</span></label><textarea class="input" placeholder="Students will be able to…"></textarea></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- AI WORKSHEET GENERATOR -->
+<div class="screen" id="worksheet">
+  <div class="shell">
+    <aside class="sidebar" id="adminNav4"></aside>
+    <main class="main">
+      <div class="crumbs"><a onclick="go('adminDash')">Dashboard</a> › <span>Worksheet generator</span></div>
+      <div class="topbar"><div><h1>AI worksheet generator ✨</h1><p class="sub">Generate a worksheet, then review before it goes live</p></div></div>
+      <div class="grid g2" style="align-items:start">
+        <div class="card">
+          <h2 style="margin-bottom:16px">Generate</h2>
+          <div class="field"><label>Topic</label><input class="input" value="Counting to 20"></div>
+          <div class="field"><label>Class / Grade</label><input class="input" value="Grade 1"></div>
+          <div class="field"><label>Subject</label><input class="input" value="Maths"></div>
+          <div class="field"><label>Number of questions</label><input class="input" value="8"></div>
+          <div class="field"><label>Style / notes <span class="rec">Optional</span></label><textarea class="input" placeholder="e.g. visual, picture-based, simple language"></textarea></div>
+          <button class="btn" style="width:100%;justify-content:center">✨ Generate worksheet</button>
+        </div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h2>Preview</h2><span class="pill progress">Draft</span></div>
+          <div class="doc">
+            <strong>Counting to 20 — Practice</strong>
+            <p class="sub" style="margin:4px 0 14px">Grade 1 · Maths · Name: ____________</p>
+            <p style="font-size:13.5px">1. Count the apples 🍎🍎🍎🍎🍎 = ____</p><div class="ln" style="width:90%"></div>
+            <p style="font-size:13.5px">2. Write the missing number: 17, 18, __, 20</p><div class="ln" style="width:70%"></div>
+            <p style="font-size:13.5px">3. Circle the bigger number: 14 or 19</p><div class="ln" style="width:80%"></div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:18px"><button class="btn ghost" style="flex:1;justify-content:center">Regenerate</button><button class="btn" style="flex:1;justify-content:center">Send to approvals →</button></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- MESSAGES -->
+<div class="screen" id="messages">
+  <div class="shell">
+    <aside class="sidebar" id="adminNav5"></aside>
+    <main class="main">
+      <div class="topbar"><div><h1 id="msgTitle">Messages</h1><p class="sub" id="msgSub">Chat with your facilitators</p></div></div>
+      <div class="chat-wrap">
+        <div class="chat-list" id="chatList">
+          <div class="chat-person on"><div class="avatar">AR</div><div><strong style="font-size:14px">Aroha Reweti</strong><br><small style="color:var(--muted)">Got it, thanks!</small></div></div>
+          <div class="chat-person"><div class="avatar" style="background:var(--blue)">TM</div><div><strong style="font-size:14px">Tama Mahuta</strong><br><small style="color:var(--muted)">Lesson 4 was great</small></div></div>
+          <div class="chat-person"><div class="avatar" style="background:var(--gold)">PS</div><div><strong style="font-size:14px">Priya Sharma</strong><br><small style="color:var(--muted)">Quick question about…</small></div></div>
+        </div>
+        <div class="chat-main">
+          <div class="chat-head" id="chatHead"><div class="avatar">AR</div><div><strong style="font-size:15px">Aroha Reweti</strong><br><small style="color:var(--muted)">Grade 1 & 2 · Maths, Science</small></div></div>
+          <div class="chat-body">
+            <div class="bubble them">Hi! For Grade 1 Maths Lesson 3, should I print the worksheet before class?</div>
+            <div class="bubble me">Yes please — it's the last step in the flow. Print one per student 🙂</div>
+            <div class="bubble them">Got it, thanks!</div>
+          </div>
+          <div class="chat-input"><input class="input" placeholder="Write a message…"><button class="btn">Send</button></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ASSIGN MODAL -->
+<div class="overlay" id="assignModal">
+  <div class="modal">
+    <h3>Assign facilitator</h3>
+    <p class="sub" style="margin-bottom:20px">Aroha Reweti</p>
+    <div class="field"><label>Class / Grade</label><select class="input"><option>Grade 1</option><option>Grade 2</option><option>Grade 3</option></select></div>
+    <div class="field"><label>Subject</label><select class="input"><option>Maths</option><option>Science</option><option>English</option></select></div>
+    <div style="display:flex;gap:10px;margin-top:22px"><button class="btn ghost" style="flex:1;justify-content:center" onclick="closeAssign()">Cancel</button><button class="btn" style="flex:1;justify-content:center" onclick="closeAssign()">Assign →</button></div>
+  </div>
+</div>
+
+<!-- BLOCK PICKER MODAL -->
+<div class="overlay" id="pickerModal">
+  <div class="modal" style="width:520px">
+    <h3>Add a block</h3>
+    <p class="sub" style="margin-bottom:18px">Choose what to add to the lesson flow</p>
+    <div class="type-grid">
+      <div class="type-opt" onclick="closePicker()"><div class="ti" style="background:var(--clay-soft)">🎬</div><small>Video</small></div>
+      <div class="type-opt" onclick="closePicker()"><div class="ti" style="background:var(--blue-soft)">📓</div><small>Workbook</small></div>
+      <div class="type-opt" onclick="closePicker()"><div class="ti" style="background:var(--gold-soft)">🎲</div><small>Activity</small></div>
+      <div class="type-opt" onclick="closePicker()"><div class="ti" style="background:var(--sage-soft)">📄</div><small>Worksheet</small></div>
+      <div class="type-opt" onclick="closePicker()"><div class="ti" style="background:var(--rose-soft)">📖</div><small>Reading</small></div>
+      <div class="type-opt" onclick="closePicker()"><div class="ti" style="background:var(--blue-soft)">✅</div><small>Quiz</small></div>
+      <div class="type-opt" onclick="closePicker()"><div class="ti" style="background:var(--gold-soft)">💬</div><small>Discussion</small></div>
+      <div class="type-opt" onclick="closePicker()"><div class="ti" style="background:var(--sage-soft)">⏸️</div><small>Break</small></div>
+      <div class="type-opt" onclick="closePicker()"><div class="ti" style="background:var(--bg-2)">📌</div><small>Note</small></div>
+    </div>
+    <button class="btn ghost" style="width:100%;justify-content:center;margin-top:20px" onclick="closePicker()">Cancel</button>
+  </div>
+</div>
+
+<div class="hint" id="hint">Tip: click the steps to move through the lesson — try “Restart” to replay it</div>
+
+<script>
+/* ---------------- data ---------------- */
+const BLOCK_META = {
+  Video:    {ic:'🎬', soft:'var(--clay-soft)', tc:'#8c5538'},
+  Workbook: {ic:'📓', soft:'var(--blue-soft)', tc:'#54707f'},
+  Activity: {ic:'🎲', soft:'var(--gold-soft)', tc:'#8d7426'},
+  Worksheet:{ic:'📄', soft:'var(--sage-soft)', tc:'#5f7355'},
+  Reading:  {ic:'📖', soft:'var(--rose-soft)', tc:'#946b76'},
+};
+
+// Lesson 3 — the interactive demo lesson
+const LESSON = {
+  title:'Counting to 20', crumb:'Lesson 3',
+  steps:[
+    {type:'Video',     name:'Warm-up song',        meta:'2 min',
+      note:'Play the full song and encourage the class to clap along to the beat.'},
+    {type:'Workbook',  name:'Counting workbook',   meta:'p. 12–13',
+      note:'Open the workbook to pages 12–13. Work through the first row together as a class.'},
+    {type:'Video',     name:'Count the objects',   meta:'4 min',
+      note:'Pause at 2:10 and ask the class to count along out loud before continuing.'},
+    {type:'Activity',  name:'Class counting game', meta:'10 min',
+      note:'Split the class into pairs. Each pair counts a set of blocks and writes the number.'},
+    {type:'Worksheet', name:'Practice worksheet',  meta:'Printable',
+      note:'Print one worksheet per student. Hand out and let them complete individually.'},
+  ]
+};
+
+// lesson list state (which are completed)
+const LESSONS_LIST = [
+  {n:1, name:'Numbers 1 to 10',    steps:5, status:'done',     date:'completed 12 May 2026'},
+  {n:2, name:'Comparing numbers',  steps:4, status:'done',     date:'completed 19 May 2026'},
+  {n:3, name:'Counting to 20',     steps:5, status:'progress', date:'in progress', demo:true},
+  {n:4, name:'Simple addition',    steps:6, status:'todo',     date:'not started'},
+  {n:5, name:'Shapes around us',   steps:5, status:'todo',     date:'not started'},
+];
+
+let current = 0;          // active step index
+let done = [];            // completed step indices
+let lessonComplete = false;
+
+/* ---------------- nav templates ---------------- */
+const facNav = (active)=>`
+  <div class="brand"><div class="logo">📚</div> StudyBuddy</div>
+  <button class="nav-item ${active=='home'?'active':''}" onclick="go('facDash')"><span class="ic">🏠</span> Dashboard</button>
+  <button class="nav-item ${active=='classes'?'active':''}" onclick="go('subjects')"><span class="ic">📚</span> My classes</button>
+  <button class="nav-item" onclick="go('messages')"><span class="ic">💬</span> Chat with admin</button>
+  <button class="nav-item"><span class="ic">🔔</span> Notifications</button>
+  <button class="nav-item"><span class="ic">📈</span> Progress history</button>
+  <div class="nav-spacer"></div>
+  <button class="nav-item"><span class="ic">❓</span> Help & support</button>
+  <button class="nav-item"><span class="ic">⚙️</span> Settings</button>
+  <div class="nav-foot"><div class="profile"><div class="avatar">AR</div><div class="meta">Aroha Reweti<br><small>Facilitator</small></div></div>
+  <button class="nav-item" style="font-size:13px" onclick="go('login')"><span class="ic">↩︎</span> Sign out</button></div>`;
+
+const adminNav = (active)=>`
+  <div class="brand"><div class="logo">📚</div> StudyBuddy</div>
+  <button class="nav-item ${active=='home'?'active':''}" onclick="go('adminDash')"><span class="ic">🏠</span> Overview</button>
+  <button class="nav-item ${active=='fac'?'active':''}" onclick="go('manage')"><span class="ic">👥</span> Facilitators</button>
+  <button class="nav-item ${active=='build'?'active':''}" onclick="go('builder')"><span class="ic">🧩</span> Lessons</button>
+  <button class="nav-item ${active=='ws'?'active':''}" onclick="go('worksheet')"><span class="ic">✨</span> Worksheet generator</button>
+  <button class="nav-item"><span class="ic">✓</span> Approvals</button>
+  <button class="nav-item ${active=='msg'?'active':''}" onclick="go('messages')"><span class="ic">💬</span> Messages</button>
+  <div class="nav-spacer"></div>
+  <button class="nav-item"><span class="ic">⚙️</span> Settings</button>
+  <div class="nav-foot"><div class="profile"><div class="avatar" style="background:var(--clay)">GD</div><div class="meta">Gill Dobbie<br><small>Coordinator</small></div></div>
+  <button class="nav-item" style="font-size:13px" onclick="go('login')"><span class="ic">↩︎</span> Sign out</button></div>`;
+
+function paintNav(){
+  ['facNav','facNav2','facNav3','facNav4'].forEach((id,i)=>{document.getElementById(id).innerHTML=facNav(i==0?'home':'classes')});
+  document.getElementById('adminNav').innerHTML=adminNav('home');
+  document.getElementById('adminNav2').innerHTML=adminNav('fac');
+  document.getElementById('adminNav3').innerHTML=adminNav('build');
+  document.getElementById('adminNav4').innerHTML=adminNav('ws');
+  document.getElementById('adminNav5').innerHTML=adminNav('msg');
+}
+paintNav();
+
+/* ---------------- routing ---------------- */
+let role='fac';
+function pickRole(r){role=r;document.getElementById('roleFac').classList.toggle('on',r=='fac');document.getElementById('roleAdmin').classList.toggle('on',r=='admin')}
+function login(){go(role=='fac'?'facDash':'adminDash')}
+function go(id){
+  // role-aware sidebar for shared screens (Messages is reachable by both roles)
+  if(id=='messages'){
+    document.getElementById('adminNav5').innerHTML = (role=='fac') ? facNav('') : adminNav('msg');
+    if(role=='fac'){
+      document.getElementById('msgTitle').textContent='Chat with admin';
+      document.getElementById('msgSub').textContent='Questions about lessons or schedules';
+      document.getElementById('chatList').innerHTML=`<div class="chat-person on"><div class="avatar" style="background:var(--clay)">GD</div><div><strong style="font-size:14px">Gill Dobbie</strong><br><small style="color:var(--muted)">Yes please — print one…</small></div></div>`;
+      document.getElementById('chatHead').innerHTML=`<div class="avatar" style="background:var(--clay)">GD</div><div><strong style="font-size:15px">Gill Dobbie</strong><br><small style="color:var(--muted)">Coordinator · Admin</small></div>`;
+    } else {
+      document.getElementById('msgTitle').textContent='Messages';
+      document.getElementById('msgSub').textContent='Chat with your facilitators';
+      document.getElementById('chatList').innerHTML=`
+        <div class="chat-person on"><div class="avatar">AR</div><div><strong style="font-size:14px">Aroha Reweti</strong><br><small style="color:var(--muted)">Got it, thanks!</small></div></div>
+        <div class="chat-person"><div class="avatar" style="background:var(--blue)">TM</div><div><strong style="font-size:14px">Tama Mahuta</strong><br><small style="color:var(--muted)">Lesson 4 was great</small></div></div>
+        <div class="chat-person"><div class="avatar" style="background:var(--gold)">PS</div><div><strong style="font-size:14px">Priya Sharma</strong><br><small style="color:var(--muted)">Quick question about…</small></div></div>`;
+      document.getElementById('chatHead').innerHTML=`<div class="avatar">AR</div><div><strong style="font-size:15px">Aroha Reweti</strong><br><small style="color:var(--muted)">Grade 1 & 2 · Maths, Science</small></div>`;
+    }
+  }
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id=='flow') renderFlow();
+  if(id=='lessons') renderLessons();
+  if(id=='facDash') renderHero();
+}
+
+/* ---------------- lessons list ---------------- */
+function renderLessons(){
+  const doneCount = LESSONS_LIST.filter(l=>l.status=='done' || (l.demo&&lessonComplete)).length;
+  document.getElementById('lessonsSub').textContent = `5 lessons · ${doneCount} completed`;
+  document.getElementById('lessonsList').innerHTML = LESSONS_LIST.map(l=>{
+    let status=l.status, date=l.date;
+    if(l.demo){ if(lessonComplete){status='done';date='completed just now'} else if(done.length>0){status='progress';date=`${done.length} of ${l.steps} done`} }
+    const icBg = status=='done'?'var(--sage-soft)':status=='progress'?'var(--clay-soft)':'var(--bg-2)';
+    const icTx = status=='done'?'✓':status=='progress'?'▶':l.n;
+    const pill = status=='done'?'<span class="pill done">Completed</span>':status=='progress'?'<span class="pill progress">In progress</span>':'<span class="pill todo">Not started</span>';
+    const border = (l.demo&&status=='progress')?';border-color:var(--clay-line)':'';
+    const click = l.demo?'onclick="go(\'flow\')"':'onclick="go(\'flow\')"';
+    return `<div class="card click" style="display:flex;align-items:center;gap:18px${border}" ${click}>
+      <div class="tile-ic" style="background:${icBg};margin:0">${icTx}</div>
+      <div style="flex:1"><h2 style="font-size:15px">Lesson ${l.n} — ${l.name}</h2><p class="sub">${l.steps} steps · ${date}</p></div>
+      ${pill}</div>`;
+  }).join('');
+}
+
+/* ---------------- hero (dashboard) ---------------- */
+function renderHero(){
+  const bar = document.getElementById('heroBar');
+  const sub = document.getElementById('heroSub');
+  const pill= document.getElementById('schedPill');
+  if(lessonComplete){
+    bar.style.width='100%'; sub.textContent='You completed this lesson — revisit any step anytime.';
+    pill.className='pill done'; pill.textContent='Completed';
+  } else {
+    const pct = Math.round(done.length/LESSON.steps.length*100);
+    bar.style.width=pct+'%';
+    sub.textContent = done.length>0 ? `You're ${done.length} of ${LESSON.steps.length} steps in. Pick up where you left off.` : `Ready to start — ${LESSON.steps.length} steps.`;
+    pill.className='pill progress'; pill.textContent='In progress';
+  }
+}
+
+/* ---------------- the interactive flow ---------------- */
+function stepState(i){
+  if(done.includes(i)) return 'done';
+  if(i===current && !lessonComplete) return 'active';
+  if(lessonComplete) return 'free';           // after completion everything is freely clickable
+  if(i < current) return 'done';
+  if(i === current) return 'active';
+  // first pass: only the immediate next is reachable once previous done — but we lock everything beyond current
+  return 'locked';
+}
+
+function renderFlow(){
+  document.getElementById('flowTitle').textContent = LESSON.title;
+  document.getElementById('flowCrumb').textContent = LESSON.crumb;
+  document.getElementById('flowHint').textContent = lessonComplete
+    ? 'Grade 1 · Maths — completed · free navigation unlocked'
+    : 'Grade 1 · Maths — follow each step in order';
+  const prog = document.getElementById('flowProgress');
+  prog.textContent = `${done.length} of ${LESSON.steps.length} complete`;
+  prog.className = 'pill ' + (lessonComplete?'done':'progress');
+
+  // build step list
+  document.getElementById('flowList').innerHTML = LESSON.steps.map((s,i)=>{
+    const st = stepState(i);
+    const m = BLOCK_META[s.type];
+    const cls = st=='done'?'done':st=='active'?'active':st=='locked'?'locked':'';
+    const dotInner = st=='done'?'✓':(st=='locked'?'🔒':(i+1));
+    const clickable = (st!=='locked');
+    return `<div class="flow-step ${cls}" ${clickable?`onclick="openStep(${i})"`:''}>
+      <div class="rail"><div class="dot">${dotInner}</div><div class="line"></div></div>
+      <div class="step-card">
+        <h4>${s.name} <span class="step-type" style="background:${m.soft};color:${m.tc}">${s.type}</span></h4>
+        <small>${s.meta} ${st=='done'?'· done':st=='active'?'· in progress':''}</small>
+      </div></div>`;
+  }).join('');
+
+  renderStage();
+}
+
+function openStep(i){
+  // on first pass you can only open current; after completion open anything
+  if(!lessonComplete && i!==current && !done.includes(i)) return;
+  current = i;
+  renderFlow();
+}
+
+function renderStage(){
+  const s = LESSON.steps[current];
+  const m = BLOCK_META[s.type];
+  const isLast = current === LESSON.steps.length-1;
+  const alreadyDone = done.includes(current);
+
+  let body = '';
+  if(s.type=='Video'){
+    body = `<div class="video-frame"><div class="play">▶</div><div class="vmeta">${s.name.toLowerCase().replace(/ /g,'-')}.mp4 · secure stream</div></div>`;
+  } else if(s.type=='Workbook'){
+    body = `<div class="wb-page">
+      <div class="wb-thumb"><div class="ln" style="width:80%"></div><div class="ln"></div><div class="ln" style="width:60%"></div><div class="ln"></div><div class="ln" style="width:70%"></div></div>
+      <div><strong style="font-size:14px">Pages 12–13 · Counting practice</strong><p class="sub" style="margin-top:6px">Reference the printed workbook. Preview shown for the facilitator.</p></div></div>`;
+  } else if(s.type=='Activity'){
+    body = `<div class="activity-box"><strong style="font-size:14px">🎲 Class counting game</strong>
+      <ul class="check-list"><li><span class="b"></span>Split the class into pairs</li><li><span class="b"></span>Give each pair a set of counting blocks</li><li><span class="b"></span>Pairs count and write down the number</li><li><span class="b"></span>Share answers as a class</li></ul></div>`;
+  } else if(s.type=='Worksheet'){
+    body = `<div class="doc"><strong>Counting to 20 — Practice</strong><p class="sub" style="margin:4px 0 14px">Grade 1 · Maths · Name: ____________</p>
+      <p style="font-size:13.5px">1. Count the apples 🍎🍎🍎🍎🍎 = ____</p><div class="ln" style="width:90%"></div>
+      <p style="font-size:13.5px">2. Write the missing number: 17, 18, __, 20</p><div class="ln" style="width:70%"></div></div>
+      <button class="btn ghost sm" style="margin-top:14px">🖨️ Print worksheet</button>`;
+  }
+
+  // footer button logic
+  let footRight;
+  if(lessonComplete){
+    footRight = isLast
+      ? `<button class="btn ghost" onclick="go('complete')">View completion ✓</button>`
+      : `<button class="btn" onclick="openStep(${current+1})">Next step →</button>`;
+  } else if(alreadyDone){
+    footRight = `<button class="btn" onclick="openStep(${current+1})">Next step →</button>`;
+  } else {
+    footRight = isLast
+      ? `<button class="btn" onclick="markDone()">Mark done & finish lesson ✓</button>`
+      : `<button class="btn" onclick="markDone()">Mark step done & continue →</button>`;
+  }
+  const footLeft = current>0 ? `<button class="btn ghost sm" onclick="openStep(${current-1})">← Previous</button>` : `<span></span>`;
+
+  document.getElementById('stage').innerHTML = `
+    <div class="stage-head"><div class="stage-ic" style="background:${m.soft}">${m.ic}</div>
+      <div><h2>${s.name}</h2><p class="sub">Step ${current+1} of ${LESSON.steps.length} · ${s.type} · ${s.meta}</p></div></div>
+    ${body}
+    <p class="sub" style="margin-top:16px"><strong style="color:var(--ink)">Facilitator note:</strong> ${s.note}</p>
+    <div class="stage-foot">${footLeft}${footRight}</div>`;
+}
+
+function markDone(){
+  if(!done.includes(current)) done.push(current);
+  const isLast = current === LESSON.steps.length-1;
+  if(isLast){
+    lessonComplete = true;
+    const d = new Date();
+    document.getElementById('completeDate').textContent =
+      d.toLocaleDateString('en-NZ',{day:'numeric',month:'long',year:'numeric'}) + ' · ' +
+      d.toLocaleTimeString('en-NZ',{hour:'numeric',minute:'2-digit'});
+    go('complete');
+  } else {
+    current++;
+    renderFlow();
+  }
+}
+
+function restartLesson(){
+  current = 0; done = []; lessonComplete = false;
+  renderFlow();
+}
+
+/* ---------------- misc ui ---------------- */
+function setView(v){
+  document.getElementById('tList').classList.toggle('on',v=='list');
+  document.getElementById('tCard').classList.toggle('on',v=='card');
+  document.getElementById('listView').style.display=v=='list'?'block':'none';
+  document.getElementById('cardView').style.display=v=='card'?'block':'none';
+}
+function openAssign(){document.getElementById('assignModal').classList.add('show')}
+function closeAssign(){document.getElementById('assignModal').classList.remove('show')}
+function openPicker(){document.getElementById('pickerModal').classList.add('show')}
+function closePicker(){document.getElementById('pickerModal').classList.remove('show')}
+setTimeout(()=>{const h=document.getElementById('hint');if(h)h.style.display='none'},7000);
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('show')}));
+</script>
+</body>
+</html>

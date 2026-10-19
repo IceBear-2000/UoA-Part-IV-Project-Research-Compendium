@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* warm paper canvas (page background) */
+  --bg: #f4f0e6;
+  /* deeper paper (sidebar, rails, tag backgrounds) */
+  --bg-2: #ece6d8;
+  /* card surfaces, slightly warm white */
+  --surface: #fcfaf4;
+  /* primary text, soft warm near-black (never pure black) */
+  --ink: #33302a;
+  /* secondary text (all themes: at least 4.5:1 on every page background, WCAG AA) */
+  --muted: #635e54;
+  /* default border / hairline divider */
+  --line: #e4ddcc;
+  --line-soft: #ede7da;
+
+  /* primary accent — primary buttons, active states, focus rings */
+  --clay: #8c6049;
+  --clay-hover: #7e5642;
+  --clay-soft: #eddfd4;
+  --clay-line: #dcc4b2;
+
+  /* block-type colour coding */
+  --sage: #8fa585;
+  --sage-soft: #e6ebe0;
+  --blue: #88a0b4;
+  --blue-soft: #e3eaef;
+  --gold: #c9b173;
+  --gold-soft: #f0e9d4;
+  --rose: #c0959f;
+  --rose-soft: #f0e4e7;
+
+  --paper: 0 1px 0 rgba(51, 48, 42, 0.03), 0 1px 3px rgba(51, 48, 42, 0.05);
+  --paper-2: 0 1px 0 rgba(51, 48, 42, 0.03), 0 4px 10px rgba(51, 48, 42, 0.06);
+
+  /* shape + type scale — themeable alongside color (see [data-theme] below) */
+  --radius-card: 14px;
+  --radius-pill: 10px;
+  --radius-input: 9px;
+  --shadow-paper: var(--paper);
+  --shadow-paper-2: var(--paper-2);
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+/* ---------------------------------------------------------------------
+   Admin theme system — three switchable visual directions, scoped to a
+   [data-theme] wrapper (the admin shell), not :root, so pages outside
+   /admin (login, facilitator side) keep the one default palette above.
+   Same token names throughout — only the values change per theme, so no
+   component needs to know which theme is active.
+   --------------------------------------------------------------------- */
+
+[data-theme="studio"] {
+  --bg: #f6f5fa;
+  --bg-2: #eeecf5;
+  --surface: #ffffff;
+  --ink: #2c2a38;
+  --muted: #63616d;
+  --line: #e7e4f0;
+  --line-soft: #f0eef7;
+
+  --clay: #956222;
+  --clay-hover: #86591f;
+  --clay-soft: #f5e6cd;
+  --clay-line: #e8c896;
+
+  --sage: #3e9668;
+  --sage-soft: #dcf0e5;
+  --blue: #5b7fd6;
+  --blue-soft: #e2e8fb;
+  --gold: #c9762e;
+  --gold-soft: #f5ddc4;
+  --rose: #b6577a;
+  --rose-soft: #f5dde6;
+
+  --radius-card: 18px;
+  --radius-pill: 20px;
+  --radius-input: 14px;
+  --shadow-paper: 0 1px 2px rgba(44, 42, 56, 0.05), 0 1px 3px rgba(44, 42, 56, 0.06);
+  --shadow-paper-2: 0 1px 2px rgba(44, 42, 56, 0.05), 0 6px 16px rgba(44, 42, 56, 0.08);
+  --font-sans: var(--font-karla), -apple-system, sans-serif;
+  --font-heading: var(--font-fraunces), Georgia, serif;
+}
+
+[data-theme="ledger"] {
+  --bg: #eef1f5;
+  --bg-2: #e4e8ee;
+  --surface: #ffffff;
+  --ink: #1c2430;
+  --muted: #58606c;
+  --line: #d7dce3;
+  --line-soft: #e4e8ee;
+
+  --clay: #2c4a6e;
+  --clay-hover: #284363;
+  --clay-soft: #dfe7ef;
+  --clay-line: #b9c8d8;
+
+  --sage: #1d7a4c;
+  --sage-soft: #e0f0e6;
+  --blue: #3b6ea5;
+  --blue-soft: #dfe9f3;
+  --gold: #b45309;
+  --gold-soft: #f6e3ce;
+  --rose: #b42318;
+  --rose-soft: #f7e0dd;
+
+  --radius-card: 6px;
+  --radius-pill: 8px;
+  --radius-input: 4px;
+  --shadow-paper: 0 1px 2px rgba(28, 36, 48, 0.05);
+  --shadow-paper-2: 0 1px 2px rgba(28, 36, 48, 0.05), 0 3px 8px rgba(28, 36, 48, 0.06);
+  --font-sans: var(--font-public-sans), -apple-system, sans-serif;
+  --font-heading: var(--font-source-serif), Georgia, serif;
+}
+
+/* ---------------------------------------------------------------------
+   Card / page contrast. --shade darkens the page and sidebar backgrounds and
+   --edge darkens borders, so white cards stand out more. The admin Display
+   menu sets both from its "Card contrast" slider (0 to 100, default 60);
+   everywhere else the defaults below (the slider at 60) apply. Muted text
+   stays above 4.5:1 even at the slider's maximum (6% shade).
+   --------------------------------------------------------------------- */
+:root {
+  --shade: 3.6%;
+  --edge: 12%;
+}
+
+:root,
+[data-theme] {
+  --bg-eff: var(--bg);
+  --bg-2-eff: var(--bg-2);
+  --line-eff: var(--line);
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  :root,
+  [data-theme] {
+    --bg-eff: color-mix(in srgb, var(--bg), #000 var(--shade));
+    --bg-2-eff: color-mix(in srgb, var(--bg-2), #000 var(--shade));
+    --line-eff: color-mix(in srgb, var(--line), #000 var(--edge));
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--ink);
+  background: var(--bg-eff);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2 {
+  font-family: var(--font-heading);
+}
+
+/* faint paper grain, per DESIGN_TOKENS.md */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.025;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    #33302a 1px,
+    transparent 0
+  );
+  background-size: 22px 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
