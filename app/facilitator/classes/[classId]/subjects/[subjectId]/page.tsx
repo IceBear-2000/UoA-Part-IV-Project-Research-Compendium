@@ -21,6 +21,24 @@ export default async function SubjectLessonsPage({
     orderBy: { createdAt: "asc" },
   });
 
+  const progressRows = await prisma.lessonProgress.findMany({
+    where: { facilitatorId: user!.id, lessonId: { in: lessons.map((l) => l.id) } },
+  });
+  const progressByLesson = new Map(progressRows.map((p) => [p.lessonId, p]));
+  function statusFor(lessonId: string): "Completed" | "In progress" | "Not started" {
+    const p = progressByLesson.get(lessonId);
+    if (!p) return "Not started";
+    if (p.completedAt) return "Completed";
+    // Opening a lesson creates its progress row, so a row alone does not mean any work was done.
+    if (p.completedBlockIds.length > 0 || p.currentBlockIndex > 0) return "In progress";
+    return "Not started";
+  }
+  const STATUS_STYLE = {
+    Completed: "bg-sage-soft text-[#4f6445]",
+    "In progress": "bg-gold-soft text-[#7a6320]",
+    "Not started": "bg-bg-2 text-muted",
+  } as const;
+
   return (
     <>
       <p className="mb-1.5 text-[13px] text-muted">
@@ -64,8 +82,10 @@ export default async function SubjectLessonsPage({
                   {lesson.durationMinutes ? ` · ${lesson.durationMinutes} min` : ""}
                 </p>
               </div>
-              <span className="rounded-lg bg-bg-2 px-2.5 py-1 text-xs font-semibold text-muted">
-                Not started
+              <span
+                className={`rounded-lg px-2.5 py-1 text-xs font-semibold ${STATUS_STYLE[statusFor(lesson.id)]}`}
+              >
+                {statusFor(lesson.id)}
               </span>
             </Link>
           ))}
