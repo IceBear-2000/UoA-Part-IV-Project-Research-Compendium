@@ -47,7 +47,7 @@ Good teaching depends on the individual teacher, and good teachers are scarce, e
 
 **If you want to run the systems:** see [Running the platform](03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/) for StudyBuddy and [May's code folder](04-Facilitator-Student-Side_May-Thazin/) for the decision-support tool and its simulation.
 
-**If you are continuing the project:** read [`05-Future-Work-and-Handover`](05-Future-Work-and-Handover/) first. It lists what works, what is known to be broken, and where to start.
+**If you are continuing the project:** read [`05-Future-Work-and-Handover`](05-Future-Work-and-Handover/) first. It lists what works, what is known, and where to start.
 
 ---
 
