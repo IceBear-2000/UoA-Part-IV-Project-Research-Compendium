@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Facilitator decision-support tool
 
-## Getting Started
+Proof-of-concept tool for Part IV Project #133. Learners in Years 3–6 complete a
+short reading check (one passage, two literal and two inferential questions,
+and a "Do you think you got that right?" judgement after each answer). Evidence-linked
+rules turn their answers and interaction signals into a status for the
+facilitator ("Needs support", "Worth a check-in" or "On track"), shown with the
+evidence behind it and a suggested next step.
 
-First, run the development server:
+## Run the app
+
+Requires Node.js.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) and choose the student
+activity or the facilitator dashboard. On the dashboard, "Load demo data" adds
+seven anonymous demo learners. Data is stored in the browser's local storage and
+can be exported as CSV.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                      Next.js routes: home, /student, /facilitator
+├── features/
+│   ├── analytics/            recommendationEngine.ts: session metrics, rules v2, class patterns
+│   ├── facilitator/          dashboard and demo data
+│   └── student/              reading activity and passage content
+└── shared/
+    ├── export/               CSV export (same columns as the evaluation)
+    ├── storage/              local-storage persistence for results and roster
+    └── types/                shared data types
+evaluation/                      simulated classroom evaluation (see evaluation/README.md)
+```
 
-## Learn More
+## Evaluation
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The rules are evaluated on simulated classrooms in Python. The rules in
+`recommendationEngine.ts` mirror `rules_v2()` in
+`evaluation/simulated_classroom_evaluation_v2.py`. See
+[evaluation/README.md](evaluation/README.md) for how to reproduce the results.
