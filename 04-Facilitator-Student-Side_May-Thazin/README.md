@@ -2,7 +2,7 @@
 
 **May Thazin** · `mtha724` · Final report: *Part 2, Student Learning Insights*
 
-> **Status:** code imported with full history. The rest of this folder is set up for May to complete; see the checklist at the bottom.
+> **Status:** code, submissions and two research documents are in. The remaining items are listed in [`TODO-for-May.md`](TODO-for-May.md).
 
 ## The research question
 
@@ -59,14 +59,6 @@ Rerunning reproduces the committed result tables in `results_v2/`. See the code 
 
 ---
 
-## Checklist for May
+## What is left to add
 
-- [x] Shared Drive copies of the literature review, mid-year report and final report added to `01-Submissions/*/May-Thazin/`. Replace them with the exact PDFs uploaded to Canvas if they differ
-- [ ] Fill in the report chapter to compendium map above
-- [x] Working research documents added to `01-Research/`
-- [ ] Add any further research notes to `01-Research/` (for example, the reading-comprehension and learner-interaction literature, the five dimensions, the benchmark against Kami)
-- [ ] Add design records to `02-Design/` (system design diagram, rule definitions, dashboard mock-ups)
-- [ ] Write `04-Evaluation/README.md`: what was simulated, why, how to rerun, and which result file backs each figure or table in your report
-- [ ] Write `05-AI-Use/README.md`: which tools you used and for what
-- [ ] Check that the headline numbers above match your final report
-- [ ] Check nothing in your folders identifies anyone who should not be identified
+The remaining items, with exact folders and file names, are in [`TODO-for-May.md`](TODO-for-May.md).
