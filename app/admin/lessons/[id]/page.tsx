@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { LessonStatus } from "@prisma/client";
 import { updateLesson, togglePublish } from "../actions";
@@ -30,6 +31,10 @@ export default async function EditLessonPage({
 
   return (
     <>
+      <Link href="/admin/lessons" className="mb-3 inline-flex items-center gap-1.5 rounded-input border border-line bg-surface px-3 py-1.5 text-[13px] font-semibold shadow-paper transition-colors hover:bg-bg-2">
+        <ArrowLeft className="h-4 w-4" strokeWidth={2} />
+        Back to lessons
+      </Link>
       <p className="mb-1.5 text-[13px] text-muted">
         <Link href="/admin/lessons" className="hover:text-clay">
           Lessons
