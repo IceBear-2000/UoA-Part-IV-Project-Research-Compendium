@@ -43,6 +43,12 @@ export default async function AdminMessagesPage({
       }))
     : [];
 
+  const unseenSentCount = selectedPartnerId
+    ? await prisma.notification.count({
+        where: { userId: selectedPartnerId, fromUserId: admin.id, read: false },
+      })
+    : 0;
+
   return (
     <MessagingThread
       currentUserId={admin.id}
@@ -52,6 +58,8 @@ export default async function AdminMessagesPage({
       partners={partners}
       selectedPartnerId={selectedPartnerId}
       messages={messages}
+      unseenSentCount={unseenSentCount}
+      expectedReply="Facilitators usually hear back within one working day"
     />
   );
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { Check, CheckCheck, Clock } from "lucide-react";
 import { MessageComposer } from "./MessageComposer";
 import { sendMessageAction, markThreadRead } from "@/lib/messaging-actions";
 
@@ -41,6 +42,8 @@ export function MessagingThread({
   partners,
   selectedPartnerId,
   messages,
+  unseenSentCount,
+  expectedReply,
 }: {
   currentUserId: string;
   title: string;
@@ -49,6 +52,10 @@ export function MessagingThread({
   partners: ThreadPartner[];
   selectedPartnerId: string | null;
   messages: ThreadMessage[];
+  /** How many of my sent messages the other person has not opened yet. */
+  unseenSentCount: number;
+  /** Plain-language reply expectation shown in the thread header. */
+  expectedReply: string;
 }) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const markedPartnerRef = useRef<string | null>(null);
@@ -69,6 +76,11 @@ export function MessagingThread({
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ block: "end" });
   }, [messages.length]);
+
+  // Sent messages are seen in one go when the other person opens the thread, so the
+  // newest `unseenSentCount` of my messages are the unseen ones. Show the state under my last one.
+  const lastMineIndex = messages.reduce((acc, m, i) => (m.senderId === currentUserId ? i : acc), -1);
+  const lastMineSeen = unseenSentCount === 0;
 
   const selectedIndex = partners.findIndex((p) => p.id === selectedPartnerId);
   const selected = selectedIndex >= 0 ? partners[selectedIndex] : undefined;
@@ -127,24 +139,42 @@ export function MessagingThread({
                   <strong className="text-[15px]">{selected.name}</strong>
                   <p className="text-xs text-muted">{selected.subtitle}</p>
                 </div>
+                <p className="ml-auto flex items-center gap-1.5 text-xs text-muted">
+                  <Clock className="h-3.5 w-3.5" strokeWidth={2} />
+                  {expectedReply}
+                </p>
               </div>
 
               <div className="flex flex-1 flex-col gap-3 overflow-auto bg-bg p-5">
                 {messages.length === 0 ? (
-                  <p className="text-sm text-muted">No messages yet — say hi 👋</p>
+                  <p className="text-sm text-muted">No messages yet. Say hello.</p>
                 ) : (
-                  messages.map((m) => (
-                    <div
-                      key={m.id}
-                      className={`max-w-[64%] rounded-2xl px-4 py-2.5 text-sm ${
-                        m.senderId === currentUserId
-                          ? "self-end rounded-br-[4px] bg-clay text-white"
-                          : "self-start rounded-bl-[4px] border border-line bg-surface"
-                      }`}
-                    >
-                      {m.body}
-                    </div>
-                  ))
+                  messages.map((m, i) =>
+                    m.senderId === currentUserId ? (
+                      <div key={m.id} className="flex max-w-[64%] flex-col items-end self-end">
+                        <div className="rounded-2xl rounded-br-[4px] bg-clay px-4 py-2.5 text-sm text-white">
+                          {m.body}
+                        </div>
+                        {i === lastMineIndex && (
+                          <span className="mt-1 flex items-center gap-1 text-[11px] text-muted">
+                            {lastMineSeen ? (
+                              <CheckCheck className="h-3.5 w-3.5" strokeWidth={2} />
+                            ) : (
+                              <Check className="h-3.5 w-3.5" strokeWidth={2} />
+                            )}
+                            {lastMineSeen ? "Seen" : "Delivered"}
+                          </span>
+                        )}
+                      </div>
+                    ) : (
+                      <div
+                        key={m.id}
+                        className="max-w-[64%] self-start rounded-2xl rounded-bl-[4px] border border-line bg-surface px-4 py-2.5 text-sm"
+                      >
+                        {m.body}
+                      </div>
+                    ),
+                  )
                 )}
                 <div ref={bottomRef} />
               </div>
