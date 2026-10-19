@@ -1,6 +1,6 @@
 # 01 · Submissions
 
-Every assessed or compulsory item submitted on Canvas during the project, in the order it was due. These are the exact files that were submitted. Google Docs were exported to PDF so that the version here cannot drift from the version that was marked.
+Every assessed or compulsory item submitted on Canvas during the project, in the order it was due. These are the submitted files, unchanged.
 
 Each folder is split by author so that individual work is always clearly identified:
 
@@ -10,17 +10,14 @@ Each folder is split by author so that individual work is always clearly identif
 
 | # | Submission | Type | When | Moksh Manglani | May Thazin |
 |---|---|---|---|---|---|
-| 01 | [Project Scope](01-Project-Scope/) | Individual | Semester 1, March 2026 | Scope assignment and project plan | Added by May |
-| 02 | [Literature Review](02-Literature-Review/) | Individual | Semester 1, April 2026 | *Literature Review* (April 2026) | *Literature Review* |
-| 03 | [Mid-Year Report](03-Mid-Year-Report/) | Individual | Mid-year 2026 | *Mid-Year Technical Report* | *Mid-Year Technical Report* |
-| 04 | [Conference Presentation](04-Conference-Presentation/) | Joint | 25 July 2026 | | |
-| 05 | [Display Day Poster](05-Display-Day-Poster/) | Joint | 9 October 2026 | | |
-| 06 | [Final Report](06-Final-Report/) | Individual | 18 October 2026 | *Making Education More Accessible and Reliable: AI-Driven Facilitator-Based Teaching (Part 1, The Platform)* | *Part 2, Student Learning Insights* |
+| 01 | [Scope and Literature Review](01-Scope-and-Literature-Review/) | Individual | April 2026 | [Scope and literature review (PDF)](01-Scope-and-Literature-Review/Moksh-Manglani/Scope-and-Literature-Review_Moksh-Manglani.pdf) | Added by May |
+| 02 | [Mid-Year Report](02-Mid-Year-Report/) | Individual | July 2026 | [Mid-year report (PDF)](02-Mid-Year-Report/Moksh-Manglani/Mid-Year-Report_Moksh-Manglani.pdf) | Added by May |
+| 03 | [Conference Presentation](03-Conference-Presentation/) | Joint | 25 July 2026 | [Slides (PDF)](03-Conference-Presentation/Joint/Part_IV_Project_Presentation_Conference_25Jul.pdf) | |
+| 04 | [Display Day Poster](04-Display-Day-Poster/) | Joint | 9 October 2026 | [Poster (PDF)](04-Display-Day-Poster/Joint/Poster_133_FINAL_submitted.pdf) | |
+| 05 | [Final Report](05-Final-Report/) | Individual | 18 October 2026 | [Final report (PDF)](05-Final-Report/Moksh-Manglani/Final-Report_Moksh-Manglani.pdf) | Added by May |
 
-**What is in this repository now.** The two joint PDFs (conference presentation and Display Day poster) are present. The other items marked *to be added* are Moksh's earlier submissions, and the items marked *added by May* are May's, which she adds to her own folders.
-
-The research compendium itself (this repository) is the seventh submission, made jointly on 20 October 2026.
+The research compendium itself (this repository) is the sixth submission, made jointly on 20 October 2026.
 
 ## How the submissions connect
 
-The **literature reviews** set up the six criteria (personalisation, decoupled delivery, structured guidance, accessibility, adaptability and engagement) that both final reports use to compare existing models of education. The **conference presentation** was the first public demonstration of both systems; its assessor feedback (in [`04-Conference-Presentation/Joint`](04-Conference-Presentation/)) asked for two things, an evaluation strategy and a clear argument for why a non-teacher should run a lesson, and both final reports were shaped around answering them. The **poster** summarised the finished work for Display Day. The **final reports** are the assessed outputs, and everything else in this compendium supports them.
+The **scope and literature review** set up the six criteria (personalisation, decoupled delivery, structured guidance, accessibility, adaptability and engagement) that both final reports use to compare existing models of education. The **mid-year reports** described each system and the design decisions so far. The **conference presentation** was the first public demonstration of both systems; its assessor feedback asked for two things, an evaluation strategy and a clear argument for why a non-teacher should run a lesson, and both final reports were shaped around answering them. The **poster** summarised the finished work for Display Day. The **final reports** are the assessed outputs, and everything else in this compendium supports them.
