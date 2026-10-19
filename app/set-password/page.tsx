@@ -47,11 +47,12 @@ export default async function SetPasswordPage({
 
             <form action={setPassword} className="mt-6 flex flex-col gap-3.5">
               <div>
-                <label className="mb-1.5 block text-[13px] font-semibold">
+                <label htmlFor="set-password-password" className="mb-1.5 block text-[13px] font-semibold">
                   Password
                 </label>
                 <input
-                  name="password"
+                  id="set-password-password" name="password"
+                autoComplete="new-password"
                   type="password"
                   required
                   minLength={6}
@@ -59,11 +60,12 @@ export default async function SetPasswordPage({
                 />
               </div>
               <div>
-                <label className="mb-1.5 block text-[13px] font-semibold">
+                <label htmlFor="set-password-confirm" className="mb-1.5 block text-[13px] font-semibold">
                   Confirm password
                 </label>
                 <input
-                  name="confirm"
+                  id="set-password-confirm" name="confirm"
+                autoComplete="new-password"
                   type="password"
                   required
                   minLength={6}

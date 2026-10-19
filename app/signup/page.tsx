@@ -84,36 +84,38 @@ export default function SignupPage({
 
               <form action={requestAccess} className="mt-6 flex flex-col gap-3.5">
                 <div>
-                  <label className="mb-1.5 block text-[13px] font-semibold">
+                  <label htmlFor="signup-name" className="mb-1.5 block text-[13px] font-semibold">
                     Name
                   </label>
                   <input
-                    name="name"
+                    id="signup-name" name="name"
+                autoComplete="name"
                     type="text"
                     required
                     className="w-full rounded-input border border-line bg-white px-3 py-2.5 text-sm text-ink focus:border-clay focus:outline-none focus:ring-[3px] focus:ring-clay-soft"
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[13px] font-semibold">
+                  <label htmlFor="signup-email" className="mb-1.5 block text-[13px] font-semibold">
                     Email
                   </label>
                   <input
-                    name="email"
+                    id="signup-email" name="email"
+                autoComplete="email"
                     type="email"
                     required
                     className="w-full rounded-input border border-line bg-white px-3 py-2.5 text-sm text-ink focus:border-clay focus:outline-none focus:ring-[3px] focus:ring-clay-soft"
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[13px] font-semibold">
+                  <label htmlFor="signup-requestedClassNote" className="mb-1.5 block text-[13px] font-semibold">
                     Which class/subject are you hoping to help with?
                     <span className="ml-1.5 rounded-[5px] bg-bg-2 px-[7px] py-[2px] text-[11px] font-medium text-muted">
                       Optional
                     </span>
                   </label>
                   <input
-                    name="requestedClassNote"
+                    id="signup-requestedClassNote" name="requestedClassNote"
                     type="text"
                     placeholder="e.g. Grade 1 Maths"
                     className="w-full rounded-input border border-line bg-white px-3 py-2.5 text-sm text-ink focus:border-clay focus:outline-none focus:ring-[3px] focus:ring-clay-soft"

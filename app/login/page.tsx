@@ -62,22 +62,24 @@ export default function LoginPage({
 
           <form action={login} className="mt-6 flex flex-col gap-3.5">
             <div>
-              <label className="mb-1.5 block text-[13px] font-semibold">
+              <label htmlFor="login-email" className="mb-1.5 block text-[13px] font-semibold">
                 Email
               </label>
               <input
-                name="email"
+                id="login-email" name="email"
+                autoComplete="email"
                 type="email"
                 required
                 className="w-full rounded-input border border-line bg-white px-3 py-2.5 text-sm text-ink focus:border-clay focus:outline-none focus:ring-[3px] focus:ring-clay-soft"
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-[13px] font-semibold">
+              <label htmlFor="login-password" className="mb-1.5 block text-[13px] font-semibold">
                 Password
               </label>
               <input
-                name="password"
+                id="login-password" name="password"
+                autoComplete="current-password"
                 type="password"
                 required
                 className="w-full rounded-input border border-line bg-white px-3 py-2.5 text-sm text-ink focus:border-clay focus:outline-none focus:ring-[3px] focus:ring-clay-soft"
