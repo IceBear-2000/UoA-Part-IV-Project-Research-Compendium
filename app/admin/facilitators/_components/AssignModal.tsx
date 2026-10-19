@@ -30,6 +30,7 @@ export function AssignModal({
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [confirmRemove, setConfirmRemove] = useState<string | null>(null);
 
   const subjectsForClass = classes.find((c) => c.id === classId)?.subjects ?? [];
 
@@ -70,6 +71,27 @@ export function AssignModal({
     }
   }
 
+  // Revoke every subject in one class. Two clicks, no pop-up: the first click arms the button.
+  async function handleRemoveClass(removeClassId: string) {
+    if (confirmRemove !== removeClassId) {
+      setConfirmRemove(removeClassId);
+      return;
+    }
+    setBusy(true);
+    setError(null);
+    try {
+      const updated = await syncClassAssignments(facilitator.id, removeClassId, []);
+      setAssignments(updated);
+      setConfirmRemove(null);
+      if (removeClassId === classId) setChecked(new Set());
+      router.refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not remove access.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   const grouped = Array.from(new Map(assignments.map((a) => [a.class.id, a.class.name])).entries()).map(
     ([id, name]) => ({
       id,
@@ -86,19 +108,37 @@ export function AssignModal({
       }}
     >
       <div className="w-[440px] max-w-[92vw] rounded-2xl border border-line bg-surface p-[26px] shadow-paper-2">
-        <h3 className="text-lg font-semibold tracking-tight">Assign facilitator</h3>
+        <h3 className="text-lg font-semibold tracking-tight">Manage access</h3>
         <p className="mb-5 mt-1 text-sm text-muted">{facilitator.name}</p>
 
         {grouped.length > 0 && (
           <div className="mb-5">
             <p className="mb-2 text-[12px] font-semibold uppercase tracking-wide text-muted">
-              Current assignments
+              Current access
             </p>
             <div className="flex flex-col gap-1.5">
               {grouped.map((g) => (
-                <div key={g.id} className="rounded-input bg-bg-2 px-2.5 py-1.5 text-[12.5px]">
-                  <strong className="font-semibold">{g.name}</strong>
-                  <span className="text-muted"> — {g.subjects.join(", ")}</span>
+                <div
+                  key={g.id}
+                  className="flex items-center justify-between gap-2 rounded-input bg-bg-2 px-2.5 py-1.5 text-[12.5px]"
+                >
+                  <span>
+                    <strong className="font-semibold">{g.name}</strong>
+                    <span className="text-muted">: {g.subjects.join(", ")}</span>
+                  </span>
+                  <button
+                    type="button"
+                    disabled={busy}
+                    onClick={() => handleRemoveClass(g.id)}
+                    onBlur={() => setConfirmRemove(null)}
+                    className={`flex-shrink-0 rounded-md px-2 py-0.5 text-[12px] font-semibold transition-colors ${
+                      confirmRemove === g.id
+                        ? "bg-[#a85a69] text-white"
+                        : "text-[#8a4b58] hover:bg-rose-soft"
+                    }`}
+                  >
+                    {confirmRemove === g.id ? "Click again to remove" : "Remove access"}
+                  </button>
                 </div>
               ))}
             </div>

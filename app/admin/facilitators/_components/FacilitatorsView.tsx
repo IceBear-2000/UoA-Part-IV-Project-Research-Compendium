@@ -162,7 +162,7 @@ export function FacilitatorsView({
                     onClick={() => setAssigning(f)}
                     className="rounded-input border border-line bg-white px-[13px] py-[7px] text-[13px] font-semibold shadow-paper hover:bg-bg-2"
                   >
-                    Assign
+                    Manage access
                   </button>
                 </td>
               </tr>
@@ -194,7 +194,7 @@ export function FacilitatorsView({
                 onClick={() => setAssigning(f)}
                 className="w-full rounded-input border border-line bg-white py-2 text-[13px] font-semibold shadow-paper hover:bg-bg-2"
               >
-                Assign
+                Manage access
               </button>
             </div>
           ))}
