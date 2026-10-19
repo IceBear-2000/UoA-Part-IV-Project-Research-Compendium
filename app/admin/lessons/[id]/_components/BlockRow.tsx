@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Trash2 } from "lucide-react";
 import { BlockType } from "@prisma/client";
 import { BLOCK_META, summarizeContent } from "@/lib/block-meta";
 import { getBlockFilePreviewUrl } from "../file-actions";
@@ -105,14 +106,17 @@ export function BlockRow({
         <button
           type="button"
           onClick={() => (confirmDelete ? onDelete() : setConfirmDelete(true))}
-          title={confirmDelete ? "Click again to confirm delete" : "Delete block"}
-          className={
+          title={confirmDelete ? "Click again to delete this block" : "Delete this block"}
+          aria-label={confirmDelete ? "Delete block: click again to confirm" : "Delete block"}
+          className={`inline-flex items-center gap-1 rounded-md px-2 py-1 text-[12px] font-semibold transition-colors ${
             confirmDelete
-              ? "rounded-md bg-[#F0E4E7] px-2 py-1 text-[11px] font-semibold text-[#946b76]"
-              : "text-muted hover:text-[#946b76]"
-          }
+              ? "bg-[#a85a69] text-white"
+              : "text-muted hover:bg-rose-soft hover:text-[#8a4b58]"
+          }`}
         >
-          {confirmDelete ? "Confirm?" : "✕"}
+          <Trash2 className="h-3.5 w-3.5" strokeWidth={2} />
+          Delete
+          {confirmDelete && <span className="font-normal opacity-90"> · click again</span>}
         </button>
       </div>
 
