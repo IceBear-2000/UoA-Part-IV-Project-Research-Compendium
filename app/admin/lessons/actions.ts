@@ -4,7 +4,8 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth";
-import { LessonStatus } from "@prisma/client";
+import { LessonStatus, Prisma } from "@prisma/client";
+import { parseLessonPlan, MAX_PLAN_BYTES, type PlanResult } from "@/lib/lesson-plan-import";
 
 function parseLessonFields(formData: FormData) {
   const name = String(formData.get("name") ?? "").trim();
@@ -33,14 +34,42 @@ export async function createLesson(formData: FormData) {
     );
   }
 
+  // Optional spreadsheet lesson plan: one row per block. Checked in full before anything is saved.
+  let plan: PlanResult | null = null;
+  const planFile = formData.get("planFile");
+  if (planFile instanceof File && planFile.size > 0) {
+    const fail = (msg: string) => redirect(`/admin/lessons/new?error=${encodeURIComponent(msg)}`);
+    if (planFile.size > MAX_PLAN_BYTES) fail("The spreadsheet is too large. 1MB is the limit.");
+    plan = await parseLessonPlan(Buffer.from(await planFile.arrayBuffer()), planFile.name);
+    if (plan.errors.length > 0) {
+      const shown = plan.errors.slice(0, 4).join(" ");
+      fail(`Nothing was saved. ${shown}${plan.errors.length > 4 ? ` (${plan.errors.length - 4} more problems.)` : ""}`);
+    }
+  }
+
+  const planMinutes = plan ? plan.blocks.reduce((sum, b) => sum + (b.minutes ?? 0), 0) : 0;
+
   const lesson = await prisma.lesson.create({
     data: {
       name: fields.name,
       subjectId: fields.subjectId,
-      durationMinutes: fields.durationMinutes,
+      durationMinutes: fields.durationMinutes ?? (planMinutes > 0 ? planMinutes : null),
       description: fields.description,
       learningObjectives: fields.learningObjectives,
       status: LessonStatus.DRAFT,
+      ...(plan
+        ? {
+            blocks: {
+              create: plan.blocks.map((b, i) => ({
+                type: b.type,
+                title: b.title,
+                order: i,
+                facilitatorNote: b.facilitatorNote,
+                content: b.content as Prisma.InputJsonValue,
+              })),
+            },
+          }
+        : {}),
     },
   });
 

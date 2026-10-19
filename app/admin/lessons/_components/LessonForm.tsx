@@ -29,12 +29,14 @@ export function LessonForm({
   action,
   errorMessage,
   submitLabel,
+  allowImport = false,
 }: {
   classes: ClassOption[];
   initialValues?: LessonFormValues;
   action: (formData: FormData) => void | Promise<void>;
   errorMessage?: string;
   submitLabel: string;
+  allowImport?: boolean;
 }) {
   const initialClassId =
     classes.find((c) => c.subjects.some((s) => s.id === initialValues?.subjectId))?.id ??
@@ -141,6 +143,28 @@ export function LessonForm({
             className={`min-h-[70px] resize-y ${inputClasses}`}
           />
         </div>
+
+        {allowImport && (
+          <div className="rounded-input border border-dashed border-line bg-bg p-3.5">
+            <label htmlFor="lesson-plan-file" className="mb-1 block text-[13px] font-semibold">
+              Import a lesson plan <span className="font-normal text-muted">(optional)</span>
+            </label>
+            <p className="mb-2.5 text-[12.5px] leading-snug text-muted">
+              A spreadsheet with one row per block and the columns type, title, content (or link) and
+              duration. The blocks are created for you.{" "}
+              <a href="/lesson-plan-template.csv" download className="font-semibold text-clay hover:underline">
+                Download the template
+              </a>
+            </p>
+            <input
+              id="lesson-plan-file"
+              name="planFile"
+              type="file"
+              accept=".csv,.xlsx"
+              className="block w-full text-[13px] text-ink file:mr-3 file:rounded-input file:border file:border-line file:bg-white file:px-3 file:py-1.5 file:text-[13px] file:font-semibold"
+            />
+          </div>
+        )}
 
         <SubmitButton label={submitLabel} />
       </form>

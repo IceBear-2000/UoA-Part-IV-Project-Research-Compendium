@@ -28,7 +28,7 @@ export default async function NewLessonPage({
           Create lesson
         </h1>
         <p className="mt-1 text-[14.5px] text-muted">
-          Blocks can be added after you save this.
+          Add blocks one by one after you save, or import them from a spreadsheet now.
         </p>
       </div>
 
@@ -49,6 +49,7 @@ export default async function NewLessonPage({
           action={createLesson}
           errorMessage={searchParams?.error}
           submitLabel="Create lesson →"
+          allowImport
         />
       </div>
     </>
