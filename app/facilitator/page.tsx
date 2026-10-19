@@ -3,6 +3,8 @@ import { getCurrentUser } from "@/lib/auth";
 import { getAssignedClassSummaries } from "@/app/facilitator/data";
 import { ClassBanner } from "@/lib/class-banner";
 
+export const metadata = { title: "Dashboard" };
+
 export default async function FacilitatorDashboard() {
   const user = await getCurrentUser();
   const classes = await getAssignedClassSummaries(user!.id);

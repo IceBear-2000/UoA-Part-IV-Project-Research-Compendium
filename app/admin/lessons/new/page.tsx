@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { createLesson } from "../actions";
 import { LessonForm } from "../_components/LessonForm";
 
+export const metadata = { title: "Create lesson" };
+
 export default async function NewLessonPage({
   searchParams,
 }: {

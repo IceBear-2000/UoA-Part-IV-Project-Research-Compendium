@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { getSignedFileUrl } from "@/lib/supabase-admin";
 import { ClassesView } from "./_components/ClassesView";
 
+export const metadata = { title: "Classes" };
+
 export default async function ClassesPage() {
   const classes = await prisma.class.findMany({
     include: {

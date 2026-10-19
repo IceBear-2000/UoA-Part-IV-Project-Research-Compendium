@@ -11,7 +11,7 @@ const publicSans = Public_Sans({ subsets: ["latin"], weight: ["400", "500", "600
 const sourceSerif = Source_Serif_4({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-source-serif" });
 
 export const metadata: Metadata = {
-  title: "StudyBuddy",
+  title: { default: "StudyBuddy", template: "%s | StudyBuddy" },
   description: "Structured, consistent K–12 lessons for anyone to facilitate.",
 };
 

@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { NotificationsView } from "./_components/NotificationsView";
 
+export const metadata = { title: "Notifications" };
+
 export default async function NotificationsPage() {
   const user = await getCurrentUser();
   if (!user) return null;

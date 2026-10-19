@@ -4,6 +4,8 @@ import { Layers } from "lucide-react";
 import { getCurrentUser } from "@/lib/auth";
 import { getAssignedSubjects } from "@/app/facilitator/data";
 
+export const metadata = { title: "Subjects" };
+
 export default async function ClassSubjectsPage({
   params,
 }: {

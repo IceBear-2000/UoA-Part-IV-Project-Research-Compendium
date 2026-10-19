@@ -14,6 +14,8 @@ function timeAgo(date: Date) {
   return `${days} days ago`;
 }
 
+export const metadata = { title: "Overview" };
+
 export default async function AdminHome() {
   const admin = await getCurrentUser();
   if (!admin) return null;

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { login } from "./actions";
 
+export const metadata = { title: "Sign in" };
+
 export default function LoginPage({
   searchParams,
 }: {

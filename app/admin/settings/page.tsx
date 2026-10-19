@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { SettingsView } from "./_components/SettingsView";
 
+export const metadata = { title: "Settings" };
+
 export default async function SettingsPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login");

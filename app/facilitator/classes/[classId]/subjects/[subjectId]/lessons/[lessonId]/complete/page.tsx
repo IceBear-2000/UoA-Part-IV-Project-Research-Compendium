@@ -4,6 +4,8 @@ import { getCurrentUser } from "@/lib/auth";
 import { getSubjectAssignment } from "@/app/facilitator/data";
 import { prisma } from "@/lib/prisma";
 
+export const metadata = { title: "Lesson complete" };
+
 export default async function LessonCompletePage({
   params,
 }: {

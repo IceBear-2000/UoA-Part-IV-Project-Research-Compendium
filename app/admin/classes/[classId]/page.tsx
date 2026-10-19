@@ -5,6 +5,8 @@ import { getSignedFileUrl } from "@/lib/supabase-admin";
 import { SubjectsView } from "./_components/SubjectsView";
 import { ClassBannerHeader } from "./_components/ClassBannerHeader";
 
+export const metadata = { title: "Class" };
+
 export default async function ClassDetailPage({ params }: { params: { classId: string } }) {
   const classRow = await prisma.class.findUnique({
     where: { id: params.classId },

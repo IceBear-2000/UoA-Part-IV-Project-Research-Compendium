@@ -2,6 +2,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { LessonsView } from "./_components/LessonsView";
 
+export const metadata = { title: "Lessons" };
+
 export default async function LessonsListPage({
   searchParams,
 }: {

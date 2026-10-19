@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { FacilitatorsView } from "./_components/FacilitatorsView";
 
+export const metadata = { title: "Facilitators" };
+
 export default async function FacilitatorsPage() {
   const [facilitators, classes] = await Promise.all([
     prisma.user.findMany({

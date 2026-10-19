@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { SignupRequestStatus } from "@prisma/client";
 import { RequestsView } from "./_components/RequestsView";
 
+export const metadata = { title: "Requests" };
+
 export default async function RequestsPage() {
   const [requests, classes] = await Promise.all([
     prisma.signupRequest.findMany({

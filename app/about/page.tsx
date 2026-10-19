@@ -140,6 +140,8 @@ const COMPARISON: {
   },
 ];
 
+export const metadata = { title: "About the project" };
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-bg">

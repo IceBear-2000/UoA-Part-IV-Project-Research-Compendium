@@ -5,6 +5,8 @@ import { getCurrentUser } from "@/lib/auth";
 import { getSubjectAssignment } from "@/app/facilitator/data";
 import { prisma } from "@/lib/prisma";
 
+export const metadata = { title: "Lessons" };
+
 export default async function SubjectLessonsPage({
   params,
 }: {

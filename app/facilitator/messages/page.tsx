@@ -4,6 +4,8 @@ import { getThreadMessages, buildThreadPartners } from "@/lib/messaging";
 import { MessagingThread, type ThreadMessage } from "@/components/MessagingThread";
 import { Role } from "@prisma/client";
 
+export const metadata = { title: "Chat with admin" };
+
 export default async function FacilitatorMessagesPage({
   searchParams,
 }: {

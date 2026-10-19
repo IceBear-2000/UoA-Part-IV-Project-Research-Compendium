@@ -7,6 +7,8 @@ import { updateLesson, togglePublish } from "../actions";
 import { LessonForm } from "../_components/LessonForm";
 import { LessonFlowEditor } from "./_components/LessonFlowEditor";
 
+export const metadata = { title: "Lesson editor" };
+
 export default async function EditLessonPage({
   params,
   searchParams,

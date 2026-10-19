@@ -11,6 +11,8 @@ function assignmentSummary(assignments: { class: { name: string }; subject: { na
   return `${classes.join(" & ")} · ${subjects.join(", ")}`;
 }
 
+export const metadata = { title: "Messages" };
+
 export default async function AdminMessagesPage({
   searchParams,
 }: {

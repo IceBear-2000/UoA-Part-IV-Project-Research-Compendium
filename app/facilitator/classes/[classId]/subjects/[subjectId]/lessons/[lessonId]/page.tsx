@@ -6,6 +6,8 @@ import { getBlockState } from "@/lib/lesson-progress";
 import { getSignedFileUrl } from "@/lib/supabase-admin";
 import { LessonFlowPlayer } from "./_components/LessonFlowPlayer";
 
+export const metadata = { title: "Lesson" };
+
 export default async function LessonFlowPage({
   params,
 }: {

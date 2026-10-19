@@ -2,6 +2,8 @@ import { getCurrentUser } from "@/lib/auth";
 import { SubmitButton } from "@/components/SubmitButton";
 import { setPassword } from "./actions";
 
+export const metadata = { title: "Set your password" };
+
 export default async function SetPasswordPage({
   searchParams,
 }: {

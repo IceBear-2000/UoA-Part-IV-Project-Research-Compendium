@@ -2,6 +2,8 @@ import Link from "next/link";
 import { requestAccess } from "./actions";
 import { SubmitButton } from "@/components/SubmitButton";
 
+export const metadata = { title: "Request access" };
+
 export default function SignupPage({
   searchParams,
 }: {

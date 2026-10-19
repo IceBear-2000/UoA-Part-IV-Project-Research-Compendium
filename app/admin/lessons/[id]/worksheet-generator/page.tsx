@@ -3,6 +3,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { WorksheetWizard } from "./_components/WorksheetWizard";
 
+export const metadata = { title: "Worksheet generator" };
+
 export default async function WorksheetGeneratorPage({ params }: { params: { id: string } }) {
   const lesson = await prisma.lesson.findUnique({
     where: { id: params.id },
