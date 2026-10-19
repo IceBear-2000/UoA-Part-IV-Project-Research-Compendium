@@ -4,5 +4,5 @@ Individual mid-year technical reports, describing each system, the technologies 
 
 | Folder | Contents |
 |---|---|
-| `Moksh-Manglani/` | *Mid-Year Technical Report*, Moksh Manglani |
-| `May-Thazin/` | *Mid-Year Technical Report*, May Thazin |
+| `Moksh-Manglani/` | *Mid-Year Technical Report*, Moksh Manglani (to be added) |
+| `May-Thazin/` | *Mid-Year Technical Report*, May Thazin (added by May) |

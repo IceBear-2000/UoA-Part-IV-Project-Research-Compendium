@@ -79,13 +79,15 @@ All are described in [`.env.example`](StudyBuddy-Platform/.env.example). No real
 
 ```bash
 npx prisma migrate deploy                 # create the tables from prisma/migrations
-npx prisma db seed                        # seed the organisation, classes, subjects and lessons
+npx prisma db seed                        # seed an organisation, three users, Grades 1 and 2 and one sample lesson
 npx tsx scripts/setup-storage-bucket.ts   # create the private storage bucket
 npx tsx scripts/provision-seed-auth.ts    # create sign-in accounts for the seeded users
 npx tsx scripts/assign-facilitators.ts    # grant the demo facilitators their classes
 ```
 
-`provision-seed-auth.ts` sets a demo password for the seeded accounts. **Change it** before running against any database other than your own local test project.
+Run the seed once, on an empty database (it creates rows rather than updating them). It creates one admin (`gill@school.nz`), two facilitators (`aroha@school.nz`, `tama@school.nz`), the classes Grade 1 and Grade 2 with their subjects, and one five-block sample lesson, *Counting to 20*. The NCERT and NZC lessons on the live site are not produced by this seed.
+
+`provision-seed-auth.ts` gives each seeded user a Supabase sign-in account with a demo password written in the script. **Change it** before running against any database other than your own local test project, and never use it on a site other people can reach.
 
 ### 5. Run
 
@@ -120,7 +122,7 @@ Import the folder into Vercel, add the same environment variables, and deploy. K
 | `lib/messaging*.ts`, `lib/notifications*.ts` | Chat between facilitators and admins, and notifications |
 | `lib/email.ts` | Resend emails |
 | `prisma/schema.prisma`, `prisma/migrations/` | The data model (eleven models) and its five migrations |
-| `prisma/seed.ts` | Seed data: NCERT Grades 1 to 4 and NZC Years 1 to 4 lessons |
+| `prisma/seed.ts` | Seed data: one organisation, three users, Grades 1 and 2, and one sample lesson |
 | `scripts/` | One-off setup scripts (storage bucket, seed accounts, assignments) |
 
 ## Development history

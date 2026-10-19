@@ -29,6 +29,8 @@ A proof-of-concept tool that helps non-teacher facilitators see which learners i
 | [`04-Evaluation/`](04-Evaluation/) | Guide to the simulated-classroom evaluation; the scripts and result tables live in the code folder under `evaluation/` |
 | [`05-AI-Use/`](05-AI-Use/) | How AI was used in Part 2 |
 
+The full commit history is also listed in [`COMMIT-HISTORY.md`](03-Code/COMMIT-HISTORY.md), for readers of the zip.
+
 ## Running it
 
 ```bash

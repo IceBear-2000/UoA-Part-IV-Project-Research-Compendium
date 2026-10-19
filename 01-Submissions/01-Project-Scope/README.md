@@ -4,7 +4,7 @@ The project scope assignment (Assignment 1), submitted individually in Semester 
 
 | Folder | Contents |
 |---|---|
-| `Moksh-Manglani/` | Moksh's scope assignment and project plan |
-| `May-Thazin/` | May's scope assignment |
+| `Moksh-Manglani/` | Moksh's scope assignment and project plan (to be added) |
+| `May-Thazin/` | May's scope assignment (added by May) |
 
 The schedule from this stage is reproduced in [`02-General/Project-Timeline.md`](../../02-General/Project-Timeline.md).

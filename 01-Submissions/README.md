@@ -17,6 +17,8 @@ Each folder is split by author so that individual work is always clearly identif
 | 05 | [Display Day Poster](05-Display-Day-Poster/) | Joint | 9 October 2026 | | |
 | 06 | [Final Report](06-Final-Report/) | Individual | 18 October 2026 | *Making Education More Accessible and Reliable: AI-Driven Facilitator-Based Teaching (Part 1, The Platform)* | *Part 2, Student Learning Insights* |
 
+**What is in this repository now.** The two joint PDFs (conference presentation and Display Day poster) are present. The other items marked *to be added* are Moksh's earlier submissions, and the items marked *added by May* are May's, which she adds to her own folders.
+
 The research compendium itself (this repository) is the seventh submission, made jointly on 20 October 2026.
 
 ## How the submissions connect

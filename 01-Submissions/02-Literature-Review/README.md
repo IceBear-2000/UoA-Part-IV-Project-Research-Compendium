@@ -4,7 +4,7 @@ Individual literature reviews, submitted in April 2026. Both define the six crit
 
 | Folder | Contents |
 |---|---|
-| `Moksh-Manglani/` | *Literature Review*, Moksh Manglani |
-| `May-Thazin/` | *Literature Review*, May Thazin |
+| `Moksh-Manglani/` | *Literature Review*, Moksh Manglani (to be added) |
+| `May-Thazin/` | *Literature Review*, May Thazin (added by May) |
 
 A condensed, reusable version of Moksh's criteria and comparison is in [`03-.../01-Research`](../../03-Admin-Facilitator-Side_Moksh-Manglani/01-Research/).

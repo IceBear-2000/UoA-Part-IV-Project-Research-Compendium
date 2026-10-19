@@ -76,17 +76,17 @@ A lesson is an ordered sequence of typed blocks. A single upload box would have 
 
 | Block | Holds | Purpose in the room |
 |---|---|---|
-| Video | URL, duration | The expert teaching; embedded from YouTube (videos and playlists) |
-| Workbook | Page reference, preview | Points students to the right page |
+| Video | URL, duration in seconds | The expert teaching; embedded from YouTube (videos and playlists) |
+| Workbook | Start page and end page | Points students to the right page |
 | Activity | Instructions | What the class does, and how |
-| Worksheet | Uploaded or AI-generated file, answer key | Practice; printable |
-| Reading | Text | Shared reading |
-| Quiz | Questions | A quick check of understanding |
-| Discussion | Prompts | Structured talk |
-| Break | Duration | Pacing |
-| Note | Facilitator-only text | Delivery instructions for the facilitator |
+| Worksheet | Uploaded or AI-generated file (the AI version includes an answer key) | Practice; printable |
+| Reading | Instructions, optional uploaded file | Shared reading |
+| Quiz | Instructions (the questions, written as text) | A quick check of understanding |
+| Discussion | Instructions (prompts and talking points) | Structured talk |
+| Break | Instructions | Pacing |
+| Note | Instructions | Delivery instructions for the facilitator |
 
-Lessons are built with a drag-and-drop builder (Report Figure 7), start as drafts, and can be edited or unpublished after publishing. A lesson plan in a `.csv` or `.xlsx` file can be imported directly. The platform was seeded with about 110 lessons from NCERT Grades 1 to 4 (India) and NZC Years 1 to 4 (New Zealand), in maths and science.
+Lessons are built with a drag-and-drop builder (Report Figure 7), start as drafts, and can be edited or unpublished after publishing. A lesson plan in a `.csv` or `.xlsx` file can be imported directly. The live platform holds about 110 lessons from NCERT Grades 1 to 4 (India) and NZC Years 1 to 4 (New Zealand), in maths, English and science. Every block can also carry an optional facilitator note, shown while the step is running.
 
 ## 6. Delivering a lesson: the walkthrough
 
@@ -171,3 +171,25 @@ All HTML files are self-contained: download and open them in a browser.
 | Functions in Sydney | Default US region | Next to the database: about 25 times faster to add a block |
 | No student data | Student accounts | Privacy, and a smaller ethical footprint for a proof of concept |
 | Six mock-ups before choosing | One redesign | A choice made by looking, not guessing |
+
+## 11. Screenshots
+
+Screenshots of the live platform, taken on 19 October 2026 from the deployed site with seed data only (no student data). They are in [`screenshots/`](screenshots/). The facilitator email addresses in the facilitators list are masked, and the list-view image is cropped above the last two classes.
+
+| File | What it shows |
+|---|---|
+| [`01-admin-overview.png`](screenshots/01-admin-overview.png) | Admin home, with draft lessons waiting for attention |
+| [`02-admin-classes-card-grid.png`](screenshots/02-admin-classes-card-grid.png) | Classes as Canvas-style cards (default view) |
+| [`09-admin-classes-list-view-slate-theme.png`](screenshots/09-admin-classes-list-view-slate-theme.png) | Classes in the plain list view, in the slate theme |
+| [`03-admin-lessons-list.png`](screenshots/03-admin-lessons-list.png) | Lessons list with search, status and curriculum filters |
+| [`04-admin-facilitators-list.png`](screenshots/04-admin-facilitators-list.png) | Facilitators and their class access, with Manage access |
+| [`05-admin-messages.png`](screenshots/05-admin-messages.png) | Admin and facilitator chat, with delivery and reply-time notes |
+| [`06-display-settings-menu.png`](screenshots/06-display-settings-menu.png) | Display settings: navigation, theme, card contrast and project documents |
+| [`07-theme-warm-classes.png`](screenshots/07-theme-warm-classes.png), [`08-theme-lavender-classes.png`](screenshots/08-theme-lavender-classes.png) | Two of the switchable themes on the same page |
+| [`10-admin-create-lesson.png`](screenshots/10-admin-create-lesson.png) | Create lesson form |
+| [`11-admin-lesson-plan-import.png`](screenshots/11-admin-lesson-plan-import.png) | Importing a lesson plan from a spreadsheet, with the template download |
+| [`12-admin-lesson-editor.png`](screenshots/12-admin-lesson-editor.png) | Lesson editor: ordered blocks and lesson details |
+| [`13-admin-add-block-picker.png`](screenshots/13-admin-add-block-picker.png) | The nine block types in the Add a block picker |
+| [`14-facilitator-dashboard.png`](screenshots/14-facilitator-dashboard.png) | Facilitator dashboard with assigned classes |
+| [`15-facilitator-lesson-walkthrough.png`](screenshots/15-facilitator-lesson-walkthrough.png) | First walkthrough: later steps locked until the current one is done |
+| [`16-facilitator-lesson-complete.png`](screenshots/16-facilitator-lesson-complete.png) | A completed lesson, with free navigation unlocked |
