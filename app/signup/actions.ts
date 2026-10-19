@@ -23,7 +23,7 @@ export async function requestAccess(formData: FormData) {
   const existingUser = await prisma.user.findUnique({ where: { email } });
   if (existingUser) {
     redirect(
-      `/signup?error=${encodeURIComponent("An account with this email already exists — try signing in instead.")}`,
+      `/signup?error=${encodeURIComponent("An account with this email already exists. Try signing in instead.")}`,
     );
   }
 
@@ -32,7 +32,7 @@ export async function requestAccess(formData: FormData) {
   });
   if (existingPending) {
     redirect(
-      `/signup?error=${encodeURIComponent("You already have a pending request — an admin will review it soon.")}`,
+      `/signup?error=${encodeURIComponent("You already have a pending request. An admin will review it soon.")}`,
     );
   }
 

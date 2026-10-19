@@ -8,7 +8,7 @@ const anthropic = process.env.ANTHROPIC_API_KEY
   ? new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
   : null;
 
-const NOT_CONFIGURED_ERROR = "AI generation isn't configured yet — ask an admin to add ANTHROPIC_API_KEY.";
+const NOT_CONFIGURED_ERROR = "AI generation isn't configured yet. Ask an admin to add ANTHROPIC_API_KEY.";
 
 // Summarizing is cheap/simple compression — Haiku is plenty. Generating the
 // actual worksheet (questions + answer key) gets Sonnet for better accuracy.

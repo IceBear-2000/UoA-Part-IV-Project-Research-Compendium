@@ -27,7 +27,7 @@ export default async function WorksheetGeneratorPage({ params }: { params: { id:
       <div className="mb-7">
         <h1 className="text-[27px] font-bold tracking-tight">Generate AI worksheet ✨</h1>
         <p className="mt-1 text-[14.5px] text-muted">
-          For {lesson.name} — review the AI&apos;s understanding before it writes any questions.
+          For {lesson.name}. Review the AI&apos;s understanding before it writes any questions.
         </p>
       </div>
 

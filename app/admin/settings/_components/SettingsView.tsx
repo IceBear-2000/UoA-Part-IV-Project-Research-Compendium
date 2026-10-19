@@ -85,7 +85,7 @@ function ProfileForm({ initialName }: { initialName: string }) {
 
 function EmailCard({ email }: { email: string }) {
   return (
-    <SettingsCard title="Email" description="Used to sign in — contact another admin to change it.">
+    <SettingsCard title="Email" description="Used to sign in. Contact another admin to change it.">
       <p className="rounded-input border border-line bg-bg-2 px-3 py-2.5 text-sm text-muted">{email}</p>
     </SettingsCard>
   );

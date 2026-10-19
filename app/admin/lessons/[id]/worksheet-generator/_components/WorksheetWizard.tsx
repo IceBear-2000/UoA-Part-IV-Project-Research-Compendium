@@ -11,7 +11,7 @@ const QUESTION_TYPE_OPTIONS: { value: QuestionType; label: string; hint: string 
   { value: "mcq", label: "Multiple choice", hint: "4 options, one correct" },
   { value: "short_answer", label: "Short answer", hint: "A sentence or two" },
   { value: "long_answer", label: "Long answer / essay", hint: "A paragraph or more" },
-  { value: "coloring", label: "Coloring / drawing", hint: "Themed prompt, not real art" },
+  { value: "coloring", label: "Colouring / drawing", hint: "Themed prompt, not real art" },
 ];
 
 const inputClasses =
@@ -196,7 +196,7 @@ export function WorksheetWizard({ lessonId }: { lessonId: string }) {
         <textarea
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
-          placeholder="Nothing to summarize yet — add some content to this lesson's blocks first."
+          placeholder="Nothing to summarise yet. Add some content to this lesson's blocks first."
           className={`min-h-[140px] resize-y ${inputClasses}`}
         />
 
@@ -294,7 +294,7 @@ export function WorksheetWizard({ lessonId }: { lessonId: string }) {
 
           {draft.questions.length === 0 && (
             <p className="rounded-xl border border-dashed border-line p-5 text-center text-[13px] text-muted">
-              No questions — add one below.
+              No questions. Add one below.
             </p>
           )}
 

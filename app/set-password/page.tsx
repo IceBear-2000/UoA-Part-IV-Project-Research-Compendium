@@ -37,7 +37,7 @@ export default async function SetPasswordPage({
               Set your password
             </h1>
             <p className="mt-1 text-[14.5px] text-muted">
-              Kia ora {user.name.split(" ")[0]} — one last step to activate
+              Kia ora {user.name.split(" ")[0]}. One last step to activate
               your account
             </p>
 

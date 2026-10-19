@@ -84,7 +84,7 @@ export default async function AdminHome() {
 
       {allCaughtUp ? (
         <div className="rounded-card border border-dashed border-line p-10 text-center text-muted">
-          You&apos;re all caught up — no drafts, requests, or unread messages.
+          You&apos;re all caught up. No drafts, requests, or unread messages.
         </div>
       ) : (
         <div

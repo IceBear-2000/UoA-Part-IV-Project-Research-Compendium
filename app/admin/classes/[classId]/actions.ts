@@ -14,7 +14,7 @@ export async function uploadClassBanner(classId: string, formData: FormData) {
   const file = formData.get("file") as File | null;
   if (!file || file.size === 0) throw new Error("No file selected.");
   if (!ALLOWED_TYPES.has(file.type)) throw new Error("Only JPEG, PNG, or WebP images are supported.");
-  if (file.size > MAX_SIZE_BYTES) throw new Error("Image is too large — 8MB max.");
+  if (file.size > MAX_SIZE_BYTES) throw new Error("Image is too large. 8MB max.");
 
   const classRow = await prisma.class.findUnique({ where: { id: classId } });
   if (!classRow) throw new Error("Class not found");

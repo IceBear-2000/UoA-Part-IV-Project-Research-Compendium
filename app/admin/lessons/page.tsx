@@ -43,7 +43,7 @@ export default async function LessonsListPage({
 
       {lessons.length === 0 ? (
         <div className="rounded-card border border-dashed border-line p-10 text-center text-muted">
-          No lessons yet — create your first one.
+          No lessons yet. Create your first one.
         </div>
       ) : (
         <LessonsView

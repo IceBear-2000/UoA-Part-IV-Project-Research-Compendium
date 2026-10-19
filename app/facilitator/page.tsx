@@ -22,7 +22,7 @@ export default async function FacilitatorDashboard() {
 
       {classes.length === 0 ? (
         <div className="rounded-card border border-dashed border-line p-10 text-center text-muted">
-          You haven&apos;t been assigned to any classes yet — check with your
+          You haven&apos;t been assigned to any classes yet. Check with your
           coordinator.
         </div>
       ) : (

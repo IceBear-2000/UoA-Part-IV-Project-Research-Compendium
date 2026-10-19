@@ -222,7 +222,7 @@ function AiWorksheetBody({
             )}
 
             {q.type === "coloring" && (
-              <p className="text-sm text-muted">🖍️ Drawing/coloring prompt — no answer key needed.</p>
+              <p className="text-sm text-muted">Drawing or colouring prompt. No answer key needed.</p>
             )}
           </li>
         ))}
@@ -465,8 +465,8 @@ export function LessonFlowPlayer({
           <h1 className="text-[27px] font-bold tracking-tight">{lessonName}</h1>
           <p className="mt-1 text-[14.5px] text-muted">
             {lessonComplete
-              ? `${gradeName} · ${subjectName} — completed · free navigation unlocked`
-              : `${gradeName} · ${subjectName} — follow each step in order`}
+              ? `${gradeName} · ${subjectName} · completed · free navigation unlocked`
+              : `${gradeName} · ${subjectName} · follow each step in order`}
           </p>
         </div>
         <span

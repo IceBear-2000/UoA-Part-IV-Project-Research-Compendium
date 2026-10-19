@@ -32,7 +32,7 @@ export default function SignupPage({
           </h2>
           <p className="mt-3.5 max-w-[380px] text-[15px] opacity-90">
             New facilitators are reviewed by a coordinator before getting
-            access — request access below and you&apos;ll hear back by email.
+            access. Request access below and you&apos;ll hear back by email.
           </p>
         </div>
         <div className="relative text-[13px] opacity-85">

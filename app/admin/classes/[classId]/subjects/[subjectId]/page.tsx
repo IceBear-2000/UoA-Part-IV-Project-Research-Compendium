@@ -52,7 +52,7 @@ export default async function SubjectDetailPage({
 
       {subject.lessons.length === 0 ? (
         <div className="rounded-card border border-dashed border-line p-10 text-center text-muted">
-          No lessons yet — create the first one for {subject.class.name} · {subject.name}.
+          No lessons yet. Create the first one for {subject.class.name} · {subject.name}.
         </div>
       ) : (
         <div className="flex flex-col gap-3">

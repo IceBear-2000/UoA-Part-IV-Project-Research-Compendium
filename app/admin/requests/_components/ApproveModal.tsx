@@ -78,7 +78,7 @@ export function ApproveModal({
           <p className="mt-1 text-sm text-muted">
             {result.emailSent
               ? "An email with a sign-in link has been sent to them."
-              : "Email isn't set up yet — copy this link and send it to them directly:"}
+              : "Email isn't set up yet. Copy this link and send it to them directly:"}
           </p>
           {!result.emailSent && (
             <div className="mt-3 break-all rounded-input border border-line bg-white p-2.5 text-[12.5px] text-ink">

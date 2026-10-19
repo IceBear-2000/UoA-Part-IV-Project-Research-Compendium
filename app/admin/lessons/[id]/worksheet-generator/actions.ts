@@ -33,7 +33,7 @@ export async function analyzeLessonContent(lessonId: string) {
     if (block.type === BlockType.VIDEO && typeof content.url === "string" && content.url) {
       const result = await fetchYoutubeTranscript(content.url);
       if ("error" in result) {
-        warnings.push(`Couldn't get a transcript for "${block.title}" — ${result.error}`);
+        warnings.push(`Couldn't get a transcript for "${block.title}": ${result.error}`);
       } else {
         sources.push({ label: `Video: ${block.title}`, text: result.text });
       }
@@ -47,14 +47,14 @@ export async function analyzeLessonContent(lessonId: string) {
         .download(content.filePath);
 
       if (error || !data) {
-        warnings.push(`Couldn't read the file for "${block.title}" — ${error?.message ?? "download failed"}.`);
+        warnings.push(`Couldn't read the file for "${block.title}": ${error?.message ?? "download failed"}.`);
         continue;
       }
 
       const buffer = Buffer.from(await data.arrayBuffer());
       const result = await extractDocumentText(buffer, fileName);
       if ("error" in result) {
-        warnings.push(`Couldn't read the file for "${block.title}" — ${result.error}`);
+        warnings.push(`Couldn't read the file for "${block.title}": ${result.error}`);
       } else {
         sources.push({ label: `Document: ${block.title} (${fileName})`, text: result.text });
       }

@@ -123,7 +123,7 @@ export function FacilitatorsView({
 
       {facilitators.length === 0 ? (
         <div className="rounded-card border border-dashed border-line p-10 text-center text-muted">
-          No facilitators yet — they&apos;ll appear here once someone signs up.
+          No facilitators yet. They&apos;ll appear here once someone signs up.
         </div>
       ) : view === "list" ? (
         <table className="w-full border-collapse overflow-hidden rounded-card border border-line bg-surface shadow-paper">

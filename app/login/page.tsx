@@ -30,7 +30,7 @@ export default function LoginPage({
             Quality lessons, ready for anyone to teach.
           </h2>
           <p className="mt-3.5 max-w-[380px] text-[15px] opacity-90">
-            StudyBuddy puts the teaching expertise into the platform — so
+            StudyBuddy puts the teaching expertise into the platform, so
             structured, consistent lessons can be delivered by anyone,
             anywhere.
           </p>

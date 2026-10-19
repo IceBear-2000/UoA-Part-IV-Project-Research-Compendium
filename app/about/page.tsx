@@ -7,14 +7,14 @@ const FULL_PITCH = [
   "UNESCO says the world needs 44 million more teachers by 2030. And more than half the children in poorer countries still can't read a simple sentence by age ten.",
   "The schools that feel it hardest are rural and low income, where the good teachers leave for better pay. A school hires someone, trains them up, gets them good, and then a richer school hires them away. The kids get left behind.",
   "So what if the teaching didn't have to come from the person in the room?",
-  "Think about it this way. Everyone knows one plus one is two. Almost nobody can teach it to a six-year-old. Knowing and teaching are different skills, and only teaching is scarce. So what if we have facilitators — people who can answer questions — while the platform takes care of the teaching.",
+  "Think about it this way. Everyone knows one plus one is two. Almost nobody can teach it to a six-year-old. Knowing and teaching are different skills, and only teaching is scarce. So what if we have facilitators, people who can answer questions, while the platform takes care of the teaching.",
   "An expert uses videos, worksheets, activities and resources to build a structured lesson. The facilitator goes through that lesson in class on a big screen: clicking through, playing videos, running the activities, and helping whoever's stuck. The facilitator facilitates learning. The platform does the teaching.",
   "This is similar to an Uber, but for schools. Running a classroom doesn't need a teaching degree anymore. And the students still get the expert.",
 ];
 
 const HOW_IT_WORKS = [
   {
-    title: "An expert builds the lesson — once",
+    title: "An expert builds the lesson once",
     body: "Videos, activities, worksheets, assembled into an ordered sequence. This is the hard part, and it only has to happen once per lesson.",
   },
   {
@@ -251,7 +251,7 @@ export default function AboutPage() {
               View the technical architecture <ExternalLink className="h-3.5 w-3.5" strokeWidth={2} />
             </a>
             <p className="mt-1.5 text-[12px] text-muted">
-              Data model, class diagram, lesson-flow state machine — a high-level overview.
+              Data model, class diagram and lesson-flow state machine: a high-level overview.
             </p>
           </div>
         </section>
@@ -263,7 +263,7 @@ export default function AboutPage() {
           </p>
           <p className="mx-auto max-w-[640px] text-center text-[14.5px] leading-relaxed text-muted">
             Assessed against the same six criteria used to evaluate every model of
-            education delivery — from traditional classrooms to online courses to
+            education delivery, from traditional classrooms to online courses to
             community tutoring.
           </p>
 
@@ -314,7 +314,7 @@ export default function AboutPage() {
         <section className="mt-20 flex flex-col items-center rounded-card border border-line bg-surface p-10 text-center shadow-paper">
           <h2 className="text-[22px] font-bold tracking-tight">See it for yourself</h2>
           <p className="mt-1.5 max-w-[440px] text-[14.5px] text-muted">
-            The real platform is live — sign in to build a lesson or run one as a facilitator.
+            The real platform is live. Sign in to build a lesson or run one as a facilitator.
           </p>
           <Link
             href="/login"

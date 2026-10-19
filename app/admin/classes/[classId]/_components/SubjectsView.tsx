@@ -63,7 +63,7 @@ export function SubjectsView({ classId, subjects }: { classId: string; subjects:
 
       {subjects.length === 0 ? (
         <div className="rounded-card border border-dashed border-line p-10 text-center text-muted">
-          No subjects yet — add one above to get started.
+          No subjects yet. Add one above to get started.
         </div>
       ) : (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-[18px]">

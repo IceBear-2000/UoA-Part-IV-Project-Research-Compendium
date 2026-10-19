@@ -88,7 +88,7 @@ export function LessonFlowEditor({
     <div>
       {blocks.length === 0 && (
         <p className="mb-3 rounded-xl border border-dashed border-line p-6 text-center text-[13px] text-muted">
-          No blocks yet — add your first step below.
+          No blocks yet. Add your first step below.
         </p>
       )}
 

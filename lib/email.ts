@@ -37,7 +37,7 @@ export async function sendApprovalEmail({
       <p>Your request to join StudyBuddy as a facilitator has been approved. You've been given access to:</p>
       <p><strong>${classList || "No classes assigned yet"}</strong></p>
       <p><a href="${inviteLink}">Click here to set your password and sign in</a></p>
-      <p>This link is single-use and will expire after a while — if it's stopped working, ask your coordinator to resend it.</p>
+      <p>This link is single-use and will expire after a while. If it's stopped working, ask your coordinator to resend it.</p>
     `,
   });
 

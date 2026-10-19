@@ -26,7 +26,7 @@ export async function uploadBlockFile(lessonId: string, blockId: string, formDat
     throw new Error("Only PDF, Word, or PowerPoint files are supported.");
   }
   if (file.size > MAX_SIZE_BYTES) {
-    throw new Error("File is too large — 25MB max.");
+    throw new Error("File is too large. 25MB max.");
   }
 
   const block = await prisma.block.findUnique({ where: { id: blockId } });

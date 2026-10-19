@@ -65,7 +65,7 @@ export default async function LessonCompletePage({
           </div>
         </div>
         <p className="mb-5 text-sm text-muted">
-          This lesson is now unlocked for free navigation — revisit any step
+          This lesson is now unlocked for free navigation. Revisit any step
           anytime.
         </p>
         <div className="flex justify-center gap-3">
