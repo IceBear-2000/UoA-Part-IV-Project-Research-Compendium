@@ -1,0 +1,106 @@
+model,scenario,setting,passages,precision,recall,false_alarm_rate,accuracy,flagged,at_risk,recall_se,precision_se,at_risk_se,hidden_group_flagged,precision_ci_lo,precision_ci_hi,recall_ci_lo,recall_ci_hi,false_alarm_rate_ci_lo,false_alarm_rate_ci_hi,hidden_group_flagged_ci_lo,hidden_group_flagged_ci_hi
+Score only (accuracy < 75%),main,as defined,1,0.618,0.567,0.101,0.826,6.14,6.665,0.015,0.016,0.164,0.422,0.59,0.648,0.538,0.597,0.093,0.11,0.385,0.461
+Rules v1: 'needs support' only,main,as defined,1,0.69,0.46,0.059,0.835,4.45,6.665,0.015,0.018,0.164,0.207,0.655,0.722,0.432,0.489,0.052,0.066,0.178,0.238
+Rules v1: 'needs support' or 'check-in',main,as defined,1,0.24,0.953,0.869,0.315,26.66,6.665,0.007,0.006,0.164,0.916,0.228,0.252,0.937,0.966,0.859,0.878,0.896,0.935
+Rules v2: 'needs support' only,main,as defined,1,0.638,0.609,0.102,0.837,6.46,6.665,0.016,0.015,0.164,0.501,0.607,0.668,0.579,0.641,0.092,0.11,0.461,0.542
+Rules v2: 'needs support' or 'check-in',main,as defined,1,0.443,0.818,0.296,0.731,12.435,6.665,0.013,0.011,0.164,0.651,0.422,0.464,0.794,0.841,0.282,0.311,0.616,0.687
+Random Forest (trained on v1 rule labels),main,as defined,1,0.691,0.457,0.058,0.835,4.42,6.665,0.015,0.018,0.164,0.202,0.656,0.725,0.429,0.487,0.052,0.066,0.174,0.234
+"Random Forest (oracle, true labels)",main,as defined,1,0.952,0.771,0.011,0.942,5.46,6.665,0.013,0.007,0.164,0.577,0.936,0.966,0.745,0.796,0.008,0.014,0.537,0.616
+Score only (accuracy < 75%),main,as defined,3,0.724,0.821,0.089,0.892,7.56,6.665,0.011,0.013,0.164,0.686,0.699,0.751,0.8,0.844,0.08,0.097,0.653,0.722
+Rules v1: 'needs support' only,main,as defined,3,0.918,0.524,0.013,0.885,3.83,6.665,0.016,0.012,0.164,0.087,0.892,0.94,0.493,0.555,0.01,0.016,0.066,0.109
+Rules v1: 'needs support' or 'check-in',main,as defined,3,0.227,1.0,0.973,0.243,29.375,6.665,0.0,0.006,0.164,1.0,0.216,0.238,1.0,1.0,0.969,0.978,1.0,1.0
+Rules v2: 'needs support' only,main,as defined,3,0.939,0.677,0.011,0.922,4.85,6.665,0.015,0.009,0.164,0.423,0.92,0.956,0.648,0.704,0.009,0.014,0.384,0.464
+Rules v2: 'needs support' or 'check-in',main,as defined,3,0.669,0.876,0.123,0.879,8.755,6.665,0.01,0.012,0.164,0.766,0.644,0.696,0.856,0.896,0.113,0.132,0.733,0.799
+Random Forest (trained on v1 rule labels),main,as defined,3,0.976,0.512,0.004,0.89,3.54,6.665,0.016,0.007,0.164,0.065,0.96,0.989,0.482,0.542,0.002,0.005,0.048,0.084
+"Random Forest (oracle, true labels)",main,as defined,3,0.992,0.974,0.002,0.993,6.565,6.665,0.005,0.003,0.164,0.954,0.986,0.997,0.964,0.984,0.001,0.004,0.938,0.971
+Score only (accuracy < 75%),timing_neutral,poor-comprehender timing/hints/revisits = typical,1,0.6,0.593,0.108,0.828,6.555,6.665,0.016,0.016,0.164,0.464,0.567,0.63,0.562,0.622,0.1,0.116,0.425,0.502
+Rules v1: 'needs support' only,timing_neutral,poor-comprehender timing/hints/revisits = typical,1,0.685,0.488,0.059,0.843,4.72,6.665,0.016,0.018,0.164,0.253,0.649,0.718,0.456,0.519,0.053,0.066,0.218,0.284
+Rules v1: 'needs support' or 'check-in',timing_neutral,poor-comprehender timing/hints/revisits = typical,1,0.242,0.972,0.871,0.316,26.82,6.665,0.005,0.006,0.164,0.944,0.23,0.254,0.961,0.982,0.861,0.881,0.924,0.962
+Rules v2: 'needs support' only,timing_neutral,poor-comprehender timing/hints/revisits = typical,1,0.669,0.64,0.088,0.854,6.385,6.665,0.015,0.015,0.164,0.537,0.638,0.699,0.61,0.669,0.08,0.096,0.5,0.575
+Rules v2: 'needs support' or 'check-in',timing_neutral,poor-comprehender timing/hints/revisits = typical,1,0.458,0.857,0.289,0.743,12.475,6.665,0.011,0.011,0.164,0.721,0.437,0.48,0.836,0.877,0.276,0.302,0.688,0.754
+Random Forest (trained on v1 rule labels),timing_neutral,poor-comprehender timing/hints/revisits = typical,1,0.685,0.488,0.059,0.843,4.72,6.665,0.016,0.018,0.164,0.253,0.649,0.718,0.456,0.519,0.053,0.066,0.218,0.284
+"Random Forest (oracle, true labels)",timing_neutral,poor-comprehender timing/hints/revisits = typical,1,0.904,0.626,0.019,0.906,4.725,6.665,0.016,0.012,0.164,0.297,0.881,0.927,0.594,0.658,0.015,0.023,0.26,0.332
+Score only (accuracy < 75%),timing_neutral,poor-comprehender timing/hints/revisits = typical,3,0.725,0.812,0.088,0.891,7.49,6.665,0.013,0.013,0.164,0.679,0.698,0.753,0.786,0.835,0.078,0.097,0.644,0.714
+Rules v1: 'needs support' only,timing_neutral,poor-comprehender timing/hints/revisits = typical,3,0.903,0.531,0.013,0.887,3.905,6.665,0.017,0.015,0.164,0.114,0.874,0.933,0.499,0.565,0.01,0.017,0.088,0.139
+Rules v1: 'needs support' or 'check-in',timing_neutral,poor-comprehender timing/hints/revisits = typical,3,0.227,1.0,0.972,0.244,29.35,6.665,0.0,0.006,0.164,1.0,0.217,0.238,1.0,1.0,0.967,0.976,1.0,1.0
+Rules v2: 'needs support' only,timing_neutral,poor-comprehender timing/hints/revisits = typical,3,0.943,0.665,0.011,0.917,4.68,6.665,0.015,0.01,0.164,0.388,0.922,0.961,0.637,0.696,0.008,0.014,0.351,0.429
+Rules v2: 'needs support' or 'check-in',timing_neutral,poor-comprehender timing/hints/revisits = typical,3,0.668,0.879,0.124,0.878,8.785,6.665,0.011,0.013,0.164,0.764,0.643,0.692,0.856,0.898,0.114,0.134,0.731,0.794
+Random Forest (trained on v1 rule labels),timing_neutral,poor-comprehender timing/hints/revisits = typical,3,0.961,0.508,0.005,0.889,3.555,6.665,0.017,0.01,0.164,0.068,0.939,0.98,0.478,0.541,0.003,0.007,0.05,0.088
+"Random Forest (oracle, true labels)",timing_neutral,poor-comprehender timing/hints/revisits = typical,3,0.952,0.842,0.012,0.956,5.925,6.665,0.012,0.006,0.164,0.688,0.94,0.964,0.818,0.865,0.01,0.016,0.653,0.722
+Score only (accuracy < 75%),poor_comprehender_share,0.05,1,0.528,0.641,0.109,0.85,5.785,4.8,0.017,0.016,0.15,0.451,0.496,0.558,0.608,0.672,0.101,0.117,0.395,0.514
+Rules v1: 'needs support' only,poor_comprehender_share,0.05,1,0.634,0.577,0.063,0.879,4.335,4.8,0.018,0.02,0.15,0.236,0.595,0.671,0.538,0.61,0.056,0.07,0.188,0.287
+Rules v1: 'needs support' or 'check-in',poor_comprehender_share,0.05,1,0.177,0.979,0.866,0.27,26.53,4.8,0.005,0.006,0.15,0.937,0.166,0.188,0.968,0.989,0.857,0.875,0.907,0.964
+Rules v2: 'needs support' only,poor_comprehender_share,0.05,1,0.591,0.687,0.089,0.874,5.525,4.8,0.016,0.017,0.15,0.556,0.555,0.624,0.654,0.716,0.081,0.097,0.494,0.618
+Rules v2: 'needs support' or 'check-in',poor_comprehender_share,0.05,1,0.373,0.904,0.289,0.742,11.655,4.8,0.01,0.011,0.15,0.697,0.349,0.396,0.884,0.925,0.277,0.302,0.645,0.755
+Random Forest (trained on v1 rule labels),poor_comprehender_share,0.05,1,0.634,0.577,0.063,0.879,4.335,4.8,0.018,0.02,0.15,0.236,0.595,0.671,0.538,0.61,0.056,0.07,0.188,0.287
+"Random Forest (oracle, true labels)",poor_comprehender_share,0.05,1,0.98,0.82,0.004,0.967,4.005,4.8,0.014,0.005,0.15,0.433,0.971,0.989,0.791,0.846,0.002,0.006,0.376,0.484
+Score only (accuracy < 75%),poor_comprehender_share,0.05,3,0.631,0.872,0.094,0.901,6.56,4.8,0.012,0.015,0.15,0.683,0.601,0.658,0.849,0.895,0.087,0.102,0.634,0.736
+Rules v1: 'needs support' only,poor_comprehender_share,0.05,3,0.872,0.688,0.017,0.938,3.785,4.8,0.018,0.016,0.15,0.102,0.839,0.902,0.653,0.722,0.013,0.02,0.072,0.138
+Rules v1: 'needs support' or 'check-in',poor_comprehender_share,0.05,3,0.164,1.0,0.973,0.182,29.325,4.8,0.0,0.005,0.15,1.0,0.153,0.174,1.0,1.0,0.969,0.978,1.0,1.0
+Rules v2: 'needs support' only,poor_comprehender_share,0.05,3,0.923,0.808,0.013,0.957,4.185,4.8,0.014,0.01,0.15,0.465,0.903,0.942,0.778,0.838,0.01,0.017,0.407,0.526
+Rules v2: 'needs support' or 'check-in',poor_comprehender_share,0.05,3,0.573,0.933,0.127,0.882,7.665,4.8,0.009,0.014,0.15,0.764,0.546,0.6,0.916,0.951,0.119,0.136,0.717,0.815
+Random Forest (trained on v1 rule labels),poor_comprehender_share,0.05,3,0.987,0.679,0.002,0.949,3.35,4.8,0.018,0.006,0.15,0.063,0.975,0.997,0.645,0.714,0.001,0.003,0.039,0.097
+"Random Forest (oracle, true labels)",poor_comprehender_share,0.05,3,0.997,0.969,0.0,0.995,4.67,4.8,0.006,0.002,0.15,0.901,0.993,1.0,0.958,0.98,0.0,0.001,0.869,0.933
+Score only (accuracy < 75%),poor_comprehender_share,0.15,1,0.671,0.554,0.097,0.81,6.61,8.04,0.013,0.014,0.176,0.425,0.644,0.698,0.529,0.579,0.088,0.107,0.394,0.457
+Rules v1: 'needs support' only,poor_comprehender_share,0.15,1,0.73,0.42,0.054,0.805,4.59,8.04,0.014,0.018,0.176,0.192,0.697,0.763,0.395,0.447,0.048,0.061,0.167,0.219
+Rules v1: 'needs support' or 'check-in',poor_comprehender_share,0.15,1,0.287,0.949,0.864,0.353,26.63,8.04,0.006,0.007,0.176,0.913,0.275,0.3,0.937,0.961,0.854,0.874,0.896,0.93
+Rules v2: 'needs support' only,poor_comprehender_share,0.15,1,0.712,0.617,0.089,0.834,6.975,8.04,0.013,0.014,0.176,0.529,0.684,0.741,0.589,0.646,0.08,0.098,0.496,0.561
+Rules v2: 'needs support' or 'check-in',poor_comprehender_share,0.15,1,0.512,0.807,0.283,0.741,12.755,8.04,0.01,0.011,0.176,0.673,0.49,0.535,0.787,0.827,0.268,0.299,0.643,0.704
+Random Forest (trained on v1 rule labels),poor_comprehender_share,0.15,1,0.73,0.42,0.055,0.805,4.595,8.04,0.014,0.018,0.176,0.192,0.696,0.762,0.395,0.447,0.048,0.061,0.167,0.219
+"Random Forest (oracle, true labels)",poor_comprehender_share,0.15,1,0.948,0.822,0.017,0.939,6.96,8.04,0.01,0.006,0.176,0.709,0.936,0.96,0.804,0.842,0.013,0.021,0.678,0.74
+Score only (accuracy < 75%),poor_comprehender_share,0.15,3,0.781,0.785,0.081,0.883,8.085,8.04,0.01,0.011,0.176,0.656,0.758,0.801,0.765,0.804,0.073,0.089,0.626,0.682
+Rules v1: 'needs support' only,poor_comprehender_share,0.15,3,0.916,0.443,0.015,0.842,3.94,8.04,0.014,0.012,0.176,0.077,0.893,0.938,0.418,0.47,0.011,0.019,0.062,0.093
+Rules v1: 'needs support' or 'check-in',poor_comprehender_share,0.15,3,0.274,0.998,0.969,0.29,29.32,8.04,0.001,0.006,0.176,0.998,0.263,0.286,0.995,1.0,0.964,0.975,0.995,1.0
+Rules v2: 'needs support' only,poor_comprehender_share,0.15,3,0.946,0.642,0.012,0.896,5.46,8.04,0.013,0.008,0.176,0.424,0.927,0.961,0.618,0.67,0.009,0.016,0.393,0.455
+Rules v2: 'needs support' or 'check-in',poor_comprehender_share,0.15,3,0.725,0.851,0.118,0.875,9.43,8.04,0.009,0.011,0.176,0.746,0.705,0.744,0.833,0.868,0.109,0.126,0.72,0.77
+Random Forest (trained on v1 rule labels),poor_comprehender_share,0.15,3,0.991,0.438,0.001,0.85,3.6,8.04,0.014,0.004,0.176,0.068,0.981,0.998,0.413,0.465,0.0,0.003,0.053,0.083
+"Random Forest (oracle, true labels)",poor_comprehender_share,0.15,3,0.997,0.964,0.001,0.99,7.785,8.04,0.005,0.001,0.176,0.94,0.994,1.0,0.954,0.973,0.0,0.002,0.924,0.953
+Score only (accuracy < 75%),persona_difference_alpha,0.75,1,0.564,0.464,0.107,0.796,5.565,6.675,0.015,0.017,0.16,0.32,0.533,0.595,0.437,0.493,0.098,0.117,0.285,0.354
+Rules v1: 'needs support' only,persona_difference_alpha,0.75,1,0.64,0.369,0.061,0.813,3.92,6.675,0.013,0.021,0.16,0.149,0.597,0.682,0.344,0.395,0.053,0.069,0.124,0.173
+Rules v1: 'needs support' or 'check-in',persona_difference_alpha,0.75,1,0.242,0.956,0.859,0.321,26.42,6.675,0.006,0.006,0.16,0.905,0.23,0.254,0.944,0.967,0.849,0.868,0.882,0.927
+Rules v2: 'needs support' only,persona_difference_alpha,0.75,1,0.606,0.498,0.093,0.817,5.535,6.675,0.014,0.017,0.16,0.395,0.572,0.639,0.469,0.527,0.085,0.103,0.355,0.434
+Rules v2: 'needs support' or 'check-in',persona_difference_alpha,0.75,1,0.442,0.778,0.28,0.732,11.73,6.675,0.013,0.011,0.16,0.573,0.421,0.463,0.751,0.803,0.268,0.294,0.533,0.613
+Random Forest (trained on v1 rule labels),persona_difference_alpha,0.75,1,0.642,0.37,0.06,0.814,3.905,6.675,0.013,0.02,0.16,0.147,0.598,0.684,0.344,0.395,0.053,0.068,0.122,0.171
+"Random Forest (oracle, true labels)",persona_difference_alpha,0.75,1,0.944,0.602,0.01,0.904,4.285,6.675,0.015,0.009,0.16,0.331,0.925,0.961,0.573,0.631,0.008,0.013,0.293,0.37
+Score only (accuracy < 75%),persona_difference_alpha,0.75,3,0.699,0.699,0.085,0.866,6.67,6.675,0.015,0.014,0.16,0.534,0.672,0.725,0.669,0.727,0.077,0.094,0.492,0.574
+Rules v1: 'needs support' only,persona_difference_alpha,0.75,3,0.891,0.452,0.015,0.868,3.395,6.675,0.015,0.014,0.16,0.044,0.862,0.918,0.422,0.483,0.011,0.018,0.029,0.062
+Rules v1: 'needs support' or 'check-in',persona_difference_alpha,0.75,3,0.227,0.998,0.972,0.244,29.335,6.675,0.001,0.005,0.16,0.997,0.217,0.238,0.996,1.0,0.968,0.976,0.992,1.0
+Rules v2: 'needs support' only,persona_difference_alpha,0.75,3,0.938,0.504,0.01,0.882,3.64,6.675,0.014,0.01,0.16,0.236,0.918,0.956,0.475,0.532,0.008,0.014,0.203,0.27
+Rules v2: 'needs support' or 'check-in',persona_difference_alpha,0.75,3,0.687,0.798,0.104,0.873,7.755,6.675,0.013,0.013,0.16,0.591,0.663,0.713,0.771,0.822,0.096,0.114,0.55,0.628
+Random Forest (trained on v1 rule labels),persona_difference_alpha,0.75,3,0.991,0.445,0.001,0.877,3.04,6.675,0.015,0.004,0.16,0.029,0.983,0.998,0.414,0.475,0.0,0.002,0.017,0.043
+"Random Forest (oracle, true labels)",persona_difference_alpha,0.75,3,0.99,0.815,0.002,0.958,5.51,6.675,0.012,0.003,0.16,0.675,0.983,0.996,0.791,0.837,0.001,0.003,0.636,0.712
+Score only (accuracy < 75%),persona_difference_alpha,0.5,1,0.431,0.313,0.114,0.761,4.75,6.575,0.014,0.018,0.169,0.238,0.396,0.468,0.287,0.339,0.106,0.123,0.204,0.268
+Rules v1: 'needs support' only,persona_difference_alpha,0.5,1,0.541,0.253,0.06,0.79,3.09,6.575,0.013,0.024,0.169,0.116,0.495,0.586,0.229,0.278,0.054,0.067,0.091,0.141
+Rules v1: 'needs support' or 'check-in',persona_difference_alpha,0.5,1,0.235,0.941,0.864,0.314,26.45,6.575,0.009,0.006,0.169,0.887,0.223,0.246,0.924,0.956,0.855,0.873,0.86,0.913
+Rules v2: 'needs support' only,persona_difference_alpha,0.5,1,0.486,0.34,0.097,0.78,4.525,6.575,0.014,0.018,0.169,0.293,0.45,0.517,0.315,0.367,0.089,0.105,0.261,0.326
+Rules v2: 'needs support' or 'check-in',persona_difference_alpha,0.5,1,0.392,0.666,0.284,0.706,11.03,6.575,0.014,0.01,0.169,0.448,0.371,0.41,0.638,0.692,0.273,0.297,0.411,0.488
+Random Forest (trained on v1 rule labels),persona_difference_alpha,0.5,1,0.541,0.252,0.06,0.79,3.06,6.575,0.013,0.024,0.169,0.111,0.495,0.585,0.228,0.276,0.053,0.066,0.087,0.136
+"Random Forest (oracle, true labels)",persona_difference_alpha,0.5,1,0.897,0.283,0.009,0.836,2.1,6.575,0.013,0.018,0.169,0.139,0.86,0.929,0.257,0.309,0.006,0.012,0.113,0.167
+Score only (accuracy < 75%),persona_difference_alpha,0.5,3,0.617,0.502,0.092,0.819,5.455,6.575,0.015,0.017,0.169,0.361,0.583,0.653,0.471,0.529,0.083,0.101,0.323,0.397
+Rules v1: 'needs support' only,persona_difference_alpha,0.5,3,0.879,0.33,0.012,0.846,2.505,6.575,0.015,0.017,0.169,0.041,0.844,0.913,0.303,0.358,0.009,0.015,0.027,0.056
+Rules v1: 'needs support' or 'check-in',persona_difference_alpha,0.5,3,0.223,0.995,0.971,0.24,29.3,6.575,0.002,0.006,0.169,0.987,0.213,0.234,0.991,0.998,0.966,0.977,0.979,0.995
+Rules v2: 'needs support' only,persona_difference_alpha,0.5,3,0.855,0.224,0.01,0.822,1.72,6.575,0.012,0.022,0.169,0.106,0.812,0.898,0.197,0.249,0.008,0.013,0.081,0.129
+Rules v2: 'needs support' or 'check-in',persona_difference_alpha,0.5,3,0.641,0.632,0.104,0.838,6.6,6.575,0.013,0.015,0.169,0.401,0.61,0.673,0.605,0.657,0.094,0.114,0.362,0.436
+Random Forest (trained on v1 rule labels),persona_difference_alpha,0.5,3,0.988,0.291,0.001,0.845,1.975,6.575,0.013,0.005,0.169,0.01,0.976,0.998,0.265,0.317,0.0,0.002,0.003,0.017
+"Random Forest (oracle, true labels)",persona_difference_alpha,0.5,3,0.98,0.407,0.002,0.869,2.745,6.575,0.014,0.006,0.169,0.25,0.968,0.991,0.382,0.434,0.001,0.004,0.218,0.283
+Score only (accuracy < 75%),class_size,20,1,0.604,0.584,0.108,0.826,4.275,4.435,0.019,0.02,0.134,0.456,0.562,0.641,0.547,0.621,0.096,0.119,0.403,0.507
+Rules v1: 'needs support' only,class_size,20,1,0.697,0.485,0.06,0.84,3.09,4.435,0.019,0.021,0.134,0.241,0.651,0.737,0.447,0.524,0.051,0.069,0.195,0.284
+Rules v1: 'needs support' or 'check-in',class_size,20,1,0.239,0.959,0.873,0.313,17.875,4.435,0.008,0.007,0.134,0.929,0.225,0.254,0.943,0.973,0.862,0.884,0.902,0.951
+Rules v2: 'needs support' only,class_size,20,1,0.648,0.636,0.099,0.841,4.35,4.435,0.019,0.019,0.134,0.52,0.607,0.682,0.6,0.674,0.089,0.111,0.471,0.571
+Rules v2: 'needs support' or 'check-in',class_size,20,1,0.447,0.839,0.3,0.732,8.42,4.435,0.014,0.014,0.134,0.683,0.418,0.472,0.808,0.865,0.283,0.318,0.639,0.728
+Random Forest (trained on v1 rule labels),class_size,20,1,0.695,0.482,0.06,0.84,3.08,4.435,0.019,0.021,0.134,0.236,0.649,0.735,0.445,0.52,0.051,0.069,0.192,0.278
+"Random Forest (oracle, true labels)",class_size,20,1,0.937,0.789,0.013,0.945,3.73,4.435,0.015,0.012,0.134,0.593,0.91,0.958,0.757,0.818,0.009,0.017,0.551,0.636
+Score only (accuracy < 75%),pooled_gap_threshold_posthoc,0.33 (main),3,0.724,0.821,0.089,0.892,7.56,6.665,0.011,0.013,0.164,0.686,0.699,0.751,0.8,0.844,0.08,0.097,0.653,0.722
+Rules v1: 'needs support' only,pooled_gap_threshold_posthoc,0.33 (main),3,0.918,0.524,0.013,0.885,3.83,6.665,0.016,0.012,0.164,0.087,0.892,0.94,0.493,0.555,0.01,0.016,0.066,0.109
+Rules v1: 'needs support' or 'check-in',pooled_gap_threshold_posthoc,0.33 (main),3,0.227,1.0,0.973,0.243,29.375,6.665,0.0,0.006,0.164,1.0,0.216,0.238,1.0,1.0,0.969,0.978,1.0,1.0
+Rules v2: 'needs support' only,pooled_gap_threshold_posthoc,0.33 (main),3,0.749,0.782,0.072,0.897,6.965,6.665,0.013,0.013,0.164,0.626,0.723,0.774,0.756,0.807,0.065,0.08,0.584,0.669
+Rules v2: 'needs support' or 'check-in',pooled_gap_threshold_posthoc,0.33 (main),3,0.598,0.901,0.173,0.845,10.11,6.665,0.01,0.012,0.164,0.817,0.573,0.623,0.883,0.92,0.162,0.186,0.787,0.847
+Random Forest (trained on v1 rule labels),pooled_gap_threshold_posthoc,0.33 (main),3,0.976,0.512,0.004,0.89,3.54,6.665,0.016,0.007,0.164,0.065,0.96,0.989,0.482,0.542,0.002,0.005,0.048,0.084
+"Random Forest (oracle, true labels)",pooled_gap_threshold_posthoc,0.33 (main),3,0.992,0.974,0.002,0.993,6.565,6.665,0.005,0.003,0.164,0.954,0.986,0.997,0.964,0.984,0.001,0.004,0.938,0.971
+Score only (accuracy < 75%),pooled_gap_threshold_posthoc,0.33 (timing_neutral),3,0.725,0.812,0.088,0.891,7.49,6.665,0.013,0.013,0.164,0.679,0.698,0.753,0.786,0.835,0.078,0.097,0.644,0.714
+Rules v1: 'needs support' only,pooled_gap_threshold_posthoc,0.33 (timing_neutral),3,0.903,0.531,0.013,0.887,3.905,6.665,0.017,0.015,0.164,0.114,0.874,0.933,0.499,0.565,0.01,0.017,0.088,0.139
+Rules v1: 'needs support' or 'check-in',pooled_gap_threshold_posthoc,0.33 (timing_neutral),3,0.227,1.0,0.972,0.244,29.35,6.665,0.0,0.006,0.164,1.0,0.217,0.238,1.0,1.0,0.967,0.976,1.0,1.0
+Rules v2: 'needs support' only,pooled_gap_threshold_posthoc,0.33 (timing_neutral),3,0.749,0.771,0.073,0.892,6.835,6.665,0.013,0.012,0.164,0.6,0.725,0.772,0.748,0.796,0.066,0.08,0.564,0.637
+Rules v2: 'needs support' or 'check-in',pooled_gap_threshold_posthoc,0.33 (timing_neutral),3,0.589,0.902,0.178,0.841,10.195,6.665,0.01,0.012,0.164,0.813,0.566,0.613,0.881,0.92,0.167,0.19,0.783,0.841
+Random Forest (trained on v1 rule labels),pooled_gap_threshold_posthoc,0.33 (timing_neutral),3,0.961,0.508,0.005,0.889,3.555,6.665,0.017,0.01,0.164,0.068,0.939,0.98,0.478,0.541,0.003,0.007,0.05,0.088
+"Random Forest (oracle, true labels)",pooled_gap_threshold_posthoc,0.33 (timing_neutral),3,0.952,0.842,0.012,0.956,5.925,6.665,0.012,0.006,0.164,0.688,0.94,0.964,0.818,0.865,0.01,0.016,0.653,0.722
