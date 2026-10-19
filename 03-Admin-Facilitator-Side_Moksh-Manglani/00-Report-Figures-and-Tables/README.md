@@ -23,7 +23,7 @@ Every figure and table in Moksh's final report, taken from the submitted documen
 | File | Report caption | Source data |
 |---|---|---|
 | [`table-1.csv`](tables/table-1.csv) | **Table 1.** The two sides of the project | Meeting minutes, 12 May |
-| [`table-2.csv`](tables/table-2.csv) | **Table 2.** Existing models of education compared against the six criteria | [`01-Research`](../01-Research/); the April literature review in [`01-Submissions/02-Literature-Review`](../../01-Submissions/02-Literature-Review/) |
+| [`table-2.csv`](tables/table-2.csv) | **Table 2.** Existing models of education compared against the six criteria | [`01-Research`](../01-Research/); the April literature review in [`01-Submissions/01-Scope-and-Literature-Review`](../../01-Submissions/01-Scope-and-Literature-Review/) |
 | [`table-3.csv`](tables/table-3.csv) | **Table 3.** Sub-questions, how each is answered, and where it is reported | Report Chapter 4 |
 | [`table-4.csv`](tables/table-4.csv) | **Table 4.** Existing platforms and StudyBuddy rated against the six criteria | [`01-Research`](../01-Research/) |
 | [`table-5.csv`](tables/table-5.csv) | **Table 5.** Examples from the second heuristic review | [`05-Evaluation/EVALUATION_RESULTS.md`](../05-Evaluation/EVALUATION_RESULTS.md), section E1 |

@@ -72,7 +72,7 @@ From the second heuristic review and the technical tests (19 October 2026). Seve
 
 ## How to pick this up
 
-1. Read the root [`README.md`](../README.md), then both final reports in [`01-Submissions/06-Final-Report`](../01-Submissions/06-Final-Report/).
+1. Read the root [`README.md`](../README.md), then both final reports in [`01-Submissions/05-Final-Report`](../01-Submissions/05-Final-Report/).
 2. Read [`03-Design`](../03-Admin-Facilitator-Side_Moksh-Manglani/03-Design/) for how the platform works and why.
 3. Run the platform locally against your own Supabase project, following [`04-Code`](../03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/).
 4. Re-run the evaluation ([`05-Evaluation`](../03-Admin-Facilitator-Side_Moksh-Manglani/05-Evaluation/)) to confirm your setup matches ours.

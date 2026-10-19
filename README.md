@@ -63,12 +63,11 @@ UoA-Part-IV-Project-Research-Compendium/
 ├── assets/                                     Images used by the READMEs
 │
 ├── 01-Submissions/                             Everything submitted on Canvas, in order
-│   ├── 01-Project-Scope/                         Scope assignment and project plan
-│   ├── 02-Literature-Review/                     Moksh-Manglani/ and May-Thazin/
-│   ├── 03-Mid-Year-Report/                      Moksh-Manglani/ and May-Thazin/
-│   ├── 04-Conference-Presentation/              Joint slides and assessor feedback
-│   ├── 05-Display-Day-Poster/                   Joint poster
-│   └── 06-Final-Report/                         Moksh-Manglani/ and May-Thazin/
+│   ├── 01-Scope-and-Literature-Review/          Project scope and literature review
+│   ├── 02-Mid-Year-Report/                      Moksh-Manglani/ and May-Thazin/
+│   ├── 03-Conference-Presentation/              Joint slides
+│   ├── 04-Display-Day-Poster/                   Joint poster
+│   └── 05-Final-Report/                         Moksh-Manglani/ and May-Thazin/
 │
 ├── 02-General/                                 Shared, project-wide records
 │   ├── Meeting-Minutes/                         Every supervisor and team meeting, April to October
@@ -100,8 +99,8 @@ UoA-Part-IV-Project-Research-Compendium/
 
 | Report chapter | Where the supporting material is |
 |---|---|
-| 1. Introduction, 2. Project Plan | [`02-General/Project-Timeline.md`](02-General/Project-Timeline.md), [`02-General/Project-Document`](02-General/Project-Document/), [`01-Submissions/01-Project-Scope`](01-Submissions/01-Project-Scope/) |
-| 3. Literature Review | [`01-Research`](03-Admin-Facilitator-Side_Moksh-Manglani/01-Research/) (criteria and Table 2 data), [`01-Submissions/02-Literature-Review`](01-Submissions/02-Literature-Review/) (the full April review) |
+| 1. Introduction, 2. Project Plan | [`02-General/Project-Timeline.md`](02-General/Project-Timeline.md), [`02-General/Project-Document`](02-General/Project-Document/), [`01-Submissions/01-Scope-and-Literature-Review`](01-Submissions/01-Scope-and-Literature-Review/) |
+| 3. Literature Review | [`01-Research`](03-Admin-Facilitator-Side_Moksh-Manglani/01-Research/) (criteria and Table 2 data), [`01-Submissions/01-Scope-and-Literature-Review`](01-Submissions/01-Scope-and-Literature-Review/) (the full April review) |
 | 4. Research Approach | [`02-Informal-Feedback`](03-Admin-Facilitator-Side_Moksh-Manglani/02-Informal-Feedback/), [`06-AI-Use/for-code`](03-Admin-Facilitator-Side_Moksh-Manglani/06-AI-Use/for-code/) (the specifications), [`07-Ethics`](03-Admin-Facilitator-Side_Moksh-Manglani/07-Ethics/) |
 | 5. System Design | [`03-Design`](03-Admin-Facilitator-Side_Moksh-Manglani/03-Design/), [`04-Code`](03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/), [`06-AI-Use/for-design`](03-Admin-Facilitator-Side_Moksh-Manglani/06-AI-Use/for-design/) |
 | 6. Evaluation | [`05-Evaluation`](03-Admin-Facilitator-Side_Moksh-Manglani/05-Evaluation/) (every number in Tables 4 to 7 and A1 to A3), [`02-Informal-Feedback`](03-Admin-Facilitator-Side_Moksh-Manglani/02-Informal-Feedback/) |

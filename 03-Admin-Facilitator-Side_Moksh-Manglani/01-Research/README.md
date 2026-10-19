@@ -1,6 +1,6 @@
 # 01 · Research
 
-The research behind Part 1: the six criteria used to compare models of education, the gap they reveal, the evidence that a facilitator-based model could fill it, and the benchmark of StudyBuddy against existing platforms. The full April literature review is in [`01-Submissions/02-Literature-Review/Moksh-Manglani`](../../01-Submissions/02-Literature-Review/); this page is the condensed, reusable version.
+The research behind Part 1: the six criteria used to compare models of education, the gap they reveal, the evidence that a facilitator-based model could fill it, and the benchmark of StudyBuddy against existing platforms. The full April literature review is in [`01-Submissions/01-Scope-and-Literature-Review/Moksh-Manglani`](../../01-Submissions/01-Scope-and-Literature-Review/); this page is the condensed, reusable version.
 
 ## The six criteria
 
