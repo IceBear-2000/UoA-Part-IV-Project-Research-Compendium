@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Send } from "lucide-react";
 import { BlockType } from "@prisma/client";
 import { BLOCK_META } from "@/lib/block-meta";
 import { getBlockState, type LessonProgressState } from "@/lib/lesson-progress";
 import { resolveVideoEmbed } from "@/lib/video-embed";
 import type { WorksheetQuestion } from "@/lib/ai-worksheet";
+import { sendMessageAction } from "@/lib/messaging-actions";
 import { markBlockDone } from "../actions";
 
 type ClientBlock = {
@@ -230,6 +231,118 @@ function AiWorksheetBody({
   );
 }
 
+// Shown after a step is marked done: carry on, or send the admin a question first.
+function CheckpointPrompt({
+  stepNumber,
+  stepTitle,
+  adminId,
+  lessonName,
+  onContinue,
+}: {
+  stepNumber: number;
+  stepTitle: string;
+  adminId: string | null;
+  lessonName: string;
+  onContinue: () => void;
+}) {
+  const [asking, setAsking] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  async function send() {
+    if (!adminId || !question.trim() || state === "sending") return;
+    setState("sending");
+    try {
+      await sendMessageAction(
+        adminId,
+        `Question about "${lessonName}", step ${stepNumber} (${stepTitle}):\n${question.trim()}`,
+      );
+      setState("sent");
+    } catch {
+      setState("error");
+    }
+  }
+
+  return (
+    <div className="grid min-h-[380px] place-items-center text-center">
+      <div className="w-full max-w-[460px]">
+        <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full bg-sage text-white">
+          <Check className="h-7 w-7" strokeWidth={2.5} />
+        </div>
+        <h2 className="text-xl font-semibold tracking-tight">Step {stepNumber} done</h2>
+        <p className="mt-1 text-sm text-muted">{stepTitle}</p>
+
+        {state === "sent" ? (
+          <div className="mt-6">
+            <p className="text-sm text-ink">Question sent. Your admin will reply in the chat.</p>
+            <button
+              type="button"
+              onClick={onContinue}
+              className="mt-4 inline-flex items-center gap-2 rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover"
+            >
+              Continue <ArrowRight className="h-4 w-4" strokeWidth={2} />
+            </button>
+          </div>
+        ) : asking ? (
+          <div className="mt-6 text-left">
+            <label htmlFor="checkpoint-question" className="mb-1.5 block text-[13px] font-semibold">
+              Your question for the admin
+            </label>
+            <textarea
+              id="checkpoint-question"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              rows={3}
+              autoFocus
+              className="w-full rounded-input border border-line bg-white px-3 py-2.5 text-sm text-ink focus:border-clay focus:outline-none focus:ring-[3px] focus:ring-clay-soft"
+            />
+            {state === "error" && (
+              <p className="mt-2 text-[12.5px] text-[#8a4b58]">Could not send. Please try again.</p>
+            )}
+            <div className="mt-3 flex gap-2.5">
+              <button
+                type="button"
+                onClick={() => setAsking(false)}
+                className="rounded-input border border-line bg-white px-4 py-2.5 text-sm font-semibold shadow-paper hover:bg-bg-2"
+              >
+                Back
+              </button>
+              <button
+                type="button"
+                onClick={send}
+                disabled={!question.trim() || state === "sending"}
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover disabled:opacity-60"
+              >
+                <Send className="h-4 w-4" strokeWidth={2} />
+                {state === "sending" ? "Sending…" : "Send to admin"}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <button
+              type="button"
+              onClick={onContinue}
+              className="inline-flex items-center gap-2 rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover"
+            >
+              Continue <ArrowRight className="h-4 w-4" strokeWidth={2} />
+            </button>
+            {adminId && (
+              <button
+                type="button"
+                onClick={() => setAsking(true)}
+                className="rounded-input border border-line bg-white px-4 py-2.5 text-sm font-semibold shadow-paper hover:bg-bg-2"
+              >
+                Ask the admin a question
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export function LessonFlowPlayer({
   classId,
   subjectId,
@@ -239,6 +352,7 @@ export function LessonFlowPlayer({
   subjectName,
   blocks: initialBlocks,
   initialProgress,
+  adminId,
 }: {
   classId: string;
   subjectId: string;
@@ -248,6 +362,7 @@ export function LessonFlowPlayer({
   subjectName: string;
   blocks: ClientBlock[];
   initialProgress: LessonProgressState;
+  adminId: string | null;
 }) {
   const router = useRouter();
   const [blocks, setBlocks] = useState(initialBlocks);
@@ -258,6 +373,11 @@ export function LessonFlowPlayer({
       initialBlocks[0].id,
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [checkpoint, setCheckpoint] = useState<{
+    nextId: string;
+    stepNumber: number;
+    stepTitle: string;
+  } | null>(null);
 
   const activeIndex = blocks.findIndex((b) => b.id === activeBlockId);
   const activeBlock = blocks[activeIndex];
@@ -268,6 +388,7 @@ export function LessonFlowPlayer({
   function openStep(blockId: string) {
     const block = blocks.find((b) => b.id === blockId);
     if (!block || block.state === "locked") return;
+    setCheckpoint(null);
     setActiveBlockId(blockId);
   }
 
@@ -300,7 +421,9 @@ export function LessonFlowPlayer({
       }
 
       const next = blocks.find((b) => b.order === activeBlock.order + 1);
-      if (next) setActiveBlockId(next.id);
+      if (next) {
+        setCheckpoint({ nextId: next.id, stepNumber: activeIndex + 1, stepTitle: activeBlock.title });
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -417,6 +540,20 @@ export function LessonFlowPlayer({
         </div>
 
         <div className="min-h-[430px] rounded-card border border-line bg-surface p-[25px] shadow-paper">
+          {checkpoint ? (
+            <CheckpointPrompt
+              key={checkpoint.nextId}
+              stepNumber={checkpoint.stepNumber}
+              stepTitle={checkpoint.stepTitle}
+              adminId={adminId}
+              lessonName={lessonName}
+              onContinue={() => {
+                setActiveBlockId(checkpoint.nextId);
+                setCheckpoint(null);
+              }}
+            />
+          ) : (
+            <>
           <div className="mb-[18px] flex items-center gap-3">
             <div
               className={`grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl text-xl ${BLOCK_META[activeBlock.type].soft}`}
@@ -494,6 +631,8 @@ export function LessonFlowPlayer({
               </button>
             )}
           </div>
+            </>
+          )}
         </div>
       </div>
     </>

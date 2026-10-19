@@ -80,6 +80,13 @@ export default async function LessonFlowPage({
     }),
   );
 
+  // Where "Ask the admin a question" goes: the organisation's first admin, as in the chat.
+  const admin = await prisma.user.findFirst({
+    where: { role: "ADMIN", organisationId: user!.organisationId },
+    orderBy: { createdAt: "asc" },
+    select: { id: true },
+  });
+
   return (
     <LessonFlowPlayer
       classId={params.classId}
@@ -88,6 +95,7 @@ export default async function LessonFlowPage({
       lessonName={lesson.name}
       gradeName={assignment.class.name}
       subjectName={assignment.subject.name}
+      adminId={admin?.id ?? null}
       blocks={blocksForClient}
       initialProgress={{
         currentBlockIndex: progress.currentBlockIndex,
