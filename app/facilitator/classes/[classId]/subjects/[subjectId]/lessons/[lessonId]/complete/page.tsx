@@ -77,7 +77,7 @@ export default async function LessonCompletePage({
           </Link>
           <Link
             href={`/facilitator/classes/${params.classId}/subjects/${params.subjectId}`}
-            className="rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52]"
+            className="rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover"
           >
             Back to lessons →
           </Link>

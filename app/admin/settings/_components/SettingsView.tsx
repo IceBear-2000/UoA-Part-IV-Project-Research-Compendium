@@ -73,7 +73,7 @@ function ProfileForm({ initialName }: { initialName: string }) {
         <button
           type="submit"
           disabled={busy || !name.trim()}
-          className="w-fit rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52] disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-fit rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover disabled:cursor-not-allowed disabled:opacity-60"
         >
           {busy ? "Saving…" : "Save name"}
         </button>
@@ -156,7 +156,7 @@ function PasswordForm() {
         <button
           type="submit"
           disabled={busy || !currentPassword || !newPassword || !confirmPassword}
-          className="w-fit rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52] disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-fit rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover disabled:cursor-not-allowed disabled:opacity-60"
         >
           {busy ? "Changing…" : "Change password"}
         </button>
@@ -197,7 +197,7 @@ function OrganisationForm({ initialName }: { initialName: string }) {
         <button
           type="submit"
           disabled={busy || !name.trim()}
-          className="w-fit rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52] disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-fit rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover disabled:cursor-not-allowed disabled:opacity-60"
         >
           {busy ? "Saving…" : "Save organisation name"}
         </button>

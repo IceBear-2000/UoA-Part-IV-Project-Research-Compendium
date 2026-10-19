@@ -241,7 +241,7 @@ export function WorksheetWizard({ lessonId }: { lessonId: string }) {
             type="button"
             onClick={handleGenerate}
             disabled={!summary.trim() || selectedTypes.size === 0}
-            className="rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52] disabled:opacity-50"
+            className="rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover disabled:opacity-50"
           >
             Generate worksheet
           </button>
@@ -317,7 +317,7 @@ export function WorksheetWizard({ lessonId }: { lessonId: string }) {
           <button
             type="button"
             onClick={handleFinalize}
-            className="mb-2 w-full rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52]"
+            className="mb-2 w-full rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover"
           >
             Add worksheet block
           </button>

@@ -62,7 +62,7 @@ export default async function AdminHome() {
         </div>
         <Link
           href="/admin/lessons/new"
-          className="inline-flex items-center gap-2 rounded-input bg-clay px-[17px] py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52]"
+          className="inline-flex items-center gap-2 rounded-input bg-clay px-[17px] py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover"
         >
           ＋ Create lesson
         </Link>

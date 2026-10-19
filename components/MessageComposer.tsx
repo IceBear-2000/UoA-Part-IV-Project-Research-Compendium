@@ -37,7 +37,7 @@ export function MessageComposer({ onSend }: { onSend: (body: string) => Promise<
         type="button"
         onClick={handleSend}
         disabled={busy || !body.trim()}
-        className="rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52] disabled:cursor-not-allowed disabled:opacity-60"
+        className="rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover disabled:cursor-not-allowed disabled:opacity-60"
       >
         {busy ? "…" : "Send"}
       </button>

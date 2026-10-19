@@ -185,7 +185,7 @@ export default function AboutPage() {
 
             <Link
               href="/login"
-              className="mt-7 inline-flex items-center gap-2 rounded-input bg-clay px-5 py-3 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52]"
+              className="mt-7 inline-flex items-center gap-2 rounded-input bg-clay px-5 py-3 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover"
             >
               See it in action <ArrowRight className="h-4 w-4" strokeWidth={2} />
             </Link>
@@ -318,7 +318,7 @@ export default function AboutPage() {
           </p>
           <Link
             href="/login"
-            className="mt-5 inline-flex items-center gap-2 rounded-input bg-clay px-5 py-3 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52]"
+            className="mt-5 inline-flex items-center gap-2 rounded-input bg-clay px-5 py-3 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover"
           >
             Sign in <ArrowRight className="h-4 w-4" strokeWidth={2} />
           </Link>

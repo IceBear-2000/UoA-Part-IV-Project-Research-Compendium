@@ -115,7 +115,7 @@ export function RequestsView({
                 <button
                   type="button"
                   onClick={() => setApproving(r)}
-                  className="rounded-input bg-clay px-[13px] py-[7px] text-[13px] font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52]"
+                  className="rounded-input bg-clay px-[13px] py-[7px] text-[13px] font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover"
                 >
                   Approve
                 </button>

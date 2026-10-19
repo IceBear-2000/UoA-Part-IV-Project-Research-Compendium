@@ -88,7 +88,7 @@ export function ApproveModal({
           <button
             type="button"
             onClick={onClose}
-            className="mt-5 w-full rounded-input bg-clay py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52]"
+            className="mt-5 w-full rounded-input bg-clay py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover"
           >
             Done
           </button>
@@ -198,7 +198,7 @@ export function ApproveModal({
             type="button"
             onClick={handleApprove}
             disabled={busy}
-            className="flex-1 rounded-input bg-clay py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52] disabled:opacity-60"
+            className="flex-1 rounded-input bg-clay py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover disabled:opacity-60"
           >
             {busy ? "Approving…" : "Approve & send invite →"}
           </button>

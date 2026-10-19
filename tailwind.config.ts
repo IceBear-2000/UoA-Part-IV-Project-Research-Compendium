@@ -17,6 +17,7 @@ const config: Config = {
         line: "var(--line)",
         "line-soft": "var(--line-soft)",
         clay: "var(--clay)",
+        "clay-hover": "var(--clay-hover)",
         "clay-soft": "var(--clay-soft)",
         "clay-line": "var(--clay-line)",
         sage: "var(--sage)",

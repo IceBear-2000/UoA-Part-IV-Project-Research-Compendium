@@ -466,7 +466,7 @@ export function LessonFlowPlayer({
                 <button
                   type="button"
                   onClick={() => openStep(blocks[activeIndex + 1].id)}
-                  className="rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52]"
+                  className="rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover"
                 >
                   Next step →
                 </button>
@@ -475,7 +475,7 @@ export function LessonFlowPlayer({
               <button
                 type="button"
                 onClick={() => openStep(blocks[activeIndex + 1].id)}
-                className="rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52]"
+                className="rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover"
               >
                 Next step →
               </button>
@@ -484,7 +484,7 @@ export function LessonFlowPlayer({
                 type="button"
                 onClick={handleMarkDone}
                 disabled={isSubmitting}
-                className="rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52] disabled:opacity-60"
+                className="rounded-input bg-clay px-4 py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover disabled:opacity-60"
               >
                 {isSubmitting
                   ? "Saving…"

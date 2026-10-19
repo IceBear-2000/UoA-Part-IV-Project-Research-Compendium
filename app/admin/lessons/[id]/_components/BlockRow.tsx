@@ -438,7 +438,7 @@ function BlockEditForm({
       <div className="flex gap-2">
         <button
           type="submit"
-          className="rounded-input bg-clay px-4 py-2 text-[13px] font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52]"
+          className="rounded-input bg-clay px-4 py-2 text-[13px] font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover"
         >
           Save block
         </button>

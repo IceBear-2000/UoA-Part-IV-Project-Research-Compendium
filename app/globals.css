@@ -11,14 +11,15 @@
   --surface: #fcfaf4;
   /* primary text, soft warm near-black (never pure black) */
   --ink: #33302a;
-  /* secondary text */
-  --muted: #928b7c;
+  /* secondary text (all themes: at least 4.5:1 on every page background, WCAG AA) */
+  --muted: #635e54;
   /* default border / hairline divider */
   --line: #e4ddcc;
   --line-soft: #ede7da;
 
   /* primary accent — primary buttons, active states, focus rings */
-  --clay: #be8264;
+  --clay: #8c6049;
+  --clay-hover: #7e5642;
   --clay-soft: #eddfd4;
   --clay-line: #dcc4b2;
 
@@ -58,11 +59,12 @@
   --bg-2: #eeecf5;
   --surface: #ffffff;
   --ink: #2c2a38;
-  --muted: #8b8798;
+  --muted: #63616d;
   --line: #e7e4f0;
   --line-soft: #f0eef7;
 
-  --clay: #c9852e;
+  --clay: #956222;
+  --clay-hover: #86591f;
   --clay-soft: #f5e6cd;
   --clay-line: #e8c896;
 
@@ -89,11 +91,12 @@
   --bg-2: #e4e8ee;
   --surface: #ffffff;
   --ink: #1c2430;
-  --muted: #66707d;
+  --muted: #58606c;
   --line: #d7dce3;
   --line-soft: #e4e8ee;
 
   --clay: #2c4a6e;
+  --clay-hover: #284363;
   --clay-soft: #dfe7ef;
   --clay-line: #b9c8d8;
 

@@ -208,7 +208,7 @@ export function AssignModal({
             type="button"
             onClick={handleSave}
             disabled={busy || subjectsForClass.length === 0}
-            className="flex-1 rounded-input bg-clay py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-[#A96E52] disabled:opacity-60"
+            className="flex-1 rounded-input bg-clay py-2.5 text-sm font-semibold text-white shadow-paper transition-colors hover:bg-clay-hover disabled:opacity-60"
           >
             {busy ? "Saving…" : `Save ${classes.find((c) => c.id === classId)?.name ?? ""} →`}
           </button>
