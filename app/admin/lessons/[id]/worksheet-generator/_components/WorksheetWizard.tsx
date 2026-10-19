@@ -1,5 +1,6 @@
 "use client";
 
+import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { QuestionType, WorksheetDraft, WorksheetQuestion } from "@/lib/ai-worksheet";
@@ -390,7 +391,7 @@ function QuestionEditor({
             ↓
           </button>
           <button type="button" onClick={onRemove} className="text-muted hover:text-[#946b76]" title="Remove">
-            ✕
+            <X className="h-4 w-4" strokeWidth={2} aria-label="Remove" />
           </button>
         </div>
       </div>

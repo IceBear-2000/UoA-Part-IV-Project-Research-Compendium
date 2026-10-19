@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Inbox, School, BookOpen, Users, MessageSquare, LogOut, Info } from "lucide-react";
+import { BookOpen, GraduationCap, Home, Inbox, Info, LogOut, MessageSquare, School, Users } from "lucide-react";
 import { logout } from "@/lib/auth-actions";
 
 const NAV_ITEMS = [
@@ -37,7 +37,7 @@ export function AdminSidebar({
     <aside className="sticky top-0 flex h-screen flex-col gap-[3px] border-r border-line bg-bg-2 p-4 pt-6">
       <div className="flex items-center gap-2.5 px-2.5 pb-[22px] pt-1.5 text-lg font-bold tracking-tight font-heading">
         <div className="grid h-[30px] w-[30px] place-items-center rounded-[9px] bg-clay text-base text-white">
-          📚
+          <GraduationCap className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden />
         </div>
         StudyBuddy
       </div>

@@ -64,7 +64,7 @@ export function BlockTypePicker({
                   <div
                     className={`grid h-8 w-8 flex-shrink-0 place-items-center rounded-[9px] text-base ${meta.soft}`}
                   >
-                    {meta.icon}
+                    <meta.icon className="h-5 w-5" strokeWidth={2} aria-hidden />
                   </div>
                   <div>
                     <strong className="text-sm">{meta.label}</strong>
@@ -90,7 +90,7 @@ export function BlockTypePicker({
                   <div
                     className={`mx-auto mb-2 grid h-9 w-9 place-items-center rounded-[9px] text-[17px] ${meta.soft}`}
                   >
-                    {meta.icon}
+                    <meta.icon className="h-5 w-5" strokeWidth={2} aria-hidden />
                   </div>
                   <small className="text-xs font-semibold">{meta.label}</small>
                 </button>

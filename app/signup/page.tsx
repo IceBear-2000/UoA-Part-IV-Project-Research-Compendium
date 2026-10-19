@@ -1,3 +1,4 @@
+import { Check, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { requestAccess } from "./actions";
 import { SubmitButton } from "@/components/SubmitButton";
@@ -22,7 +23,7 @@ export default function SignupPage({
         />
         <div className="relative flex items-center gap-2.5 text-lg font-bold tracking-tight">
           <div className="grid h-[30px] w-[30px] place-items-center rounded-[9px] bg-white/20 text-base">
-            📚
+            <GraduationCap className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden />
           </div>
           StudyBuddy
         </div>
@@ -44,7 +45,7 @@ export default function SignupPage({
         <div className="w-full max-w-[356px]">
           <div className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight">
             <div className="grid h-8 w-8 place-items-center rounded-[9px] bg-clay text-base text-white">
-              📚
+              <GraduationCap className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden />
             </div>
             StudyBuddy
           </div>
@@ -52,7 +53,7 @@ export default function SignupPage({
           {searchParams?.submitted ? (
             <>
               <div className="mt-6 grid h-14 w-14 place-items-center rounded-full bg-sage text-2xl text-white">
-                ✓
+                <Check className="h-7 w-7" strokeWidth={2.5} aria-hidden />
               </div>
               <h1 className="mt-4 text-[23px] font-bold tracking-tight">
                 Request sent

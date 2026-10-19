@@ -1,3 +1,4 @@
+import { GraduationCap } from "lucide-react";
 import { getCurrentUser } from "@/lib/auth";
 import { SubmitButton } from "@/components/SubmitButton";
 import { setPassword } from "./actions";
@@ -16,7 +17,7 @@ export default async function SetPasswordPage({
       <div className="w-full max-w-[356px]">
         <div className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight">
           <div className="grid h-8 w-8 place-items-center rounded-[9px] bg-clay text-base text-white">
-            📚
+            <GraduationCap className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden />
           </div>
           StudyBuddy
         </div>

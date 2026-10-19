@@ -1,3 +1,4 @@
+import { GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { login } from "./actions";
 
@@ -21,7 +22,7 @@ export default function LoginPage({
         />
         <div className="relative flex items-center gap-2.5 text-lg font-bold tracking-tight">
           <div className="grid h-[30px] w-[30px] place-items-center rounded-[9px] bg-white/20 text-base">
-            📚
+            <GraduationCap className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden />
           </div>
           StudyBuddy
         </div>
@@ -47,7 +48,7 @@ export default function LoginPage({
         <div className="w-full max-w-[356px]">
           <div className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight">
             <div className="grid h-8 w-8 place-items-center rounded-[9px] bg-clay text-base text-white">
-              📚
+              <GraduationCap className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden />
             </div>
             StudyBuddy
           </div>

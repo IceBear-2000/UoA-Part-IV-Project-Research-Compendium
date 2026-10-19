@@ -1,3 +1,4 @@
+import { Check, CalendarCheck } from "lucide-react";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
@@ -35,8 +36,8 @@ export default async function LessonCompletePage({
   return (
     <div className="grid min-h-[70vh] place-items-center text-center">
       <div className="max-w-[460px] rounded-2xl border border-line bg-surface p-11 shadow-paper">
-        <div className="mx-auto mb-6 grid h-[90px] w-[90px] place-items-center rounded-full bg-sage text-4xl text-white">
-          ✓
+        <div className="mx-auto mb-6 grid h-[90px] w-[90px] place-items-center rounded-full bg-sage text-white">
+          <Check className="h-11 w-11" strokeWidth={2.5} aria-hidden />
         </div>
         <h1 className="text-[25px] font-bold tracking-tight">Lesson complete</h1>
         <p className="mt-2 text-[15px] text-muted">
@@ -45,8 +46,8 @@ export default async function LessonCompletePage({
           {assignment.class.name} · {assignment.subject.name} · {lesson.name}
         </p>
         <div className="my-[22px] flex items-center gap-3.5 rounded-card bg-bg p-4 text-left">
-          <div className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl bg-sage-soft text-lg">
-            📅
+          <div className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl bg-sage-soft">
+            <CalendarCheck className="h-5 w-5 text-[#4f6445]" strokeWidth={2} aria-hidden />
           </div>
           <div>
             <strong className="text-sm">Marked complete</strong>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink, GraduationCap } from "lucide-react";
 import { ClassBanner } from "@/lib/class-banner";
 import { PitchExpand } from "./_components/PitchExpand";
 
@@ -148,7 +148,7 @@ export default function AboutPage() {
       <header className="mx-auto flex w-full max-w-[1180px] items-center justify-between px-6 pb-4 pt-8 md:px-11">
         <Link href="/login" className="flex items-center gap-2.5 text-lg font-bold tracking-tight">
           <div className="grid h-[30px] w-[30px] place-items-center rounded-[9px] bg-clay text-base text-white">
-            📚
+            <GraduationCap className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden />
           </div>
           StudyBuddy
         </Link>

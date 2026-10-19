@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Inbox, School, BookOpen, Users, MessageSquare, LogOut } from "lucide-react";
+import { BookOpen, GraduationCap, Home, Inbox, LogOut, MessageSquare, School, Users } from "lucide-react";
 import { logout } from "@/lib/auth-actions";
 import { SettingsMenu } from "./SettingsMenu";
 
@@ -39,7 +39,7 @@ export function AdminTopNav({
       <div className="flex items-center gap-5 px-6 py-3">
         <div className="flex items-center gap-2.5 text-[15px] font-bold tracking-tight font-heading">
           <div className="grid h-7 w-7 place-items-center rounded-[8px] bg-clay text-sm text-white">
-            📚
+            <GraduationCap className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden />
           </div>
           StudyBuddy
         </div>

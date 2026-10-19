@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, Check, Send } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Lock, Printer, Send } from "lucide-react";
 import { BlockType } from "@prisma/client";
 import { BLOCK_META } from "@/lib/block-meta";
 import { getBlockState, type LessonProgressState } from "@/lib/lesson-progress";
@@ -110,7 +110,7 @@ function StageBody({ block }: { block: ClientBlock }) {
               onClick={() => window.print()}
               className="mt-4 inline-flex items-center gap-2 rounded-input border border-line bg-white px-3.5 py-2 text-sm font-semibold shadow-paper hover:bg-bg-2"
             >
-              🖨️ Print worksheet
+              <Printer className="h-4 w-4" strokeWidth={2} aria-hidden /> Print worksheet
             </button>
           </div>
         </div>
@@ -173,7 +173,7 @@ function AiWorksheetBody({
             onClick={() => window.print()}
             className="rounded-input border border-line bg-white px-3 py-1.5 text-xs font-semibold shadow-paper hover:bg-bg-2"
           >
-            🖨️ Print
+            <Printer className="h-3.5 w-3.5" strokeWidth={2} aria-hidden /> Print
           </button>
         </div>
       </div>
@@ -498,7 +498,13 @@ export function LessonFlowPlayer({
                           : "border-line bg-surface text-muted"
                     }`}
                   >
-                    {showsCheck ? "✓" : block.state === "locked" ? "🔒" : i + 1}
+                    {showsCheck ? (
+                      <Check className="h-4 w-4" strokeWidth={3} aria-label="Done" />
+                    ) : block.state === "locked" ? (
+                      <Lock className="h-3.5 w-3.5" strokeWidth={2} aria-label="Locked" />
+                    ) : (
+                      i + 1
+                    )}
                   </div>
                   {!isLast && (
                     <div
@@ -556,9 +562,9 @@ export function LessonFlowPlayer({
             <>
           <div className="mb-[18px] flex items-center gap-3">
             <div
-              className={`grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl text-xl ${BLOCK_META[activeBlock.type].soft}`}
+              className={`grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl ${BLOCK_META[activeBlock.type].soft}`}
             >
-              {BLOCK_META[activeBlock.type].icon}
+              {(() => { const Icon = BLOCK_META[activeBlock.type].icon; return <Icon className="h-5 w-5" strokeWidth={2} aria-hidden />; })()}
             </div>
             <div>
               <h2 className="text-lg font-semibold tracking-tight">{activeBlock.title}</h2>
@@ -597,7 +603,7 @@ export function LessonFlowPlayer({
                   onClick={goToCompletion}
                   className="rounded-input border border-line bg-white px-4 py-2.5 text-sm font-semibold shadow-paper hover:bg-bg-2"
                 >
-                  View completion ✓
+                  View completion
                 </button>
               ) : (
                 <button
@@ -626,7 +632,7 @@ export function LessonFlowPlayer({
                 {isSubmitting
                   ? "Saving…"
                   : activeIndex === blocks.length - 1
-                    ? "Mark done & finish lesson ✓"
+                    ? "Mark done and finish lesson"
                     : "Mark step done & continue →"}
               </button>
             )}

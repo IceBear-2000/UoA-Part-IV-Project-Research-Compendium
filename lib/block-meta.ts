@@ -1,4 +1,16 @@
 import { BlockType } from "@prisma/client";
+import {
+  CircleCheck,
+  CirclePause,
+  Dices,
+  FileText,
+  BookOpen,
+  MessageSquare,
+  NotebookText,
+  StickyNote,
+  Video,
+  type LucideIcon,
+} from "lucide-react";
 
 export const BLOCK_TYPES: BlockType[] = [
   BlockType.VIDEO,
@@ -14,66 +26,66 @@ export const BLOCK_TYPES: BlockType[] = [
 
 export const BLOCK_META: Record<
   BlockType,
-  { icon: string; soft: string; text: string; label: string; description: string }
+  { icon: LucideIcon; soft: string; text: string; label: string; description: string }
 > = {
   VIDEO: {
-    icon: "🎬",
+    icon: Video,
     soft: "bg-clay-soft",
     text: "text-[#8c5538]",
     label: "Video",
     description: "A video to play for the class. Add a link and how long it runs.",
   },
   WORKBOOK: {
-    icon: "📓",
+    icon: NotebookText,
     soft: "bg-blue-soft",
     text: "text-[#54707f]",
     label: "Workbook",
     description: "Points to pages in the printed workbook. We just note the page range.",
   },
   ACTIVITY: {
-    icon: "🎲",
+    icon: Dices,
     soft: "bg-gold-soft",
     text: "text-[#8d7426]",
     label: "Activity",
     description: "A hands-on or group activity. Write clear step-by-step instructions.",
   },
   WORKSHEET: {
-    icon: "📄",
+    icon: FileText,
     soft: "bg-sage-soft",
     text: "text-[#5f7355]",
     label: "Worksheet",
     description: "A printable handout. Facilitators view and print it for the class.",
   },
   READING: {
-    icon: "📖",
+    icon: BookOpen,
     soft: "bg-rose-soft",
     text: "text-[#946b76]",
     label: "Reading",
     description: "A passage or text for students to read, together or independently.",
   },
   QUIZ: {
-    icon: "✅",
+    icon: CircleCheck,
     soft: "bg-blue-soft",
     text: "text-[#54707f]",
     label: "Quiz",
     description: "A quick set of questions to check understanding.",
   },
   DISCUSSION: {
-    icon: "💬",
+    icon: MessageSquare,
     soft: "bg-gold-soft",
     text: "text-[#8d7426]",
     label: "Discussion",
     description: "A guided class discussion. Add prompt questions or talking points.",
   },
   BREAK: {
-    icon: "⏸️",
+    icon: CirclePause,
     soft: "bg-sage-soft",
     text: "text-[#5f7355]",
     label: "Break",
     description: "Schedule a break!",
   },
   NOTE: {
-    icon: "📌",
+    icon: StickyNote,
     soft: "bg-bg-2",
     text: "text-ink",
     label: "Note",

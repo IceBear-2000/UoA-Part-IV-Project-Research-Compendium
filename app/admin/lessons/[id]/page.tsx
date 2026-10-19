@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Sparkles } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { LessonStatus } from "@prisma/client";
 import { updateLesson, togglePublish } from "../actions";
@@ -62,9 +62,10 @@ export default async function EditLessonPage({
           </span>
           <Link
             href={`/admin/lessons/${lesson.id}/worksheet-generator`}
-            className="rounded-input border border-line bg-white px-4 py-2 text-sm font-semibold shadow-paper hover:bg-bg-2"
+            className="inline-flex items-center gap-1.5 rounded-input border border-line bg-white px-4 py-2 text-sm font-semibold shadow-paper hover:bg-bg-2"
           >
-            ✨ Generate AI worksheet
+            <Sparkles className="h-4 w-4" strokeWidth={2} aria-hidden />
+            Generate AI worksheet
           </Link>
           <form
             action={togglePublish.bind(

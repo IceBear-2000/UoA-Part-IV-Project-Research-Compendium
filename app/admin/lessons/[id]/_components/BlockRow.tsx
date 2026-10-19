@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Trash2 } from "lucide-react";
+import { Paperclip, Trash2 } from "lucide-react";
 import { BlockType } from "@prisma/client";
 import { BLOCK_META, summarizeContent } from "@/lib/block-meta";
 import { getBlockFilePreviewUrl } from "../file-actions";
@@ -87,9 +87,9 @@ export function BlockRow({
           ⠿
         </span>
         <div
-          className={`grid h-[38px] w-[38px] flex-shrink-0 place-items-center rounded-[10px] text-lg ${meta.soft}`}
+          className={`grid h-[38px] w-[38px] flex-shrink-0 place-items-center rounded-[10px] ${meta.soft}`}
         >
-          {meta.icon}
+          <meta.icon className="h-5 w-5" strokeWidth={2} aria-hidden />
         </div>
         <button type="button" onClick={onToggleExpand} className="flex-1 text-left">
           <strong className="text-sm">{block.title}</strong>
@@ -196,7 +196,8 @@ function FileUploadField({
             onClick={handlePreview}
             className="truncate text-left text-sm font-medium text-clay underline"
           >
-            📎 {fileName}
+            <Paperclip className="mr-1 inline h-3.5 w-3.5 align-[-2px]" strokeWidth={2} aria-hidden />
+            {fileName}
           </button>
           <button
             type="button"
@@ -339,7 +340,7 @@ function BlockEditForm({
           <p className="rounded-input border border-line bg-bg-2 px-3 py-2.5 text-[13px] text-muted">
             AI-generated worksheet · {content.questions.length} question
             {content.questions.length === 1 ? "" : "s"}. Edit questions and the answer key from the
-            lesson page&apos;s <strong>✨ Generate AI worksheet</strong> button.
+            lesson page&apos;s <strong>Generate AI worksheet</strong> button.
           </p>
         ) : (
           <>

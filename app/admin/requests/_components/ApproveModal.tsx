@@ -1,5 +1,6 @@
 "use client";
 
+import { Check, X } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { approveRequest } from "../actions";
@@ -69,8 +70,8 @@ export function ApproveModal({
     return (
       <div className="fixed inset-0 z-50 grid place-items-center bg-[rgba(51,48,42,0.34)]">
         <div className="w-[460px] max-w-[92vw] rounded-2xl border border-line bg-surface p-[26px] shadow-paper-2">
-          <div className="mb-4 grid h-11 w-11 place-items-center rounded-full bg-sage text-xl text-white">
-            ✓
+          <div className="mb-4 grid h-11 w-11 place-items-center rounded-full bg-sage text-white">
+            <Check className="h-6 w-6" strokeWidth={2.5} aria-hidden />
           </div>
           <h3 className="text-lg font-semibold tracking-tight">
             {request.name} is approved
@@ -132,7 +133,7 @@ export function ApproveModal({
                     onClick={() => handleUnstage(s.classId, s.subjectId)}
                     disabled={busy}
                   >
-                    ✕
+                    <X className="h-3.5 w-3.5" strokeWidth={2.5} aria-label="Remove" />
                   </button>
                 </span>
               ))}
