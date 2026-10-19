@@ -1,0 +1,8 @@
+model,typical,careful_reviser,poor_comprehender,decoding_limited,mixed
+Score only (accuracy < 75%),0.104,0.076,0.422,0.644,0.801
+Rules v1: 'needs support' only,0.056,0.076,0.207,0.644,0.801
+Rules v1: 'needs support' or 'check-in',0.852,0.998,0.916,1.0,1.0
+Rules v2: 'needs support' only,0.102,0.092,0.501,0.669,0.815
+Rules v2: 'needs support' or 'check-in',0.267,0.53,0.651,1.0,0.993
+Random Forest (trained on v1 rule labels),0.056,0.076,0.202,0.644,0.801
+"Random Forest (oracle, true labels)",0.01,0.019,0.577,1.0,0.948

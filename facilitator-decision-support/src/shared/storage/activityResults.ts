@@ -3,7 +3,11 @@
 import type { ActivityResult } from "@/shared/types/activity";
 
 const storageKey = "partiv.activityResults";
+// Large enough for a class of 30 to complete all three passages twice, so
+// prior sessions are still available when the engine pools passages.
+const maxStoredResults = 200;
 const listeners = new Set<() => void>();
+const emptyServerResults: ActivityResult[] = [];
 let cachedRawResults: string | null = null;
 let cachedResults: ActivityResult[] = [];
 
@@ -37,7 +41,7 @@ export function getActivityResultsSnapshot(): ActivityResult[] {
 }
 
 export function getServerActivityResultsSnapshot(): ActivityResult[] {
-  return [];
+  return emptyServerResults;
 }
 
 export function subscribeActivityResults(listener: () => void) {
@@ -65,7 +69,24 @@ export function saveActivityResult(result: ActivityResult) {
   const existingResults = loadActivityResults();
   window.localStorage.setItem(
     storageKey,
-    JSON.stringify([result, ...existingResults].slice(0, 20)),
+    JSON.stringify([result, ...existingResults].slice(0, maxStoredResults)),
+  );
+  cachedRawResults = null;
+  notifyActivityResultListeners();
+}
+
+/** Replaces every stored result whose session id starts with `idPrefix`
+ * with `results` (newest first), keeping all other results. */
+export function replaceActivityResultsWithPrefix(
+  idPrefix: string,
+  results: ActivityResult[],
+) {
+  const kept = loadActivityResults().filter(
+    (result) => !result.response.id.startsWith(idPrefix),
+  );
+  window.localStorage.setItem(
+    storageKey,
+    JSON.stringify([...results, ...kept].slice(0, maxStoredResults)),
   );
   cachedRawResults = null;
   notifyActivityResultListeners();
