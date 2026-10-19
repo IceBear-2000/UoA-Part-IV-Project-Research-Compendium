@@ -61,9 +61,10 @@ Rerunning reproduces the committed result tables in `results_v2/`. See the code 
 
 ## Checklist for May
 
-- [ ] Add your individual Canvas submissions to `01-Submissions/*/May-Thazin/` (scope, literature review, mid-year report, final report) as the exact submitted PDFs
+- [x] Shared Drive copies of the literature review, mid-year report and final report added to `01-Submissions/*/May-Thazin/`. Replace them with the exact PDFs uploaded to Canvas if they differ
 - [ ] Fill in the report chapter to compendium map above
-- [ ] Add research notes to `01-Research/` (for example, the reading-comprehension and learner-interaction literature, the five dimensions, the benchmark against Kami)
+- [x] Working research documents added to `01-Research/`
+- [ ] Add any further research notes to `01-Research/` (for example, the reading-comprehension and learner-interaction literature, the five dimensions, the benchmark against Kami)
 - [ ] Add design records to `02-Design/` (system design diagram, rule definitions, dashboard mock-ups)
 - [ ] Write `04-Evaluation/README.md`: what was simulated, why, how to rerun, and which result file backs each figure or table in your report
 - [ ] Write `05-AI-Use/README.md`: which tools you used and for what
