@@ -18,7 +18,7 @@ Each folder is split by author so that individual work is always clearly identif
 
 The research compendium itself (this repository) is the sixth submission, made jointly on 20 October 2026.
 
-May's three documents were exported from the project's shared Google Drive and converted to PDF, so their page layout may differ slightly from the files she uploaded to Canvas.
+May's literature review and mid-year report were exported from the project's shared Google Drive and converted to PDF, so their page layout may differ slightly from the files she uploaded to Canvas. Her final report is the PDF she submitted.
 
 ## How the submissions connect
 
