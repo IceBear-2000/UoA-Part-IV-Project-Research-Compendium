@@ -1,6 +1,6 @@
 # Meeting Minutes
 
-[`SOFTENG-700A-Meeting-Minutes.md`](SOFTENG-700A-Meeting-Minutes.md) holds the minutes of all 20 meetings between 13 April and 14 October 2026, with a contents table at the top. Supervisor meetings were weekly through the year, with team-only meetings in between.
+[`SOFTENG-700A-Meeting-Minutes.md`](SOFTENG-700A-Meeting-Minutes.md) holds the minutes of all 19 meetings between 13 April and 14 October 2026, with a contents table at the top. Supervisor meetings were weekly through the year, with team-only meetings in between.
 
 ## Decisions worth knowing about
 

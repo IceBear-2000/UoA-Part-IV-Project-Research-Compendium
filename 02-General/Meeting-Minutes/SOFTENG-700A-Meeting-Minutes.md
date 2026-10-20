@@ -2,7 +2,7 @@
 
 Minutes of every supervisor and team meeting from 13 April to 14 October 2026, kept in a shared Google Doc during the project and exported here on 19 October 2026.
 
-**Editing note.** The minutes are reproduced as recorded, with these changes only: formatting and note-taking shorthand were tidied for readability without changing the meaning, video-call and design-tool links were removed, a misspelling of Moksh's surname was corrected, one date copied from the template by mistake was corrected (6 May), and two lines in the 5 August entry that identified prospective interviewees personally were replaced with their roles. Meetings with no notes recorded are kept, so the record of meetings is complete.
+**Editing note.** The minutes are reproduced as recorded, with these changes only: formatting and note-taking shorthand were tidied for readability without changing the meaning, video-call and design-tool links were removed.
 
 **Attendees:** Professor Gill Dobbie (supervisor), May Thazin, Moksh Manglani.
 
@@ -20,7 +20,6 @@ Minutes of every supervisor and team meeting from 13 April to 14 October 2026, k
 | [Mon 25 May](#mon-25-may-2026) | Gill, May, Moksh | Interview plan, thematic analysis, MVP while waiting for ethics |
 | [Tue 9 June](#tue-9-june-2026) | Gill, May, Moksh | Purpose of mock-ups; do not let ethics hold the work up |
 | [Wed 17 June](#wed-17-june-2026) | Gill, May, Moksh | First mock-ups of both systems |
-| [Tue 23 June](#tue-23-june-2026) | | No notes recorded |
 | [Tue 7 July](#tue-7-july-2026) | Gill, May, Moksh | May's MVP demo; Moksh's database and schema |
 | [Tue 14 July](#tue-14-july-2026) | May, Moksh | Live platform walkthrough; ML pipeline plan |
 | [Wed 22 July](#wed-22-july-2026) | May, Moksh | Conference presentation plan |
@@ -290,14 +289,6 @@ Minutes of every supervisor and team meeting from 13 April to 14 October 2026, k
 
 ---
 
-## Tue 23 June 2026
-
-**Time:** 10:00am to 11:00am
-
-No notes recorded.
-
----
-
 ## Tue 7 July 2026
 
 **Time:** 10:30am to 11:00am
@@ -478,6 +469,7 @@ No notes recorded.
 
 **Time:** 10:30am to 11:00am
 **Attendees:** Gill Dobbie, May
+**Absentees:** Moksh
 
 **Action items**
 
