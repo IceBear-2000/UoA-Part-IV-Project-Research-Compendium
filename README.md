@@ -16,6 +16,8 @@
 > **Reading this from the zip?** Most of the files in this folder are Markdown (`.md`) files, which are written to be read on GitHub. We recommend viewing our research compendium on GitHub instead, where every file opens in one click, the tables and diagrams display properly, and you can browse everything much faster:
 >
 > **https://github.com/IceBear-2000/UoA-Part-IV-Project-Research-Compendium**
+>
+> **In the zip,** a PDF copy of this README is included as `README.pdf`, which is the easiest file to open first. To keep the zip tidy, each codebase is packed as its own zip inside its folder: `03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/StudyBuddy-Platform.zip` and `04-Facilitator-Student-Side_May-Thazin/03-Code/partIV-facilitator-decision-support.zip`. Unzip each one where it sits (it recreates its folder, and the links in the documents then work). Everything else opens straight away.
 
 This repository is the research compendium for **Part IV Project #133**, *Making Education More Accessible and Reliable: AI-Driven Facilitator-Based Teaching*, completed in the Department of Electrical, Computer and Software Engineering at the University of Auckland in 2026.
 
@@ -26,7 +28,7 @@ This is a joint project in **two equal parts**, one by each student. The compend
 | **Students** | Moksh Manglani (`mman402`) and May Thazin (`mtha724`) |
 | **Supervisor** | Professor Gill Dobbie, School of Computer Science |
 | **Course** | SOFTENG 700A/B, Part IV Research Project, 2026 |
-| **Canvas submission** | `133_mman402_mtha724-compendium.zip` (a zip of this repository) |
+| **Canvas submission** | `133_mman402_mtha724-compendium.zip` (a zip of this repository, with the two code folders packed as their own zips and a PDF copy of this README) |
 | **Part 1 code** | StudyBuddy platform, in [`03-.../04-Code`](03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/) · live at [study-buddy-uoa-project.vercel.app](https://study-buddy-uoa-project.vercel.app) |
 | **Part 2 code** | Facilitator decision-support tool, in [`04-.../03-Code`](04-Facilitator-Student-Side_May-Thazin/03-Code/) · original repository [mtha724/partIV-facilitator-decision-support](https://github.com/mtha724/partIV-facilitator-decision-support) |
 
@@ -70,7 +72,15 @@ flowchart LR
 - The site holds sample content only. There are no student accounts and no student data.
 - These are shared demo accounts, so please do not delete the existing lessons.
 
-### Display Day demo (in development)
+### Try the Display Day demo here
+
+<p align="center">
+  <a href="https://www.canvaqr.com/RGU2gwvAbt"><img src="assets/display-day-qr.png" alt="QR code from the Display Day poster, labelled Try It Yourself" width="240"></a>
+</p>
+
+<p align="center"><strong>Scan the QR code with your phone</strong>, or open <a href="https://www.canvaqr.com/RGU2gwvAbt">https://www.canvaqr.com/RGU2gwvAbt</a>. This is the QR code on our Display Day poster.</p>
+
+#### About the Display Day demo (in development)
 
 A public, no-login demo for Display Day (22 October 2026) is being built. A visitor scans the QR code on the poster, makes a two-minute mini lesson on their phone (a photo, meme, clip or YouTube link, plus a quick quiz) and receives an author badge. Their lesson is saved as a draft in a "Display Day" class on the live platform, and the badges scroll on a "Hall of Fame" wall at the stand.
 
