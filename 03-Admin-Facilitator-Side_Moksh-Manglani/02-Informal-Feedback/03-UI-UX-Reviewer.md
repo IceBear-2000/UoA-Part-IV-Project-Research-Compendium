@@ -9,32 +9,32 @@
 
 **In one paragraph.** A first-time user found a lesson without help and understood the locked steps straight away. Her fixes were small and specific: clearer labels on lesson cards, a back button inside a lesson, a visible way to remove a facilitator's access, "Delete" where the button said "Confirm", and more contrast between cards and their background.
 
-> Quotes come from a machine transcript with filler words removed. Times are positions in the recording.
+> Quotes are lightly tidied for readability.
 
 ## What worked
 
-1. **She found a lesson on her own.** Asked to act as a Grade 4 maths teacher, she went class, then subject, then lesson with no help: "it's pretty clear what it is". (05:04)
-2. **She understood the locked steps at once.** "You have to do one step to get to the next step, which is good." (07:05)
-3. **The lesson player needs nothing.** "Pretty straightforward, I don't think you need to change anything." She considered asking for part labels, then saw "step one of three" and withdrew it. (08:38)
-4. **She read the approval step correctly**, as a controlled system where nobody can just sign in. (11:26)
-5. **Clean and uncluttered.** Login: good colours, easy to read, "clear instead of clutter". She liked the dashboard greeting with the facilitator's name. (03:04, 03:56)
-6. **Sidebar over top bar.** "That's what I'm used to." (18:10)
-7. **Keep both list and card views.** Cards look good; the list is easier to scroll with many facilitators. (13:13)
-8. **The curriculum filter helps** make lessons easier to browse. (17:25)
+1. **She found a lesson on her own.** Asked to act as a Grade 4 maths teacher, she went class, then subject, then lesson with no help: "it's pretty clear what it is".
+2. **She understood the locked steps at once.** "You have to do one step to get to the next step, which is good."
+3. **The lesson player needs nothing.** "Pretty straightforward, I don't think you need to change anything." She considered asking for part labels, then saw "step one of three" and withdrew it.
+4. **She read the approval step correctly**, as a controlled system where nobody can just sign in.
+5. **Clean and uncluttered.** Login: good colours, easy to read, "clear instead of clutter". She liked the dashboard greeting with the facilitator's name.
+6. **Sidebar over top bar.** "That's what I'm used to."
+7. **Keep both list and card views.** Cards look good; the list is easier to scroll with many facilitators.
+8. **The curriculum filter helps** make lessons easier to browse.
 
 ## What confused her
 
-9. **Labels on lesson cards.** She read "3 steps" as a three-step method for multiplication, and could not tell whether the time was for her or for the students. (05:47 to 06:32)
-10. **No obvious way back from a lesson** to the lesson list. (09:31)
-11. **Removing access is hidden.** "Assign" means adding only; she expected a direct remove option. (12:17 to 13:00)
-12. **"Confirm" on removing a block.** She wanted the button to say "Delete". (15:54)
-13. **How fast the admin replies** was her first question about the chat. (10:30)
+9. **Labels on lesson cards.** She read "3 steps" as a three-step method for multiplication, and could not tell whether the time was for her or for the students.
+10. **No obvious way back from a lesson** to the lesson list.
+11. **Removing access is hidden.** "Assign" means adding only; she expected a direct remove option.
+12. **"Confirm" on removing a block.** She wanted the button to say "Delete".
+13. **How fast the admin replies** was her first question about the chat.
 
 ## What she would change in the look
 
-14. **More contrast, not a new theme.** The lessons page "looks a bit too boring to my brain" because cards are close in colour to the background. (16:53, 18:33)
-15. **Slightly bigger dashboard cards**, a personal preference. (04:29)
-16. **Cartoon characters, then no.** She suggested fun images for children, then withdrew it because the facilitator runs the screen and it could distract. (19:29 to 19:54)
+14. **More contrast, not a new theme.** The lessons page "looks a bit too boring to my brain" because cards are close in colour to the background.
+15. **Slightly bigger dashboard cards**, a personal preference.
+16. **Cartoon characters, then no.** She suggested fun images for children, then withdrew it because the facilitator runs the screen and it could distract.
 
 ## Design decisions this led to
 
@@ -55,5 +55,5 @@
 
 - It was a guided walkthrough, not a usability test: the project was explained first and most screens were narrated. No task success rates are claimed.
 - Only some tasks were tried unaided. Finding a lesson was done alone; removing access needed a prompt; running a lesson, drafts and publishing were explained rather than attempted.
-- Three suggestions on the recording ("more guided walkthroughs", "more hierarchy", "customisation based on the facilitator's personality") were the interviewer's words, not hers, and are not attributed to her.
+- Three suggestions made during the session ("more guided walkthroughs", "more hierarchy", "customisation based on the facilitator's personality") were the interviewer's words, not hers, and are not attributed to her.
 - She is a friend, so her criticisms are the more reliable half of the feedback.

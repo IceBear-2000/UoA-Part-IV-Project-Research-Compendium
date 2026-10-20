@@ -14,7 +14,7 @@ The project first planned a formal interview study under the University's human 
 4. **Look for themes across sources.** An informal thematic analysis (after Braun and Clarke) grouped points across the chats; see the table below.
 5. **Separate their words from ours.** Where a point was the interviewer's summary and the person only agreed, it is marked as such and not quoted as theirs.
 
-**Anonymity.** People are identified by role only. One reviewer asked not to be named. Recordings and transcripts were personal notes and are not included.
+**Anonymity.** People are identified by role only. One reviewer asked not to be named. Personal notes from the chats are not included.
 
 ## The sources
 

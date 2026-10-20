@@ -90,7 +90,7 @@ A public, no-login demo for Display Day (22 October 2026) is being built. A visi
 
 ## Start here
 
-**If you are marking this project:** each part has its own "report chapter to compendium" map, [Moksh's below](#moksh-manglani-final-report-part-1-the-platform) and [May's in her folder](04-Facilitator-Student-Side_May-Thazin/#report-chapter-to-compendium-map). Every figure and table in Moksh's report has its source data in [`00-Report-Figures-and-Tables`](03-Admin-Facilitator-Side_Moksh-Manglani/00-Report-Figures-and-Tables/). Every table and figure in May's report is mapped to its result file in [`04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/#which-file-backs-each-part-of-the-report), and rerunning her simulation with its fixed seeds reproduces the committed tables byte for byte (one hand-made table is the exception; see that page).
+**If you are marking this project:** each part has its own "report chapter to compendium" map, [Moksh's](#moksh-manglani-final-report-part-1-the-platform) and [May's](#may-thazin-final-report-part-2-student-learning-insights), both below. Every figure and table in Moksh's report has its source data in [`00-Report-Figures-and-Tables`](03-Admin-Facilitator-Side_Moksh-Manglani/00-Report-Figures-and-Tables/). Every table and figure in May's report is mapped to its result file in [`04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/#which-file-backs-each-part-of-the-report), and rerunning her simulation with its fixed seeds reproduces the committed tables byte for byte (one hand-made table is the exception; see that page).
 
 **If you want to run the systems:** see [Part 1: running the platform](03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/) and [Part 2: running the decision-support tool and its simulation](04-Facilitator-Student-Side_May-Thazin/).
 
@@ -162,7 +162,20 @@ UoA-Part-IV-Project-Research-Compendium/
 
 ### May Thazin: *Final Report, Part 2 (Student Learning Insights)*
 
-See the map in [`04-Facilitator-Student-Side_May-Thazin/README.md`](04-Facilitator-Student-Side_May-Thazin/#report-chapter-to-compendium-map). In short: literature in [`01-Research`](04-Facilitator-Student-Side_May-Thazin/01-Research/), design and rules (Chapter 3) in [`02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/), results (Chapter 4) in [`04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/), future work (Chapter 6) in [`05-Future-Work-and-Handover`](05-Future-Work-and-Handover/).
+| Report chapter | Where the supporting material is |
+|---|---|
+| 1. Introduction (background, the two halves, how the tool is used, research questions, scope) | [`02-General/Project-Timeline.md`](02-General/Project-Timeline.md), [`02-General/Meeting-Minutes`](02-General/Meeting-Minutes/) (11 May pivot, 12 May split, 20 May research question), [`04-.../01-Research/Research-and-Design-Notes.md`](04-Facilitator-Student-Side_May-Thazin/01-Research/Research-and-Design-Notes.md) (how the idea and research question developed), [`04-.../02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/) section 1 (Table 1.2 workflow) |
+| 2. Literature Review (2.1 to 2.6, AI in K–12) | [`01-Submissions/01-Scope-and-Literature-Review/May-Thazin`](01-Submissions/01-Scope-and-Literature-Review/May-Thazin/) (the April review these sections build on), [`04-.../01-Research`](04-Facilitator-Student-Side_May-Thazin/01-Research/) |
+| 2.7 Reading comprehension in Years 3 to 6, 2.8 Learning analytics and simulated learners | [`04-.../01-Research`](04-Facilitator-Student-Side_May-Thazin/01-Research/) ("From the literature to the design") |
+| 3.1 to 3.4 Design approach, activity design, signals and data model, recommendation rules | [`04-.../02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/); code in `src/features/analytics/recommendationEngine.ts`, `src/features/student/`, `src/shared/types/activity.ts` |
+| 3.5 to 3.7 Simulated classrooms, compared systems, metrics and robustness checks | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) ("What was simulated", "Test conditions") |
+| 3.8 Implementation and system features | [`04-.../02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/) sections 3, 6 and 7 and the screenshots; [`04-.../03-Code`](04-Facilitator-Student-Side_May-Thazin/03-Code/partIV-facilitator-decision-support/), [`04-.../03-Code/COMMIT-HISTORY.md`](04-Facilitator-Student-Side_May-Thazin/03-Code/COMMIT-HISTORY.md) |
+| 4. Results (Tables 4.1 to 4.4, Figures 4.1 to 4.3) | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) ("Which file backs each part of the report"); `evaluation/results_v2/` and `evaluation/figures/` |
+| 4.7 End-to-end traceability walkthrough, Figure 3.2 | [`04-.../02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/) (demo Learner A screenshot); `evaluation/figures/fig2_dashboard_card.png` |
+| 5. Discussion (trade-offs, ethics, limitations) | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) ("Limitations to keep in mind"), [`02-General/Interview-and-Ethics-Planning`](02-General/Interview-and-Ethics-Planning/) |
+| 6. Conclusions and Future Work | [`05-Future-Work-and-Handover`](05-Future-Work-and-Handover/) (Part 2 sections) |
+| Appendix A. Simulation parameters and rule thresholds | `PERSONAS`, `rules_v1()` and `rules_v2()` in `evaluation/simulated_classroom_evaluation_v2.py`; the rule table in [`04-.../02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/) section 5 |
+| Appendix B. Reproducing the results | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) ("How to rerun it"), [`04-.../03-Code/.../README.md`](04-Facilitator-Student-Side_May-Thazin/03-Code/partIV-facilitator-decision-support/README.md) |
 
 ---
 
@@ -192,7 +205,7 @@ The compendium is a joint submission, and the brief asks for each student's indi
 
 Some material was left out on purpose, and its absence is not an oversight.
 
-- **Audio recordings and transcripts of feedback chats.** These were personal notes, not research data, and one person asked not to be named. Their content is summarised, without identifying anyone, in [`02-Informal-Feedback`](03-Admin-Facilitator-Side_Moksh-Manglani/02-Informal-Feedback/).
+- **Personal notes from the feedback chats.** These were not research data, and one person asked not to be named. Their content is summarised, without identifying anyone, in [`02-Informal-Feedback`](03-Admin-Facilitator-Side_Moksh-Manglani/02-Informal-Feedback/).
 - **Secrets.** No `.env` file, API key, database password or account password is included. The setup guides explain which keys you need and where to get your own.
 - **Ethics application forms.** The formal study was replaced by informal feedback before any participant was recruited. The story of that decision is in [`07-Ethics`](03-Admin-Facilitator-Side_Moksh-Manglani/07-Ethics/).
 - **Real learner data.** Part 2 collected no data from real children. Every learner in its results is simulated, and the dashboard's demo learners are anonymous and generated by the code.

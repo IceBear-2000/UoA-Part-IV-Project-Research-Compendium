@@ -24,7 +24,7 @@ Informal feedback from practitioners and reviewers, chosen for relevant experien
 ## Reflection
 
 - **Ethics is part of the project plan, not a step before it.** Three months was the supervisor's estimate in May, and it proved accurate. A study that depends on approval needs to start the application at the very beginning of the year, or be designed so the project does not depend on it.
-- **The process improved the research design even though the study did not run.** Indirect recruitment, confidentiality rather than anonymity, institutional AI tools for sensitive data and a clear withdrawal timeline are all better practice, and they shaped how the informal feedback was handled (by role, without recordings, with consent to be referenced).
+- **The process improved the research design even though the study did not run.** Indirect recruitment, confidentiality rather than anonymity, institutional AI tools for sensitive data and a clear withdrawal timeline are all better practice, and they shaped how the informal feedback was handled (by role, with consent to be referenced).
 - **Pivoting was the right call.** A rushed study of ten interviews in four weeks, alongside a 12,000-word report, would have produced weaker evidence than honest, clearly labelled design feedback combined with a technical evaluation.
 
 ## For a future student
