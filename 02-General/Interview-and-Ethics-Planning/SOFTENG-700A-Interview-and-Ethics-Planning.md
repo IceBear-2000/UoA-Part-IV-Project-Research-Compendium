@@ -74,13 +74,15 @@ This means the following participant groups we intend to interview do require et
 
 | Interviewee type | Why they matter | Suggested organisations / context | Priority |
 |---|---|---|---|
-| Academic coordinator / school principal | They manage curriculum and teacher allocation, and face the core problem: good teachers leave for higher pay. They understand operational pain points best. | Schools in India (academic coordinators); NZ: HSNZ (Home Education Foundation) | High |
+| Academic coordinator / school principal | They manage curriculum and teacher allocation, and face the core problem: good teachers leave for higher pay. They understand operational pain points best. | Dolphins Group of Schools (India), academic coordinators; NZ: HSNZ (Home Education Foundation) | High |
 | Classroom teacher (experienced) | Can speak to what structured lesson delivery looks like in practice, what guidance they need, and where AI tools would or would not help. | Teaching in primary and intermediate schools | High |
 | Non-expert facilitator / teaching assistant | The core user of the platform: someone with limited subject expertise who delivers lessons. | Junior facilitators, volunteers and tutors; NZ community learning centres | High |
 | Entrepreneur who has opened or wants to open a school / education venture | Someone who would use the platform to set up and run their own educational institution affordably. | Someone who has set up or wants to set up their own education venture | Medium |
 | Homeschooling parent (NZ) | A key target user for the NZ context. They deliver curriculum at home, often without subject expertise. | HSNZ (Homeschool NZ) community; Auckland homeschooling Facebook groups | Medium |
 | Adult student (reflecting on past K–12 experience) | Can speak to what made teaching effective or ineffective, and what structured and unstructured learning felt like as a student. | University of Auckland students (18+); contacts from India who attended lower-income schools | Medium |
 | Business person / EdTech investor | Can validate whether the platform model is commercially viable and what features matter from a business and scaling perspective. | NZ startup networks; EdTech investors familiar with Indian or South-East Asian education markets | Low |
+
+**About Dolphins Group of Schools (India).** A strong source of primary data for this project. They operate high-quality, affordable schools across India and face exactly the problem this platform targets: good teachers migrate to higher-paying private schools, leaving lower-income students with less experienced staff. Interviewees here can speak with direct authority on facilitator challenges, curriculum delivery and the real cost of teacher dependency.
 
 ### 2.2 Research vocabulary
 
