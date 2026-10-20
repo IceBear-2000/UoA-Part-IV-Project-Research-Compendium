@@ -17,7 +17,7 @@
 >
 > **https://github.com/IceBear-2000/UoA-Part-IV-Project-Research-Compendium**
 >
-> **In the zip,** a PDF copy of this README is included as `README.pdf`, which is the easiest file to open first. To keep the zip tidy, each codebase is packed as its own zip inside its folder: `03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/StudyBuddy-Platform.zip` and `04-Facilitator-Student-Side_May-Thazin/03-Code/partIV-facilitator-decision-support.zip`. Unzip each one where it sits (it recreates its folder, and the links in the documents then work). Everything else opens straight away.
+> **A PDF copy of this README** is included as [`README.pdf`](README.pdf), in the root of the repository and of the zip. It is the easiest file to open first. **In the zip,** to keep it tidy, each codebase is packed as its own zip inside its folder: `03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/StudyBuddy-Platform.zip` and `04-Facilitator-Student-Side_May-Thazin/03-Code/partIV-facilitator-decision-support.zip`. Unzip each one where it sits (it recreates its folder, and the links in the documents then work). Everything else opens straight away.
 
 This repository is the research compendium for **Part IV Project #133**, *Making Education More Accessible and Reliable: AI-Driven Facilitator-Based Teaching*, completed in the Department of Electrical, Computer and Software Engineering at the University of Auckland in 2026.
 
