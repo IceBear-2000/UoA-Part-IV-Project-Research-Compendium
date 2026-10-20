@@ -22,6 +22,8 @@ StudyBuddy is a web platform with two roles. An **admin** builds a lesson as an 
 
 **Live:** [study-buddy-uoa-project.vercel.app](https://study-buddy-uoa-project.vercel.app) · **Stack:** Next.js 14, TypeScript, Supabase (Postgres, Auth, Storage), Prisma, Tailwind CSS, Anthropic Claude API, Resend, Vercel
 
+**Try it:** the platform is live. Sign in as the admin with `demoadmin@school.nz`, or as a facilitator with `demofacilitator@school.nz`; the password for both is `studybuddy`. See [Try the live platform](../README.md#try-the-live-platform) for what each account can do.
+
 ## Folders
 
 | Folder | Contents |

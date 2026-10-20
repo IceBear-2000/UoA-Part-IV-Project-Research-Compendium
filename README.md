@@ -23,8 +23,23 @@ This is a joint project in **two equal parts**, one by each student. The compend
 | **Supervisor** | Professor Gill Dobbie, School of Computer Science |
 | **Course** | SOFTENG 700A/B, Part IV Research Project, 2026 |
 | **Canvas submission** | `133_mman402_mtha724-compendium.zip` (a zip of this repository) |
+| **Try it live** | [study-buddy-uoa-project.vercel.app](https://study-buddy-uoa-project.vercel.app), with demo logins in [Try the live platform](#try-the-live-platform) |
 | **Part 1 code** | StudyBuddy platform, in [`03-.../04-Code`](03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/) · live at [study-buddy-uoa-project.vercel.app](https://study-buddy-uoa-project.vercel.app) |
 | **Part 2 code** | Facilitator decision-support tool, in [`04-.../03-Code`](04-Facilitator-Student-Side_May-Thazin/03-Code/) · original repository [mtha724/partIV-facilitator-decision-support](https://github.com/mtha724/partIV-facilitator-decision-support) |
+
+## Try the live platform
+
+StudyBuddy is live and open for testing at **[study-buddy-uoa-project.vercel.app](https://study-buddy-uoa-project.vercel.app)**. Sign in with either demo account below. No other set-up is needed.
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | `demoadmin@school.nz` | `studybuddy` |
+| Facilitator | `demofacilitator@school.nz` | `studybuddy` |
+
+- As the **admin** you can build and publish lessons, approve requests, assign facilitators and message them.
+- As the **facilitator** you can open the lessons assigned to you (NCERT Grade 1) and walk through them step by step. The first walkthrough of a lesson is locked to the lesson's order.
+- The site holds sample content only. There are no student accounts and no student data.
+- These are shared demo accounts, so please do not delete the existing lessons.
 
 ---
 
