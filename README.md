@@ -54,7 +54,7 @@ flowchart LR
 
 ## Start here
 
-**If you are marking this project:** each part has its own "report chapter to compendium" map, [Moksh's below](#moksh-manglani-final-report-part-1-the-platform) and [May's in her folder](04-Facilitator-Student-Side_May-Thazin/). Every figure and table in Moksh's report has its source data in [`00-Report-Figures-and-Tables`](03-Admin-Facilitator-Side_Moksh-Manglani/00-Report-Figures-and-Tables/), and May's simulation results are reproducible from her code with fixed seeds.
+**If you are marking this project:** each part has its own "report chapter to compendium" map, [Moksh's below](#moksh-manglani-final-report-part-1-the-platform) and [May's in her folder](04-Facilitator-Student-Side_May-Thazin/#report-chapter-to-compendium-map). Every figure and table in Moksh's report has its source data in [`00-Report-Figures-and-Tables`](03-Admin-Facilitator-Side_Moksh-Manglani/00-Report-Figures-and-Tables/). Every table and figure in May's report is mapped to its result file in [`04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/#which-file-backs-each-part-of-the-report), and rerunning her simulation with its fixed seeds reproduces the committed tables byte for byte (one hand-made table is the exception; see that page).
 
 **If you want to run the systems:** see [Part 1: running the platform](03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/) and [Part 2: running the decision-support tool and its simulation](04-Facilitator-Student-Side_May-Thazin/).
 
@@ -84,7 +84,8 @@ UoA-Part-IV-Project-Research-Compendium/
 │   ├── Meeting-Minutes/                         Every supervisor and team meeting, April to October
 │   ├── Project-Document/                        The shared working document that set the scope
 │   ├── System-Design-and-Planning/              Early joint system design
-│   ├── Course-Resources/                        P4P handbook, rubric, report template
+│   ├── Interview-and-Ethics-Planning/           Joint interview study and ethics plan (May)
+│   ├── Course-Resources/                        Final report templates
 │   └── Project-Timeline.md                      Milestones, deadlines and pivots
 │
 ├── 03-Admin-Facilitator-Side_Moksh-Manglani/   Part 1: the StudyBuddy platform
@@ -98,6 +99,11 @@ UoA-Part-IV-Project-Research-Compendium/
 │   └── 07-Ethics/                               The human ethics application and the pivot
 │
 ├── 04-Facilitator-Student-Side_May-Thazin/     Part 2: the decision-support tool
+│   ├── 01-Research/                             Research and design notes (April to July); literature mapped to design
+│   ├── 02-Design/                               Pipeline, reading check, rules v1 and v2, dashboard, screenshots
+│   ├── 03-Code/                                 The tool and its evaluation with full git history
+│   ├── 04-Evaluation/                           Simulated classrooms: method, rerun steps, report table sources
+│   └── 05-AI-Use/                               How AI tools were used in Part 2
 │
 └── 05-Future-Work-and-Handover/                Known issues, open questions, next steps
 ```
@@ -120,7 +126,7 @@ UoA-Part-IV-Project-Research-Compendium/
 
 ### May Thazin: *Final Report, Part 2 (Student Learning Insights)*
 
-See the map in [`04-Facilitator-Student-Side_May-Thazin/README.md`](04-Facilitator-Student-Side_May-Thazin/).
+See the map in [`04-Facilitator-Student-Side_May-Thazin/README.md`](04-Facilitator-Student-Side_May-Thazin/#report-chapter-to-compendium-map). In short: literature in [`01-Research`](04-Facilitator-Student-Side_May-Thazin/01-Research/), design and rules (Chapter 3) in [`02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/), results (Chapter 4) in [`04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/), future work (Chapter 6) in [`05-Future-Work-and-Handover`](05-Future-Work-and-Handover/).
 
 ---
 
@@ -141,7 +147,8 @@ The compendium is a joint submission, and the brief asks for each student's indi
 |---|---|---|
 | The StudyBuddy platform, locally | [`03-.../04-Code`](03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/) | Node 20+, a free Supabase project; optional Anthropic and Resend keys |
 | The platform test results (Report Tables 6, 7, A2, A3) | [`03-.../05-Evaluation`](03-Admin-Facilitator-Side_Moksh-Manglani/05-Evaluation/) | A local production build of the platform and a seeded database |
-| The decision-support tool and its simulated-classroom evaluation | [`04-.../`](04-Facilitator-Student-Side_May-Thazin/) | Node for the app; Python 3.9+ for the simulation (fixed seeds, about 6 to 7 minutes) |
+| The decision-support tool, locally | [`04-.../`](04-Facilitator-Student-Side_May-Thazin/#running-it) | Node 20+; no accounts or keys needed (data stays in the browser) |
+| The simulated-classroom results (May's Report Tables 4.1 to 4.4, Figures 4.1 to 4.3) | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) | Python 3.9+ with the pinned packages; fixed seeds, about 6 to 7 minutes on a laptop |
 
 ---
 
@@ -152,6 +159,8 @@ Some material was left out on purpose, and its absence is not an oversight.
 - **Audio recordings and transcripts of feedback chats.** These were personal notes, not research data, and one person asked not to be named. Their content is summarised, without identifying anyone, in [`02-Informal-Feedback`](03-Admin-Facilitator-Side_Moksh-Manglani/02-Informal-Feedback/).
 - **Secrets.** No `.env` file, API key, database password or account password is included. The setup guides explain which keys you need and where to get your own.
 - **Ethics application forms.** The formal study was replaced by informal feedback before any participant was recruited. The story of that decision is in [`07-Ethics`](03-Admin-Facilitator-Side_Moksh-Manglani/07-Ethics/).
+- **Real learner data.** Part 2 collected no data from real children. Every learner in its results is simulated, and the dashboard's demo learners are anonymous and generated by the code.
+- **Third-party papers and course PDFs.** Published papers, example reports from other students and the course handbook and rubric were in the shared Drive as reading material. They are someone else's copyright, so they are cited in the reports rather than copied here; the handbook and rubric are on the SOFTENG 700 Canvas page.
 - **Dependencies and build output** (`node_modules`, `.next`). They are rebuilt by the install step.
 
 ---
