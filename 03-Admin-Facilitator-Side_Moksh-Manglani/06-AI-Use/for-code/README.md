@@ -11,3 +11,4 @@ Documents written with AI to specify and build the platform. Read them in this o
 | 5 | [`project-status-handoff.html`](project-status-handoff.html) | The engineering handoff after the first build: what was live, what was decided, what was next | July 2026 |
 | 6 | [`AI_WORKSHEET_GENERATOR_SPEC.md`](AI_WORKSHEET_GENERATOR_SPEC.md) and [`worksheet-generator-spec.html`](worksheet-generator-spec.html) | The specification of the AI worksheet generator, with its confirmed choices and flow | September 2026 |
 | 7 | [`ABOUT_PAGE_SPEC.md`](ABOUT_PAGE_SPEC.md) | The specification of the public About page | September 2026 |
+| 8 | [`DISPLAY_DAY_DEMO_SPEC.md`](DISPLAY_DAY_DEMO_SPEC.md) | The specification of the Display Day demo (a public, no-login lesson-making page with author badges and a Hall of Fame wall). **Still in development** | October 2026 |

@@ -41,6 +41,12 @@ StudyBuddy is live and open for testing at **[study-buddy-uoa-project.vercel.app
 - The site holds sample content only. There are no student accounts and no student data.
 - These are shared demo accounts, so please do not delete the existing lessons.
 
+### Display Day demo (in development)
+
+A public, no-login demo for Display Day (22 October 2026) is being built. A visitor scans the QR code on the poster, makes a two-minute mini lesson on their phone (a photo, meme, clip or YouTube link, plus a quick quiz) and receives an author badge. Their lesson is saved as a draft in a "Display Day" class on the live platform, and the badges scroll on a "Hall of Fame" wall at the stand.
+
+**This feature is still in development and is not part of the snapshot of the code in this compendium.** For the latest code, please check the development repository on GitHub: [`IceBear-2000/StudyBuddy-UoA-Project`](https://github.com/IceBear-2000/StudyBuddy-UoA-Project) (access on request from Moksh). The full specification is in [`DISPLAY_DAY_DEMO_SPEC.md`](03-Admin-Facilitator-Side_Moksh-Manglani/06-AI-Use/for-code/DISPLAY_DAY_DEMO_SPEC.md).
+
 ---
 
 ## One project, two equal parts
