@@ -13,6 +13,12 @@
 
 # StudyBuddy: Research Compendium
 
+> **Reading this from the zip?** Most of the files in this folder are Markdown (`.md`) files, which are written to be read on GitHub. We recommend viewing our research compendium on GitHub instead, where every file opens in one click, the tables and diagrams display properly, and you can browse everything much faster:
+>
+> **https://github.com/IceBear-2000/UoA-Part-IV-Project-Research-Compendium**
+>
+> **Try the platform:** StudyBuddy is live at **https://study-buddy-uoa-project.vercel.app**, and you can open it straight away. Demo logins are in [Try the live platform](#try-the-live-platform) below.
+
 This repository is the research compendium for **Part IV Project #133**, *Making Education More Accessible and Reliable: AI-Driven Facilitator-Based Teaching*, completed in the Department of Electrical, Computer and Software Engineering at the University of Auckland in 2026.
 
 This is a joint project in **two equal parts**, one by each student. The compendium holds everything that supports both final reports and the project portfolio: every Canvas submission, the meeting minutes, the code with its full commit history, the design records, the raw evaluation data behind every table in the reports, and a handover for whoever picks the work up next. It is written so that a future student or researcher can understand what was done, check it, rebuild it and take it further.
