@@ -164,18 +164,15 @@ UoA-Part-IV-Project-Research-Compendium/
 
 | Report chapter | Where the supporting material is |
 |---|---|
-| 1. Introduction (background, the two halves, how the tool is used, research questions, scope) | [`02-General/Project-Timeline.md`](02-General/Project-Timeline.md), [`02-General/Meeting-Minutes`](02-General/Meeting-Minutes/) (11 May pivot, 12 May split, 20 May research question), [`04-.../01-Research/Research-and-Design-Notes.md`](04-Facilitator-Student-Side_May-Thazin/01-Research/Research-and-Design-Notes.md) (how the idea and research question developed), [`04-.../02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/) section 1 (Table 1.2 workflow) |
-| 2. Literature Review (2.1 to 2.6, AI in K–12) | [`01-Submissions/01-Scope-and-Literature-Review/May-Thazin`](01-Submissions/01-Scope-and-Literature-Review/May-Thazin/) (the April review these sections build on), [`04-.../01-Research`](04-Facilitator-Student-Side_May-Thazin/01-Research/) |
-| 2.7 Reading comprehension in Years 3 to 6, 2.8 Learning analytics and simulated learners | [`04-.../01-Research`](04-Facilitator-Student-Side_May-Thazin/01-Research/) ("From the literature to the design") |
-| 3.1 to 3.4 Design approach, activity design, signals and data model, recommendation rules | [`04-.../02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/); code in `src/features/analytics/recommendationEngine.ts`, `src/features/student/`, `src/shared/types/activity.ts` |
-| 3.5 to 3.7 Simulated classrooms, compared systems, metrics and robustness checks | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) ("What was simulated", "Test conditions") |
-| 3.8 Implementation and system features | [`04-.../02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/) sections 3, 6 and 7 and the screenshots; [`04-.../03-Code`](04-Facilitator-Student-Side_May-Thazin/03-Code/partIV-facilitator-decision-support/), [`04-.../03-Code/COMMIT-HISTORY.md`](04-Facilitator-Student-Side_May-Thazin/03-Code/COMMIT-HISTORY.md) |
-| 4. Results (Tables 4.1 to 4.4, Figures 4.1 to 4.3) | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) ("Which file backs each part of the report"); `evaluation/results_v2/` and `evaluation/figures/` |
-| 4.7 End-to-end traceability walkthrough, Figure 3.2 | [`04-.../02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/) (demo Learner A screenshot); `evaluation/figures/fig2_dashboard_card.png` |
-| 5. Discussion (trade-offs, ethics, limitations) | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) ("Limitations to keep in mind"), [`02-General/Interview-and-Ethics-Planning`](02-General/Interview-and-Ethics-Planning/) |
-| 6. Conclusions and Future Work | [`05-Future-Work-and-Handover`](05-Future-Work-and-Handover/) (Part 2 sections) |
-| Appendix A. Simulation parameters and rule thresholds | `PERSONAS`, `rules_v1()` and `rules_v2()` in `evaluation/simulated_classroom_evaluation_v2.py`; the rule table in [`04-.../02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/) section 5 |
-| Appendix B. Reproducing the results | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) ("How to rerun it"), [`04-.../03-Code/.../README.md`](04-Facilitator-Student-Side_May-Thazin/03-Code/partIV-facilitator-decision-support/README.md) |
+| 1. Introduction | [`02-General/Project-Timeline.md`](02-General/Project-Timeline.md), [`02-General/Meeting-Minutes`](02-General/Meeting-Minutes/), [`04-.../01-Research`](04-Facilitator-Student-Side_May-Thazin/01-Research/) |
+| 2. Literature Review | [`01-Submissions/01-Scope-and-Literature-Review`](01-Submissions/01-Scope-and-Literature-Review/May-Thazin/) (the April review), [`04-.../01-Research`](04-Facilitator-Student-Side_May-Thazin/01-Research/) |
+| 3.1 to 3.4, 3.8 Design and implementation | [`04-.../02-Design`](04-Facilitator-Student-Side_May-Thazin/02-Design/), [`04-.../03-Code`](04-Facilitator-Student-Side_May-Thazin/03-Code/partIV-facilitator-decision-support/), [`04-.../03-Code/COMMIT-HISTORY.md`](04-Facilitator-Student-Side_May-Thazin/03-Code/COMMIT-HISTORY.md) |
+| 3.5 to 3.7 Simulated classrooms and metrics | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) |
+| 4. Results (Tables 4.1 to 4.4, Figures 4.1 to 4.3, 4.7) | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) ("Which file backs each part of the report") |
+| 5. Discussion, 6. Conclusions and Future Work | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) (limitations), [`02-General/Interview-and-Ethics-Planning`](02-General/Interview-and-Ethics-Planning/), [`05-Future-Work-and-Handover`](05-Future-Work-and-Handover/) |
+| Appendices A and B (parameters, rerun steps) | [`04-.../04-Evaluation`](04-Facilitator-Student-Side_May-Thazin/04-Evaluation/) ("How to rerun it"), [`04-.../03-Code`](04-Facilitator-Student-Side_May-Thazin/03-Code/partIV-facilitator-decision-support/README.md) |
+
+The full chapter-by-chapter map is in [`04-.../README.md`](04-Facilitator-Student-Side_May-Thazin/README.md#report-chapter-to-compendium-map).
 
 ---
 
