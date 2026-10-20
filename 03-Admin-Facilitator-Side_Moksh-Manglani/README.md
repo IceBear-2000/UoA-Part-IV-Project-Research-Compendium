@@ -22,7 +22,7 @@ StudyBuddy is a web platform with two roles. An **admin** builds a lesson as an 
 
 **Live:** [study-buddy-uoa-project.vercel.app](https://study-buddy-uoa-project.vercel.app) · **Stack:** Next.js 14, TypeScript, Supabase (Postgres, Auth, Storage), Prisma, Tailwind CSS, Anthropic Claude API, Resend, Vercel
 
-**Try it:** the platform is live. Sign in as the admin with `demoadmin@school.nz`, or as a facilitator with `demofacilitator@school.nz`; the password for both is `studybuddy`. See [Try the live platform](../README.md#try-the-live-platform) for what each account can do.
+**Try it:** the platform is live. Sign in as the admin with `demoadmin@school.nz`, or as a facilitator with `demofacilitator@school.nz`; the password for both is `studybuddy`. See [Try the live platform](../README.md#part-1-moksh-manglani-try-the-live-platform) for what each account can do.
 
 **In development: the Display Day demo.** A public, no-login page where visitors scan the poster QR code, make a two-minute mini lesson (media plus a quick quiz) and earn an author badge shown on a Hall of Fame wall. This feature is still in development and is not part of the code snapshot in this compendium. For the latest code, please check the development repository on GitHub: [`IceBear-2000/StudyBuddy-UoA-Project`](https://github.com/IceBear-2000/StudyBuddy-UoA-Project) (access on request from Moksh). The specification is in [`06-AI-Use/for-code/DISPLAY_DAY_DEMO_SPEC.md`](06-AI-Use/for-code/DISPLAY_DAY_DEMO_SPEC.md).
 

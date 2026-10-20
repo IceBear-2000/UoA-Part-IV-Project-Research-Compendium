@@ -16,8 +16,6 @@
 > **Reading this from the zip?** Most of the files in this folder are Markdown (`.md`) files, which are written to be read on GitHub. We recommend viewing our research compendium on GitHub instead, where every file opens in one click, the tables and diagrams display properly, and you can browse everything much faster:
 >
 > **https://github.com/IceBear-2000/UoA-Part-IV-Project-Research-Compendium**
->
-> **Try the platform:** StudyBuddy is live at **https://study-buddy-uoa-project.vercel.app**, and you can open it straight away. Demo logins are in [Try the live platform](#try-the-live-platform) below.
 
 This repository is the research compendium for **Part IV Project #133**, *Making Education More Accessible and Reliable: AI-Driven Facilitator-Based Teaching*, completed in the Department of Electrical, Computer and Software Engineering at the University of Auckland in 2026.
 
@@ -29,29 +27,8 @@ This is a joint project in **two equal parts**, one by each student. The compend
 | **Supervisor** | Professor Gill Dobbie, School of Computer Science |
 | **Course** | SOFTENG 700A/B, Part IV Research Project, 2026 |
 | **Canvas submission** | `133_mman402_mtha724-compendium.zip` (a zip of this repository) |
-| **Try it live** | [study-buddy-uoa-project.vercel.app](https://study-buddy-uoa-project.vercel.app), with demo logins in [Try the live platform](#try-the-live-platform) |
 | **Part 1 code** | StudyBuddy platform, in [`03-.../04-Code`](03-Admin-Facilitator-Side_Moksh-Manglani/04-Code/) · live at [study-buddy-uoa-project.vercel.app](https://study-buddy-uoa-project.vercel.app) |
 | **Part 2 code** | Facilitator decision-support tool, in [`04-.../03-Code`](04-Facilitator-Student-Side_May-Thazin/03-Code/) · original repository [mtha724/partIV-facilitator-decision-support](https://github.com/mtha724/partIV-facilitator-decision-support) |
-
-## Try the live platform
-
-StudyBuddy is live and open for testing at **[study-buddy-uoa-project.vercel.app](https://study-buddy-uoa-project.vercel.app)**. Sign in with either demo account below. No other set-up is needed.
-
-| Role | Email | Password |
-|---|---|---|
-| Admin | `demoadmin@school.nz` | `studybuddy` |
-| Facilitator | `demofacilitator@school.nz` | `studybuddy` |
-
-- As the **admin** you can build and publish lessons, approve requests, assign facilitators and message them.
-- As the **facilitator** you can open the lessons assigned to you (NCERT Grade 1) and walk through them step by step. The first walkthrough of a lesson is locked to the lesson's order.
-- The site holds sample content only. There are no student accounts and no student data.
-- These are shared demo accounts, so please do not delete the existing lessons.
-
-### Display Day demo (in development)
-
-A public, no-login demo for Display Day (22 October 2026) is being built. A visitor scans the QR code on the poster, makes a two-minute mini lesson on their phone (a photo, meme, clip or YouTube link, plus a quick quiz) and receives an author badge. Their lesson is saved as a draft in a "Display Day" class on the live platform, and the badges scroll on a "Hall of Fame" wall at the stand.
-
-**This feature is still in development and is not part of the snapshot of the code in this compendium.** For the latest code, please check the development repository on GitHub: [`IceBear-2000/StudyBuddy-UoA-Project`](https://github.com/IceBear-2000/StudyBuddy-UoA-Project) (access on request from Moksh). The full specification is in [`DISPLAY_DAY_DEMO_SPEC.md`](03-Admin-Facilitator-Side_Moksh-Manglani/06-AI-Use/for-code/DISPLAY_DAY_DEMO_SPEC.md).
 
 ---
 
@@ -76,6 +53,28 @@ flowchart LR
 | **Research question** | How can a software platform be designed so that any approved facilitator, regardless of subject expertise, delivers an expert-designed lesson as it was intended? | Can a software system convert learner interaction data into evidence-linked recommendations for facilitator decision-making? |
 | **What was built** | StudyBuddy, a web platform where admins build lessons from typed blocks and approve facilitators, and facilitators walk through and deliver those lessons | A facilitator decision-support tool for Years 3 to 6 that turns a short reading check into a status, evidence and a suggested next step for each learner |
 | **Folder** | [`03-Admin-Facilitator-Side_Moksh-Manglani`](03-Admin-Facilitator-Side_Moksh-Manglani/) | [`04-Facilitator-Student-Side_May-Thazin`](04-Facilitator-Student-Side_May-Thazin/) |
+
+---
+
+## Part 1 (Moksh Manglani): try the live platform
+
+**StudyBuddy, the platform built for Part 1 (Moksh Manglani's part of this project),** is live and open for testing at **[study-buddy-uoa-project.vercel.app](https://study-buddy-uoa-project.vercel.app)**. Sign in with either demo account below. No other set-up is needed.
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | `demoadmin@school.nz` | `studybuddy` |
+| Facilitator | `demofacilitator@school.nz` | `studybuddy` |
+
+- As the **admin** you can build and publish lessons, approve requests, assign facilitators and message them.
+- As the **facilitator** you can open the lessons assigned to you (NCERT Grade 1) and walk through them step by step. The first walkthrough of a lesson is locked to the lesson's order.
+- The site holds sample content only. There are no student accounts and no student data.
+- These are shared demo accounts, so please do not delete the existing lessons.
+
+### Display Day demo (in development)
+
+A public, no-login demo for Display Day (22 October 2026) is being built. A visitor scans the QR code on the poster, makes a two-minute mini lesson on their phone (a photo, meme, clip or YouTube link, plus a quick quiz) and receives an author badge. Their lesson is saved as a draft in a "Display Day" class on the live platform, and the badges scroll on a "Hall of Fame" wall at the stand.
+
+**This feature is still in development and is not part of the snapshot of the code in this compendium.** For the latest code, please check the development repository on GitHub: [`IceBear-2000/StudyBuddy-UoA-Project`](https://github.com/IceBear-2000/StudyBuddy-UoA-Project) (access on request from Moksh). The full specification is in [`DISPLAY_DAY_DEMO_SPEC.md`](03-Admin-Facilitator-Side_Moksh-Manglani/06-AI-Use/for-code/DISPLAY_DAY_DEMO_SPEC.md).
 
 ---
 
